@@ -325,6 +325,20 @@ polls.votes.yours: O teu voto
 preferences.edit.title: Preferencias
 polls.summary.settings.max_votes: Un máximo de { number, plural, one {1 
   participante} other {# participantes} } poden votar a proposta.
+base.download: Descargar
+emails.share.body: |-
+  Ola,
+
+  Hai unha enquisa dispoñible para coñecer a túa opinión.
+  Podes participar a través da seguinte ligazón: {poll url}
+
+  Grazas.
+
+  Saúdos,
+emails.share.subject: 'Solicítase a participación na enquisa: {poll_name}'
+polls.sharing.send_by_email: Enviar por correo
+polls.sharing.share_by_email: Compartir por correo
+polls.sharing.share_with_qr_code: Compartir cun código QR
 polls.show.already_voted: Xa votaches nesta enquisa.
 layout.login: 'Iniciar sesión'
 home.credits: 'Baseado en <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Modificado por <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Código fonte</a>'
