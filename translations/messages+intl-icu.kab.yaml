@@ -79,6 +79,17 @@ my.index.polls.of_by: Talast n __date__ sɣur __author__
 admin.polls.admin_link: Aseɣwen n tedbelt
 pagination.next: Asebter uḍfiṛ
 pagination.previous: Asebter uzwir
+base.download: Sader
+forms.comment_form.submit: Suffeɣ
+forms.complete: Fakk
+forms.labels.optional: (d axetṛan)
+polls.summary.admin_link.remember.information: Talɣut
+polls.show.results: Igmaḍ
+polls.show.results.title: Igmaḍ
+polls.summary.closed_at.none: Ula yiwen
+polls.votes.maybe.count_alt: (+{count})
+polls.sharing.send_by_email: Azen s yimayl
+polls.sharing.share_by_email: Bḍu s yimayl
 polls.show.already_voted: Tesnulfud yakan deg tezrawin-agi.
 my.index.votes.meta: '__poll_author__ · Itesnulf __vote_date__'
 my.index.title: Tezrawin-iw d tesnulfin-iw
