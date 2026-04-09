@@ -98,7 +98,7 @@
                                         </span>
 
                                         <strong>
-                                            <time datetime="{{ poll.createdAt | dateIso }}">
+                                            <time datetime="{{ poll.createdAt | dateIso }}" data-controller="relative-time">
                                                 {{ poll.createdAt | dateTrans }}
                                             </time>
                                         </strong>

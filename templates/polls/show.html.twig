@@ -595,7 +595,7 @@
                         </span>
 
                         <a class="anchor--dotted anchor--currentcolor text--small" href="#comment-{{ comment.id }}">
-                            <time datetime="{{ comment.createdAt | dateIso }}">
+                            <time datetime="{{ comment.createdAt | dateIso }}" data-controller="relative-time">
                                 {{ comment.createdAt | dateTrans }}
                             </time>
                         </a>
