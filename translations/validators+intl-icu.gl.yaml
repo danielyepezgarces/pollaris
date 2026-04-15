@@ -1,0 +1,35 @@
+Error: Erro
+'The CSRF token is invalid. Please try to resubmit the form.': Houbo un erro, 
+  por favor envía o formulario outra vez (token CSRF non válido).
+answer.value.invalid: Escolle unha opción da lista.
+comment.author_name.max_length: Escribe un nome de menos de {limit} caracteres.
+comment.author_name.required: Escribe un nome.
+comment.content.required: Escribe unha mensaxe.
+date.value.required: Escribe unha data.
+poll.author_email.invalid: Escribe un enderezo de correo válido.
+poll.author_email.required: Escribe un enderezo de correo electrónico.
+poll.author_name.max_length: Escribe un nome de menos de {limit} caracteres.
+poll.dates.required: Indica unha data polo menos.
+poll.edit_vote_mode.invalid: Selecciona na lista un modo de edición do voto.
+poll.password.incorrect: O contrasinal non é correcto.
+poll.password.required: O contrasinal é obrigatorio.
+poll.slug.already_used: Xa se está a usar a ligazón. Escribe unha nova.
+poll.slug.max_length: Escribe unha ligazón menor de {limit} caracteres.
+poll.slug.pattern: Escribe unha ligazón usando só carcteres do A ao Z, números, 
+  guións ou guións baixos.
+poll.slug.required: Escribe unha ligazón.
+poll.title.max_length: Escribe un título menor de {limit} caracteres.
+poll.title.required: Escribe un título.
+poll.type.invalid: Selecciona na lista o tipo.
+proposal.label.max_length: Escribe unha proposta menor de {limit} caracteres.
+proposal.label.required: Escribe unha proposta.
+user.username.already_used: Escribe un identificador diferente, este xa está en 
+  uso.
+user.username.max_length: Escribe un identificador menor de {limit} caracteres.
+user.username.required: Escribe un identificador.
+vote.author_name.max_length: Escribe un nome menor de {limit} caracteres.
+vote.author_name.required: Escribe un nome.
+vote.max_votes.limited: Xa hai {max} voto(s) para esta proposta, non podes votar
+  por ela.
+user.author_name.already_used: Escribe un nome diferente, este xa se está a 
+  usar.

@@ -1,0 +1,78 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'polls.complete.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+        <div class="flow">
+            <h1 class="text--success">
+                {{ icon('circle-check') }}
+                {{ 'polls.complete.title' | trans }}
+            </h1>
+
+            <p>
+                {{ 'polls.complete.created' | trans({ poll: poll.title }) }}
+            </p>
+
+            <div class="flow flow--small">
+                <label for="poll-public-link">
+                    {{ 'polls.complete.public_link' | trans }}
+                </label>
+
+                <div
+                    class="cols cols--always cols--gap-small"
+                    data-controller="copy-to-clipboard"
+                    data-label-copied="{{ 'base.copied' | trans }}"
+                >
+                    <input
+                        id="poll-public-link"
+                        type="url"
+                        value="{{ url('poll', { slug: poll.slug }) }}"
+                        readonly
+                        data-copy-to-clipboard-target="copyable"
+                    />
+
+                    <button
+                        type="button"
+                        class="button--primary"
+                        data-copy-to-clipboard-target="button"
+                        data-action="copy-to-clipboard#copy"
+                    >
+                        {{ 'base.copy' | trans }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div
+            data-controller="storage"
+            data-storage-namespace-value="polls"
+            data-storage-key-value="{{ poll.id }}"
+            data-storage-entry-value="{{ {
+                title: poll.title,
+                date: poll.createdAt | dateIso,
+                author: poll.authorName,
+                pollUrl: url('poll', { slug: poll.slug }),
+                adminUrl: url('poll admin', { id: poll.id, token: poll.adminToken }),
+            } | json_encode }}"
+        ></div>
+
+        <div class="panel panel--primary panel--rounded flow">
+            <p class="text--big text--primary text--bold">
+                {{ 'polls.complete.consult' | trans }}
+            </p>
+
+            <p>
+                <a class="button button--primary button--block text--center" href="{{ path('poll', { slug: poll.slug }) }}">
+                    {{ 'polls.complete.see' | trans }}
+                </a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

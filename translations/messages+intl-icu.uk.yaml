@@ -1,0 +1,331 @@
+admin.polls.admin_link: Посилання для адміністратора
+admin.polls.author: Автор
+admin.polls.created_at: Створено в
+admin.polls.none: Пошук не знайшов жодних опитувань, які відповідали би 
+  пошуковому запиту.
+admin.polls.not_completed: Опитування не завершене
+admin.polls.public_link: Публічне посилання
+admin.polls.search: Пошук
+admin.polls.title: Список опитувань
+admin.title: Адміністрування
+answers.value.maybe: Якщо необхідно
+answers.value.no: Ні
+answers.value.yes: Так
+base.copied: Скопійовано!
+base.copy: Скопіювати
+base.default_title: Ласкаво просимо до {appName}!
+base.edit: Редагувати
+calendar.hints.dates_period: 'Підказка: ви можете вибрати діапазон дат затиснувши
+  клавішу <kbd>Shift</kbd>.'
+calendar.patterns.next_month: Наступний місяць (__date__)
+calendar.patterns.previous_month: Попередній місяць (__date__)
+emails.hello: Привіт {name},
+emails.link_to_poll: 'Ви можете знайти своє опитування за посиланням: {url}'
+emails.new_comment.posted: '{commenter_name} тільки що прокоментував(ла) опитування
+  «{poll_name}».'
+emails.new_comment.subject: 'Новий коментар до опитування: {poll_name}'
+emails.new_poll_admin.created: 'Ви тільки що створили «{poll_name}». Ви можете в будь-який
+  момент відредагувати своє опитування перейшовши за посиланням:'
+emails.new_poll_admin.keep_it_secret: Переконайтесь що це посилання є тільки у 
+  вас!
+emails.new_poll_admin.subject: 'Нове опитування: {poll_name}'
+emails.new_vote.subject: 'Новий голос в опитуванні: {poll_name}'
+emails.new_vote.voted: '{voter_name} тільки що проголосував(ла) в опитуванні «{poll_name}».'
+emails.polls_list.here_is_the_list: 'Ось список опитувань, якими ви керуєте у {appName}:'
+emails.polls_list.subject: Список ваших опитувань
+errors.404.description: Сторінка не знайдена. Перевірте чи є помилки в 
+  URL-посиланні.
+errors.404.title: Сторінку не знайдено!
+errors.back_home: Повернутись на домашню сторінку
+errors.generic.description: Будь-ласка, повідомте адміністратору що ви робили 
+  коли виникла помилка. Це буде полагоджено якомога скоріше.
+errors.generic.sorry: Вибачте за будь-які спричинені вам незручності.
+errors.generic.title: Сталася помилка!
+forms.apply: Застосувати
+forms.cancel: Скасувати
+forms.comment_form.author_name.label: Ваше ім'я
+forms.comment_form.content.label: Ваше повідомлення
+forms.comment_form.submit: Опублікувати
+forms.complete: Завершити
+forms.confirm: Підтвердити
+forms.date_type.label.label_pattern: Дата __number__
+forms.error: Помилка
+forms.labels.max_length: (max. {length} символів)
+forms.labels.optional: (необов'язково)
+forms.labels.optional_and_max_length: (необов'язково, max. {length} символів)
+forms.login.password: Пароль
+forms.login.username: Ім'я користувача
+forms.next: Далі
+forms.poll_authentication_form.password.label: Пароль
+forms.poll_authentication_form.submit: Автентифікувати
+forms.poll_dates_form.add_date: Додати дату
+forms.poll_dates_form.enter_manually: Введіть дати вручну
+forms.poll_dates_form.remove_date: Прибрати дату
+forms.poll_dates_form.use_calendar: Виберіть дати з календаря
+forms.poll_deletion_form.submit: Я хочу видалити це опитування
+forms.poll_form.author_email.help: Ваша адреса не буде показана іншим учасникам 
+  опитування. Вона використовуватиметься лише щоб ви змогли знайти своє 
+  опитування якщо ви загубите посилання на нього та щоб сповіщати вас про нові 
+  голоси у ваших опитуваннях.
+forms.poll_form.author_email.label: Ваша адреса електронної пошти
+forms.poll_form.author_name.label: Ваше ім'я
+forms.poll_form.closed_at.help: Учасники зможуть голосувати до цієї дати.
+forms.poll_form.closed_at.label: Дата закриття опитування
+forms.poll_form.description.label: Опис
+forms.poll_form.title.label: Дайте назву своєму опитуванню
+forms.poll_proposals_form.add_proposal: Додати пропозицію
+forms.poll_proposals_form.remove_proposal: Прибрати пропозицію
+forms.poll_settings_form.are_results_public.label: Результати видимі для всіх 
+  учасників
+forms.poll_settings_form.disable_maybe.label: Вимкнути голоси «якщо потрібно»
+forms.poll_settings_form.max_votes.label: Максимальна кількість голосів «так» на
+  одну пропозицію
+forms.poll_settings_form.notify_on_comments.label: Отримувати сповіщення на 
+  електронну пошту про кожен коментар
+forms.poll_settings_form.notify_on_votes.label: Отримувати сповіщення на 
+  електронну пошту про кожен голос
+forms.poll_settings_form.password.label: Пароль
+forms.poll_settings_form.password.leave_empty_to_keep: Залиште порожнім щоб 
+  залишити пароль незмінним.
+forms.poll_settings_form.password.protect: Захистіть опитування паролем
+forms.poll_settings_form.password_for_votes_only.label: Можна переглянути 
+  результати без пароля
+forms.poll_settings_form.repeat_password.label: Повторіть пароль
+forms.poll_settings_form.slug.help: Зауважте, що зміна посилання на ваше 
+  опитування робить його більш доступним для будь-кого. Рекомендується захистити
+  його паролем.
+forms.poll_settings_form.slug.label: Введіть посилання на опитування
+forms.poll_settings_form.vote_no_by_default.label: Голосувати «ні» за 
+  замовчуванням, якщо відповідь не надано
+forms.poll_slots_form.add_slot: Додати час
+forms.poll_slots_form.remove_slot: Прибрати час
+forms.preferences.color_scheme.auto: За замовчуванням
+forms.preferences.color_scheme.dark: Темна
+forms.preferences.color_scheme.label: Кольорова схема
+forms.preferences.color_scheme.light: Світла
+forms.preferences.locale.label: Мова
+forms.previous: Назад
+forms.proposal_type.label.label_pattern: Пропозиція __number__
+forms.search_polls_form.email.help: Ми надішлемо вам посилання на опитування, 
+  які ви створили.
+forms.search_polls_form.email.label: Ваша адреса електронної пошти
+forms.search_polls_form.submit: Надіслати
+forms.slot_type.label.label_pattern: Час __number__
+forms.slots_form.day: День
+forms.vote_form.author_name.label: Ваше ім'я
+forms.vote_form.leave_confirmation: Ви ще не підтвердили свій голос. 
+  Продовживши, ви загубите свій голос. Ви впевнені що хочете продовжити?
+forms.vote_form.password.help: Щоб проголосувати в цьому опитуванні потрібно 
+  ввести пароль.
+forms.vote_form.password.label: Пароль
+forms.vote_form.required_choice: Будь ласка, виберіть хоча б один варіант із 
+  запропонованих вище.
+forms.vote_form.submit.label: Голос
+home.create_poll: Створити нове опитування
+home.free_software: Pollaris це вільне програмне забезпечення ліцензоване під 
+  AGPL 3.
+home.free_software.custom: '{appName} використовує Pollaris, вільне програмне забезпечення
+  ліцензоване під AGPL 3.'
+home.intro: Використовуйте наш опитувальний інструмент щоб планувати, 
+  організовувати та ухвалювати рішення швидко, просто і без реєстрації.
+home.my_polls_and_votes: Мої опитування і голосування
+home.show.poll.deleted: Ваше голосування було успішно видалене.
+home.source_code: Відкрити вихідний код.
+home.title: Організовуйте події або збирайте думки своїх друзів і родини, просто
+  і вільно.
+layout.header.my: Мої опитування та голоси
+layout.header.preferences: Налаштування
+layout.logout: Вийти
+layout.modal.close: Закрити
+login.log_in: Увійти
+login.title: Увійти як адміністратор
+my.index.admin_link: Посилання для адміністраторів
+my.index.description: Знайдіть всі ваші опитування і голоси, які зберігаються у 
+  вашому браузері. Для кращої конфіденційності, приберіть їх якщо вашим 
+  браузером користуються інші люди.
+my.index.poll_link: Посилання на опитування
+my.index.polls.confirm_removal: Ви збираєтесь прибрати всі опитування з цього 
+  браузера (але ці опитування продовжать існувати). Ви впевнені що хочете 
+  продовжити?
+my.index.polls.empty_placeholder: Нема опитувань
+my.index.polls.of_by: Опитування за __date__ які створив(ла) __author__
+my.index.polls.remove: Прибрати опитування
+my.index.polls.title: Опитування
+my.index.remove_all: Прибрати всі
+my.index.search.success: Ми надіслали вам електронного листа з посиланнями на 
+  ваші опитування. Перевірте папку «спам» якщо ви його не бачите.
+my.index.search.title: Знайти мої опитування за електронним листом
+my.index.title: Мої опитування та голоси
+my.index.vote_link: Посилання на голос
+my.index.votes.confirm_removal: Ви збираєтесь прибрати всі голоси з цього 
+  браузера (але ці голоси продовжать існувати). Ви впевнені що хочете 
+  продовжити?
+my.index.votes.date: (голоси за __vote_date__)
+my.index.votes.empty_placeholder: Нема голосів
+my.index.votes.poll: В опитуванні «<strong>__poll_title__</strong>» яке 
+  створив(ла) __poll_author__
+my.index.votes.remove: Прибрати голос
+my.index.votes.title: Голоси
+notifications.close: Закрити
+pagination.next: Наступна сторінка
+pagination.previous: Попередня сторінка
+polls.admin.comments: Коментарі
+polls.admin.confirm_delete_comment: Ви впевнені що хочете видалити цей коментар?
+polls.admin.confirm_delete_vote: Ви впевнені що хочете видалити цей голос?
+polls.admin.delete: Видалити
+polls.admin.edit: Редагувати
+polls.admin.go_to_poll: Перейти до опитування
+polls.admin.have_voted: '{voter} проголосував(ла) {date}.'
+polls.admin.no_comments: Немає коментарів до цього опитування.
+polls.admin.no_votes: У цьому опитуванні нема голосів.
+polls.admin.title: Адміністрування опитування
+polls.admin.votes: Голоси
+polls.authenticate.title: Автентифікація до захищеного опитування
+polls.choose.classic: Класичне опитування
+polls.choose.classic_help: Опитування в якому треба вибрати серед декількох 
+  доступних варіантів.
+polls.choose.date: Дата опитування
+polls.choose.date_help: Опитування в якому треба вибрати найзручнішу дату або 
+  час.
+polls.choose.next: Далі
+polls.choose.title: Виберіть тип опитування
+polls.complete.consult: Тепер можете використовувати ваше опитування
+polls.complete.created: Опитування «{poll}» створене. Ви можете запросити інших 
+  людей брати в ньому участь поширивши наступне посилання.
+polls.complete.public_link: Посилання для публічного поширення
+polls.complete.see: Переглянути моє опитування
+polls.complete.title: Ваше опитування готове!
+polls.dates.slots_at_next_step: Виберіть одну чи декілька дат. Ви зможете 
+  вибрати конкретний час на наступному кроці.
+polls.dates.title: Виберіть дати
+polls.deletion.information: Увага, ви збираєтесь видалити опитування 
+  «<strong>{title}</strong>» разом з усіма його голосами і коментарями.
+polls.deletion.title: Видалення опитування
+polls.edit_vote_mode.any: Кожен учасник може змінити будь-який голос
+polls.edit_vote_mode.no: Учасники не можуть змінювати свої голоси
+polls.edit_vote_mode.own: Кожен учасник може змінити лише свій голос
+polls.new.title: Створення опитування
+polls.new.who_you_are: Хто ви
+polls.proposals.best: Найбажаніший варіант
+polls.proposals.title: Виберіть пропозиції
+polls.settings.notifications.title: Сповіщення
+polls.settings.options.title: Варіанти на вибір
+polls.settings.password.title: Захистити паролем
+polls.settings.permissions.title: Дозволи
+polls.settings.slug.title: Персоналізувати посилання на опитування
+polls.settings.title: Налаштувати голосування
+polls.sharing.public_link: Посилання для публічного поширення
+polls.sharing.title: Поширити опитування
+polls.show.administer: Адмініструвати
+polls.show.authenticated: Ви успішно автентифікувались.
+polls.show.comment.created: Ваш коментар опубліковано.
+polls.show.comments.explain: Ваш коментар буде видимим на сторінці опитування.
+polls.show.comments.new: Новий коментар
+polls.show.comments.none: Коментарі не публікувались.
+polls.show.comments.title: Коментарі
+polls.show.created_by: Опитування створив(ла) {by}
+polls.show.display_list: Як список
+polls.show.display_table: Як таблиця
+polls.show.export_csv: Експортувати (<abbr>CSV</abbr>)
+polls.show.is_closed: Це опитування було закрите.
+polls.show.my_votes.date: (голоси за __date__)
+polls.show.my_votes.description: Ваші голоси зберігаються у вашому браузері. Для
+  кращої конфіденційності, приберіть їх якщо вашим браузером користуються інші 
+  люди.
+polls.show.my_votes.edit: Редагувати голос {authorName}
+polls.show.my_votes.information: Інформація
+polls.show.my_votes.remove: Прибрати
+polls.show.my_votes.title: Мої голоси
+polls.show.no_vote: На даний момент ще не залишено голосів, але не хвилюйтеся, 
+  це ненадовго. Просто не забудьте поширити ваше опитування для інших учасників!
+polls.show.poll: Опитування
+polls.show.print: Роздрукувати
+polls.show.results: Результати
+polls.show.results.info: '{ countChoices, plural, one {Найкращий варіант з <strong>{countYes}
+  голосами «Так»</strong> це:} other {Найкращі варіанти з <strong>{countYes} голосами
+  «Так»</strong> це:} }'
+polls.show.results.results_graph: Графік результатів
+polls.show.results.title: Результати
+polls.show.share: Поширити
+polls.show.vote.created: Ваш голос підтверджено.
+polls.show.vote.updated: Ваш голос був змінений.
+polls.slots.help: 'Моменти часу можуть вводитись у довільному форматі (наприклад:
+  «о 8ій» або «вранці»). Якщо ви нічого не вкажете, то вважатиметься що це стосується
+  усього дня.'
+polls.slots.same_slots.apply: Застосувати ці моменти часу до всіх днів
+polls.slots.same_slots.title: Виберіть моменти часу які треба застосувати до 
+  всіх днів
+polls.slots.title: Виберіть моменти часу
+polls.steps: Крок {step} із {total}
+polls.summary.admin_access: Будь-ласка, зберігайте це посилання щоб ви могли 
+  керувати вашим опитування в будь-який момент. <strong>Це посилання має бути 
+  тільки у вас!</strong>
+polls.summary.admin_access.sent_by_email: Це посилання також було надіслане вам 
+  в електронному листі.
+polls.summary.admin_access.title: Приватне посилання для адміністрування
+polls.summary.admin_access.will_send_by_email: Це посилання також буде надіслане
+  вам в електронному листі.
+polls.summary.admin_link: Приватне посилання для адміністрування
+polls.summary.admin_link.remember: Зберегти посилання в цьому браузері
+polls.summary.admin_link.remember.description: Вибравши «Зберегти посилання в 
+  цьому браузері» ви збережете це опитування на цьому пристрої. Це дозволить вам
+  знайти опитування пізніше у цьому ж браузері, щоб ви могли переглянути чи 
+  змінити його. Для кращої конфіденційності, не вибирайте цей варіант якщо вашим
+  пристроєм користуються інші люди.
+polls.summary.admin_link.remember.information: Інформація
+polls.summary.author.email: Адреса електронної пошти
+polls.summary.author.name: Ім'я користувача
+polls.summary.author.no_email: Адресу не надано
+polls.summary.closed_at: Дата закриття
+polls.summary.closed_at.none: Не закрито
+polls.summary.delete_poll: Видалити опитування
+polls.summary.edit: Редагувати
+polls.summary.information.title: Основна інформація
+polls.summary.is_closed: (опитування було закрите)
+polls.summary.proposals.title: Мої пропозиції
+polls.summary.settings.customised_slug: Посилання на опитування персоналізоване.
+polls.summary.settings.edit_vote_mode.any: Кожен учасник може змінити будь-який 
+  голос.
+polls.summary.settings.edit_vote_mode.no: Учасники не можуть змінити свій голос.
+polls.summary.settings.edit_vote_mode.own: Кожен учасник може змінити свій 
+  голос.
+polls.summary.settings.is_disable_maybe: Учасник не зможуть вибрати варіант 
+  «якщо необхідно».
+polls.summary.settings.is_vote_no_by_default: Відсутність відповіді вважається 
+  за голос «ні».
+polls.summary.settings.max_votes: Не більше { number, plural, one {одного 
+  учасника} other {# учасників} } можуть голосувати за один варіант.
+polls.summary.settings.notify_on_comments.do: Я отримуватиму електронного листа 
+  кожного разу коли хтось коментує опитування.
+polls.summary.settings.notify_on_comments.dont: Я не отримуватиму електронного 
+  листа коли хтось коментує опитування.
+polls.summary.settings.notify_on_votes.do: Я отримуватиму електронного листа 
+  кожного разу коли хтось залишає голос в опитуванні.
+polls.summary.settings.notify_on_votes.dont: Я не отримуватиму електронного 
+  листа коли хтось залишає голос в опитуванні.
+polls.summary.settings.password_protected.full: Опитування захищене паролем.
+polls.summary.settings.password_protected.not: Опитування не захищене паролем.
+polls.summary.settings.password_protected.vote: Опитування захищене паролем 
+  (результати видно без пароля).
+polls.summary.settings.results.private: Тільки я можу бачити результати 
+  опитування.
+polls.summary.settings.results.public: Кожен може бачити результати опитування.
+polls.summary.settings.title: Вид опитування
+polls.summary.title: Опис вашого опитування
+polls.table.toolbar.scroll_to_left.title: Прогорнути ліворуч
+polls.table.toolbar.scroll_to_right.title: Прогорнути праворуч
+polls.table.toolbar.show_less.label: Згорнути рядок
+polls.table.toolbar.show_less.title: Згорнути рядок щоб обмежити відображення 
+  назв
+polls.table.toolbar.show_more.label: Розгорнути рядок
+polls.table.toolbar.show_more.title: Розгорнути рядок щоб відобразити всі назви
+polls.votes.maybe: Як необхідно
+polls.votes.maybe.count: '{count} голосів «Якщо необхідно»'
+polls.votes.maybe.count_alt: (+{count})
+polls.votes.no: Ні
+polls.votes.no.count: '{count} голосів «Ні»'
+polls.votes.sum: Сума
+polls.votes.yes: Так
+polls.votes.yes.count: '{count} голосів «Так»'
+polls.votes.yours: Ваш голос
+preferences.edit.title: Ваші налаштування

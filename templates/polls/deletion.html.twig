@@ -1,0 +1,23 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'modal.html.twig' %}
+
+{% block title %}{{ 'polls.deletion.title' | trans }}{% endblock %}
+
+{% block body %}
+    {{ form_start(form, {
+        action: path('delete poll', { id: poll.id, token: poll.adminToken }),
+    }) }}
+        <p>
+            {{ 'polls.deletion.information' | trans({ title: poll.title | escape }) | raw }}
+        </p>
+
+        {{ form_errors(form) }}
+
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+{% endblock %}

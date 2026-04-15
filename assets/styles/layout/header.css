@@ -1,0 +1,44 @@
+/* This file is part of Pollaris. */
+/* Copyright 2024-2026 Marien Fressinaud */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.header {
+    padding: var(--space-small) var(--space-medium);
+
+    color: var(--color-iris1);
+
+    background-color: var(--color-iris9);
+    box-shadow: 0 0 8px 0 rgba(0 0 0 / 15%);
+}
+
+.header__title {
+    --outline-color: currentcolor;
+
+    display: inline-block;
+    padding: var(--space-small);
+
+    color: currentcolor;
+    font-size: var(--font-size-big);
+    font-weight: bold;
+    text-decoration: none;
+
+    border-radius: var(--border-radius);
+}
+
+.header__link {
+    --outline-color: currentcolor;
+
+    display: inline-block;
+    padding: var(--space-small);
+
+    color: currentcolor;
+
+    border-radius: var(--border-radius);
+}
+
+.header__button {
+    --outline-color: var(--color-iris1);
+    --button-color: currentcolor;
+    --button-background-color: transparent;
+    --button-border-color: currentcolor;
+}

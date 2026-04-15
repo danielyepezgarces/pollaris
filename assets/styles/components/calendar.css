@@ -1,0 +1,93 @@
+/* This file is part of Pollaris. */
+/* Copyright 2024-2026 Marien Fressinaud */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.calendar,
+.calendar__header {
+    width: 100%;
+}
+
+@media (min-width: 500px) {
+    .calendar,
+    .calendar__header {
+        width: 80%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+.calendar tr {
+    display: flex;
+}
+
+.calendar tr th,
+.calendar tr td {
+    flex: 1;
+}
+
+.calendar th {
+    padding-top: var(--space-medium);
+    padding-bottom: var(--space-medium);
+
+    color: var(--color-primary11);
+}
+
+.calendar td {
+    aspect-ratio: 1 / 1;
+}
+
+.calendar__day {
+    --outline-color: var(--color-primary12);
+
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+
+    font-size: var(--font-size-smaller);
+}
+
+@media (min-width: 300px) {
+    .calendar__day {
+        font-size: var(--font-size-small);
+    }
+}
+
+@media (min-width: 500px) {
+    .calendar__day {
+        font-size: var(--font-size-normal);
+    }
+}
+
+.calendar__day[aria-current="date"] {
+    --button-background-color: var(--color-primary4);
+
+    font-weight: bold;
+}
+
+.calendar__day[tabindex="0"] {
+    position: relative;
+    z-index: 1;
+}
+
+.calendar__day[aria-selected="true"]:not(:disabled) {
+    --button-background-color: var(--color-primary11);
+    --button-border-color: var(--color-primary11);
+    --button-color: var(--color-primary1);
+}
+
+.calendar__day--other-month {
+    --button-border-color: transparent;
+
+    opacity: 0.8;
+}
+
+.calendar__header-button {
+    --button-padding: var(--space-smaller);
+}
+
+@media (min-width: 500px) {
+    .calendar__header-button {
+        --button-padding: var(--space-small);
+    }
+}

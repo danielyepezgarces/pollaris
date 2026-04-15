@@ -1,0 +1,27 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+<div
+    class="panel panel--success panel--rounded panel--border cols cols--always cols--center"
+    data-controller="notification"
+    data-turbo-temporary
+>
+    <p class="col--extend">
+        {{ message }}
+    </p>
+
+    <button
+        type="button"
+        class="button--ghost button--icon"
+        data-action="notification#close"
+    >
+        {{ icon('xmark') }}
+
+        <span class="sr-only">
+            {{ 'notifications.close' | trans }}
+        </span>
+    </button>
+</div>

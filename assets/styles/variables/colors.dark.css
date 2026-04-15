@@ -1,0 +1,72 @@
+/* This file is part of Pollaris. */
+/* Copyright 2024-2026 Marien Fressinaud */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+[data-color-scheme="dark"] {
+    color-scheme: dark;
+
+    --color-primary1: var(--color-iris-dark1);
+    --color-primary2: var(--color-iris-dark2);
+    --color-primary3: var(--color-iris-dark3);
+    --color-primary4: var(--color-iris-dark4);
+    --color-primary5: var(--color-iris-dark5);
+    --color-primary6: var(--color-iris-dark6);
+    --color-primary7: var(--color-iris-dark7);
+    --color-primary8: var(--color-iris-dark8);
+    --color-primary9: var(--color-iris-dark9);
+    --color-primary10: var(--color-iris-dark10);
+    --color-primary11: var(--color-iris-dark11);
+    --color-primary12: var(--color-iris-dark12);
+
+    --color-grey1: var(--color-mauve-dark1);
+    --color-grey2: var(--color-mauve-dark2);
+    --color-grey3: var(--color-mauve-dark3);
+    --color-grey4: var(--color-mauve-dark4);
+    --color-grey5: var(--color-mauve-dark5);
+    --color-grey6: var(--color-mauve-dark6);
+    --color-grey7: var(--color-mauve-dark7);
+    --color-grey8: var(--color-mauve-dark8);
+    --color-grey9: var(--color-mauve-dark9);
+    --color-grey10: var(--color-mauve-dark10);
+    --color-grey11: var(--color-mauve-dark11);
+    --color-grey12: var(--color-mauve-dark12);
+
+    --color-success1: var(--color-grass-dark1);
+    --color-success2: var(--color-grass-dark2);
+    --color-success3: var(--color-grass-dark3);
+    --color-success4: var(--color-grass-dark4);
+    --color-success5: var(--color-grass-dark5);
+    --color-success6: var(--color-grass-dark6);
+    --color-success7: var(--color-grass-dark7);
+    --color-success8: var(--color-grass-dark8);
+    --color-success9: var(--color-grass-dark9);
+    --color-success10: var(--color-grass-dark10);
+    --color-success11: var(--color-grass-dark11);
+    --color-success12: var(--color-grass-dark12);
+
+    --color-error1: var(--color-red-dark1);
+    --color-error2: var(--color-red-dark2);
+    --color-error3: var(--color-red-dark3);
+    --color-error4: var(--color-red-dark4);
+    --color-error5: var(--color-red-dark5);
+    --color-error6: var(--color-red-dark6);
+    --color-error7: var(--color-red-dark7);
+    --color-error8: var(--color-red-dark8);
+    --color-error9: var(--color-red-dark9);
+    --color-error10: var(--color-red-dark10);
+    --color-error11: var(--color-red-dark11);
+    --color-error12: var(--color-red-dark12);
+
+    --color-warning1: var(--color-yellow-dark1);
+    --color-warning2: var(--color-yellow-dark2);
+    --color-warning3: var(--color-yellow-dark3);
+    --color-warning4: var(--color-yellow-dark4);
+    --color-warning5: var(--color-yellow-dark5);
+    --color-warning6: var(--color-yellow-dark6);
+    --color-warning7: var(--color-yellow-dark7);
+    --color-warning8: var(--color-yellow-dark8);
+    --color-warning9: var(--color-yellow-dark9);
+    --color-warning10: var(--color-yellow-dark10);
+    --color-warning11: var(--color-yellow-dark11);
+    --color-warning12: var(--color-yellow-dark12);
+}

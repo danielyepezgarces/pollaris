@@ -1,0 +1,43 @@
+Error: Fehler
+'The CSRF token is invalid. Please try to resubmit the form.': Ein Fehler ist 
+  aufgetreten, bitte senden Sie das Formular erneut (ungültiges CSRF-Token).
+answer.value.invalid: Wählen Sie eine Option aus der Liste aus.
+comment.author_name.max_length: Geben Sie einen Namen mit weniger als {limit} 
+  Zeichen ein.
+comment.author_name.required: Geben Sie einen Namen ein.
+comment.content.required: Geben Sie eine Nachricht ein.
+date.value.required: Geben Sie ein Datum ein.
+poll.author_email.invalid: Geben Sie eine gültige E-Mail-Adresse ein.
+poll.author_email.required: Geben Sie eine E-Mail-Adresse ein.
+poll.author_name.max_length: Geben Sie einen Namen mit weniger als {limit} 
+  Zeichen ein.
+poll.dates.required: Wählen Sie mindestens ein Datum aus.
+poll.edit_vote_mode.invalid: Wählen Sie einen Modus zum Bearbeiten von Stimmen 
+  aus der Liste aus.
+poll.password.incorrect: Das Passwort ist falsch.
+poll.password.required: Das Passwort ist erforderlich.
+poll.slug.already_used: Dieser Link wird bereits verwendet. Bitte geben Sie 
+  einen neuen ein.
+poll.slug.max_length: Geben Sie einen Link mit weniger als {limit} Zeichen ein.
+poll.slug.pattern: Geben Sie einen Link ein, der nur Zeichen von A bis Z, 
+  Zahlen, Bindestriche oder Unterstriche enthält.
+poll.slug.required: Geben Sie einen Link ein.
+poll.title.max_length: Geben Sie einen Titel mit weniger als {limit} Zeichen 
+  ein.
+poll.title.required: Geben Sie einen Titel ein.
+poll.type.invalid: Wählen Sie einen Typ aus der Liste aus.
+proposal.label.max_length: Geben Sie einen Vorschlag mit weniger als {limit} 
+  Zeichen ein.
+proposal.label.required: Geben Sie einen Vorschlag ein.
+user.username.already_used: Geben Sie einen anderen Benutzernamen ein, dieser 
+  ist bereits vergeben.
+user.username.max_length: Geben Sie einen Benutzernamen mit weniger als {limit} 
+  Zeichen ein.
+user.username.required: Geben Sie einen Benutzernamen ein.
+vote.author_name.max_length: Geben Sie einen Namen mit weniger als {limit} 
+  Zeichen ein.
+vote.author_name.required: Geben Sie einen Namen ein.
+vote.max_votes.limited: Es gab bereits {max} Stimme(n) für diesen Vorschlag, Sie
+  können nicht mehr dafür stimmen.
+user.author_name.already_used: Geben Sie einen anderen Namen ein, dieser wird 
+  bereits verwendet.

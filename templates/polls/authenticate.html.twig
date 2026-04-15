@@ -1,0 +1,29 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'polls.authenticate.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--small wrapper--center">
+        <div class="panel panel--rounded panel--primary flow flow--larger">
+            <h1>
+                {{ 'polls.authenticate.title' | trans }}
+            </h1>
+
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                {{ form_row(form.password) }}
+
+                <div class="text--right">
+                    {{ form_row(form.submit) }}
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

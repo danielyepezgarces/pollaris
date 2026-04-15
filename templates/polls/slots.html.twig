@@ -1,0 +1,122 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'polls.slots.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+        <div class="flow">
+            <h1>
+                {{ 'polls.slots.title' | trans }}
+            </h1>
+
+            {{ include('polls/_flow_steps.html.twig', { step: 'slots' }) }}
+
+            <p>
+                {{ 'polls.slots.help' | trans }}
+            </p>
+
+            <p class="text--secondary">
+                {{ 'polls.timezone.reference' | trans({ timezone: poll.timezoneName }) }}
+            </p>
+        </div>
+
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div class="text--center">
+                <button
+                    type="button"
+                    data-controller="modal-opener"
+                    data-action="modal-opener#copy"
+                    data-modal-opener-selector-value="#modal-slots-applier"
+                >
+                    {{ icon('clone') }}
+                    {{ 'polls.slots.same_slots.apply' | trans }}
+                </button>
+            </div>
+
+            {% for date in form.dates %}
+                <fieldset class="panel panel--primary panel--rounded">
+                    <legend>{{ date.vars.data.value | dateTrans('EEEE d MMMM yyyy', poll.timezoneName) }}</legend>
+
+                    <div
+                        class="flow flow--ignore-empty"
+                        data-controller="collection"
+                        data-collection-index-value="{{ date.proposals|length > 0 ? date.proposals|last.vars.name + 1 : 0 }}"
+                        data-item="date-collection"
+                    >
+                        <div data-collection-target="container" class="flow">
+                            {% for proposal in date.proposals %}
+                                <div class="flow flow--small" data-item="element">
+                                    {{ form_label(proposal.label) }}
+
+                                    {{ form_errors(proposal.label) }}
+
+                                    <div class="cols cols--always cols--gap">
+                                        {{ form_widget(proposal.label) }}
+
+                                        <button
+                                            type="button"
+                                            class="button--ghost button--small"
+                                            data-action="collection#removeElement"
+                                        >
+                                            {{ icon('trash') }}
+
+                                            <span class="sr-only">
+                                                {{ 'forms.poll_slots_form.remove_slot' | trans }}
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <button
+                            type="button"
+                            class="button--menuitem"
+                            data-action="collection#addElement"
+                        >
+                            {{ icon('circle-plus') }}
+
+                            {{ 'forms.poll_slots_form.add_slot' | trans }}
+                        </button>
+
+                        <template data-collection-target="prototype">
+                            <div class="flow flow--small" data-item="element">
+                                {{ form_label(date.proposals.vars.prototype.label) }}
+
+                                {{ form_errors(date.proposals.vars.prototype.label) }}
+
+                                <div class="cols cols--always cols--gap">
+                                    {{ form_widget(date.proposals.vars.prototype.label) }}
+
+                                    <button
+                                        type="button"
+                                        class="button--ghost button--small"
+                                        data-action="collection#removeElement"
+                                    >
+                                        {{ icon('trash') }}
+
+                                        <span class="sr-only">
+                                            {{ 'forms.poll_slots_form.remove_slot' | trans }}
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </fieldset>
+            {% endfor %}
+
+            {{ include('polls/_flow_actions.html.twig', { step: 'slots' }) }}
+        {{ form_end(form) }}
+
+        {{ include('polls/_slots_applier_modal.html.twig') }}
+    </div>
+{% endblock %}

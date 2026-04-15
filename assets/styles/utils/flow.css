@@ -1,0 +1,31 @@
+/* This file is part of Pollaris. */
+/* Copyright 2024-2026 Marien Fressinaud */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.flow > * {
+    --flow-size: var(--space-medium);
+}
+
+.flow--smaller > * {
+    --flow-size: var(--space-smaller);
+}
+
+.flow--small > * {
+    --flow-size: var(--space-small);
+}
+
+.flow--large > * {
+    --flow-size: var(--space-large);
+}
+
+.flow--larger > * {
+    --flow-size: var(--space-larger);
+}
+
+.flow:not(.flow--ignore-empty) > * + * {
+    margin-top: var(--flow-size);
+}
+
+.flow--ignore-empty > *:has(*) + * {
+    margin-top: var(--flow-size);
+}

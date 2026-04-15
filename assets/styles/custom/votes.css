@@ -1,0 +1,173 @@
+/* This file is part of Pollaris. */
+/* Copyright 2024-2026 Marien Fressinaud */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.votes__label {
+    padding-top: var(--space-smaller);
+    padding-bottom: var(--space-smaller);
+}
+
+.vote {
+    --vote-color: inherit;
+    --vote-icon-color: currentcolor;
+    --vote-background-color: transparent;
+
+    display: inline-block;
+    padding: var(--space-smaller);
+    margin-bottom: var(--space-smaller);
+
+    color: var(--vote-color);
+    font-size: var(--font-size-smaller);
+
+    border-radius: var(--border-radius);
+    background-color: var(--vote-background-color);
+}
+
+.vote--yes {
+    --vote-color: var(--color-success12);
+    --vote-icon-color: var(--color-success11);
+    --vote-background-color: var(--color-success3);
+}
+
+.vote--no {
+    --vote-color: var(--color-error12);
+    --vote-icon-color: var(--color-error11);
+    --vote-background-color: var(--color-error3);
+}
+
+.vote--maybe {
+    --vote-color: var(--color-warning12);
+    --vote-icon-color: var(--color-warning11);
+    --vote-background-color: var(--color-warning3);
+}
+
+.vote .icon {
+    margin-right: 0;
+    margin-left: 0;
+
+    color: var(--vote-icon-color);
+}
+
+.vote__choices {
+    display: flex;
+
+    align-items: stretch;
+    gap: var(--space-smaller);
+}
+
+@media (max-width: 500px) {
+    .vote__choices {
+        flex-direction: column;
+    }
+}
+
+.vote__choices > * {
+    flex: 1;
+}
+
+input.radio--vote + label {
+    --radio-vote-color: var(--color-primary12);
+    --radio-vote-border-color: transparent;
+    --radio-vote-icon-color: var(--color-primary9);
+    --radio-vote-background-color: var(--color-primary3);
+
+    width: 100%;
+    padding: var(--space-medium) var(--space-small);
+
+    gap: var(--space-smaller);
+
+    color: var(--radio-vote-color);
+    font-size: var(--font-size-small);
+    font-weight: bold;
+    text-align: center;
+
+    background-color: var(--radio-vote-background-color);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+
+    cursor: pointer;
+}
+
+input.radio--vote[disabled]:not(:checked) + label {
+    --radio-vote-color: var(--color-grey9);
+    --radio-vote-background-color: var(--color-grey3);
+
+    text-decoration: line-through;
+}
+
+@media (max-width: 500px) {
+    input.radio--vote + label {
+        padding: var(--space-small);
+
+        font-size: var(--font-size-small);
+    }
+}
+
+
+@media (hover: hover) {
+    input.radio--vote:not(:checked):focus + label,
+    input.radio--vote:not(:checked) + label:hover {
+        border-color: oklch(from var(--radio-vote-icon-color) l c h / 0.5);
+    }
+}
+
+input.radio--vote:checked + label {
+    border-color: var(--radio-vote-border-color);
+}
+
+input.radio--vote-yes:checked + label {
+    --radio-vote-color: var(--color-success12);
+    --radio-vote-border-color: var(--color-success11);
+    --radio-vote-icon-color: var(--color-success11);
+    --radio-vote-background-color: var(--color-success3);
+}
+
+input.radio--vote-maybe:checked + label {
+    --radio-vote-color: var(--color-warning12);
+    --radio-vote-border-color: var(--color-warning11);
+    --radio-vote-icon-color: var(--color-warning11);
+    --radio-vote-background-color: var(--color-warning3);
+}
+
+input.radio--vote-no:checked + label {
+    --radio-vote-color: var(--color-error12);
+    --radio-vote-border-color: var(--color-error11);
+    --radio-vote-icon-color: var(--color-error11);
+    --radio-vote-background-color: var(--color-error3);
+}
+
+input.radio--vote + label::before {
+    width: 1.3rem;
+    height: auto;
+    margin-right: 0;
+
+    aspect-ratio: 1;
+
+    background-color: var(--radio-vote-icon-color);
+    border: none;
+    border-radius: 0;
+    mask-image: var(--radio-vote-icon);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: cover;
+}
+
+input.radio--vote-yes + label::before {
+    --radio-vote-icon: url('../../icons/square-check.svg');
+}
+
+input.radio--vote-maybe + label::before {
+    --radio-vote-icon: url('../../icons/square-minus.svg');
+}
+
+input.radio--vote-no + label::before {
+    --radio-vote-icon: url('../../icons/square-xmark.svg');
+}
+
+input.radio--vote + label::after {
+    display: none;
+}
+
+input.radio--vote + label .label__details {
+    display: none;
+}

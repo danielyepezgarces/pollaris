@@ -1,0 +1,114 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+<fieldset class="panel panel--white panel--rounded panel--proposal flow">
+    <div>
+        <legend
+            class="text--nobold"
+            {% if poll.isDatePoll and proposal.date %}
+                data-controller="local-time"
+                data-local-time-source-timezone-value="{{ poll.timezoneName }}"
+                data-local-time-date-value="{{ proposal.date.value | date('Y-m-d', poll.timezoneName) }}"
+            {% endif %}
+        >{{ proposal.label }}</legend>
+    </div>
+
+    {% if voteForm %}
+        <div class="no-print" data-poll-view-target="listVoteSlot" data-proposal="{{ proposal.id }}">
+        </div>
+    {% endif %}
+
+    {% set answers = [] %}
+    {% if canViewResults(poll) %}
+        {% set answers = proposal.answers %}
+    {% elseif myVote %}
+        {% set answers = [myVote.answerForProposal(proposal)] %}
+    {% endif %}
+
+    {% if answers is not empty %}
+        {% set answersByValues = answers | groupAnswersByValues %}
+
+        {% set countYes = answersByValues['yes'] | length %}
+        {% set countMaybe = answersByValues['maybe'] | length %}
+        {% set countNo = answersByValues['no'] | length %}
+
+        <div class="panel__separator"></div>
+
+        <ul class="list--nostyle flow flow--smaller">
+            <li class="cols cols--gap-small votes">
+                {% if canViewResults(poll) and isPreferred %}
+                    <span class="col--size3 col--noshrink votes__label text--success text--bold">
+                        {{ 'polls.votes.yes.count' | trans({ count: countYes }) }}
+
+                        {{ icon('star') }}
+
+                        <span class="sr-only">
+                            {{ 'polls.proposals.best' | trans }}
+                        </span>
+                    </span>
+                {% else %}
+                    <span class="col--size3 col--noshrink votes__label">
+                        {{ 'polls.votes.yes.count' | trans({ count: countYes }) }}
+                    </span>
+                {% endif %}
+
+                {% if countYes > 0 %}
+                    <ul class="col--extended list--nostyle">
+                        {% for answer in answersByValues['yes'] %}
+                            <li class="vote vote--yes{% if myVote and answer.vote.id == myVote.id %} vote--current{% endif %}">
+                                {{ include('_wikimedia_user_link.html.twig', { username: answer.vote.authorName }) }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <span class="col--extend" aria-hidden="true">
+                        —
+                    </span>
+                {% endif %}
+            </li>
+
+            <li class="cols cols--gap-small votes">
+                <span class="col--size3 col--noshrink votes__label">
+                    {{ 'polls.votes.maybe.count' | trans({ count: countMaybe }) }}
+                </span>
+
+                {% if countMaybe > 0 %}
+                    <ul class="col--extended list--nostyle">
+                        {% for answer in answersByValues['maybe'] %}
+                            <li class="vote vote--maybe{% if myVote and answer.vote.id == myVote.id %} vote--current{% endif %}">
+                                {{ include('_wikimedia_user_link.html.twig', { username: answer.vote.authorName }) }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <span class="col--extend" aria-hidden="true">
+                        —
+                    </span>
+                {% endif %}
+            </li>
+
+            <li class="cols cols--gap-small votes">
+                <span class="col--size3 col--noshrink votes__label">
+                    {{ 'polls.votes.no.count' | trans({ count: countNo }) }}
+                </span>
+
+                {% if countNo > 0 %}
+                    <ul class="col--extended list--nostyle">
+                        {% for answer in answersByValues['no'] %}
+                            <li class="vote vote--no{% if myVote and answer.vote.id == myVote.id %} vote--current{% endif %}">
+                                {{ include('_wikimedia_user_link.html.twig', { username: answer.vote.authorName }) }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <span class="col--extend" aria-hidden="true">
+                        —
+                    </span>
+                {% endif %}
+            </li>
+        </ul>
+    {% endif %}
+</fieldset>

@@ -1,0 +1,269 @@
+admin.polls.admin_link: 'Lien admin'
+admin.polls.author: Auteur·ice
+admin.polls.created_at: 'Créé le'
+admin.polls.none: 'La recherche n’a retourné aucun sondage.'
+admin.polls.not_completed: 'Sondage non finalisé'
+admin.polls.public_link: 'Lien public'
+admin.polls.search: Rechercher
+admin.polls.title: 'Liste des sondages'
+admin.title: Administration
+answers.value.maybe: 'Si besoin'
+answers.value.no: Non
+answers.value.yes: Oui
+base.copied: "Copié\_!"
+base.copy: Copier
+base.default_title: "Bienvenue sur {appName}\_!"
+base.download: Télécharger
+base.edit: Modifier
+calendar.hints.dates_period: "Astuce\_: vous pouvez sélectionner une plage de dates en maintenant la touche <kbd>Maj</kbd> enfoncée."
+calendar.patterns.next_month: 'Mois suivant (__date__)'
+calendar.patterns.previous_month: 'Mois précédent (__date__)'
+emails.hello: 'Bonjour {name},'
+emails.link_to_poll: "Vous pouvez retrouver votre sondage à l’adresse\_: {url}"
+emails.new_comment.posted: "{commenter_name} vient de commenter sur le sondage «\_{poll_name}\_»."
+emails.new_comment.subject: "Nouveau commentaire sur un sondage\_: {poll_name}"
+emails.new_poll_admin.created: "Vous venez de créer le sondage «\_{poll_name}\_». Vous pouvez modifier votre sondage à tout moment en vous rendant à l’adresse suivante\_:"
+emails.new_poll_admin.keep_it_secret: "Veillez à garder ce lien pour vous\_!"
+emails.new_poll_admin.subject: "Nouveau sondage\_: {poll_name}"
+emails.new_vote.subject: "Nouveau vote sur un sondage\_: {poll_name}"
+emails.new_vote.voted: "{voter_name} vient de voter au sondage «\_{poll_name}\_»."
+emails.polls_list.here_is_the_list: "Voici la liste des sondages que vous administrez sur {appName}\_:"
+emails.polls_list.subject: 'Liste de vos sondages'
+emails.share.body: "Bonjour,\n\nUn sondage est disponible afin de recueillir votre avis.\nLa participation est possible via le lien suivant\_: {poll_url}\n\nMerci par avance.\n\nCordialement,"
+emails.share.subject: 'Participation demandée pour le sondage : {poll_name}'
+errors.404.description: 'La page demandée n’a pas été trouvée. Vérifiez qu’il n’y a pas de faute dans l’URL.'
+errors.404.title: "Page non trouvée\_!"
+errors.back_home: 'Retour à la page d’accueil'
+errors.generic.description: 'Veuillez indiquer à votre administrateur ce que vous faisiez lorsque l’erreur s’est produite. Le problème sera résolu dès que possible.'
+errors.generic.sorry: 'Désolé pour la gêne occasionnée.'
+errors.generic.title: "Une erreur est survenue\_!"
+forms.apply: Appliquer
+forms.cancel: Annuler
+forms.comment_form.author_name.label: 'Votre nom'
+forms.comment_form.content.label: 'Votre message'
+forms.comment_form.submit: Poster
+forms.complete: Finaliser
+forms.confirm: Confirmer
+forms.date_type.label.label_pattern: 'Date __number__'
+forms.error: Erreur
+forms.labels.max_length: '(max. {length} caractères)'
+forms.labels.optional: (facultatif)
+forms.labels.optional_and_max_length: '(facultatif, max. {length} caractères)'
+forms.login.password: 'Mot de passe'
+forms.login.username: 'Nom d’utilisateurice'
+forms.next: Suivant
+forms.poll_authentication_form.password.label: 'Mot de passe'
+forms.poll_authentication_form.submit: S’authentifier
+forms.poll_dates_form.add_date: 'Ajouter une date'
+forms.poll_dates_form.enter_manually: 'Saisir les dates au clavier'
+forms.poll_dates_form.remove_date: 'Retirer la date'
+forms.poll_dates_form.use_calendar: 'Sélectionner les dates depuis un calendrier'
+forms.poll_deletion_form.submit: 'Je veux supprimer ce sondage'
+forms.poll_form.author_email.help: 'Votre adresse ne sera pas partagée avec les participant·es du sondage. Elle servira uniquement à vous permettre de retrouver votre sondage si vous perdez son adresse et à vous avertir lors de nouveaux votes.'
+forms.poll_form.author_email.label: 'Votre adresse email'
+forms.poll_form.author_name.label: 'Votre nom'
+forms.poll_form.closed_at.help: 'Les participant·es pourront voter jusqu’à cette date.'
+forms.poll_form.closed_at.label: 'Date de fin du sondage'
+forms.poll_form.description.label: Description
+forms.poll_form.title.label: 'Nom de votre sondage'
+forms.poll_proposals_form.add_proposal: 'Ajouter une proposition'
+forms.poll_proposals_form.remove_proposal: 'Retirer la proposition'
+forms.poll_settings_form.are_results_public.label: 'Les résultats sont visibles par tout·es les participant·es'
+forms.poll_settings_form.disable_maybe.label: "Désactiver les votes «\_si besoin\_»"
+forms.poll_settings_form.max_votes.label: "Nombre maximum de votes «\_oui\_» par proposition"
+forms.poll_settings_form.notify_on_comments.label: 'Recevoir un email à chaque commentaire'
+forms.poll_settings_form.notify_on_votes.label: 'Recevoir un email à chaque vote'
+forms.poll_settings_form.password.label: 'Mot de passe'
+forms.poll_settings_form.password.leave_empty_to_keep: 'Laissez ces champs vides pour conserver le mot de passe actuel.'
+forms.poll_settings_form.password.protect: 'Protéger le sondage par mot de passe'
+forms.poll_settings_form.password_for_votes_only.label: 'Les résultats sont visibles sans mot de passe'
+forms.poll_settings_form.repeat_password.label: 'Confirmer le mot de passe'
+forms.poll_settings_form.slug.help: 'Attention, modifier le lien de votre sondage le rend plus facilement accessible à tout le monde. Il est recommandé de le protéger par un mot de passe.'
+forms.poll_settings_form.slug.label: 'Saisissez le lien de votre sondage'
+forms.poll_settings_form.vote_no_by_default.label: "Voter «\_non\_» par défaut en absence de réponse"
+forms.poll_slots_form.add_slot: 'Ajouter un horaire'
+forms.poll_slots_form.remove_slot: 'Retirer l’horaire'
+forms.preferences.color_scheme.auto: Auto
+forms.preferences.color_scheme.dark: Sombre
+forms.preferences.color_scheme.label: Thème
+forms.preferences.color_scheme.light: Clair
+forms.preferences.locale.label: Langue
+forms.previous: Précédent
+forms.proposal_type.label.label_pattern: 'Proposition __number__'
+forms.search_polls_form.email.help: 'Nous vous enverrons les liens vers les sondages que vous avez créés.'
+forms.search_polls_form.email.label: 'Votre adresse email'
+forms.search_polls_form.submit: Envoyer
+forms.slot_type.label.label_pattern: 'Horaire __number__'
+forms.slots_form.day: Journée
+forms.vote_form.author_name.label: 'Votre nom'
+forms.vote_form.leave_confirmation: "Vous n’avez pas encore confirmé votre vote. En continuant, vous allez perdre votre saisie. Êtes-vous sur·e de vouloir continuer\_?"
+forms.vote_form.password.help: 'Un mot de passe est nécessaire pour voter sur ce sondage.'
+forms.vote_form.password.label: 'Mot de passe'
+forms.vote_form.required_choice: 'Veuillez sélectionner au moins une option dans les propositions ci-dessus.'
+forms.vote_form.submit.label: Voter
+home.create_poll: 'Créer un nouveau sondage'
+home.free_software: 'Pollaris est un logiciel libre sous licence AGPL 3.'
+home.free_software.custom: '{appName} utilise Pollaris, un logiciel libre sous licence AGPL 3.'
+home.intro: 'Grâce à notre outil de sondage, planifiez, organisez et prenez des décisions rapidement, simplement et sans inscription.'
+home.my_polls_and_votes: 'Mes sondages et votes'
+home.show.poll.deleted: 'Votre sondage a bien été supprimé.'
+home.source_code: 'Accéder au code source.'
+home.title: 'Organisez des évènements ou recueillez l’avis de vos proches, simplement, librement.'
+layout.header.my: 'Mes sondages et votes'
+layout.header.preferences: Préférences
+layout.logout: 'Se déconnecter'
+layout.modal.close: Fermer
+login.log_in: 'Se connecter'
+login.title: 'Connexion à l’administration'
+my.index.admin_link: 'Lien administration'
+my.index.description: 'Retrouvez ici tous vos sondages et votes mémorisés dans votre navigateur. Pour plus de confidentialité, retirez-les si vous partagez ce dernier avec d’autres personnes.'
+my.index.poll_link: 'Lien sondage'
+my.index.polls.confirm_removal: "Vous êtes sur le point de retirer tous les sondages de ce navigateur (les sondages continueront d’exister). Êtes-vous sur·e de vouloir continuer\_?"
+my.index.polls.empty_placeholder: 'Aucun sondage'
+my.index.polls.of_by: 'Sondage du __date__ par __author__'
+my.index.polls.remove: 'Retirer le sondage'
+my.index.polls.title: Sondages
+my.index.remove_all: 'Tout retirer'
+my.index.search.success: 'Nous vous avons envoyé un email contenant les liens vers vos sondages. Veuillez vérifier vos spams si vous ne le voyez pas arriver.'
+my.index.search.title: 'Retrouver mes sondages par email'
+my.index.title: 'Mes sondages et votes'
+my.index.vote_link: 'Lien du vote'
+my.index.votes.confirm_removal: "Vous êtes sur le point de retirer tous les votes de ce navigateur (les votes continueront d’exister). Êtes-vous sur·e de vouloir continuer\_?"
+my.index.votes.date: '(vote du __vote_date__)'
+my.index.votes.empty_placeholder: 'Aucun vote'
+my.index.votes.poll: "Sur le sondage «\_<strong>__poll_title__</strong>\_» de __poll_author__"
+my.index.votes.remove: 'Retirer le vote'
+my.index.votes.title: Votes
+notifications.close: Fermer
+pagination.next: 'Page suivante'
+pagination.previous: 'Page précédente'
+polls.admin.comments: Commentaires
+polls.admin.confirm_delete_comment: "Êtes-vous sur·e de vouloir supprimer ce commentaire\_?"
+polls.admin.confirm_delete_vote: "Êtes-vous sur·e de vouloir supprimer ce vote\_?"
+polls.admin.delete: Supprimer
+polls.admin.edit: Modifier
+polls.admin.go_to_poll: 'Aller au sondage'
+polls.admin.have_voted: '{voter} a voté le {date}.'
+polls.admin.no_comments: 'Aucun commentaire n’a été posté sur ce sondage.'
+polls.admin.no_votes: 'Aucun vote n’a été fait sur ce sondage.'
+polls.admin.title: 'Administration du sondage'
+polls.admin.votes: Votes
+polls.authenticate.title: 'Authentification à un sondage protégé'
+polls.choose.classic: 'Sondage classique'
+polls.choose.classic_help: 'Un sondage pour choisir entre plusieurs options libres.'
+polls.choose.date: 'Sondage date'
+polls.choose.date_help: 'Un sondage pour choisir la meilleure date ou horaire possible.'
+polls.choose.next: Suivant
+polls.choose.title: 'Choisissez le type de sondage'
+polls.complete.consult: 'Consultez votre sondage dès maintenant'
+polls.complete.created: "Le sondage «\_{poll}\_» est créé. Vous pouvez inviter vos contacts à y participer en partageant le lien ci-dessous."
+polls.complete.public_link: 'Lien de partage public'
+polls.complete.see: 'Voir mon sondage'
+polls.complete.title: "Votre sondage est prêt\_!"
+polls.dates.slots_at_next_step: 'Sélectionnez une ou plusieurs dates. Vous pourrez choisir les horaires à l’écran suivant.'
+polls.dates.title: 'Choisissez les dates'
+polls.deletion.information: "Attention, vous êtes sur le point de supprimer le sondage «\_<strong>{title}</strong>\_» ainsi que les votes et commentaires associés."
+polls.deletion.title: 'Suppression d’un sondage'
+polls.edit_vote_mode.any: 'Chaque participant·e peut modifier n’importe quel vote'
+polls.edit_vote_mode.no: 'Les participant·es ne peuvent pas modifier leur vote'
+polls.edit_vote_mode.own: 'Chaque participant·e peut modifier son propre vote'
+polls.new.title: 'Création de sondage'
+polls.new.who_you_are: 'Votre identité'
+polls.proposals.best: 'Choix préféré'
+polls.proposals.title: 'Choisissez les propositions'
+polls.settings.notifications.title: Notifications
+polls.settings.options.title: 'Options des votes'
+polls.settings.password.title: 'Protéger par mot de passe'
+polls.settings.permissions.title: Permissions
+polls.settings.slug.title: 'Personnaliser le lien du sondage'
+polls.settings.title: 'Paramétrez le sondage'
+polls.sharing.public_link: 'Lien de partage public'
+polls.sharing.send_by_email: 'Envoyer par email'
+polls.sharing.share_by_email: 'Partager par email'
+polls.sharing.share_with_qr_code: 'Partager avec un QR code'
+polls.sharing.title: 'Partager le sondage'
+polls.show.administer: Administrer
+polls.show.authenticated: 'Vous vous êtes authentifié·e avec succès.'
+polls.show.comment.created: 'Votre commentaire a été publié.'
+polls.show.comments.explain: 'Votre commentaire sera directement visible sur la page du sondage.'
+polls.show.comments.new: 'Nouveau commentaire'
+polls.show.comments.none: 'Aucun commentaire n’a été posté.'
+polls.show.comments.title: Commentaires
+polls.show.created_by: 'Sondage créé par {by}'
+polls.show.display_list: 'Affichage mobile'
+polls.show.display_table: 'Affichage tableau'
+polls.show.export_csv: 'Exporter (<abbr>CSV</abbr>)'
+polls.show.is_closed: 'Ce sondage est terminé.'
+polls.show.my_votes.date: '(vote du __date__)'
+polls.show.my_votes.description: 'Vos votes sont mémorisés dans votre navigateur. Pour plus de confidentialité, retirez-les si vous partagez ce dernier avec d’autres personnes.'
+polls.show.my_votes.edit: 'Modifier le vote de {authorName}'
+polls.show.my_votes.information: Information
+polls.show.my_votes.remove: Retirer
+polls.show.my_votes.title: 'Mes votes'
+polls.show.no_vote: "Pour le moment aucun vote n’a été fait mais, pas de panique, ça ne va pas tarder. Pensez simplement à partager votre sondage avec les autres participantes et participants\_!"
+polls.show.poll: Sondage
+polls.show.print: Imprimer
+polls.show.results: Résultats
+polls.show.results.info: "{ countChoices, plural, one {Le choix préféré avec <strong>{countYes} oui</strong> est\_:} other {Les choix préférés avec <strong>{countYes} oui</strong> sont\_:} }"
+polls.show.results.results_graph: 'Graphique des résultats'
+polls.show.results.title: Résultats
+polls.show.share: Partager
+polls.show.vote.created: 'Votre vote est confirmé.'
+polls.show.vote.updated: 'Votre vote a bien été modifié.'
+polls.slots.help: "Les horaires peuvent être saisis librement (par exemple\_: 8h ou matin). Si vous n’en indiquez pas, la journée entière sera prise en compte."
+polls.slots.same_slots.apply: 'Appliquer les mêmes horaires à toutes les dates'
+polls.slots.same_slots.title: 'Choisissez les horaires à appliquer à toutes les dates'
+polls.slots.title: 'Choisissez les horaires'
+polls.steps: 'Étape {step} sur {total}'
+polls.summary.admin_access: "Veuillez conserver le lien suivant pour pouvoir administrer votre sondage à tout moment. <strong>Gardez ce lien pour vous\_!</strong>"
+polls.summary.admin_access.sent_by_email: 'Ce lien vous a également été envoyé par email.'
+polls.summary.admin_access.title: 'Lien d’administration privé'
+polls.summary.admin_access.will_send_by_email: 'Ce lien vous sera également envoyé par email.'
+polls.summary.admin_link: 'Lien d’administration privé'
+polls.summary.admin_link.remember: 'Mémoriser le sondage dans ce navigateur'
+polls.summary.admin_link.remember.description: 'En cochant l’option « Mémoriser le sondage dans ce navigateur », ce sondage sera conservé sur cet appareil. Cela vous permettra de le retrouver ultérieurement depuis ce même navigateur afin de le consulter ou le modifier. Pour plus de confidentialité, ne cochez pas cette option si cet appareil est partagé avec d’autres personnes.'
+polls.summary.admin_link.remember.information: Information
+polls.summary.author.email: 'Adresse email'
+polls.summary.author.name: Pseudonyme
+polls.summary.author.no_email: 'Aucune adresse renseignée'
+polls.summary.closed_at: 'Date de fin'
+polls.summary.closed_at.none: Aucune
+polls.summary.delete_poll: 'Supprimer le sondage'
+polls.summary.edit: Modifier
+polls.summary.information.title: 'Informations générales'
+polls.summary.is_closed: '(sondage terminé)'
+polls.summary.proposals.title: 'Mes propositions'
+polls.summary.settings.customised_slug: 'Le lien du sondage est personnalisé.'
+polls.summary.settings.edit_vote_mode.any: 'Chaque participant·e peut modifier n’importe quel vote.'
+polls.summary.settings.edit_vote_mode.no: 'Les participant·es ne peuvent pas modifier leur vote.'
+polls.summary.settings.edit_vote_mode.own: 'Chaque participant·e peut modifier son propre vote.'
+polls.summary.settings.is_disable_maybe: "Les participant·es ne pourront pas voter «\_si besoin\_»."
+polls.summary.settings.is_vote_no_by_default: "L’absence de réponse équivaut à un vote «\_non\_»."
+polls.summary.settings.max_votes: '{ number, plural, one {1 participant·e maximum peut} other {# participant·es maximum peuvent} } voter par proposition.'
+polls.summary.settings.notify_on_comments.do: 'Je recevrai un email à chaque commentaire sur le sondage.'
+polls.summary.settings.notify_on_comments.dont: 'Je ne recevrai pas d’email lors des commentaires sur le sondage.'
+polls.summary.settings.notify_on_votes.do: 'Je recevrai un email à chaque vote sur le sondage.'
+polls.summary.settings.notify_on_votes.dont: 'Je ne recevrai pas d’email lors des votes sur le sondage.'
+polls.summary.settings.password_protected.full: 'Le sondage est protégé par un mot de passe.'
+polls.summary.settings.password_protected.not: 'Le sondage n’est pas protégé par un mot de passe.'
+polls.summary.settings.password_protected.vote: 'Le sondage est protégé par un mot de passe (les résultats sont visibles sans mot de passe).'
+polls.summary.settings.results.private: 'Je suis le ou la seule à pouvoir voir les résultats du sondage.'
+polls.summary.settings.results.public: 'Tout le monde peut voir les résultats du sondage.'
+polls.summary.settings.title: 'Options du sondage'
+polls.summary.title: 'Résumé de votre sondage'
+polls.table.toolbar.scroll_to_left.title: 'Faire défiler à gauche'
+polls.table.toolbar.scroll_to_right.title: 'Faire défiler à droite'
+polls.table.toolbar.show_less.label: 'Réduire la ligne'
+polls.table.toolbar.show_less.title: 'Réduire la ligne pour limiter l’affichage des labels'
+polls.table.toolbar.show_more.label: 'Étendre la ligne'
+polls.table.toolbar.show_more.title: 'Étendre la ligne pour afficher la totalité des labels'
+polls.votes.maybe: 'Si besoin'
+polls.votes.maybe.count: "{count}\_Si besoin"
+polls.votes.maybe.count_alt: '(+{count})'
+polls.votes.no: Non
+polls.votes.no.count: "{count}\_Non"
+polls.votes.sum: Somme
+polls.votes.yes: Oui
+polls.votes.yes.count: "{count}\_Oui"
+polls.votes.yours: 'Votre vote'
+preferences.edit.title: 'Vos préférences'

@@ -1,0 +1,11 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{{ 'emails.hello' | trans({ name: admin_name }) }}
+
+{{ 'emails.new_comment.posted' | trans({ commenter_name: commenter_name, poll_name: poll_name }) }}
+
+{{ 'emails.link_to_poll' | trans({ url: url('poll', { slug: poll_slug }) }) }}

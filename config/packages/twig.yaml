@@ -1,0 +1,9 @@
+twig:
+    file_name_pattern: '*.twig'
+    form_themes: ['form/pollaris_theme.html.twig']
+    globals:
+        appName: '%app.name%'
+
+when@test:
+    twig:
+        strict_variables: true

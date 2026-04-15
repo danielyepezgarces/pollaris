@@ -1,0 +1,75 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'polls.proposals.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+        <div class="flow">
+            <h1>
+                {{ 'polls.proposals.title' | trans }}
+            </h1>
+
+            {{ include('polls/_flow_steps.html.twig', { step: 'proposals' }) }}
+        </div>
+
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div
+                class="flow"
+                data-controller="collection"
+                data-collection-index-value="{{ form.proposals|length > 0 ? form.proposals|last.vars.name + 1 : 0 }}"
+            >
+                <div data-collection-target="container" class="flow">
+                    {% for proposal in form.proposals %}
+                        <div class="panel panel--rounded panel--primary flow" data-item="element">
+                            {{ form_row(proposal.label) }}
+
+                            {% if not loop.first %}
+                                <button
+                                    type="button"
+                                    class="button--menuitem"
+                                    data-action="collection#removeElement"
+                                >
+                                    {{ icon('trash') }}
+                                    {{ 'forms.poll_proposals_form.remove_proposal' | trans }}
+                                </button>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <template data-collection-target="prototype">
+                    <div class="panel panel--rounded panel--primary flow" data-item="element">
+                        {{ form_row(form.proposals.vars.prototype) }}
+
+                        <button
+                            type="button"
+                            class="button--menuitem"
+                            data-action="collection#removeElement"
+                        >
+                            {{ icon('trash') }}
+                            {{ 'forms.poll_proposals_form.remove_proposal' | trans }}
+                        </button>
+                    </div>
+                </template>
+
+                <button
+                    type="button"
+                    class="button--block"
+                    data-action="collection#addElement"
+                >
+                    {{ 'forms.poll_proposals_form.add_proposal' | trans }}
+                </button>
+            </div>
+
+            {{ include('polls/_flow_actions.html.twig', { step: 'proposals' }) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

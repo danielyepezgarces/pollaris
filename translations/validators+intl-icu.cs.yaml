@@ -1,0 +1,33 @@
+Error: Chyba
+'The CSRF token is invalid. Please try to resubmit the form.': Došlo k chybě, 
+  odešlete prosím formulář znovu (neplatný token CSRF).
+answer.value.invalid: Vyberte volbu ze seznamu.
+comment.author_name.max_length: Zadejte název o méně než {limit} znacích.
+comment.author_name.required: Zadejte název.
+comment.content.required: Zadejte zprávu.
+date.value.required: Zadejte datum.
+poll.author_email.invalid: Zadejte platnou e-mailovou adresu.
+poll.author_email.required: Zadejte e-mailovou adresu.
+poll.author_name.max_length: Zadejte název o méně než {limit} znacích.
+poll.dates.required: Vyberte alespoň jedno datum.
+poll.edit_vote_mode.invalid: Vyberte režim úpravy hlasů ze seznamu.
+poll.password.incorrect: Nesprávné heslo.
+poll.password.required: Je vyžadováno heslo.
+poll.slug.already_used: Tento odkaz se již používá. Zadejte prosím nový.
+poll.slug.max_length: Zadejte odkaz o méně než {limit} znacích.
+poll.slug.pattern: Zadejte odkaz používající pouze znaky od A do Z, čísla, 
+  pomlčky nebo podtržítka.
+poll.slug.required: Zadejte odkaz.
+poll.title.max_length: Zadejte nadpis o méně než {limit} znacích.
+poll.title.required: Zadejte nadpis.
+poll.type.invalid: Vyberte typ ze seznamu.
+proposal.label.max_length: Zadejte návrh o méně než {limit} znacích.
+proposal.label.required: Zadejte návrh.
+user.author_name.already_used: Zadejte jiný název, tento se již používá.
+user.username.already_used: Zadejte jiné uživatelské jméno, toto se již používá.
+user.username.max_length: Zadejte uživatelské jméno o méně než {limit} znacích.
+user.username.required: Zadejte uživatelské jméno.
+vote.author_name.max_length: Zadejte název o méně než {limit} znacích.
+vote.author_name.required: Zadejte název.
+vote.max_votes.limited: Tento návrh již získal {max} hlasů, nemůžete pro něj 
+  hlasovat.

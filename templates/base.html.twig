@@ -1,0 +1,99 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+<!DOCTYPE html>
+<html lang="{{ app.locale|locale_to_bcp47 }}" data-controller="color-scheme" data-color-scheme="auto">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {% set block_title = block('title') %}
+        {% if block_title is not empty %}
+            <title>{% block title %}{% endblock %} – {{ appName }}</title>
+        {% else %}
+            <title>{{ 'base.default_title' | trans({ appName: appName}) }}</title>
+        {% endif %}
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ esbuild_asset('styles/application.css') }}" data-turbo-track="reload">
+        {% endblock %}
+
+        {% if asset_exists('custom.css') %}
+            <link rel="stylesheet" href="{{ asset('custom.css') }}">
+        {% endif %}
+
+        {% block javascripts %}
+            <script src="{{ esbuild_asset('js/application.js') }}" defer data-turbo-track="reload"></script>
+        {% endblock %}
+
+        {% if asset_exists('custom.js') %}
+            <script src="{{ asset('custom.js') }}" defer data-turbo-track="reload"></script>
+        {% endif %}
+
+        {% block robots_head_tags %}
+            <meta name="robots" content="noindex, nofollow">
+        {% endblock %}
+
+        {% block additional_head_tags %}
+        {% endblock %}
+    </head>
+
+    <body>
+        <div class="layout" id="layout">
+            {% block header %}
+                <header class="layout__header header cols cols--always cols--center cols--gap-small no-print" role="banner">
+                    <div class="col--extend">
+                        <a class="header__title" href="{{ path('home') }}">
+                            {{ appName }}
+                        </a>
+
+                        <a class="header__link" href="{{ path('my') }}">
+                            {{ 'layout.header.my' | trans }}
+                        </a>
+
+                        {% if app.user %}
+                            <a class="header__link" href="{{ path('admin') }}">
+                                {{ 'admin.title' | trans }}
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="cols cols--gap-small">
+                        <button
+                            class="header__button button--small"
+                            data-controller="modal-opener"
+                            data-action="modal-opener#fetch"
+                            data-modal-opener-selector-value="{{ path('edit preferences') }}"
+                        >
+                            {{ icon('gear') }}
+                            {{ 'layout.header.preferences' | trans }}
+                        </button>
+
+                        {% if app.user %}
+                            <form action="{{ path('logout') }}" method="post" data-turbo="false">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+
+                                <button class="header__button button--small" type="submit">
+                                    {{ 'layout.logout' | trans }}
+                                </button>
+                            </form>
+                        {% else %}
+                            <a class="button header__button button--small" href="{{ path('login', {'returnto': app.request.pathinfo}) }}">
+                                {{ 'login.title' | trans }}
+                            </a>
+                        {% endif %}
+                    </div>
+                </header>
+            {% endblock %}
+
+            <main class="layout__body" id="content" tabindex="-1">
+                {% block body %}
+                {% endblock %}
+            </main>
+        </div>
+
+        {{ include('_modal_dialog.html.twig') }}
+    </body>
+</html>

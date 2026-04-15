@@ -1,0 +1,75 @@
+/* This file is part of Pollaris. */
+/* Copyright 2024-2026 Marien Fressinaud */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+/**
+ * Accessible custom checkboxes and radio buttons.
+ * @see https://www.a11ywithlindsey.com/blog/create-custom-keyboard-accesible-checkboxes
+ */
+input[type="checkbox"] {
+    position: absolute;
+
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+
+    width: 1px;
+    height: 1px;
+}
+
+input[type="checkbox"] + label {
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+}
+
+input[type="checkbox"] + label::before {
+    content: "";
+
+    position: relative;
+
+    width: 25px;
+    height: 25px;
+    margin-right: var(--space-small);
+
+    flex-shrink: 0;
+
+    background-color: var(--color-grey1);
+    border: 1px solid var(--color-grey12);
+    border-radius: var(--border-radius-small);
+
+    transition:
+        border-color 0.2s ease-in-out,
+        background-color 0.2s ease-in-out;
+}
+
+input[type="checkbox"]:focus + label {
+    outline: var(--outline-width) solid var(--outline-color);
+    outline-offset: var(--outline-offset);
+}
+
+input[type="checkbox"]:checked + label::before {
+    border-color: var(--color-primary11);
+}
+
+input[type="checkbox"]:checked + label::after {
+    content: "";
+
+    position: absolute;
+
+    width: 15px;
+    height: 8px;
+    margin-top: -3px;
+    margin-left: 5px;
+
+    border-bottom: 3px solid var(--color-primary11);
+    border-left: 3px solid var(--color-primary11);
+
+    transform: rotate(-45deg);
+}
+
+input[type="checkbox"]:disabled + label::before {
+    background-color: var(--color-grey3);
+    border-color: var(--color-grey8);
+}

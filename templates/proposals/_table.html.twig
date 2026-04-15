@@ -1,0 +1,369 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # Copyright 2026 Adrien Scholaert
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% set preferredChoices = poll.preferredChoices %}
+{% set displayMode = poll.type %}
+
+{% set votes = [] %}
+{% if canViewResults(poll) %}
+    {% set votes = poll.votes %}
+{% elseif myVote %}
+    {% set votes = [myVote] %}
+{% endif %}
+
+{% set hasUserExistingVote = false %}
+{% if app.user %}
+    {% for vote in poll.votes %}
+        {% if vote.authorName == app.user.userIdentifier %}
+            {% set hasUserExistingVote = true %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="scrollbox" data-controller="scrollbox">
+    <div
+        class="proposals-table-container"
+        data-controller="proposals-table"
+        data-scrollbox-target="scroller"
+    >
+        <table class="proposals-table">
+            <thead
+                data-scrollbox-target="thead"
+                data-controller="poll-table-head-view"
+                data-poll-view-target="thead"
+                data-poll-table-head-view-target="thead"
+                data-action="resize@window->poll-table-head-view#updateUI resize@window->scrollbox#updateScrollButtonsVisibility"
+            >
+                {% if displayMode == 'classic' %}
+                    <tr>
+                        <td class="proposals-table__sticky-cell">
+                            <div class="proposals-table-actions">
+                                <div class="proposals-table-actions__scroll" data-scrollbox-target="scrollBtns">
+                                    <button
+                                        type="button"
+                                        class="button button--block button--smaller"
+                                        data-scrollbox-target="scrollLeftBtn"
+                                        data-action="click->scrollbox#scrollLeft"
+                                        aria-hidden="true"
+                                        id="scroll-left"
+                                        title="{{- 'polls.table.toolbar.scroll_to_left.title' | trans -}}"
+                                    >
+                                        {{ icon('angle-down') }}
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="button button--block button--smaller"
+                                        data-scrollbox-target="scrollRightBtn"
+                                        data-action="click->scrollbox#scrollRight"
+                                        aria-hidden="true"
+                                        id="scroll-right"
+                                        title="{{- 'polls.table.toolbar.scroll_to_right.title' | trans -}}"
+                                    >
+                                        {{ icon('angle-down') }}
+                                    </button>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="proposals-table-actions__show-more button button--primary button--smaller"
+                                    data-action="click->poll-table-head-view#showMore"
+                                    data-poll-table-head-view-target="showMore"
+                                    aria-label="{{- 'polls.table.toolbar.show_more.title' | trans -}}"
+                                    title="{{- 'polls.table.toolbar.show_more.title' | trans -}}"
+                                >
+                                    {{- 'polls.table.toolbar.show_more.label' | trans -}}
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="proposals-table-actions__show-less button button--primary button--smaller"
+                                    data-poll-table-head-view-target="showLess"
+                                    data-action="click->poll-table-head-view#showLess"
+                                    aria-hidden="true"
+                                    aria-label="{{- 'polls.table.toolbar.show_less.title' | trans -}}"
+                                    title="{{- 'polls.table.toolbar.show_less.title' | trans -}}"
+                                >
+                                    {{- 'polls.table.toolbar.show_less.label' | trans -}}
+                                </button>
+                            </div>
+                        </td>
+
+                        {% for proposal in proposals %}
+                            <th
+                                {% if loop.first %}data-scrollbox-target="leftObserver"{% endif %}
+                                {% if loop.last %}data-scrollbox-target="rightObserver"{% endif %}
+                                scope="col"
+                            >
+                                <span
+                                    class="proposal__label proposal__label--classic"
+                                    data-poll-table-head-view-target="label"
+                                >
+                                    {{ proposal.label }}
+                                </span>
+                            </th>
+                        {% endfor %}
+                    </tr>
+                {% elseif displayMode == 'date' %}
+                    {% set monthGroups = [] %}
+                    {% set currentMonthKey = '' %}
+
+                    {% for dateAndProposals in datesAndProposals %}
+                        {% set date = dateAndProposals[0] %}
+                        {% set dateProposals = dateAndProposals[1] %}
+                        {% set monthKey = date.value | date('Y-m', poll.timezoneName) %}
+
+                        {% if currentMonthKey != monthKey %}
+                            {% set monthGroups = monthGroups | merge([{
+                                key: monthKey,
+                                label: date.value | dateTrans('MMMM y', poll.timezoneName),
+                                dateGroups: [dateAndProposals],
+                                colspan: dateProposals | length,
+                            }]) %}
+                            {% set currentMonthKey = monthKey %}
+                        {% else %}
+                            {% set monthGroup = monthGroups | last %}
+                            {% set updatedMonthGroup = monthGroup | merge({
+                                colspan: monthGroup.colspan + (dateProposals | length),
+                                dateGroups: monthGroup.dateGroups | merge([dateAndProposals]),
+                            }) %}
+                            {% set monthGroups = monthGroups | slice(0, monthGroups | length - 1) | merge([updatedMonthGroup]) %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <tr>
+                        <th role="presentation" class="proposals-table__sticky-cell">
+                            <div class="proposals-table-actions">
+                                <div class="proposals-table-actions__scroll" data-scrollbox-target="scrollBtns">
+                                    <button
+                                        type="button"
+                                        class="button button--block button--smaller"
+                                        data-scrollbox-target="scrollLeftBtn"
+                                        data-action="click->scrollbox#scrollLeft"
+                                        aria-hidden="true"
+                                        id="scroll-left"
+                                        title="{{- 'polls.table.toolbar.scroll_to_left.title' | trans -}}"
+                                    >
+                                        {{ icon('angle-down') }}
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="button button--block button--smaller"
+                                        data-scrollbox-target="scrollRightBtn"
+                                        data-action="click->scrollbox#scrollRight"
+                                        aria-hidden="true"
+                                        id="scroll-right"
+                                        title="{{- 'polls.table.toolbar.scroll_to_right.title' | trans -}}"
+                                    >
+                                        {{ icon('angle-down') }}
+                                    </button>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="proposals-table-actions__show-more button button--primary button--smaller"
+                                    data-action="click->poll-table-head-view#showMore"
+                                    data-poll-table-head-view-target="showMore"
+                                    aria-label="{{- 'polls.table.toolbar.show_more.title' | trans -}}"
+                                    title="{{- 'polls.table.toolbar.show_more.title' | trans -}}"
+                                >
+                                    {{- 'polls.table.toolbar.show_more.label' | trans -}}
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="proposals-table-actions__show-less button button--primary button--smaller"
+                                    data-poll-table-head-view-target="showLess"
+                                    data-action="click->poll-table-head-view#showLess"
+                                    aria-hidden="true"
+                                    aria-label="{{- 'polls.table.toolbar.show_less.title' | trans -}}"
+                                    title="{{- 'polls.table.toolbar.show_less.title' | trans -}}"
+                                >
+                                    {{- 'polls.table.toolbar.show_less.label' | trans -}}
+                                </button>
+                            </div>
+                        </th>
+
+                        {% for monthGroup in monthGroups %}
+                            <th
+                                {% if loop.first %}data-scrollbox-target="leftObserver"{% endif %}
+                                {% if loop.last %}data-scrollbox-target="rightObserver"{% endif %}
+                                colspan="{{ monthGroup.colspan }}"
+                                scope="colgroup"
+                                class="proposals-table__month"
+                            >
+                                {{ monthGroup.label }}
+                            </th>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <th role="presentation" class="proposals-table__sticky-cell"></th>
+                        {% for monthGroup in monthGroups %}
+                            {% for dateAndProposals in monthGroup.dateGroups %}
+                                {% set date = dateAndProposals[0] %}
+                                {% set dateProposals = dateAndProposals[1] %}
+
+                                <th
+                                    colspan="{{ dateProposals | length }}"
+                                    scope="colgroup"
+                                    class="proposals-table__day"
+                                    title="{{ date.value | dateTrans('EEEE d MMMM y', poll.timezoneName) }}"
+                                >
+                                    {{ date.value | dateTrans('EEE d', poll.timezoneName) }}
+                                </th>
+                            {% endfor %}
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <th role="presentation" class="proposals-table__sticky-cell"></th>
+                        {% for monthGroup in monthGroups %}
+                            {% for dateAndProposals in monthGroup.dateGroups %}
+                                {% set date = dateAndProposals[0] %}
+                                {% set dateProposals = dateAndProposals[1] %}
+
+                                {% for proposal in dateProposals %}
+                                    <th
+                                        scope="col"
+                                        class="proposals-table__hour"
+                                        title="{{ date.value | dateTrans("EEEE, d 'de' MMMM 'de' y", poll.timezoneName) }} - {{ proposal.label }}"
+                                    >
+                                        <span
+                                            class="proposal__label proposal__label--time"
+                                            data-poll-table-head-view-target="label"
+                                            {% if date %}
+                                                data-controller="local-time"
+                                                data-local-time-source-timezone-value="{{ poll.timezoneName }}"
+                                                data-local-time-date-value="{{ date.value | date('Y-m-d', poll.timezoneName) }}"
+                                            {% endif %}
+                                        >
+                                            {{ proposal.label }}
+                                        </span>
+                                    </th>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                    </tr>
+                {% endif %}
+            </thead>
+            <tbody data-scrollbox-target="tbody">
+                {% for vote in votes %}
+                    <tr{% if myVote and vote.id == myVote.id %} class="proposals-table__vote--current"{% endif %}>
+                        <th class="proposals-table__sticky-cell" scope="row">
+                            <div class="proposals-table__author">
+                                {{ include('_wikimedia_user_link.html.twig', { username: vote.authorName }) }}
+
+                                {% if canEditVote(vote) and onEditPage == false %}
+                                    <a
+                                        class="button button--icon button--extra-small"
+                                        title="{{ 'polls.show.my_votes.edit' | trans({ authorName: vote.authorName }) }}"
+                                        href="{{ path('edit vote', { slug: poll.slug, id: vote.id, _fragment: 'poll' }) }}"
+                                    >
+                                        {{ icon('pen-to-square') }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </th>
+
+                        {% for proposal in proposals %}
+                            {% set answer = vote.answerForProposal(proposal) %}
+
+                            <td class="text--center">
+                                {% if answer.value == 'yes' %}
+                                    <span class="vote vote--yes">
+                                        {{ icon('square-check') }}
+
+                                        <span class="sr-only">
+                                            {{ 'polls.votes.yes' | trans }}
+                                        </span>
+                                    </span>
+                                {% elseif answer.value == 'no' %}
+                                    <span class="vote vote--no">
+                                        {{ icon('square-xmark') }}
+
+                                        <span class="sr-only">
+                                            {{ 'polls.votes.no' | trans }}
+                                        </span>
+                                    </span>
+                                {% elseif answer.value == 'maybe' %}
+                                    <span class="vote vote--maybe">
+                                        {{ icon('square-minus') }}
+
+                                        <span class="sr-only">
+                                            {{ 'polls.votes.maybe' | trans }}
+                                        </span>
+                                    </span>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot data-scrollbox-target="tfoot">
+                {% if canViewResults(poll) and votes is not empty %}
+                    <tr class="proposals-table__sum-line">
+                        <th class="proposals-table__sticky-cell" scope="row">
+                            <div class="proposals-table__scroll-element"></div>
+                            <div class="proposals-table__sum">
+                                {{ 'polls.votes.sum' | trans }}
+                            </div>
+                        </th>
+
+                        {% for proposal in proposals %}
+                            {% set countYes = proposal.countAnswers('yes') %}
+                            {% set countMaybe = proposal.countAnswers('maybe') %}
+                            {% set isPreferred = preferredChoices and proposal in preferredChoices %}
+
+                            <td class="text--center{% if isPreferred %} text--success text--bold{% endif %}">
+                                {% if isPreferred %}
+                                    {{ icon('star') }}
+                                {% endif %}
+
+                                {% if countYes > 0 %}
+                                    {{ countYes }}
+
+                                    <span class="sr-only">
+                                        {{ 'polls.votes.yes' | trans }}
+                                    </span>
+                                {% endif %}
+
+                                {% if countMaybe > 0 %}
+                                    <span class="text--secondary text--small">
+                                        {{ 'polls.votes.maybe.count_alt' | trans({ count: countMaybe }) }}
+                                    </span>
+                                {% endif %}
+
+                                {% if isPreferred %}
+                                    <span class="sr-only">
+                                        {{ 'polls.proposals.best' | trans }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endif %}
+
+                {% if voteForm and (onEditPage or (not myVote and not hasUserExistingVote)) %}
+                    <tr class="no-print proposals-table__yours-section">
+                        <th class="proposals-table__sticky-cell" scope="row">
+                            <div class="proposals-table__author proposals-table__author--new">
+                                {{ 'polls.votes.yours' | trans }}
+                            </div>
+                        </th>
+
+                        {% for proposal in proposals %}
+                            <td data-poll-view-target="tableVoteSlot" data-proposal="{{ proposal.id }}">
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endif %}
+            </tfoot>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'polls.settings.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+        <div class="flow">
+            <h1>
+                {{ 'polls.settings.title' | trans }}
+            </h1>
+        </div>
+
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div class="panel panel--rounded panel--primary flow">
+                <h2 class="text--primary">
+                    {{ 'polls.settings.options.title' | trans }}
+                </h2>
+
+                {{ form_row(form.disableMaybe) }}
+
+                {{ form_row(form.voteNoByDefault) }}
+
+                {{ form_row(form.maxVotes) }}
+            </div>
+
+            <div class="panel panel--rounded panel--primary flow">
+                <h2 class="text--primary">
+                    {{ 'polls.settings.slug.title' | trans }}
+                </h2>
+
+                {{ form_row(form.slug) }}
+            </div>
+
+            <div class="panel panel--rounded panel--primary flow">
+                <h2 class="text--primary">
+                    {{ 'polls.settings.password.title' | trans }}
+                </h2>
+
+                <div class="flow" data-controller="poll-password">
+                    {{ form_row(form.isPasswordProtected) }}
+
+                    {{ form_row(form.plainPassword) }}
+
+                    {{ form_row(form.isPasswordForVotesOnly) }}
+                </div>
+            </div>
+
+            <div class="panel panel--rounded panel--primary flow">
+                <h2 class="text--primary">
+                    {{ 'polls.settings.permissions.title' | trans }}
+                </h2>
+
+                {{ form_row(form.editVoteMode) }}
+
+                <div class="panel__separator"></div>
+
+                {{ form_row(form.areResultsPublic) }}
+            </div>
+
+            <div class="panel panel--rounded panel--primary flow">
+                <h2 class="text--primary">
+                    {{ 'polls.settings.notifications.title' | trans }}
+                </h2>
+
+                {{ form_row(form.notifyOnVotes) }}
+
+                {{ form_row(form.notifyOnComments) }}
+            </div>
+
+            {{ include('polls/_flow_actions.html.twig', { step: 'summary' }) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

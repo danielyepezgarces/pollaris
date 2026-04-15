@@ -1,0 +1,53 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'polls.choose.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+        <h1>
+            {{ 'polls.choose.title' | trans }}
+        </h1>
+
+        <form method="get" action="{{ path('new poll') }}" class="flow">
+            <div class="radio-container">
+                <input id="type-date" type="radio" name="type" value="date" aria-describedby="type-date-help" checked/>
+
+                <label for="type-date">
+                    {{ icon('calendar-check') }}
+                    {{ 'polls.choose.date' | trans }}
+                </label>
+
+                <p id="type-date-help" class="radio-container__help">
+                    {{ 'polls.choose.date_help' | trans }}
+                </p>
+            </div>
+
+            <div class="radio-container">
+                <input id="type-classic" type="radio" name="type" value="classic" aria-describedby="type-classic-help" />
+
+                <label for="type-classic">
+                    {{ icon('poll') }}
+                    {{ 'polls.choose.classic' | trans }}
+                </label>
+
+                <p id="type-classic-help" class="radio-container__help">
+                    {{ 'polls.choose.classic_help' | trans }}
+                </p>
+            </div>
+
+            <div class="text--right">
+                <button type="submit" class="button--primary">
+                    {{ 'polls.choose.next' | trans }}
+                </button>
+            </div>
+
+            <input type="hidden" name="flow" value="on">
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% set answers = proposal.answers %}
+{% set answersByValues = answers | groupAnswersByValues %}
+{% set countYes = answersByValues['yes'] | length %}
+{% set countMaybe = answersByValues['maybe'] | length %}
+{% set totalCount = countYes + countMaybe %}
+
+<li class="result cols cols--center">
+    <span class="col--size3 col--noshrink result__label">
+        {% if date is defined and date %}
+            <span
+                class="text--bold"
+                data-controller="local-time"
+                data-local-time-source-timezone-value="{{ poll.timezoneName }}"
+                data-local-time-date-value="{{ date.value | date('Y-m-d', poll.timezoneName) }}"
+            >
+                {{ date.value | dateTrans("EEEE, d 'de' MMMM 'de' y", poll.timezoneName) }} - {{ proposal.label }}
+            </span>
+        {% else %}
+            <span class="text--bold">{{ proposal.label }}</span>
+        {% endif %}
+    </span>
+
+    <span class="col--extend">
+        {% if totalCount > 0 %}
+            <span
+                class="resultbar"
+                style="--resultbar-width: {{ totalCount * 100 / maxCount }}%"
+            >
+                {% if countYes > 0 %}
+                    <span
+                        class="resultbar__part resultbar__part--yes"
+                        style="--resultbar-part-width: {{ countYes * 100 / totalCount }}%"
+                    >
+                        {{ countYes }}
+
+                        <span class="sr-only">
+                            {{ 'polls.votes.yes' | trans }}
+                        </span>
+                    </span>
+                {% endif %}
+
+                {% if countMaybe > 0 %}
+                    <small
+                        class="resultbar__part resultbar__part--maybe"
+                        style="--resultbar-part-width: {{ countMaybe * 100 / totalCount }}%"
+                    >
+                        {{ 'polls.votes.maybe.count_alt' | trans({ count: countMaybe }) }}
+                    </small>
+                {% endif %}
+            </span>
+        {% else %}
+            <span class="resultbar__placeholder">
+                —
+            </span>
+        {% endif %}
+    </span>
+</li>

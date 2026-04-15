@@ -1,0 +1,44 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'login.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+        <h1>
+            {{ 'login.title' | trans }}
+        </h1>
+
+        {% for message in app.flashes('error') %}
+            <p role="alert" class="form__error panel panel--primary panel--rounded">
+                <span class="sr-only">{{ 'forms.error' | trans }}</span>
+                {{ message | trans }}
+            </p>
+        {% endfor %}
+
+        {% if wikimediaOAuthEnabled %}
+            <div class="panel panel--primary panel--rounded flow flow--small">
+                <p class="text--bold">
+                    {{ 'login.wikimedia.title' | trans }}
+                </p>
+
+                <a href="{{ path('login wikimedia') }}" class="button button--primary button--block text--center">
+                    {{ 'login.wikimedia.button' | trans }}
+                </a>
+
+                <p class="text--secondary text--small">
+                    {{ 'login.wikimedia.help' | trans }}
+                </p>
+            </div>
+        {% else %}
+            <p class="panel panel--grey panel--rounded">
+                {{ 'login.wikimedia.not_configured' | trans }}
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

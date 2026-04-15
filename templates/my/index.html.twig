@@ -1,0 +1,184 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'my.index.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div
+        class="wrapper wrapper--small wrapper--center flow flow--larger"
+        data-controller="my"
+        data-my-confirmation-polls-removal-value="{{ 'my.index.polls.confirm_removal' | trans }}"
+        data-my-confirmation-votes-removal-value="{{ 'my.index.votes.confirm_removal' | trans }}"
+    >
+        <h1>
+            {{ 'my.index.title' | trans }}
+            {{ icon('thumbtack') }}
+        </h1>
+
+        {% if app.request.query.get('mailSent') %}
+            <div class="panel panel--success panel--rounded cols cols--gap-small">
+                <div class="text--bigger text--success">
+                    {{ icon('circle-check') }}
+                </div>
+
+                <p class="text--success" role="alert">
+                    {{ 'my.index.search.success' | trans }}
+                </p>
+            </div>
+        {% endif %}
+
+        <p>
+            {{ 'my.index.description' | trans }}
+        </p>
+
+        <div class="flow">
+            <div class="cols cols--center cols--always cols--gap-small">
+                <h2 class="col--extend text--primary">
+                    {{ 'my.index.votes.title' | trans }}
+                </h2>
+
+                <button
+                    type="button"
+                    class="button--danger button--smaller"
+                    data-action="my#removeVotes"
+                    data-my-target="votesRemovalButton"
+                >
+                    {{ icon('thumbtack-slash') }}
+                    {{ 'my.index.remove_all' | trans }}
+                </button>
+            </div>
+
+            <ul class="panel panel--primary panel--rounded list--nostyle flow" data-my-target="votes">
+            </ul>
+
+            <p class="panel panel--primary panel--rounded text--bold text--center" data-my-target="votesPlaceholder">
+                {{ 'my.index.votes.empty_placeholder' | trans }}
+            </p>
+
+            <template data-my-target="voteTemplate">
+                <li class="panel panel--white panel--rounded flow flow--small" data-vote="__key__">
+                    <div class="cols cols--center cols--always cols--gap-small">
+                        <span class="text--bold col--extend">
+                            __vote_author__
+                            <span class="text--secondary">
+                                {{ 'my.index.votes.date' | trans }}
+                            </span>
+                        </span>
+
+                        <button
+                            type="button"
+                            class="button--smaller"
+                            data-action="my#removeVote"
+                            data-storage-key="__key__"
+                            title="{{ 'my.index.votes.remove' | trans }}"
+                        >
+                            {{ icon('thumbtack-slash') }}
+                            <span class="sr-only">
+                                {{ 'my.index.votes.remove' | trans }}
+                            </span>
+                        </button>
+                    </div>
+
+                    <p class="text--secondary">
+                        {{ 'my.index.votes.poll' | trans | raw }}
+                    </p>
+
+                    <div class="cols cols--center cols--gap-small">
+                        <a href="__poll_url__" class="button button--smaller">
+                            {{ 'my.index.poll_link' | trans }}
+                        </a>
+
+                        <a href="__vote_url__" class="button button--smaller" data-link-to-vote>
+                            {{ 'my.index.vote_link' | trans }}
+                        </a>
+                    </div>
+                </li>
+            </template>
+        </div>
+
+        <div class="flow">
+            <div class="cols cols--center cols--always cols--gap-small">
+                <h2 class="col--extend text--primary">
+                    {{ 'my.index.polls.title' | trans }}
+                </h2>
+
+                <button
+                    type="button"
+                    class="button--danger button--smaller"
+                    data-action="my#removePolls"
+                    data-my-target="pollsRemovalButton"
+                >
+                    {{ icon('thumbtack-slash') }}
+                    {{ 'my.index.remove_all' | trans }}
+                </button>
+            </div>
+
+            <ul class="panel panel--primary panel--rounded list--nostyle flow" data-my-target="polls">
+            </ul>
+
+            <p class="panel panel--primary panel--rounded text--bold text--center" data-my-target="pollsPlaceholder">
+                {{ 'my.index.polls.empty_placeholder' | trans }}
+            </p>
+
+            <template data-my-target="pollTemplate">
+                <li class="panel panel--white panel--rounded flow flow--small">
+                    <div class="cols cols--center cols--always cols--gap-small">
+                        <h3 class="col--extend">
+                            __title__
+                        </h3>
+
+                        <button
+                            type="button"
+                            class="button--smaller"
+                            data-action="my#removePoll"
+                            data-storage-key="__key__"
+                            title="{{ 'my.index.polls.remove' | trans }}"
+                        >
+                            {{ icon('thumbtack-slash') }}
+                            <span class="sr-only">
+                                {{ 'my.index.polls.remove' | trans }}
+                            </span>
+                        </button>
+                    </div>
+
+                    <p class="text--secondary">
+                        {{ 'my.index.polls.of_by' | trans }}
+                    </p>
+
+                    <div class="cols cols--center cols--gap-small">
+                        <a href="__poll_url__" class="button button--smaller">
+                            {{ 'my.index.poll_link' | trans }}
+                        </a>
+
+                        <a href="__admin_url__" class="button button--smaller">
+                            {{ 'my.index.admin_link' | trans }}
+                        </a>
+                    </div>
+                </li>
+            </template>
+        </div>
+
+        <div class="flow">
+            <h2 class="text--primary">
+                {{ 'my.index.search.title' | trans }}
+            </h2>
+
+            <div class="panel panel--primary panel--rounded">
+                {{ form_start(searchForm) }}
+                    {{ form_errors(searchForm) }}
+
+                    {{ form_row(searchForm.email) }}
+
+                    <div class="text--right">
+                        {{ form_row(searchForm.submit) }}
+                    </div>
+                {{ form_end(searchForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

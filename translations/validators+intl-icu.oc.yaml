@@ -1,0 +1,36 @@
+Error: Error
+'The CSRF token is invalid. Please try to resubmit the form.': Una error s'es 
+  producha, mandatz tornamai lo formulari (geton CSRF invalid).
+answer.value.invalid: Seleccionatz una causida a partir de la lista.
+comment.author_name.max_length: Picatz un nom d’almens {limit} caractèrs.
+comment.author_name.required: Picatz un nom.
+comment.content.required: Escrivètz un messatge.
+date.value.required: Dintratz una data.
+poll.author_email.invalid: Picatz una adreça electronica valida.
+poll.author_email.required: Picatz una adreça electronica.
+poll.author_name.max_length: Picatz un nom de mens de {limit} caractèrs.
+poll.dates.required: Seleccionatz almens una data.
+poll.edit_vote_mode.invalid: Seleccionatz un mòde d’edicion dels vòtes.
+poll.password.incorrect: Lo senhal es incorrècte.
+poll.password.required: Lo senhal es obligatòri.
+poll.slug.already_used: Aqueste ligam es ja utilizat, mercés de ne picar un 
+  autre.
+poll.slug.max_length: Picatz un ligam d’almens {limit} caractèrs.
+poll.slug.pattern: Picatz un ligam en utilizant solament de caractèrs de A a Z, 
+  de chifras, de jonhents o jonhents bas.
+poll.slug.required: Picatz un ligam.
+poll.title.max_length: Picatz un títol d’almens {limit} caractèrs.
+poll.title.required: Picatz un títol.
+poll.type.invalid: Seleccionatz un tipe a partir de la lista.
+proposal.label.max_length: Picatz una proposicion d’almens {limit} caractèrs.
+proposal.label.required: Picatz una proposicion.
+user.username.already_used: Picatz un nom d’utilizaire diferent, aqueste es ja 
+  utilizat.
+user.username.max_length: Picatz un nom d’utilizaire d’almens {limit} caractèrs.
+user.username.required: Picatz un nom d’utilizaire.
+vote.author_name.max_length: Picatz un nom d’almens {limit} caractèrs.
+vote.author_name.required: Picatz un nom.
+vote.max_votes.limited: I a ja agut {max} vòte(s) per aquesta proposicion, 
+  podètz pas votar per ela.
+user.author_name.already_used: Aqueste nom es ja utilizat. Mercés de ne causir 
+  un autre.

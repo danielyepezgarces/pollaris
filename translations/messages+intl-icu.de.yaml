@@ -1,0 +1,346 @@
+admin.polls.admin_link: Admin-Link
+admin.polls.author: Autor
+admin.polls.none: Die Suche ergab keine passenden Umfragen.
+admin.polls.not_completed: Umfrage nicht vollständig
+admin.polls.public_link: Öffentlicher Link
+admin.polls.search: Suche
+admin.polls.title: Umfragen-Liste
+admin.title: Administration
+answers.value.maybe: Bei Bedarf
+answers.value.no: Nein
+answers.value.yes: Ja
+base.copied: Kopiert!
+base.copy: Kopieren
+base.default_title: Willkommen zu {appName}!
+calendar.hints.dates_period: 'Tipp: Sie können einen Datumsbereich auswählen, indem
+  Sie die <kbd>Shift</kbd>-Taste gedrückt halten.'
+calendar.patterns.next_month: Nächster Monat (__date__)
+calendar.patterns.previous_month: Vorheriger Monat (__date__)
+emails.hello: Hallo {name},
+emails.link_to_poll: 'Sie finden Ihre Umfrage unter folgendem Link: {url}'
+emails.new_comment.posted: '{commenter_name} hat gerade einen Kommentar zur Umfrage
+  „{poll_name}“ abgegeben.'
+emails.new_comment.subject: 'Neuer Kommentar zu einer Umfrage: {poll_name}'
+emails.new_poll_admin.created: 'Sie haben soeben die Umfrage „{poll_name}“ erstellt.
+  Sie können Ihre Umfrage jederzeit bearbeiten, indem Sie auf den folgenden Link klicken:'
+emails.new_poll_admin.keep_it_secret: Behalte diesen Link für dich!
+emails.new_poll_admin.subject: 'Neue Umfrage: {poll_name}'
+emails.new_vote.subject: 'Neue Stimme zu einer Umfrage: {poll_name}'
+emails.new_vote.voted: '{voter_name} hat gerade an der Umfrage „{poll_name}“ teilgenommen.'
+emails.polls_list.here_is_the_list: 'Hier ist die Liste der Umfragen, die Sie auf
+  {appName} verwalten:'
+emails.polls_list.subject: Liste Ihrer Umfragen
+errors.404.description: Die angeforderte Seite konnte nicht gefunden werden. 
+  Überprüfen Sie die URL auf Rechtschreibfehler.
+errors.404.title: Seite nicht gefunden!
+errors.back_home: Zurück zur Startseite
+errors.generic.description: Bitte teilen Sie Ihrem Administrator mit, was Sie 
+  gerade gemacht haben, als der Fehler auftrat. Der Fehler wird so schnell wie 
+  möglich behoben.
+errors.generic.sorry: Entschuldigen Sie bitte die Unannehmlichkeiten.
+errors.generic.title: Ein Fehler ist aufgetreten!
+forms.cancel: Abbrechen
+forms.comment_form.author_name.label: Ihr Name
+forms.comment_form.content.label: Deine Nachricht
+forms.complete: Abschließen
+forms.comment_form.submit: Absenden
+forms.apply: Anwenden
+forms.confirm: Bestätigen
+forms.date_type.label.label_pattern: Datum __number__
+forms.error: Fehler
+forms.labels.max_length: (max. {length} Zeichen)
+forms.labels.optional: (optional)
+forms.labels.optional_and_max_length: (optional, max. {length} Zeichen)
+forms.login.password: Passwort
+forms.login.username: Benutzername
+forms.next: Weiter
+forms.poll_authentication_form.password.label: Passwort
+forms.poll_authentication_form.submit: Authentifizieren
+forms.poll_dates_form.add_date: Ein Datum hinzufügen
+forms.poll_dates_form.enter_manually: Daten manuell eingeben
+forms.poll_dates_form.remove_date: Datum entfernen
+forms.poll_dates_form.use_calendar: Daten aus einem Kalender auswählen
+forms.poll_deletion_form.submit: Ich möchte diese Umfrage löschen
+forms.poll_form.author_email.help: Ihre Adresse wird nicht an andere 
+  Umfrageteilnehmende weitergegeben. Sie wird nur dazu verwendet, es Ihnen zu 
+  ermöglichen, Ihre Umfrage wiederzufinden, falls Sie die Adresse verlieren, und
+  Sie zu benachrichtigen, wenn neue Stimmen abgegeben werden.
+forms.poll_form.author_email.label: Ihre E-Mail-Adresse
+forms.poll_form.author_name.label: Ihr Name
+forms.poll_form.closed_at.help: Die Teilnehmenden können bis zu diesem Datum 
+  abstimmen.
+forms.poll_form.closed_at.label: Schlussdatum der Umfrage
+forms.poll_form.description.label: Beschreibung
+forms.poll_form.title.label: Name Ihrer Umfrage
+forms.poll_proposals_form.add_proposal: Einen Vorschlag hinzufügen
+forms.poll_proposals_form.remove_proposal: Einen Vorschlag entfernen
+forms.poll_settings_form.are_results_public.label: Die Ergebnisse sind für alle 
+  Teilnehmenden sichtbar
+forms.poll_settings_form.disable_maybe.label: Deaktiviere „bei Bedarf“-Stimmen
+forms.poll_settings_form.max_votes.label: Maximale Anzahl von „Ja“-Stimmen pro 
+  Vorschlag
+forms.poll_settings_form.notify_on_comments.label: Für jeden Kommentar eine 
+  E-Mail erhalten
+forms.poll_settings_form.notify_on_votes.label: Eine E-Mail für jede Stimme 
+  erhalten
+forms.poll_settings_form.password.label: Passwort
+forms.poll_settings_form.password.leave_empty_to_keep: Leer lassen, um das 
+  aktuelle Passwort beizubehalten.
+forms.poll_settings_form.password.protect: Die Umfrage mit einem Passwort 
+  schützen
+forms.poll_settings_form.password_for_votes_only.label: Die Ergebnisse können 
+  ohne Passwort eingesehen werden
+forms.poll_settings_form.repeat_password.label: Passwort wiederholen
+forms.poll_settings_form.slug.help: Bitte beachten Sie, dass durch das Ändern 
+  des Links zu Ihrer Umfrage diese für alle leichter zugänglich wird. Es wird 
+  empfohlen, sie mit einem Passwort zu schützen.
+forms.poll_settings_form.slug.label: Umfragelink eingeben
+forms.poll_settings_form.vote_no_by_default.label: Wenn keine Antwort gegeben 
+  wird, standardmäßig mit „Nein“ stimmen
+forms.poll_slots_form.add_slot: Zeitfenster hinzufügen
+forms.poll_slots_form.remove_slot: Zeitfenster entfernen
+forms.preferences.color_scheme.auto: Automatisch
+forms.preferences.color_scheme.dark: Dunkel
+forms.preferences.color_scheme.label: Farbschema
+forms.preferences.color_scheme.light: Hell
+forms.preferences.locale.label: Sprache
+forms.previous: Zurück
+forms.proposal_type.label.label_pattern: Vorschlag __number__
+forms.search_polls_form.email.help: Wir senden Ihnen die Links zu den von Ihnen 
+  erstellten Umfragen zu.
+forms.search_polls_form.email.label: Ihre E-Mail-Adresse
+forms.search_polls_form.submit: Absenden
+forms.slot_type.label.label_pattern: Zeitfenster __number__
+forms.slots_form.day: Tag
+forms.vote_form.author_name.label: Ihr Name
+forms.vote_form.leave_confirmation: Sie haben Ihre Stimme noch nicht bestätigt. 
+  Wenn Sie fortfahren, geht Ihr Eintrag verloren. Möchten Sie wirklich 
+  fortfahren?
+forms.vote_form.password.help: Für die Teilnahme an dieser Umfrage ist ein 
+  Passwort erforderlich.
+forms.vote_form.password.label: Passwort
+forms.vote_form.submit.label: Abstimmen
+home.create_poll: Neue Umfrage erstellen
+home.free_software: Pollaris ist eine freie Software, die unter der AGPL 3 
+  lizenziert ist.
+home.free_software.custom: '{appName} benutzt Pollaris, eine unter AGPL 3 lizenzierte,
+  freie Software.'
+home.intro: Nutzen Sie unser Umfrage-Tool, um schnell, einfach und ohne 
+  Registrierung zu planen, zu organisieren und Entscheidungen zu treffen.
+home.my_polls_and_votes: Meine Umfragen und Stimmen
+home.show.poll.deleted: Ihre Umfrage wurde erfolgreich gelöscht.
+home.source_code: Auf den Quelltext zugreifen.
+home.title: Veranstaltungen organisieren oder Meinungen von Freunden und Familie
+  einholen – ganz einfach und kostenlos.
+layout.header.my: Meine Umfragen und Stimmen
+layout.header.preferences: Einstellungen
+layout.logout: Abmelden
+layout.modal.close: Schließen
+login.log_in: Anmelden
+login.title: Als Admin anmelden
+my.index.admin_link: Administrationslink
+my.index.description: Hier finden Sie alle Ihre Umfragen und Stimmen, die in 
+  Ihrem Browser gespeichert sind. Um Ihre Privatsphäre besser zu schützen, 
+  sollten Sie diese löschen, wenn Sie Ihren Browser mit anderen Personen teilen.
+my.index.poll_link: Umfrage-Link
+my.index.polls.confirm_removal: Sie sind dabei, alle Umfragen aus diesem Browser
+  zu entfernen (die Umfragen bleiben weiterhin bestehen). Möchten Sie wirklich 
+  fortfahren?
+my.index.polls.empty_placeholder: Keine Umfragen
+my.index.polls.of_by: Umfrage vom __date__ von __author__
+my.index.polls.remove: Umfrage löschen
+my.index.polls.title: Umfragen
+my.index.remove_all: Alle entfernen
+my.index.search.success: Wir haben Ihnen eine E-Mail mit Links zu Ihren Umfragen
+  geschickt. Bitte überprüfen Sie Ihren Spam-Ordner, wenn Sie diese nicht finden
+  können.
+my.index.search.title: Meine Umfragen per E-Mail finden
+my.index.title: Meine Umfragen und Stimmen
+my.index.vote_link: Abstimmungslink
+my.index.votes.confirm_removal: Sie sind dabei, alle Stimmen aus diesem Browser 
+  zu entfernen (die Stimmen bleiben weiterhin bestehen). Möchten Sie wirklich 
+  fortfahren?
+my.index.votes.date: (Stimme vom __vote_date__)
+my.index.votes.empty_placeholder: Keine Stimmen
+my.index.votes.poll: In der Umfrage „<strong>__poll_title__</strong>“ von 
+  __poll_author__
+my.index.votes.remove: Die Stimme entfernen
+my.index.votes.title: Stimmen
+notifications.close: Schließen
+pagination.next: Nächste Seite
+pagination.previous: Vorherige Seite
+polls.admin.comments: Kommentare
+polls.admin.confirm_delete_comment: Möchten Sie diesen Kommentar wirklich 
+  löschen?
+polls.admin.confirm_delete_vote: Möchten Sie diese Stimme wirklich löschen?
+polls.admin.delete: Löschen
+polls.admin.edit: Bearbeiten
+polls.admin.go_to_poll: Zur Umfrage gehen
+polls.admin.have_voted: '{voter} hat am {date} abgestimmt.'
+polls.admin.no_comments: Es wurden keine Kommentare für die Umfrage 
+  veröffentlicht.
+polls.admin.no_votes: Es wurden keine Stimmen für die Umfrage abgegeben.
+polls.admin.title: Administration der Umfrage
+polls.admin.votes: Stimmen
+polls.authenticate.title: Authentifizierung bei einer geschützten Umfrage
+polls.choose.classic: Klassische Umfrage
+polls.choose.classic_help: Eine Umfrage, um zwischen mehreren freien Optionen zu
+  wählen.
+polls.choose.date: Datums-Umfrage
+polls.choose.date_help: Eine Umfrage zur Auswahl des bestmöglichen Datums oder 
+  Zeitfensters.
+polls.choose.next: Nächstes
+polls.choose.title: Umfrage-Art wählen
+polls.complete.consult: Umfrage jetzt einsehen
+polls.complete.created: Die Umfrage „{poll}“ wurde erstellt. Sie können Ihre 
+  Kontakte zur Teilnahme einladen, indem Sie den unten stehenden Link teilen.
+polls.complete.public_link: Öffentlicher Freigabelink
+polls.complete.see: Meine Umfrage ansehen
+polls.complete.title: Ihre Umfrage ist fertig!
+polls.dates.slots_at_next_step: Wählen Sie ein oder mehrere Daten aus. Im 
+  nächsten Schritt können Sie Zeitfenster auswählen.
+polls.dates.title: Daten auswählen
+polls.deletion.information: Achtung, Sie sind dabei, die Umfrage 
+  „<strong>{title}</strong>“ zusammen mit den dazugehörigen Stimmen und 
+  Kommentaren zu löschen.
+polls.deletion.title: Löschen einer Umfrage
+polls.edit_vote_mode.no: Die Teilnehmenden können ihre Stimme nicht ändern
+polls.edit_vote_mode.own: Jeder Teilnehmende kann seine eigene Stimme ändern
+polls.new.title: Umfrageerstellung
+polls.new.who_you_are: Wer Sie sind
+polls.proposals.best: Bevorzugte Wahl
+polls.proposals.title: Die Vorschläge auswählen
+polls.settings.notifications.title: Benachrichtigungen
+polls.settings.options.title: Abstimmungsoptionen
+polls.settings.password.title: Mit Passwort schützen
+polls.settings.permissions.title: Berechtigungen
+polls.settings.slug.title: Umfragelink anpassen
+polls.settings.title: Die Umfrage konfigurieren
+polls.sharing.public_link: Öffentlicher Freigabelink
+polls.sharing.title: Umfrage teilen
+polls.show.administer: Verwalten
+polls.show.authenticated: Sie haben sich erfolgreich authentifiziert.
+polls.show.comment.created: Ihr Kommentar wurde veröffentlicht.
+polls.show.comments.explain: Ihr Kommentar wird direkt auf der Umfrageseite 
+  angezeigt werden.
+polls.show.comments.new: Neuer Kommentar
+polls.show.comments.none: Es wurden keine Kommentare veröffentlicht.
+polls.show.comments.title: Kommentare
+polls.show.created_by: Umfrage erstellt von {by}
+polls.show.display_list: Listenansicht
+polls.show.display_table: Tabellenansicht
+polls.show.export_csv: Exportieren (<abbr>CSV</abbr>)
+polls.show.is_closed: Diese Umfrage ist geschlossen.
+polls.show.my_votes.date: (Stimme vom __date__)
+polls.show.my_votes.description: Ihre Stimmen werden in Ihrem Browser 
+  gespeichert. Löschen Sie diese für mehr Privatsphäre, wenn Sie Ihren Browser 
+  mit anderen Personen teilen.
+polls.show.my_votes.edit: '{authorName}’s Stimme bearbeiten'
+polls.show.my_votes.information: Informationen
+polls.show.my_votes.remove: Entfernen
+polls.show.my_votes.title: Meine Stimmen
+polls.show.no_vote: Bislang wurden noch keine Stimmen abgegeben, aber keine 
+  Panik, es dauert nicht mehr lange. Denken Sie daran, Ihre Umfrage mit den 
+  anderen Teilnehmenden zu teilen!
+polls.show.poll: Umfrage
+polls.show.print: Drucken
+polls.show.results: Ergebnisse
+polls.show.results.info: '{ countChoices, plural, one {Die bevorzugte Wahlmöglichkeit
+  mit <strong>{countYes} Ja</strong> ist:} other {Die bevorzugten Wahlmöglichkeiten
+  mit <strong>{countYes} Ja</strong> sind:} }'
+polls.show.results.results_graph: Ergebnisgrafik
+polls.show.results.title: Ergebnisse
+polls.show.share: Teilen
+polls.show.vote.created: Ihre Stimme wurde bestätigt.
+polls.show.vote.updated: Ihre Stimme wurde geändert.
+polls.slots.help: Zeitfenster können frei eingegeben werden (z. B. 8 Uhr 
+  morgens). Wenn Sie kein Zeitfenster angeben, wird der gesamte Tag 
+  berücksichtigt.
+polls.slots.same_slots.apply: Für alle Daten das gleiche Zeitfenster anwenden
+polls.slots.same_slots.title: Wählen Sie das Zeitfenster aus, das für alle 
+  Termine gelten soll
+polls.slots.title: Die Zeitfenster auswählen
+polls.steps: Schritt {step} von {total}
+polls.summary.admin_access: Bitte bewahren Sie den folgenden Link auf, um Ihre 
+  Umfrage jederzeit verwalten zu können. <strong>Bewahren Sie diesen Link für 
+  sich!</strong>
+polls.summary.admin_link: Privater Administrations-Link
+polls.summary.admin_link.remember: Den Link in diesem Browser merken
+polls.summary.author.email: E-Mail-Adresse
+polls.summary.author.name: Spitzname
+polls.summary.author.no_email: Keine Adresse angegeben
+polls.summary.closed_at: Ablaufdatum
+polls.summary.closed_at.none: Kein
+polls.summary.delete_poll: Die Umfrage löschen
+polls.summary.edit: Bearbeiten
+polls.summary.information.title: Allgemeine Informationen
+polls.summary.is_closed: (Umfrage geschlossen)
+polls.summary.proposals.title: Meine Vorschläge
+polls.summary.settings.customised_slug: Der Link zur Umfrage ist individuell 
+  angepasst.
+polls.summary.settings.edit_vote_mode.no: Teilnehmende können ihre Stimme nicht 
+  ändern.
+polls.summary.settings.edit_vote_mode.own: Jeder Teilnehmende kann seine eigene 
+  Stimme ändern.
+polls.summary.settings.is_disable_maybe: Die Teilnehmenden können nicht mit „bei
+  Bedarf“ abstimmen.
+polls.summary.settings.is_vote_no_by_default: Keine Antwort entspricht einem 
+  „Nein“.
+polls.summary.settings.max_votes: Maximal { number, plural, one {1 Teilnehmender
+  kann} other {# Teilnehmende können} } pro Vorschlag abstimmen.
+polls.summary.settings.notify_on_comments.do: Ich erhalte jedes Mal eine E-Mail,
+  wenn jemand einen Kommentar zur Umfrage abgibt.
+polls.summary.settings.notify_on_comments.dont: Ich erhalte keine E-Mail, wenn 
+  jemand einen Kommentar zur Umfrage abgibt.
+polls.summary.settings.notify_on_votes.do: Ich erhalte jedes Mal eine E-Mail, 
+  wenn jemand in der Umfrage abstimmt.
+polls.summary.settings.notify_on_votes.dont: Ich erhalte keine E-Mail, wenn 
+  jemand in der Umfrage abstimmt.
+polls.summary.settings.password_protected.full: Die Umfrage ist durch ein 
+  Passwort geschützt.
+polls.summary.settings.password_protected.not: Die Umfrage ist nicht durch ein 
+  Passwort geschützt.
+polls.summary.settings.password_protected.vote: Die Umfrage ist durch ein 
+  Passwort geschützt (die Ergebnisse sind ohne Passwort sichtbar).
+polls.summary.settings.results.private: Ich bin der Einzige, der die 
+  Umfrageergebnisse sehen kann.
+polls.summary.settings.results.public: Jeder kann die Umfrageergebnisse sehen.
+polls.summary.settings.title: Umfrageoptionen
+polls.summary.title: Zusammenfassung Ihrer Umfrage
+polls.votes.maybe: Bei Bedarf
+polls.votes.maybe.count: '{count} Bei Bedarf'
+polls.votes.maybe.count_alt: (+{count})
+polls.votes.no: Nein
+polls.votes.no.count: '{count} Nein'
+polls.votes.sum: Summe
+polls.votes.yes: Ja
+polls.votes.yes.count: '{count} Ja'
+polls.votes.yours: Ihre Stimme
+preferences.edit.title: Ihre Einstellungen
+admin.polls.created_at: Erstellt am
+polls.summary.admin_access.sent_by_email: Dieser Link wurde Ihnen auch per 
+  E-Mail zugesandt.
+polls.summary.admin_access.title: Privater Administrations-Link
+polls.summary.admin_access.will_send_by_email: Dieser Link wird Ihnen auch per 
+  E-Mail zugesandt.
+polls.summary.admin_link.remember.description: Wenn Sie die Option „Den Link in 
+  diesem Browser merken“ aktivieren, wird diese Umfrage auf diesem Gerät 
+  gespeichert. So können Sie sie später über denselben Browser wiederfinden, um 
+  sie anzuzeigen oder zu ändern. Aus Gründen der Vertraulichkeit sollten Sie 
+  diese Option nicht aktivieren, wenn Sie dieses Gerät mit anderen Personen 
+  gemeinsam nutzen.
+polls.summary.admin_link.remember.information: Informationen
+base.edit: Bearbeiten
+polls.edit_vote_mode.any: Jeder Teilnehmende kann jede Stimme ändern
+polls.summary.settings.edit_vote_mode.any: Jeder Teilnehmende kann jede Stimme 
+  ändern.
+forms.vote_form.required_choice: Bitte wählen Sie mindestens eine Option aus den
+  oben genannten Möglichkeiten aus.
+polls.table.toolbar.scroll_to_left.title: Nach links scrollen
+polls.table.toolbar.scroll_to_right.title: Nach rechts scrollen
+polls.table.toolbar.show_less.title: Die Zeile reduzieren, um die Anzeige von 
+  Beschriftungen zu begrenzen
+polls.table.toolbar.show_less.label: Die Zeile reduzieren
+polls.table.toolbar.show_more.title: Die Zeile erweitern, um alle Beschriftungen
+  anzuzeigen
+polls.table.toolbar.show_more.label: Die Zeile erweitern

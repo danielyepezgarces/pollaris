@@ -1,0 +1,7 @@
+Error: Error
+'The CSRF token is invalid. Please try to resubmit the form.': Se ha producido 
+  un error, por favor, envíe el formulario de nuevo (token CSRF no válido).
+answer.value.invalid: Seleccione una opción de la lista.
+comment.author_name.max_length: Introduzca un nombre de menos de {limit} 
+  caracteres.
+poll.timezone_mode.invalid: Seleccione una zona horaria válida.

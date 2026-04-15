@@ -1,0 +1,48 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'polls.new.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+        <div class="flow">
+            <h1>
+                {{ 'polls.new.title' | trans }}
+            </h1>
+
+            {{ include('polls/_flow_steps.html.twig', { step: 'init' }) }}
+        </div>
+
+        {{ form_start(form, {
+            attr: {
+                'class': 'form--standard',
+                'data-controller': 'poll-timezone',
+            },
+        }) }}
+            {{ form_errors(form) }}
+
+            <div class="panel panel--primary panel--rounded flow flow--large">
+                {{ form_row(form.title) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.closedAt) }}
+                {{ form_row(form.timezoneMode) }}
+            </div>
+
+            <fieldset class="panel panel--primary panel--rounded">
+                <legend>{{ 'polls.new.who_you_are' | trans }}</legend>
+
+                <div class="flow flow--large">
+                    {{ form_row(form.authorName) }}
+                    {{ form_row(form.authorEmail) }}
+                </div>
+            </fieldset>
+
+            {{ include('polls/_flow_actions.html.twig', { step: 'init' }) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

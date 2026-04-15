@@ -1,0 +1,35 @@
+Error: Errore
+'The CSRF token is invalid. Please try to resubmit the form.': Si è verificato 
+  un errore, invia di nuovo il modulo (token CSRF non valido).
+answer.value.invalid: Seleziona un'opzione dall'elenco.
+comment.author_name.max_length: Inserisci un nome con meno di {limit} caratteri.
+comment.author_name.required: Inserisci un nome.
+comment.content.required: Inserisci un messaggio.
+date.value.required: Inserisci una data.
+poll.author_email.invalid: Inserisci un indirizzo email valido.
+poll.author_email.required: Inserisci un indirizzo email.
+poll.author_name.max_length: Inserisci un nome con meno di {limit} caratteri.
+poll.dates.required: Seleziona almeno una data.
+poll.edit_vote_mode.invalid: Seleziona dall'elenco una modalità di modifica dei 
+  voti .
+poll.password.incorrect: La password non è corretta.
+poll.password.required: La password è obbligatoria.
+poll.slug.already_used: Questo link è già in uso. Inserisci un nuovo link.
+poll.slug.max_length: Inserisci un link con meno di {limit} caratteri.
+poll.slug.pattern: Inserisci un link utilizzando solo caratteri dalla A alla Z, 
+  numeri, trattini o trattini bassi (underscore).
+poll.slug.required: Inserisci un link.
+poll.title.max_length: Inserisci un titolo con meno di {limit} caratteri.
+poll.title.required: Inserisci un titolo.
+poll.type.invalid: Seleziona un tipo dall'elenco.
+proposal.label.max_length: Inserisci una proposta con meno di {limit} caratteri.
+proposal.label.required: Inserisci una proposta.
+user.username.already_used: Inserisci un nome utente diverso, questo è già in 
+  uso.
+user.username.max_length: Inserisci un nome utente con meno di {limit} 
+  caratteri.
+user.username.required: Inserisci un nome utente.
+vote.author_name.max_length: Inserisci un nome con meno di {limit} caratteri.
+vote.author_name.required: Inserisci un nome.
+vote.max_votes.limited: Ci sono già stati {max} voti per questa proposta, non 
+  puoi votarla.

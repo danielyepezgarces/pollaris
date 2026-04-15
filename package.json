@@ -1,0 +1,20 @@
+{
+  "name": "pollaris",
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "scripts": {
+    "watch": "esbuild --bundle --loader:.woff2=file --loader:.svg=file --sourcemap --outdir=public/dev_assets --watch=forever assets/*/application.*",
+    "build": "esbuild --bundle --loader:.woff2=file --loader:.svg=file --sourcemap --outdir=public/assets --minify assets/*/application.*",
+    "build:icons": "svg-sprite --config .svg-sprite.json assets/icons/*.svg"
+  },
+  "devDependencies": {
+    "esbuild": "0.27.4",
+    "svg-sprite": "^2.0.4"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo": "^8.0.5",
+    "dayjs": "^1.11.13",
+    "qrcode": "^1.5.4"
+  }
+}

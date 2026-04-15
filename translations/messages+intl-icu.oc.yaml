@@ -1,0 +1,332 @@
+admin.polls.admin_link: Ligam admin
+admin.polls.author: Autor
+admin.polls.created_at: Creat lo
+admin.polls.none: La recèrca a pas tornat cap de sondatge.
+admin.polls.not_completed: Sondatge non finalizat
+admin.polls.public_link: Ligam public
+admin.polls.search: Recercar
+admin.polls.title: Lista dels sondatges
+admin.title: Administracion
+answers.value.maybe: Se cal
+answers.value.no: Non
+answers.value.yes: Òc
+base.copied: Copiat !
+base.copy: Copiar
+base.default_title: Benvenguda dins {appName} !
+calendar.hints.dates_period: 'Astúcia : podètz seleccionar una plaja de data en tenent
+  de quichar la tòca <kbd>Maj</kbd>.'
+calendar.patterns.next_month: Mes seguent (__date__)
+calendar.patterns.previous_month: Mes precedent (__date__)
+emails.hello: Bonjorn {name},
+emails.link_to_poll: 'Podètz retrobar vòstre sondatge a l’adreça : {url}'
+emails.new_comment.posted: '{commenter_name} sortís de comentar sul sondatge « {poll_name} ».'
+emails.new_comment.subject: 'Comentari novèl sul sondatge: {poll_name}'
+emails.new_poll_admin.created: 'Sortissètz de crear lo sondatge « {poll_name} ». Podètz
+  modificar vòstre sondatge a tot moment en anant a l’adreça seguenta :'
+emails.new_poll_admin.keep_it_secret: Asseguratz de gardar aqueste ligam sonca 
+  per vos !
+emails.new_poll_admin.subject: 'Sondatge novèl: {poll_name}'
+emails.new_vote.subject: 'Vòte novèl sus un sondatge: {poll_name}'
+emails.new_vote.voted: '{voter_name} sortís de votar dins lo sondatge « {poll_name} ».'
+emails.polls_list.here_is_the_list: 'Vaquí la lista dels sondatges qu’administratz
+  sus {appName} :'
+emails.polls_list.subject: Lista de vòstres sondatges
+errors.404.description: La pagina demandada es pas estada trobada. Verificatz 
+  que i a pas de fauta dins l'URL.
+errors.404.title: Pagina non trobada !
+errors.back_home: Tornar a l’acuèlh
+errors.generic.description: Volgatz indicar a vòstre administrator çò que 
+  fasiatz quand l’error s’es producha. Lo problèma serà reglat tre que possible.
+errors.generic.sorry: Regretam tot inconvenient causat.
+errors.generic.title: S’es producha una error !
+forms.apply: Aplicar
+forms.cancel: Anullar
+forms.comment_form.author_name.label: Vòstre nom
+forms.comment_form.content.label: Vòstre messatge
+forms.comment_form.submit: Publicar
+forms.complete: Finalizar
+forms.confirm: Confirmar
+forms.date_type.label.label_pattern: Data __number__
+forms.error: Error
+forms.labels.max_length: (max. {length} caractèrs)
+forms.labels.optional: (facultatiu)
+forms.labels.optional_and_max_length: (facultatiu, max. {length} caractèrs)
+forms.login.password: Senhal
+forms.login.username: Nom d’utilizaire
+forms.next: Seguent
+forms.poll_authentication_form.password.label: Senhal
+forms.poll_authentication_form.submit: S’autentificar
+forms.poll_dates_form.add_date: Apondre una data
+forms.poll_dates_form.enter_manually: Picar las datas manualament
+forms.poll_dates_form.remove_date: Levar la data
+forms.poll_dates_form.use_calendar: Seleccionar las datas a partir d’un 
+  calendièr
+forms.poll_deletion_form.submit: Vòli suprimir aqueste sondatge
+forms.poll_form.author_email.help: Vòstra adreça electronica serà pas partejada 
+  amb los autres participants del sondatge. Serà utilizada sonca per vos 
+  permetre de retrobar vòstre sondatge se perdètz son adreça e per vos avisar 
+  quand son faches de vòtes novèls.
+forms.poll_form.author_email.label: Vòstra adreça electronica
+forms.poll_form.author_name.label: Vòstre nom
+forms.poll_form.closed_at.help: Los participants poiràn votar dusca aquesta 
+  data.
+forms.poll_form.closed_at.label: Data de fin del sondatge
+forms.poll_form.description.label: Descripcion
+forms.poll_form.title.label: Nom de vòstre sondatge
+forms.poll_proposals_form.add_proposal: Apondre una proposicion
+forms.poll_proposals_form.remove_proposal: Levar la proposicion
+forms.poll_settings_form.are_results_public.label: Los resultats son visibles 
+  per totes los participants
+forms.poll_settings_form.disable_maybe.label: Desactivar los vòtes « se cal »
+forms.poll_settings_form.max_votes.label: Nombre maximum de vòtes « òc » per 
+  proposicion
+forms.poll_settings_form.notify_on_comments.label: Recebre un corrièl per cada 
+  comentari
+forms.poll_settings_form.notify_on_votes.label: Recebre un corrièl per cada vòte
+forms.poll_settings_form.password.label: Senhal
+forms.poll_settings_form.password.leave_empty_to_keep: Daissatz aquestes camps 
+  voids per servar lo senhal actual.
+forms.poll_settings_form.password.protect: Protegir lo sondatge per senhal
+forms.poll_settings_form.password_for_votes_only.label: Los resultats son 
+  visibles sens senhal
+forms.poll_settings_form.repeat_password.label: Confirmar lo senhal
+forms.poll_settings_form.slug.help: Notatz que cambiar lo ligam de vòstre 
+  sondatge lo far venir mai accessible a totes. Es recomandat de lo protegir amb
+  un senhal.
+forms.poll_settings_form.slug.label: Picatz lo ligam del sondatge
+forms.poll_settings_form.vote_no_by_default.label: Votar « non » per defaut en 
+  abséncia de responsa
+forms.poll_slots_form.add_slot: Apondre un orari
+forms.poll_slots_form.remove_slot: Levar l’orari
+forms.preferences.color_scheme.auto: Auto
+forms.preferences.color_scheme.dark: Escur
+forms.preferences.color_scheme.label: Tèma
+forms.preferences.color_scheme.light: Clar
+forms.preferences.locale.label: Lenga
+forms.previous: Precedent
+forms.proposal_type.label.label_pattern: Proposicion __number__
+forms.search_polls_form.email.help: Vos mandarem los ligams dels sondatges 
+  qu'avètz creats.
+forms.search_polls_form.email.label: Vòstra adreça electronica
+forms.search_polls_form.submit: Enviar
+forms.slot_type.label.label_pattern: Orari __number__
+forms.slots_form.day: Jorn
+forms.vote_form.author_name.label: Vòstre nom
+forms.vote_form.leave_confirmation: Avètz pas encara confirmat vòstre vòte. En 
+  contunhant, perdretz vòstra participacion. Volètz vertadièrament contunhar ?
+forms.vote_form.password.help: Cal un senhal per votar dins aqueste sondatge.
+forms.vote_form.password.label: Senhal
+forms.vote_form.submit.label: Votar
+home.create_poll: Crear un sondatge novèl
+home.free_software: Pollaris es un logicial liure jos licéncia AGPL 3.
+home.free_software.custom: '{appName} utiliza Pollaris, un logicial liure jos licéncia
+  AGPL 3.'
+home.intro: Gràcias a nòstre esplech de sondatge, planificatz, organizatz e 
+  prenètz de decisions rapidament, simplament e sens inscripcion.
+home.my_polls_and_votes: Mos sondatge e vòtes
+home.show.poll.deleted: Vòstre sondatge es estat corrèctament suprimit.
+home.source_code: Accedir al còdi font.
+home.title: Organizatz d'eveniments o reculhissètz lo vejaire de vòstre monde, 
+  simplament, liurament.
+layout.header.my: Mos sondatges e vòtes
+layout.header.preferences: Preferéncias
+layout.logout: Se desconnectar
+layout.modal.close: Tampar
+login.log_in: Se connectar
+login.title: Connexion a l’administracion
+my.index.admin_link: Ligam administracion
+my.index.description: Tornatz trobar aicí totes vòstres sondatges e vòtes 
+  memorizats dins vòstre navigador. Per mai de confidencialitat, tiratz-los se 
+  partejatz aqueste amb d'autras personas.
+my.index.poll_link: Ligam sondatge
+my.index.polls.confirm_removal: Sètz a man de levar totes los sondatges 
+  d'aqueste navegador (los sondatges contunharàn d'existir). Volètz 
+  vertadièrament contunhar ?
+my.index.polls.empty_placeholder: Cap de sondatge
+my.index.polls.of_by: Sondatge del __date__ per __author__
+my.index.polls.remove: Levar lo sondatge
+my.index.polls.title: Sondatges
+my.index.remove_all: Tot levar
+my.index.search.success: Vos avèm mandat un corrièl amb los ligams cap a vòstres
+  sondatges. Mercés de verificar vòstres spams se lo vesètz pas arribar.
+my.index.search.title: Retrobar mos sondatges per corrièl
+my.index.title: Mos sondatges e vòtes
+my.index.vote_link: Ligam del vòte
+my.index.votes.confirm_removal: Sètz a mand de levar totes los vòtes d'aqueste 
+  navegador (los vòtes contunharàn d'existir). Volètz vertadièrament contunhar ?
+my.index.votes.date: (vòte del __vote_date__)
+my.index.votes.empty_placeholder: Cap de vòte
+my.index.votes.poll: Sul sondatge « <strong>__poll_title__</strong> » de 
+  __poll_author__
+my.index.votes.remove: Levar lo vòte
+my.index.votes.title: Vòtes
+notifications.close: Tampar
+pagination.next: Pagina seguenta
+pagination.previous: Pagina precedenta
+polls.admin.comments: Comentaris
+polls.admin.confirm_delete_comment: Volètz vertadièrament suprimir aqueste 
+  comentari ?
+polls.admin.confirm_delete_vote: Volètz vertadièrament suprimir aqueste vòte ?
+polls.admin.delete: Suprimir
+polls.admin.edit: Modificar
+polls.admin.go_to_poll: Anar al sondatge
+polls.admin.have_voted: '{voter} votèt lo {date}.'
+polls.admin.no_comments: Cap de comentari pas publicat sus aqueste sondatge.
+polls.admin.no_votes: Cap de vòte pas fach sus aqueste sondatge.
+polls.admin.title: Administracion del sondatge
+polls.admin.votes: Vòtes
+polls.authenticate.title: Autentificacion a un sondatge protegit
+polls.choose.classic: Sondatge classic
+polls.choose.classic_help: Un sondatge per causir entre mantuna opcion liura.
+polls.choose.date: Sondatge data
+polls.choose.date_help: Un sondatge per causir la melhora data o orari possible.
+polls.choose.next: Seguent
+polls.choose.title: Causissètz lo tipe de sondatge
+polls.complete.consult: Consultatz vòstre sondatge tre ara
+polls.complete.created: Lo sondatge « {poll} » es estat creat. Podètz convidar 
+  vòstres contactes a i participar en partejant lo ligam çaijós.
+polls.complete.public_link: Ligam public de partatge
+polls.complete.see: Veire mon sondatge
+polls.complete.title: Vòstre sondatge es lèst !
+polls.dates.slots_at_next_step: Seleccionatz una o mantuna data. Poiretz causir 
+  los oraris a l’ecran seguent.
+polls.dates.title: Causissètz las datas
+polls.deletion.information: Atencion, sètz a mand de suprimir lo sondatge 
+  « <strong>{title}</strong> » e mai los vòtes e comentaris associats.
+polls.deletion.title: Supression d’un sondatge
+polls.edit_vote_mode.no: Los participants pòdon pas modificar lor vòte
+polls.edit_vote_mode.own: Cada participant pòt modificar lor pròpri vòte
+polls.new.title: Creacion de sondatge
+polls.new.who_you_are: Vòstra identitat
+polls.proposals.best: Causida preferida
+polls.proposals.title: Causissètz las proposicions
+polls.settings.notifications.title: Notificacions
+polls.settings.options.title: Opcions dels vòtes
+polls.settings.password.title: Protegir per senhal
+polls.settings.permissions.title: Autorizacions
+polls.settings.slug.title: Personalizar lo ligam del sondatge
+polls.settings.title: Parametratz lo sondatge
+polls.sharing.public_link: Ligam public de partatge
+polls.sharing.title: Partejar lo sondatge
+polls.show.administer: Administrar
+polls.show.authenticated: Vos avèm autentificat amb succès.
+polls.show.comment.created: Vòstre comentari es estat publicat.
+polls.show.comments.explain: Vòstre comentari serà dirèctament visible sus la 
+  pagina del sondatge.
+polls.show.comments.new: Comentari novèl
+polls.show.comments.none: Cap de comentari pas publicat.
+polls.show.comments.title: Comentaris
+polls.show.created_by: Sondatge creat per {by}
+polls.show.display_list: Afichatge lista
+polls.show.display_table: Afichatge tablèu
+polls.show.export_csv: Exportar en (<abbr>CSV</abbr>)
+polls.show.is_closed: Aqueste sondatge es acabat.
+polls.show.my_votes.date: (vòte del __date__)
+polls.show.my_votes.description: Vòstres vòtes son gardats dins vòstre 
+  navegador. Per mai de confidencialitat, suprimissètz-los se partejatz aqueste 
+  amb d'autras personas.
+polls.show.my_votes.edit: Modificar lo vòt de {authorName}
+polls.show.my_votes.information: Informacions
+polls.show.my_votes.remove: Levar
+polls.show.my_votes.title: Mos vòtes
+polls.show.no_vote: Pel moment cap de vòte non es estat fach, mas cap 
+  d’inquietud, aquò tardarà pas. Pensatz simplament a partejar vòstre sondatge 
+  amb los autres participants e participantas !
+polls.show.poll: Sondatge
+polls.show.print: Imprimir
+polls.show.results: Resultats
+polls.show.results.info: '{ countChoices, plural, one {La causida preferida amb <strong>{countYes}
+  òc</strong> es :} other {Las causidas preferidas amb <strong>{countYes} òc</strong>
+  son :} }'
+polls.show.results.results_graph: Grafic dels resultats
+polls.show.results.title: Resultats
+polls.show.share: Partejar
+polls.show.vote.created: Vòstre vòte es confirmat.
+polls.show.vote.updated: Vòstre vòte es estat modificat.
+polls.slots.help: "Los oraris se pòdon picar liurament (per exemple : 8h o matin).
+  Se n'indicatz pas, la jornada entièra serà presa en compte."
+polls.slots.same_slots.apply: Aplicar los meteisses oraris a totas las datas
+polls.slots.same_slots.title: Causissètz los oraris a aplicar a totas las datas
+polls.slots.title: Causissètz los oraris
+polls.steps: Etapa {step} de {total}
+polls.summary.admin_access: Volgatz conservar lo ligam seguent per poder 
+  administrar vòstre sondatge a tot moment. <strong>Gardatz aqueste ligam per 
+  vos !</strong>
+polls.summary.admin_link: Ligam privat d’administracion
+polls.summary.admin_link.remember: Memorizar lo sondatge dins aqueste navegador
+polls.summary.author.email: Adreça electronica
+polls.summary.author.name: Escais-nom
+polls.summary.author.no_email: Cap d’adreça pas picada
+polls.summary.closed_at: Data de fin
+polls.summary.closed_at.none: Cap
+polls.summary.delete_poll: Suprimir lo sondatge
+polls.summary.edit: Modificar
+polls.summary.information.title: Informacions generalas
+polls.summary.is_closed: (sondatge acabat)
+polls.summary.proposals.title: Mas proposicions
+polls.summary.settings.customised_slug: Lo ligam del sondatge es personalizat.
+polls.summary.settings.edit_vote_mode.no: Los participants pòdon pas modificar 
+  lor vòte.
+polls.summary.settings.edit_vote_mode.own: Cada participant pòt modificar lor 
+  pròpri vòte.
+polls.summary.settings.is_disable_maybe: Los participants pòdon pas votar « se 
+  cal ».
+polls.summary.settings.is_vote_no_by_default: L’abséncia de responsa equival a 
+  un vòte « non ».
+polls.summary.settings.max_votes: '{ number, plural, one {1 participant·a maximum
+  pòt} other {# participant·as maximum pòdon} } votar per preposicion.'
+polls.summary.settings.notify_on_comments.do: Recebrai un corrièl per cada 
+  comentari sul sondatge.
+polls.summary.settings.notify_on_comments.dont: Recebrai pas de corrièl per cada
+  comentari sul sondatge.
+polls.summary.settings.notify_on_votes.do: Recebrai un corrièl per cada vòte sul
+  sondatge.
+polls.summary.settings.notify_on_votes.dont: Recebrai pas de corrièl per cada 
+  vòte sul sondatge.
+polls.summary.settings.password_protected.full: Lo sondatge es protegit per un 
+  senhal.
+polls.summary.settings.password_protected.not: Lo sondatge es pas protegit per 
+  un senhal.
+polls.summary.settings.password_protected.vote: Lo sondatge es protegit per un 
+  senhal (los resultats son visibles sens senhal).
+polls.summary.settings.results.private: Soi lo o la sola a poder veire los 
+  resultats del sondatge.
+polls.summary.settings.results.public: Totòm pòt veire los resultats del 
+  sondatge.
+polls.summary.settings.title: Opcions del sondatge
+polls.summary.title: Resumit de vòstre sondatge
+polls.votes.maybe: Se cal
+polls.votes.maybe.count: '{count} Se cal'
+polls.votes.maybe.count_alt: (+{count})
+polls.votes.no: Non
+polls.votes.no.count: '{count} Non'
+polls.votes.sum: Soma
+polls.votes.yes: Òc
+polls.votes.yes.count: '{count} Òc'
+polls.votes.yours: Vòstre vòte
+preferences.edit.title: Vòstras preferéncias
+base.edit: Modificar
+polls.edit_vote_mode.any: Cada participant pòt modificar quin vòt que siá
+polls.summary.admin_access.sent_by_email: Aqueste ligam es tanben estat enviat 
+  per corrièl.
+polls.summary.admin_access.title: Ligam d’administracion privat
+polls.summary.admin_access.will_send_by_email: Aqueste ligam vos serà tanben 
+  mandat per corrièl.
+polls.summary.admin_link.remember.description: En marcant l'opcion « Memorizar 
+  lo sondatge dins aqueste navegador », aqueste sondatge serà enregistrat sus 
+  aqueste aparelh. Aquò vos permetrà de lo trobar mai tard dempuèi lo meteis 
+  navegidor per lo veire o lo modificar. Per mai de confidencialitat, marquetz 
+  pas aquesta opcion se aqueste aparelh es partejat amb d'autras personas.
+polls.summary.admin_link.remember.information: Informacions
+polls.summary.settings.edit_vote_mode.any: Cada participant pòt modificar quin 
+  vòt que siá.
+forms.vote_form.required_choice: Mercés de seleccionar almens una opcion dins 
+  las proposicions çaijós.
+polls.table.toolbar.scroll_to_left.title: Far defilar a esquèrra
+polls.table.toolbar.scroll_to_right.title: Far defilar a drecha
+polls.table.toolbar.show_less.label: Reduire la linha
+polls.table.toolbar.show_less.title: Reduire la linha per limitar l’afichatge 
+  dels labèls
+polls.table.toolbar.show_more.label: Espandir la linha
+polls.table.toolbar.show_more.title: Espandir la linha per afichar totes los 
+  labèls

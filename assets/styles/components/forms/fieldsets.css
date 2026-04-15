@@ -1,0 +1,19 @@
+/* This file is part of Pollaris. */
+/* Copyright 2024-2026 Marien Fressinaud */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+fieldset {
+    border: none;
+}
+
+fieldset fieldset {
+    margin-right: 0;
+    margin-left: 0;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+fieldset legend {
+    font-size: var(--font-size-big);
+    font-weight: bold;
+}

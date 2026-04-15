@@ -1,0 +1,57 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block robots_head_tags %}{% endblock %}
+
+{% block body %}
+    <div class="wrapper flow flow--larger">
+        {% for message in app.flashes('success') %}
+            {% if message == 'poll.deleted' %}
+                {{ include('notifications/_success.html.twig', { message: 'home.show.poll.deleted' | trans }) }}
+            {% endif %}
+        {% endfor %}
+
+        <div class="cols cols--gap-large">
+            <div class="col--extend flow flow--large">
+                <h1>
+                    {{ 'home.title' | trans }}
+                </h1>
+
+                <p class="text--primary text--big">
+                    {{ 'home.intro' | trans }}
+                </p>
+            </div>
+
+            <div>
+                <img alt="" src="{{ asset('calendar.png') }}">
+            </div>
+        </div>
+
+        <p class="cols cols--center cols--gap">
+            <a class="button button--primary" href="{{ app.user ? path('choose poll type') : path('login') }}">
+                {{ 'home.create_poll' | trans }}
+            </a>
+
+            <a class="button" href="{{ path('my') }}">
+                {{ 'home.my_polls_and_votes' | trans }}
+            </a>
+        </p>
+
+        <p class="text--secondary">
+            {% if appName == 'Pollaris' %}
+                {{ 'home.free_software' | trans }}
+            {% else %}
+                {{ 'home.free_software.custom' | trans({ appName: appName }) }}
+            {% endif %}
+
+            <a href="https://framagit.org/pollaris/pollaris">
+                {{ 'home.source_code' | trans }}
+            </a>
+        </p>
+    </div>
+{% endblock %}

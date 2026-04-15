@@ -1,0 +1,61 @@
+{% if compact | default(false) %}
+    <div class="poll-timezone-toggle poll-timezone-toggle--compact" data-controller="timezone-display">
+        <label class="button button--small" data-timezone-display-target="option">
+            <input
+                type="radio"
+                name="timezone_display_{{ poll.id }}"
+                value="poll"
+                class="sr-only"
+                data-timezone-display-target="input"
+                data-action="timezone-display#change"
+            >
+            {{ 'polls.timezone.display.poll' | trans({ timezone: poll.timezoneName }) }}
+        </label>
+
+        <label class="button button--small" data-timezone-display-target="option">
+            <input
+                type="radio"
+                name="timezone_display_{{ poll.id }}"
+                value="local"
+                checked
+                class="sr-only"
+                data-timezone-display-target="input"
+                data-action="timezone-display#change"
+            >
+            {{ 'polls.timezone.display.local' | trans }}
+        </label>
+    </div>
+{% else %}
+    <div class="panel panel--primary panel--rounded flow flow--small poll-timezone-toggle-panel">
+        <p class="text--bold">
+            {{ 'polls.timezone.display.label' | trans }}
+        </p>
+
+        <div class="cols cols--gap poll-timezone-toggle" data-controller="timezone-display">
+            <label class="button button--small" data-timezone-display-target="option">
+                <input
+                    type="radio"
+                    name="timezone_display_{{ poll.id }}"
+                    value="poll"
+                    class="sr-only"
+                    data-timezone-display-target="input"
+                    data-action="timezone-display#change"
+                >
+                {{ 'polls.timezone.display.poll' | trans({ timezone: poll.timezoneName }) }}
+            </label>
+
+            <label class="button button--small" data-timezone-display-target="option">
+                <input
+                    type="radio"
+                    name="timezone_display_{{ poll.id }}"
+                    value="local"
+                    checked
+                    class="sr-only"
+                    data-timezone-display-target="input"
+                    data-action="timezone-display#change"
+                >
+                {{ 'polls.timezone.display.local' | trans }}
+            </label>
+        </div>
+    </div>
+{% endif %}

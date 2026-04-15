@@ -1,0 +1,74 @@
+admin.polls.author: Ameskar
+admin.polls.search: Anadi
+admin.title: Tadbelt
+answers.value.no: Uhu
+answers.value.yes: Ih
+base.copy: Nɣel
+base.edit: Ẓreg
+forms.apply: Snes
+forms.cancel: Semmet
+forms.confirm: Sentem
+forms.error: Tuccḍa
+forms.login.password: Awal n uɛeddi
+forms.login.username: Isem n useqdac
+forms.next: Uḍfir
+forms.poll_authentication_form.password.label: Awal n uɛeddi
+forms.poll_authentication_form.submit: Asesteb
+forms.poll_form.description.label: Aglam
+forms.poll_settings_form.password.label: Awal n uɛeddi
+forms.preferences.color_scheme.auto: Awurman
+forms.preferences.color_scheme.dark: Ubrik
+forms.preferences.color_scheme.light: Aceɛlal
+forms.preferences.locale.label: Tutlayt
+forms.previous: Uzwir
+forms.search_polls_form.submit: Azen
+forms.slots_form.day: Ass
+forms.vote_form.password.label: Awal n uɛeddi
+layout.header.preferences: Imenyafen
+layout.logout: Tuffɣa
+layout.modal.close: Mdel
+notifications.close: Mdel
+polls.admin.comments: Iwenniten
+polls.admin.delete: Kkes
+polls.admin.edit: Ẓreg
+polls.choose.next: Uḍfir
+polls.settings.notifications.title: Ilɣa
+polls.settings.permissions.title: Tisirag
+polls.show.comments.title: Iwenniten
+polls.show.my_votes.information: Talɣut
+polls.show.my_votes.remove: Kkes
+polls.show.print: Siggez
+polls.show.share: Bḍu
+polls.summary.author.name: Meffer isem
+polls.summary.edit: Ẓreg
+polls.votes.no: Uhu
+polls.votes.yes: Ih
+emails.hello: Azul a {name},
+forms.comment_form.author_name.label: Isem-ik
+forms.comment_form.content.label: Izen-ik·im
+forms.date_type.label.label_pattern: Date __number__
+forms.poll_form.author_name.label: Isem-ik
+forms.vote_form.author_name.label: Isem-ik
+login.log_in: Qqen
+polls.show.comments.new: Awennit amaynut
+polls.summary.author.email: Tansa imayl
+polls.votes.no.count: '{count} Uhu'
+polls.votes.yes.count: '{count} Ih'
+base.default_title: Ansuf ar {appName}!
+calendar.patterns.next_month: Ayyur d-iteddun (__date__)
+calendar.patterns.previous_month: Ayyur yezrin (__date__)
+errors.404.title: Ur yettwaf ara usebter!
+forms.labels.max_length: (max. {length} n yisekkilen)
+forms.poll_dates_form.add_date: Rnu azemz
+forms.poll_dates_form.remove_date: Kkes azemz
+forms.poll_form.author_email.label: Tansa-k imayl
+forms.search_polls_form.email.label: Tansa-k imayl
+login.title: Tuqqna ar tedbelt
+polls.new.who_you_are: Tamagit-ik
+errors.back_home: Tuɣalin ar usebter agejdan
+base.copied: Yettwanɣel!
+my.index.admin_link: Aseɣwen n tedbelt
+my.index.remove_all: Kkes-iten akk
+admin.polls.admin_link: Aseɣwen n tedbelt
+pagination.next: Asebter uḍfiṛ
+pagination.previous: Asebter uzwir

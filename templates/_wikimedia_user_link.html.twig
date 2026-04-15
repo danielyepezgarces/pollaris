@@ -1,0 +1,19 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{%- set username = username|default('') -%}
+
+{%- if username is not empty -%}
+    <a
+        href="https://meta.wikimedia.org/wiki/User:{{ username | replace({' ': '_'}) | url_encode }}"
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        {{ username }}
+    </a>
+{%- else -%}
+    —
+{%- endif -%}

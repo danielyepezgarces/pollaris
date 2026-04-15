@@ -1,0 +1,36 @@
+Error: Hiba
+'The CSRF token is invalid. Please try to resubmit the form.': Hiba történt, 
+  kérjük, küldje el újra az űrlapot (érvénytelen CSRF token).
+answer.value.invalid: Válasszon egy lehetőséget a listából.
+comment.author_name.max_length: Írjon be {limit} karakternél rövidebb nevet.
+comment.author_name.required: Írjon be egy nevet.
+comment.content.required: Írjon be egy üzenetet.
+date.value.required: Írjon be egy dátumot.
+poll.author_email.invalid: Érvényes e-mail címet adjon meg.
+poll.author_email.required: Írjon be egy e-mail címet.
+poll.author_name.max_length: Írjon be {limit} karakternél rövidebb nevet.
+poll.dates.required: Válasszon ki legalább egy dátumot.
+poll.edit_vote_mode.invalid: Válasszon szavazatszerkesztési módot a listából.
+poll.password.incorrect: A jelszó helytelen.
+poll.password.required: A jelszó megadása kötelező.
+poll.slug.already_used: Ez a hivatkozás már használatban van. Kérjük, adjon meg 
+  egy újat.
+poll.slug.max_length: Írjon be {limit} karakternél rövidebb hivatkozást.
+poll.slug.pattern: A hivatkozásban csak A-tól Z-ig terjedő betűket, számokat, 
+  kötőjeleket vagy aláhúzásjeleket használjon.
+poll.slug.required: Írjon be egy hivatkozást.
+poll.title.max_length: Írjon be {limit} karakternél rövidebb címet.
+poll.title.required: Írjon be címet.
+poll.type.invalid: Válasszon ki típust a listából.
+proposal.label.max_length: Írjon be {limit} karakternél rövidebb javaslatot.
+proposal.label.required: Adjon javaslatot.
+user.username.already_used: Írjon be másik felhasználónevet, ez már használatban
+  van.
+user.username.max_length: Írjon be {limit} karakternél rövidebb 
+  felhasználónevet.
+user.username.required: Írja be a felhasználónevet.
+vote.author_name.max_length: Írjon be {limit} karakternél rövidebb nevet.
+vote.author_name.required: Írjon be egy nevet.
+vote.max_votes.limited: Már {max} szavazat érkezett erre a javaslatra, ezért nem
+  szavazhat rá.
+user.author_name.already_used: Válasszon másik nevet, ez már használatban van.

@@ -1,0 +1,328 @@
+admin.polls.admin_link: Ligazón de admin
+admin.polls.author: Autoría
+admin.polls.created_at: Creada o
+admin.polls.none: A busca non atopou ningunha enquisa que concorde.
+admin.polls.public_link: Ligazón pública
+admin.polls.search: Buscar
+admin.polls.title: Lista de enquisas
+admin.title: Administración
+answers.value.maybe: Se fose preciso
+answers.value.no: Non
+answers.value.yes: Si
+base.copied: Copiado!
+base.copy: Copiar
+base.default_title: Benvida a {appName}!
+base.edit: Editar
+calendar.hints.dates_period: 'Consello: podes seleccionar o rango de datas mantendo
+  premida a tecla <kbd>Maiús</kbd>.'
+calendar.patterns.next_month: Próximo mes (__date__)
+calendar.patterns.previous_month: Mes anterior (__date__)
+emails.hello: Ola {name},
+emails.link_to_poll: 'Podes atopar a túa enquisa na ligazón: {url}'
+emails.new_comment.posted: '{commenter_name} comentou na enquisa “{poll_name}”.'
+emails.new_comment.subject: 'Novo comentario nunha enquisa: {poll_name}'
+emails.new_poll_admin.created: 'Creaches a enquisa "{poll_name}". Pódela editar cando
+  queiras premendo na seguinte ligazón:'
+emails.new_poll_admin.keep_it_secret: Garda esta ligazón só para ti!
+emails.new_poll_admin.subject: 'Nova enquisa: {poll_name}'
+emails.new_vote.subject: 'Novo voto nunha enquisa: {poll_name}'
+emails.new_vote.voted: '{voter_name} votou na enquisa “{poll_name}”.'
+emails.polls_list.here_is_the_list: 'Esta é a lista das enquisas que administras en
+  {appName}:'
+emails.polls_list.subject: As túas enquisas
+errors.404.description: Non atopamos a páxina solicitada. Comproba se hai erros 
+  no URL.
+errors.404.title: Páxina non atopada!
+errors.back_home: Volver ao inicio
+errors.generic.description: Dille á administración o que estabas a facer cando 
+  aconteceu o fallo. Arranxarémolo o máis axiña posible.
+errors.generic.sorry: Lamentamos as molestias causadas.
+errors.generic.title: Houbo un erro!
+forms.apply: Aplicar
+forms.cancel: Cancelar
+forms.comment_form.author_name.label: O teu nome
+forms.comment_form.content.label: A túa mensaxe
+forms.comment_form.submit: Publicar
+forms.complete: Completar
+forms.confirm: Confirmar
+forms.date_type.label.label_pattern: Data __number__
+forms.error: Erro
+forms.labels.max_length: (Máx. {length} caracteres)
+forms.labels.optional: (optativo)
+forms.labels.optional_and_max_length: (optativo, máx. {length} caracteres)
+forms.login.password: Contrasinal
+forms.login.username: Identificador
+forms.next: Seguinte
+forms.poll_authentication_form.password.label: Contrasinal
+forms.poll_authentication_form.submit: Autenticar
+forms.poll_dates_form.add_date: Engade unha data
+forms.poll_dates_form.enter_manually: Engade as datas manualmente
+forms.poll_dates_form.remove_date: Retirar a data
+forms.poll_dates_form.use_calendar: Selecciona as datas no calendario
+forms.poll_deletion_form.submit: Quero eliminar esta enquisa
+forms.poll_form.author_email.help: Non se vai compartir o teu enderezo coas 
+  outras persoas que participen na enquisa. Só se usa para que poidas atopar a 
+  túa enquisa se perdes o seu enderezo e para notificarche cando haxa novos 
+  votos.
+forms.poll_form.author_email.label: O teu enderezo de correo
+forms.poll_form.author_name.label: O teu nome
+forms.poll_form.closed_at.help: As persoas participantes poderán votar ata esta 
+  data.
+forms.poll_form.closed_at.label: Data de finalización da enquisa
+forms.poll_form.description.label: Descrición
+forms.poll_form.title.label: Nome da túa enquisa
+forms.poll_proposals_form.add_proposal: Engadir unha proposta
+forms.poll_proposals_form.remove_proposal: Retirar a proposta
+forms.poll_settings_form.are_results_public.label: Todas as participantes poden 
+  ver os resultados
+forms.poll_settings_form.disable_maybe.label: Desactivar votos «se fose preciso»
+forms.poll_settings_form.max_votes.label: Número máximo de votos «si» por 
+  proposta
+forms.poll_settings_form.notify_on_comments.label: Recibir un correo por cada 
+  comentario
+forms.poll_settings_form.notify_on_votes.label: Recibir un correo por cada voto
+forms.poll_settings_form.password.label: Contrasinal
+forms.poll_settings_form.password.leave_empty_to_keep: Deixar baleiro para 
+  manter o contrasinal actual.
+forms.poll_settings_form.password.protect: Protexe a enquisa cun contrasinal
+forms.poll_settings_form.password_for_votes_only.label: Os resultados son 
+  visibles sen contrasinal
+forms.poll_settings_form.repeat_password.label: Repetir o contrasinal
+forms.poll_settings_form.slug.help: Ten en conta que ao cambiar a ligazón á túa 
+  enquisa fas que sexa máis accesible para calquera. É recomendable protexela 
+  cun contrasinal.
+forms.poll_settings_form.slug.label: Escribir a ligazón á enquisa
+forms.poll_settings_form.vote_no_by_default.label: Votar «non» por defecto se 
+  non se da ningunha resposta
+forms.poll_slots_form.add_slot: Engadir un rango horario
+forms.poll_slots_form.remove_slot: Retirar o rango horario
+forms.preferences.color_scheme.auto: Auto
+forms.preferences.color_scheme.dark: Escuro
+forms.preferences.color_scheme.label: Abano de cores
+forms.preferences.color_scheme.light: Claro
+forms.preferences.locale.label: Idioma
+forms.previous: Anterior
+forms.proposal_type.label.label_pattern: Proposta __number__
+forms.search_polls_form.email.help: Enviarémosche a ligazón ás enquisas que ti 
+  creaches.
+forms.search_polls_form.email.label: O teu enderezo de correo
+forms.search_polls_form.submit: Enviar
+forms.slot_type.label.label_pattern: Rango horario __number__
+forms.slots_form.day: Día
+forms.vote_form.author_name.label: O teu nome
+forms.vote_form.leave_confirmation: Aínda non confirmaches o teu voto. Se 
+  continúas vas perder a túa entrada. Tes certeza de querer continuar?
+forms.vote_form.password.help: Tes que ter o contrasinal para poder votar nesta 
+  enquisa.
+forms.vote_form.password.label: Contrasinal
+forms.vote_form.required_choice: Por favor selecciona polo menos unha opción 
+  entre as dispoñibles.
+forms.vote_form.submit.label: Votar
+home.create_poll: Crear nova enquisa
+home.free_software: Pollaris é software libre baixo licenza AGPL 3.
+home.free_software.custom: '{appName} usa Pollaris, software libre baixo licenza AGPL
+  3.'
+home.intro: Utiliza a esta ferramenta para planificar, organizar e tomar 
+  decisións de xeito áxil, simple e sen precisar crear unha conta.
+home.my_polls_and_votes: As miñas enquisas e votos
+home.show.poll.deleted: Eliminouse correctamente a túa enquisa.
+home.source_code: Accede ao código fonte.
+home.title: Organiza eventos e consulta opinións das amizades e familia, de 
+  xeito fácil e libre.
+layout.header.my: As miñas enquisas e votos
+layout.header.preferences: Preferencias
+layout.logout: Fechar sesión
+layout.modal.close: Fechar
+login.log_in: Acceder
+login.title: Acceso á administración
+my.index.admin_link: Ligazón de administración
+admin.polls.not_completed: Enquisa non completada
+my.index.description: Aquí tes gardados no navegador as túas enquisas e votos. 
+  Para maior privacidade elimina estes datos se compartes o navegador con outras
+  persoas.
+my.index.poll_link: Ligazón da enquisa
+my.index.polls.confirm_removal: Vas eliminar todas as enquisas deste navegador 
+  (as enquisas seguirán existindo). Tes certeza de querer continuar?
+my.index.polls.empty_placeholder: Sen enquisas
+my.index.polls.of_by: Enquisa do __date__ por __author__
+my.index.polls.remove: Retirar enquisa
+my.index.polls.title: Enquisas
+my.index.remove_all: Retiralas todas
+my.index.search.success: Enviámosche un correo coa ligazón ás túas enquisas. 
+  Comproba o cartafol de spam se non podes velas.
+my.index.search.title: Atopar as miñas enquisas usando o correo
+my.index.title: As miñas enquisas e votos
+my.index.vote_link: Ligazón do voto
+my.index.votes.confirm_removal: Vas eliminar todos os votos deste navegador (os 
+  votos continuarán existindo). Tes certeza de querer continuar?
+my.index.votes.date: (voto do __vote_date__)
+my.index.votes.empty_placeholder: Sen votos
+my.index.votes.remove: Retirar o voto
+my.index.votes.title: Votos
+notifications.close: Fechar
+pagination.next: Páxina seguinte
+pagination.previous: Páxina anterior
+polls.admin.comments: Comentarios
+polls.admin.confirm_delete_comment: Tes certeza de querer eliminar este 
+  comentario?
+polls.admin.confirm_delete_vote: Tes certeza de querer eliminar este voto?
+polls.admin.delete: Eliminar
+polls.admin.edit: Editar
+polls.admin.go_to_poll: Ir á enquisa
+polls.admin.have_voted: '{voter} votou o {date}.'
+polls.admin.no_comments: Non se publicaron comentarios na enquisa.
+polls.admin.no_votes: Non se votou na enquisa.
+polls.admin.title: Administración da enquisa
+polls.admin.votes: Votos
+polls.authenticate.title: Autenticación nunha enquisa protexida
+polls.choose.classic: Enquisa clásica
+polls.choose.classic_help: Unha enquisa para escoller entre varias opcións 
+  libres.
+polls.choose.date: Enquisa para data
+polls.choose.date_help: Unha enquisa para escoller a máis axeitada entre varias 
+  datas ou horas.
+polls.choose.next: Seguinte
+polls.choose.title: Escolle o tipo de enquisa
+polls.complete.consult: Consulta a túa enquisa
+polls.complete.created: Creouse a enquisa «{poll}». Podes convidar aos teus 
+  contactos a participar compartindo a ligazón inferior.
+polls.complete.public_link: Ligazón pública para compartir
+polls.complete.see: Mira a miña enquisa
+polls.complete.title: A enqusa está preparada!
+polls.dates.slots_at_next_step: Escolle unha ou varias datas. Poderás escoller o
+  rango horario no seguinte paso.
+polls.dates.title: Elixe as datas
+polls.deletion.information: Atención, vas eliminar a enquisa 
+  «<strong>{title}</strong>» xunto cos seus votos e comentarios asociados.
+polls.deletion.title: Eliminación dunha enquisa
+polls.edit_vote_mode.any: Cada participante pode cambiar calquera voto
+polls.edit_vote_mode.no: As persoas participantes non poden cambiar o voto
+polls.edit_vote_mode.own: Cada participante pode cambiar o seu propio voto
+polls.new.title: Creación da enquisa
+polls.new.who_you_are: Quen es
+polls.proposals.best: Opción preferida
+polls.proposals.title: Elixe as propostas
+polls.settings.notifications.title: Notificacións
+polls.settings.options.title: Opcións dos votos
+polls.settings.password.title: Protexer cun contrasinal
+polls.settings.permissions.title: Permisos
+polls.settings.slug.title: Personaliza a ligazón á enquisa
+polls.settings.title: Configurar a enquisa
+polls.sharing.public_link: Publicar ligazón para compartir
+polls.sharing.title: Compartir a enquisa
+polls.show.administer: Administrar
+polls.show.authenticated: Accediches correctamente.
+polls.show.comment.created: Publicouse o teu comentario.
+polls.show.comments.explain: O teu comentario vaise ver directamente na páxina 
+  da enquisa.
+polls.show.comments.new: Novo comentario
+polls.show.comments.none: Non se publicaron comentarios.
+polls.show.comments.title: Comentarios
+polls.show.created_by: Enquisa creada por {by}
+polls.show.display_list: Vista en lista
+polls.show.display_table: Vista en táboa
+polls.show.export_csv: Exportar (<abbr>CSV</abbr>)
+polls.show.is_closed: A enquisa está fechada.
+polls.show.my_votes.date: (voto do __date__)
+polls.show.my_votes.description: Os teus votos gárdanse no navegador. Para ter 
+  maior privacidade, elimínaos se compartes o navegador con outras persoas.
+my.index.votes.poll: Na enquisa “<strong>__poll_title__</strong>” de 
+  __poll_author__
+polls.show.my_votes.edit: Editar o voto de {authorName}
+polls.show.my_votes.information: Información
+polls.show.my_votes.remove: Retirar
+polls.show.my_votes.title: Os meus votos
+polls.show.no_vote: Ate o momento non se recolleron votos, pero non temas, non 
+  falta moito. Lembra compartir a túa enquisa para as persoas poidan participar!
+polls.show.poll: Enquisa
+polls.show.print: Imprimir
+polls.show.results: Resultados
+polls.show.results.info: '{ countChoices, plural, one {A opción preferida con <strong>{countYes}
+  sis</strong> é:} other {As opcións preferidas con <strong>{countYes} sis</strong>
+  son:} }'
+polls.show.results.results_graph: Gráfico cos resultados
+polls.show.results.title: Resultados
+polls.show.share: Compartir
+polls.show.vote.created: Confirmouse o teu voto.
+polls.show.vote.updated: Cambiouse o teu voto.
+polls.slots.help: 'Os rangos horarios pódense engadir libremente (ex.: 8 AM ou Pola
+  mañán). Se non indicas un rango horario, terase en conta todo o día.'
+polls.slots.same_slots.apply: Aplicar os mesmos rangos horarios a todas as datas
+polls.slots.same_slots.title: Elixe os rangos horarios para aplicar a todas as 
+  datas
+polls.slots.title: Elixe os rangos horarios
+polls.steps: Paso {step} de {total}
+polls.summary.admin_access: Garda a seguinte ligazón para poder administrar a 
+  túa enquisa en calquera momento. <strong>É unha ligazón só para ti!</strong>
+polls.summary.admin_access.sent_by_email: Tamén che enviamos a ligazón ao 
+  correo.
+polls.summary.admin_access.title: Ligazón privada de administración
+polls.summary.admin_access.will_send_by_email: Esta ligazón tamén se vai enviar 
+  ao correo.
+polls.summary.admin_link: Ligazón privada de administración
+polls.summary.admin_link.remember: Lembrar a ligazón neste navegador
+polls.summary.admin_link.remember.description: Ao marcar a opción «Lembrar a 
+  ligazón neste navegador», a enquisa vaise gardar neste dispositivo. Deste 
+  xeito poderás atopala máis tarde no navegador para poder vela ou modificala. 
+  Para maior confidencialidade, non marques esta opción se o compartes o 
+  dispositivo con outras persoas.
+polls.summary.admin_link.remember.information: Información
+polls.summary.author.email: Enderezo de correo
+polls.summary.author.name: Alcume
+polls.summary.author.no_email: Sen enderezo
+polls.summary.closed_at: Data de finalización
+polls.summary.closed_at.none: Ningunha
+polls.summary.delete_poll: Eliminar a enquisa
+polls.summary.edit: Editar
+polls.summary.information.title: Información xeral
+polls.summary.is_closed: (rematou a enquisa)
+polls.summary.proposals.title: As miñas propostas
+polls.summary.settings.customised_slug: A ligazón á enquisa está personalizada.
+polls.summary.settings.edit_vote_mode.any: Cada participante pode cambiar 
+  calquera voto.
+polls.summary.settings.edit_vote_mode.no: As participantes non poden cambiar o 
+  seu voto.
+polls.summary.settings.edit_vote_mode.own: Cada participante pode cambiar o seu 
+  propio voto.
+polls.summary.settings.is_disable_maybe: As participantes non poderán votar «Se 
+  fose preciso».
+polls.summary.settings.is_vote_no_by_default: A falta de resposta equivale a 
+  votar «non».
+polls.summary.settings.notify_on_comments.do: Vou recibir un correo cada vez que
+  alguén comente a enquisa.
+polls.summary.settings.notify_on_comments.dont: Non vou recibir un correo cando 
+  alguén comente na enquisa.
+polls.summary.settings.notify_on_votes.do: Vou recibir un correo cando alguén 
+  vote na enquisa.
+polls.summary.settings.notify_on_votes.dont: Non vou recibir un correo cando 
+  alguén vote na enquisa.
+polls.summary.settings.password_protected.full: A enquisa está protexida cun 
+  contrasinal.
+polls.summary.settings.password_protected.not: A enquisa non está protexida cun 
+  contrasinal.
+polls.summary.settings.password_protected.vote: A enquisa está protexida cun 
+  contrasinal (os resultados son visibles sen precisar contrasinal).
+polls.summary.settings.results.private: Só eu podo ver o resultado da enquisa.
+polls.summary.settings.results.public: Calquera pode ver o resultado da enquisa.
+polls.summary.settings.title: Opcións da enquisa
+polls.summary.title: Resumo da túa enquisa
+polls.table.toolbar.scroll_to_left.title: Desprazar cara a esquerda
+polls.table.toolbar.scroll_to_right.title: Desprazar cara a dereita
+polls.table.toolbar.show_less.label: Reducir a fila
+polls.table.toolbar.show_less.title: Reducir a fila para limitar as etiquetas 
+  que se mostran
+polls.table.toolbar.show_more.label: Despregar a fila
+polls.table.toolbar.show_more.title: Despregar a fila para mostrar todas as 
+  etiquetas
+polls.votes.maybe: Se fose preciso
+polls.votes.maybe.count: '{count} Se fose preciso'
+polls.votes.maybe.count_alt: (+{count})
+polls.votes.no: Non
+polls.votes.no.count: '{count} Non'
+polls.votes.sum: Sum
+polls.votes.yes: Si
+polls.votes.yes.count: '{count} Si'
+polls.votes.yours: O teu voto
+preferences.edit.title: Preferencias
+polls.summary.settings.max_votes: Un máximo de { number, plural, one {1 
+  participante} other {# participantes} } poden votar a proposta.

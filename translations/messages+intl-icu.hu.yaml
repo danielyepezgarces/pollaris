@@ -1,0 +1,330 @@
+admin.polls.admin_link: Admin hivatkozás
+admin.polls.author: Szerző
+admin.polls.created_at: 'Létrehozva'
+admin.polls.none: A keresés nem talált megfelelő szavazást.
+admin.polls.not_completed: A szavazás nem fejeződött be
+admin.polls.public_link: Nyilvános hivatkozás
+admin.polls.search: Keresés
+admin.polls.title: Szavazások listája
+admin.title: Adminisztráció
+answers.value.maybe: Szükség esetén
+answers.value.no: Nem
+answers.value.yes: Igen
+base.copied: Másolva!
+base.copy: Másolás
+base.default_title: Üdvözli az {appName}!
+base.edit: Szerkesztés
+calendar.hints.dates_period: 'Tipp: dátumtartományt a <kbd>Shift</kbd> billentyűk
+  lenyomva tartásával választhat ki.'
+calendar.patterns.next_month: Következő hónap (__date__)
+calendar.patterns.previous_month: Előző hónap (__date__)
+emails.hello: Üdv {name},
+emails.link_to_poll: 'A szavazást a következő hivatkozáson találja: {url}'
+emails.new_comment.posted: '{commenter_name} éppen most fűzött megjegyzést a „{poll_name}”
+  szavazáshoz.'
+emails.new_comment.subject: 'Új hozzászólás szavazáshoz: {poll_name}'
+emails.new_poll_admin.created: 'Most hozta létre a „{poll_name}” nevű szavazást. A
+  szavazást bármikor szerkesztheti, ha rákattint a következő hivatkozásra:'
+emails.new_poll_admin.keep_it_secret: Ügyelj rá, hogy ezt a hivatkozást ne oszd 
+  meg másokkal!
+emails.new_poll_admin.subject: 'Új szavazás: {poll_name}'
+emails.new_vote.subject: 'Új szavazás egy kérdőívben: {poll_name}'
+emails.new_vote.voted: '{voter_name} épp most szavazott a „{poll_name}” szavazáson.'
+emails.polls_list.here_is_the_list: 'Az {appName} alkalmazásban általad kezelt szavazások
+  listája:'
+emails.polls_list.subject: Szavazásai listája
+errors.404.description: A kért oldal nem található. Ellenőrizze, hogy az URL-cím
+  helyes-e.
+errors.404.title: Az oldal nem található!
+errors.back_home: Vissza a kezdőlapra
+errors.generic.description: Kérjük jelezze rendszergazdájának, hogy mit csinált,
+  amikor a hiba történt. A hibát a lehető leghamarabb kijavítjuk.
+errors.generic.sorry: Elnézést a kellemetlenségért.
+errors.generic.title: Hiba történt!
+forms.apply: Alkalmaz
+forms.cancel: Mégsem
+forms.comment_form.author_name.label: Az Ön neve
+forms.comment_form.content.label: Az üzenete
+forms.comment_form.submit: Hozzászólás
+forms.complete: Véglegesít
+forms.confirm: Megerősít
+forms.date_type.label.label_pattern: Dátum __szám__
+forms.error: Hiba
+forms.labels.max_length: (max. {hossz} karakter)
+forms.labels.optional: (opcionális)
+forms.labels.optional_and_max_length: (opcionális, max. {hossz} karakter)
+forms.login.password: Jelszó
+forms.login.username: Felhasználónév
+forms.next: Következő
+forms.poll_authentication_form.password.label: Jelszó
+forms.poll_authentication_form.submit: Hitelesítés
+forms.poll_dates_form.add_date: Dátum hozzáadása
+forms.poll_dates_form.enter_manually: Adja meg a dátumokat manuálisan
+forms.poll_dates_form.remove_date: Törölje a dátumot
+forms.poll_dates_form.use_calendar: Válassza ki a dátumokat a naptárból
+forms.poll_deletion_form.submit: Ezt a szavazást törölni szeretném
+forms.poll_form.author_email.help: Az Ön e-mail-címét nem osztjuk meg a szavazás
+  többi résztvevőjével. Csak arra használjuk, hogy Ön megtalálja a szavazását, 
+  ha elveszíti a hivatkozást, valamint hogy értesítsük az új szavazatokról.
+forms.poll_form.author_email.label: Az Ön e-mail címe
+forms.poll_form.author_name.label: Az Ön neve
+forms.poll_form.closed_at.help: A résztvevők eddig szavazhatnak.
+forms.poll_form.closed_at.label: A szavazás lezárásának dátuma
+forms.poll_form.description.label: Leírás
+forms.poll_form.title.label: A szavazás neve
+forms.poll_proposals_form.add_proposal: Javaslat hozzáadása
+forms.poll_proposals_form.remove_proposal: Törölje a javaslatot
+forms.poll_settings_form.are_results_public.label: Az eredmények minden 
+  résztvevő számára láthatók
+forms.poll_settings_form.disable_maybe.label: „Szükség esetén” szavazatok 
+  letiltása
+forms.poll_settings_form.max_votes.label: Javaslatonkénti maximális „igen” 
+  szavazatok száma
+forms.poll_settings_form.notify_on_comments.label: Minden hozzászólásról e-mailt
+  kap
+forms.poll_settings_form.notify_on_votes.label: Minden szavazásról e-mailt kap
+forms.poll_settings_form.password.label: Jelszó
+forms.poll_settings_form.password.leave_empty_to_keep: Hagyja üresen, ha meg 
+  akarja tartani a jelenlegi jelszót.
+forms.poll_settings_form.password.protect: Jelszóval védje a szavazást
+forms.poll_settings_form.password_for_votes_only.label: Az eredmények jelszó 
+  nélkül is megtekinthetők
+forms.poll_settings_form.repeat_password.label: Ismételje meg a jelszót
+forms.poll_settings_form.slug.help: Felhívjuk figyelmét, hogy a szavazás 
+  hivatkozásának módosítása könnyebben hozzáférhetővé teheti azt mások számára. 
+  Javasoljuk, hogy védje jelszóval.
+forms.poll_settings_form.slug.label: Írja be a szavazás hivatkozását
+forms.poll_settings_form.vote_no_by_default.label: Ha nem érkezik válasz, a 
+  rendszer alapértelmezetten „nem” szavazatot rögzít
+forms.poll_slots_form.add_slot: Idősáv hozzáadása
+forms.poll_slots_form.remove_slot: Idősáv eltávolítása
+forms.preferences.color_scheme.auto: Automatikus
+forms.preferences.color_scheme.dark: Sötét
+forms.preferences.color_scheme.label: Színséma
+forms.preferences.color_scheme.light: Világos
+forms.preferences.locale.label: Nyelv
+forms.previous: Előző
+forms.proposal_type.label.label_pattern: Javaslat __szám__
+forms.search_polls_form.email.help: Elküldjük Önnek az Ön által létrehozott 
+  szavazások hivatkozásait.
+forms.search_polls_form.email.label: Az Ön e-mail címe
+forms.search_polls_form.submit: Küldés
+forms.slot_type.label.label_pattern: Idősáv
+forms.slots_form.day: Nap
+forms.vote_form.author_name.label: Az Ön neve
+forms.vote_form.leave_confirmation: Még nem erősítette meg a szavazatát. Ha 
+  folytatja, a bevitt adatok elvesznek. Biztosan folytatja?
+forms.vote_form.password.help: A szavazáshoz jelszó szükséges.
+forms.vote_form.password.label: Jelszó
+forms.vote_form.submit.label: Szavazzon
+home.create_poll: Új szavazás létrehozása
+home.free_software: A Pollaris egy AGPL 3 licenc alatt kiadott szabad szoftver.
+home.free_software.custom: A(z) {appName} a Pollaris nevű, AGPL 3 licenc alatt 
+  kiadott szabad szoftvert használja.
+home.intro: Szavazóeszközünk segítségével gyorsan, egyszerűen és regisztráció 
+  nélkül tervezhet, szervezhet és hozhat döntéseket.
+home.my_polls_and_votes: Szavazások és válaszok
+home.show.poll.deleted: A szavazást sikeresen töröltük.
+home.source_code: Forráskód megnyitása.
+home.title: Szervezzen eseményeket, vagy kérje ki ismerősei véleményét 
+  egyszerűen, szabadon.
+layout.header.my: Szavazásaim és válaszaim
+layout.header.preferences: Beállítások
+layout.logout: Kijelentkezés
+layout.modal.close: Bezárás
+login.log_in: Bejelentkezés
+login.title: Adminisztrációs bejelentkezés
+my.index.admin_link: Adminisztrációs hivatkozás
+my.index.description: Itt találja a böngészőjében mentett összes szavazását és 
+  válaszát. A nagyobb adatvédelem érdekében távolítsa el őket, ha a böngészőt 
+  másokkal is megosztja.
+my.index.poll_link: Szavazás hivatkozása
+my.index.polls.confirm_removal: Az összes szavazást el fogja távolítani ebből a 
+  böngészőből (a szavazások továbbra is megmaradnak). Biztosan folytatja?
+my.index.polls.empty_placeholder: Nincs szavazás
+my.index.polls.of_by: '__date__ szavazás, létrehozta: __author__'
+my.index.polls.remove: Szavazás eltávolítása
+my.index.polls.title: Szavazások
+my.index.remove_all: Összes eltávolítása
+my.index.search.success: Egy e-mailt küldtünk Önnek, amely tartalmazza a 
+  szavazásai hivatkozásait. Ha nem érkezik meg, kérjük, ellenőrizze a spam 
+  mappát is.
+my.index.search.title: Szavazásaim megkeresése e-mailben
+my.index.title: Szavazásaim és válaszaim
+my.index.vote_link: Szavazat hivatkozása
+my.index.votes.confirm_removal: Az összes választ el fogja távolítani ebből a 
+  böngészőből (a válaszok továbbra is megmaradnak). Biztosan folytatja?
+my.index.votes.date: '(szavazat dátuma: __vote_date__)'
+my.index.votes.empty_placeholder: Nincs szavazat
+my.index.votes.poll: A(z) „<strong>__poll_title__</strong>” szavazáson 
+  (__poll_author__ által)
+my.index.votes.remove: Szavazat eltávolítása
+my.index.votes.title: Szavazatok
+notifications.close: Bezárás
+pagination.next: Következő oldal
+pagination.previous: Előző oldal
+polls.admin.comments: Megjegyzések
+polls.admin.confirm_delete_comment: Biztosan törölni szeretné ezt a megjegyzést?
+polls.admin.confirm_delete_vote: Biztosan törölni szeretné ezt a szavazatot?
+polls.admin.delete: Törlés
+polls.admin.edit: Szerkesztés
+polls.admin.go_to_poll: Ugrás a szavazáshoz
+polls.admin.have_voted: '{voter} ekkor szavazott: {date}.'
+polls.admin.no_comments: Ehhez a szavazáshoz még nem érkezett megjegyzés.
+polls.admin.no_votes: Ehhez a szavazáshoz még nem érkezett válasz.
+polls.admin.title: Szavazás adminisztrációja
+polls.admin.votes: Szavazatok
+polls.authenticate.title: Hitelesítés védett szavazáshoz
+polls.choose.classic: Klasszikus szavazás
+polls.choose.classic_help: Szavazás több szabadon megadható lehetőség közötti 
+  választáshoz.
+polls.choose.date: Időpontszavazás
+polls.choose.date_help: Szavazás a legmegfelelőbb dátum vagy időpont 
+  kiválasztásához.
+polls.choose.next: Következő
+polls.choose.title: Válassza ki a szavazás típusát
+polls.complete.consult: Tekintse meg szavazását most
+polls.complete.created: A(z) „{poll}” szavazás létrejött. Meghívhatja ismerőseit
+  a részvételre az alábbi hivatkozás megosztásával.
+polls.complete.public_link: Nyilvános megosztási hivatkozás
+polls.complete.see: Szavazás megtekintése
+polls.complete.title: A szavazás készen áll!
+polls.dates.slots_at_next_step: Válasszon ki egy vagy több dátumot. A következő 
+  képernyőn megadhatja az időpontokat.
+polls.dates.title: Válassza ki a dátumokat
+polls.deletion.information: Figyelem, törölni készül a(z) 
+  „<strong>{title}</strong>” szavazást, valamint a hozzá tartozó válaszokat és 
+  megjegyzéseket.
+polls.deletion.title: Szavazás törlése
+polls.edit_vote_mode.any: Minden résztvevő módosíthat bármely választ
+polls.edit_vote_mode.no: A résztvevők nem módosíthatják a válaszukat
+polls.edit_vote_mode.own: Minden résztvevő módosíthatja a saját válaszát
+polls.new.title: Szavazás létrehozása
+polls.new.who_you_are: Az Ön azonosítója
+polls.proposals.best: Előnyben részesített választás
+polls.proposals.title: Válassza ki a lehetőségeket
+polls.settings.notifications.title: Értesítések
+polls.settings.options.title: Szavazási beállítások
+polls.settings.password.title: Jelszóval védelem
+polls.settings.permissions.title: Engedélyek
+polls.settings.slug.title: Szavazás hivatkozásának testreszabása
+polls.settings.title: Szavazás beállítása
+polls.sharing.public_link: Nyilvános megosztási hivatkozás
+polls.sharing.title: Szavazás megosztása
+polls.show.administer: Kezelés
+polls.show.authenticated: A hitelesítés sikeres volt.
+polls.show.comment.created: A megjegyzése megjelent.
+polls.show.comments.explain: A megjegyzése azonnal látható lesz a szavazás 
+  oldalán.
+polls.show.comments.new: Új megjegyzés
+polls.show.comments.none: Még nem érkezett megjegyzés.
+polls.show.comments.title: Megjegyzések
+polls.show.created_by: 'A szavazást létrehozta: {by}'
+polls.show.display_list: Mobilnézet
+polls.show.display_table: Táblázatos nézet
+polls.show.export_csv: Exportálás (<abbr>CSV</abbr>)
+polls.show.is_closed: Ez a szavazás lezárult.
+polls.show.my_votes.date: '(szavazat dátuma: __date__)'
+polls.show.my_votes.description: A válaszai a böngészőjében vannak mentve. A 
+  nagyobb adatvédelem érdekében távolítsa el őket, ha a böngészőt másokkal is 
+  megosztja.
+polls.show.my_votes.edit: '{authorName} válaszának szerkesztése'
+polls.show.my_votes.information: Információk
+polls.show.my_votes.remove: Eltávolítás
+polls.show.my_votes.title: Válaszaim
+polls.show.no_vote: Egyelőre még nem érkezett válasz, de semmi gond, hamarosan 
+  lesznek. Ne felejtse el megosztani a szavazást a többi résztvevővel!
+polls.show.poll: Szavazás
+polls.show.print: Nyomtatás
+polls.show.results: Eredmények
+polls.show.results.info: '{ countChoices, plural, one {A legnépszerűbb választás <strong>{countYes}
+  igen</strong> szavazattal:} other {A legnépszerűbb választások <strong>{countYes}
+  igen</strong> szavazattal:} }'
+polls.show.results.results_graph: Eredmények grafikonja
+polls.show.results.title: Eredmények
+polls.show.share: Megosztás
+polls.show.vote.created: A válasza rögzítve lett.
+polls.show.vote.updated: A válasza sikeresen módosítva lett.
+polls.slots.help: 'Az időpontok szabadon megadhatók (például: 8 óra vagy délelőtt).
+  Ha nem ad meg időpontot, a teljes nap kerül figyelembevételre.'
+polls.slots.same_slots.apply: Azonos időpontok minden dátumra
+polls.slots.same_slots.title: Válassza ki a minden dátumra alkalmazandó 
+  időpontokat
+polls.slots.title: Válassza ki az időpontokat
+polls.steps: '{step}. lépés / {total}'
+polls.summary.admin_access: Kérjük, őrizze meg az alábbi hivatkozást, hogy 
+  bármikor kezelhesse a szavazását. <strong>Tartsa meg ezt a hivatkozást csak 
+  saját magának!</strong>
+polls.summary.admin_access.sent_by_email: Ezt a hivatkozást e-mailben is 
+  elküldtük Önnek.
+polls.summary.admin_access.title: Privát adminisztrációs hivatkozás
+polls.summary.admin_access.will_send_by_email: Ezt a hivatkozást e-mailben is 
+  elküldjük Önnek.
+polls.summary.admin_link: Privát adminisztrációs hivatkozás
+polls.summary.admin_link.remember: Szavazás mentése ebben a böngészőben
+polls.summary.admin_link.remember.description: Ha bejelöli a „Szavazás mentése 
+  ebben a böngészőben” opciót, a szavazás ezen az eszközön kerül mentésre. Így 
+  később ugyanebből a böngészőből újra megnyithatja, megtekintheti vagy 
+  szerkesztheti. A nagyobb adatvédelem érdekében ne jelölje be ezt az opciót, ha
+  az eszközt másokkal is megosztja.
+polls.summary.admin_link.remember.information: Információk
+polls.summary.author.email: E-mail cím
+polls.summary.author.name: Becenév
+polls.summary.author.no_email: Nincs megadott e-mail-cím
+polls.summary.closed_at: Szavazás vége
+polls.summary.closed_at.none: Nincs
+polls.summary.delete_poll: Szavazás törlése
+polls.summary.edit: Szerkesztés
+polls.summary.information.title: Általános információk
+polls.summary.is_closed: (szavazás lezárult)
+polls.summary.proposals.title: Javaslataim
+polls.summary.settings.customised_slug: A szavazás hivatkozása testre lett 
+  szabva.
+polls.summary.settings.edit_vote_mode.any: Minden résztvevő módosíthat bármely 
+  választ.
+polls.summary.settings.edit_vote_mode.no: A résztvevők nem módosíthatják a 
+  válaszukat.
+polls.summary.settings.edit_vote_mode.own: Minden résztvevő módosíthatja a saját
+  válaszát.
+polls.summary.settings.is_disable_maybe: A résztvevők nem választhatják a 
+  „szükség esetén” opciót.
+polls.summary.settings.is_vote_no_by_default: A válasz hiánya „nem” válasznak 
+  számít.
+polls.summary.settings.max_votes: 'Javaslatonként { number, plural, one {legfeljebb
+  1 résztvevő} other {legfeljebb # résztvevő} } szavazhat.'
+polls.summary.settings.notify_on_comments.do: E-mailt kapok minden, a 
+  szavazáshoz érkező megjegyzésről.
+polls.summary.settings.notify_on_comments.dont: Nem kapok e-mailt a szavazáshoz 
+  érkező megjegyzésekről.
+polls.summary.settings.notify_on_votes.do: E-mailt kapok minden, a szavazáshoz 
+  érkező válaszról.
+polls.summary.settings.notify_on_votes.dont: Nem kapok e-mailt a szavazáshoz 
+  érkező válaszokról.
+polls.summary.settings.password_protected.full: A szavazás jelszóval védett.
+polls.summary.settings.password_protected.not: A szavazás nincs jelszóval védve.
+polls.summary.settings.password_protected.vote: A szavazás jelszóval védett (az 
+  eredmények jelszó nélkül is megtekinthetők).
+polls.summary.settings.results.private: Csak én láthatom a szavazás eredményeit.
+polls.summary.settings.results.public: Mindenki láthatja a szavazás eredményeit.
+polls.summary.settings.title: Szavazási lehetőségek
+polls.summary.title: Szavazása összefoglalója
+polls.votes.maybe: Szükség esetén
+polls.votes.maybe.count: '{count} szükség esetén'
+polls.votes.maybe.count_alt: (+{count})
+polls.votes.no: Nem
+polls.votes.no.count: '{count} Nem'
+polls.votes.sum: Összeg
+polls.votes.yes: Igen
+polls.votes.yes.count: '{count} Igen'
+polls.votes.yours: Az Ön válasza
+preferences.edit.title: Preferenciák
+forms.vote_form.required_choice: Kérjük, válasszon ki legalább egy lehetőséget a
+  fenti javaslatok közül.
+polls.table.toolbar.scroll_to_left.title: Görgetés balra
+polls.table.toolbar.scroll_to_right.title: Görgetés jobbra
+polls.table.toolbar.show_less.label: Sor összecsukása
+polls.table.toolbar.show_less.title: Sor összecsukása a címkék rövidebb 
+  megjelenítéséhez
+polls.table.toolbar.show_more.label: Sor kibontása
+polls.table.toolbar.show_more.title: Sor kibontása az összes címke 
+  megjelenítéséhez

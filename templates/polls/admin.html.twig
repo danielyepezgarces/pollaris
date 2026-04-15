@@ -1,0 +1,121 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'polls.admin.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+        <h1>
+            {{ 'polls.admin.title' | trans }}
+        </h1>
+
+        <div class="text--center">
+            <a class="button button--block button--primary" href="{{ path('poll', { slug: poll.slug }) }}">
+                {{ 'polls.admin.go_to_poll' | trans }}
+            </a>
+        </div>
+
+        {{ include('polls/_summary.html.twig') }}
+
+        <hr>
+
+        <div class="flow flow--large">
+            <div class="flow">
+                <h2 class="text--primary">{{ 'polls.admin.votes' | trans }}</h2>
+
+                {% if poll.votes is empty %}
+                    <p class="panel panel--rounded">
+                        {{ 'polls.admin.no_votes' | trans }}
+                    </p>
+                {% else %}
+                    <ul class="panel panel--primary panel--rounded list--nostyle flow">
+                        {% for vote in poll.votes %}
+                            <li class="panel panel--white panel--rounded cols cols--center cols--always cols--gap-small">
+                                <span class="col--extend text--overflow">
+                                    {{ 'polls.admin.have_voted' | trans({ voter: include('_wikimedia_user_link.html.twig', { username: vote.authorName }), date: vote.createdAt | dateTrans }) | raw }}
+                                </span>
+
+
+                                {% if not poll.isClosed %}
+                                    <a class="button button--smaller" href="{{ path('edit vote', { slug: poll.slug, id: vote.id, _fragment: 'poll' }) }}">
+                                        {{ icon('pen-to-square') }}
+                                        {{ 'polls.admin.edit' | trans }}
+                                    </a>
+                                {% endif %}
+
+                                <form
+                                    method="post"
+                                    action="{{ path('delete vote', { pollId: poll.id, token: poll.adminToken, voteId: vote.id }) }}"
+                                    data-turbo-confirm="{{ 'polls.admin.confirm_delete_vote' | trans }}"
+                                >
+                                    <button class="button button--smaller">
+                                        {{ icon('trash') }}
+                                        <span class="sr-only">
+                                            {{ 'polls.admin.delete' | trans }}
+                                        </span>
+                                    </button>
+
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete vote') }}">
+                                </form>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="flow">
+                <h2 class="text--primary">{{ 'polls.admin.comments' | trans }}</h2>
+
+                {% if poll.comments is empty %}
+                    <p class="panel panel--rounded">
+                        {{ 'polls.admin.no_comments' | trans }}
+                    </p>
+                {% else %}
+                    <ul class="panel panel--primary panel--rounded list--nostyle flow">
+                        {% for comment in poll.comments %}
+                            <article class="panel panel--white panel--rounded flow flow--small">
+                                <header class="cols cols--always cols--gap-small text--secondary">
+                                    <span class="col--extend text--overflow">
+                                        {{ include('_wikimedia_user_link.html.twig', { username: comment.authorName }) }}
+                                    </span>
+
+                                    <time class="text--small" datetime="{{ comment.createdAt | dateIso }}">
+                                        {{ comment.createdAt | dateTrans }}
+                                    </time>
+                                </header>
+
+                                <p>
+                                    {{ comment.content | markdown }}
+                                </p>
+
+                                <div class="cols cols--always cols--gap-small">
+                                    <div class="col--extend"></div>
+
+                                    <form
+                                        method="post"
+                                        action="{{ path('delete comment', { pollId: poll.id, token: poll.adminToken, commentId: comment.id }) }}"
+                                        data-turbo-confirm="{{ 'polls.admin.confirm_delete_comment' | trans }}"
+                                    >
+                                        <button class="button button--smaller">
+                                            {{ icon('trash') }}
+                                            <span class="sr-only">
+                                                {{ 'polls.admin.delete' | trans }}
+                                            </span>
+                                        </button>
+
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete comment') }}">
+                                    </form>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

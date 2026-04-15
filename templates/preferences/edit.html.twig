@@ -1,0 +1,23 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'modal.html.twig' %}
+
+{% block title %}{{ 'preferences.edit.title' | trans }}{% endblock %}
+
+{% block body %}
+    {{ form_start(form, { action: path('edit preferences') }) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.locale) }}
+
+        {{ form_row(form.colorScheme) }}
+
+        <div class="text--right">
+            {{ form_row(form.submit) }}
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

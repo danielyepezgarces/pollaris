@@ -1,0 +1,149 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'polls.dates.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+        <div class="flow">
+            <h1>
+                {{ 'polls.dates.title' | trans }}
+            </h1>
+
+            {{ include('polls/_flow_steps.html.twig', { step: 'dates' }) }}
+
+            {% if not flow.isStepOutOfFlow %}
+                <p class="text--secondary">
+                    {{ 'polls.dates.slots_at_next_step' | trans }}
+                </p>
+            {% endif %}
+        </div>
+
+        {{ form_start(form, {
+            attr: {
+                'class': 'form--standard',
+                'data-controller': 'poll-timezone',
+            },
+        }) }}
+            {{ form_errors(form) }}
+
+            <div class="panel panel--primary panel--rounded flow flow--large">
+                {{ form_row(form.timezoneMode) }}
+            </div>
+
+            <div
+                class="flow flow--large"
+                data-controller="dates-form collection calendar"
+                data-collection-index-value="{{ form.dates|length > 0 ? form.dates|last.vars.name + 1 : 0 }}"
+                data-action="date-clicked->dates-form#switchDateSelection"
+            >
+                <div class="text--center">
+                    <button
+                        type="button"
+                        data-action="dates-form#switch"
+                        data-dates-form-target="switch"
+                        data-label-calendar="{{ 'forms.poll_dates_form.use_calendar' | trans }}"
+                        data-label-manually="{{ 'forms.poll_dates_form.enter_manually' | trans }}"
+                    >
+                        {{ 'forms.poll_dates_form.enter_manually' | trans }}
+                    </button>
+                </div>
+
+                <div class="flow" data-dates-form-target="calendar">
+                    <div class="flow flow--smaller" data-dates-form-target="calendar">
+                        <div class="calendar__header cols cols--always cols--center">
+                            <button
+                                type="button"
+                                class="calendar__header-button"
+                                data-calendar-target="previousMonth"
+                                data-action="calendar#goToPreviousMonth"
+                                data-label-pattern="{{ 'calendar.patterns.previous_month' | trans }}"
+                            >
+                                {{ icon('angle-down', 'icon--rotate90') }}
+                            </button>
+
+                            <h2
+                                id="calendar-title"
+                                class="text--primary col--extend text--center"
+                                data-calendar-target="currentMonth"
+                                aria-live="polite"
+                            >
+                            </h2>
+
+                            <button
+                                type="button"
+                                class="calendar__header-button"
+                                data-calendar-target="nextMonth"
+                                data-action="calendar#goToNextMonth"
+                                data-label-pattern="{{ 'calendar.patterns.next_month' | trans }}"
+                            >
+                                {{ icon('angle-down', 'icon--rotate270') }}
+                            </button>
+                        </div>
+
+                        <table class="calendar" data-action="keydown->calendar#handleKeydown" aria-labelledby="calendar-title">
+                            <thead data-calendar-target="daysLabels">
+                            </thead>
+
+                            <tbody data-calendar-target="days">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p class="wrapper wrapper--text wrapper--center text--secondary text--small text--center no-mobile">
+                        {{ 'calendar.hints.dates_period' | trans | raw }}
+                    </p>
+                </div>
+
+                <div class="flow" data-dates-form-target="inputs" hidden>
+                    <div data-collection-target="container" class="flow">
+                        {% for date in form.dates %}
+                            <div class="panel panel--rounded panel--primary flow" data-item="element">
+                                {{ form_row(date.value) }}
+
+                                <button
+                                    type="button"
+                                    class="button--menuitem"
+                                    data-action="collection#removeElement"
+                                >
+                                    {{ icon('trash') }}
+                                    {{ 'forms.poll_dates_form.remove_date' | trans }}
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <template data-collection-target="prototype">
+                        <div class="panel panel--rounded panel--primary flow" data-item="element">
+                            {{ form_row(form.dates.vars.prototype) }}
+
+                            <button
+                                type="button"
+                                class="button--menuitem"
+                                data-action="collection#removeElement"
+                            >
+                                {{ icon('trash') }}
+                                {{ 'forms.poll_dates_form.remove_date' | trans }}
+                            </button>
+                        </div>
+                    </template>
+
+                    <button
+                        type="button"
+                        class="button--block"
+                        data-action="collection#addElement"
+                    >
+                        {{ 'forms.poll_dates_form.add_date' | trans }}
+                    </button>
+                </div>
+            </div>
+
+            {{ include('polls/_flow_actions.html.twig', { step: 'dates' }) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

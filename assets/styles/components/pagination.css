@@ -1,0 +1,59 @@
+/* This file is part of Pollaris. */
+/* Copyright 2022-2025 Probesys (Bileto) */
+/* Copyright 2024-2026 Marien Fressinaud */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.pagination__container {
+    display: flex;
+    padding-left: 0;
+
+    justify-content: center;
+
+    list-style: none;
+}
+
+.pagination__item {
+    margin-right: var(--space-smaller);
+    margin-left: var(--space-smaller);
+}
+
+.pagination__item--disabled {
+    visibility: hidden;
+}
+
+.pagination__link {
+    display: inline-block;
+    padding: var(--space-smaller) var(--space-small);
+
+    color: var(--color-primary12);
+    text-decoration: none;
+
+    border: var(--border-width) solid var(--color-grey6);
+    border-radius: var(--border-radius);
+}
+
+.pagination__item--current .pagination__link {
+    font-weight: 600;
+
+    background-color: var(--color-primary4);
+}
+
+.pagination__item--previous .pagination__link,
+.pagination__item--next .pagination__link {
+    color: var(--color-primary1);
+
+    background-color: var(--color-primary9);
+    border-color: transparent;
+}
+
+.pagination__item--ellipsis {
+    color: var(--color-grey10);
+}
+
+@media (max-width: 799px) {
+    .pagination__item--number,
+    .pagination__item--ellipsis {
+        display: none;
+    }
+}
+

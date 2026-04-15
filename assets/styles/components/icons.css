@@ -1,0 +1,36 @@
+/* This file is part of Pollaris. */
+/* Copyright 2024-2026 Marien Fressinaud */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+.icon {
+    display: inline;
+    width: 1.1em;
+    height: auto;
+    margin-right: var(--space-smaller);
+    margin-left: var(--space-smaller);
+
+    vertical-align: text-bottom;
+
+    fill: currentcolor;
+}
+
+svg.icon {
+    pointer-events: none;
+    user-select: none;
+}
+
+.icon--rotate90 {
+    transform: rotate(90deg);
+}
+
+.icon--rotate180 {
+    transform: rotate(180deg);
+}
+
+.icon--rotate270 {
+    transform: rotate(270deg);
+}
+
+.icon--lock {
+    vertical-align: text-top;
+}

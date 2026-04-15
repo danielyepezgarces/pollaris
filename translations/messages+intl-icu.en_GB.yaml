@@ -1,0 +1,288 @@
+admin.polls.admin_link: 'Admin link'
+admin.polls.author: Author
+admin.polls.created_at: 'Created at'
+admin.polls.my_title: 'My polls'
+admin.polls.none: 'The search didn’t return any matching polls.'
+admin.polls.not_completed: 'Poll not completed'
+admin.polls.public_link: 'Public link'
+admin.polls.search: Search
+admin.polls.title: 'List of polls'
+admin.title: Administration
+answers.value.maybe: 'If needed'
+answers.value.no: 'No'
+answers.value.yes: 'Yes'
+base.copied: Copied!
+base.copy: Copy
+base.default_title: 'Welcome to {appName}!'
+base.download: Download
+base.edit: Edit
+calendar.hints.dates_period: 'Tip: you can select a range of dates by holding down the <kbd>Shift</kbd> key.'
+calendar.patterns.next_month: 'Next month (__date__)'
+calendar.patterns.previous_month: 'Previous month (__date__)'
+emails.hello: 'Hello {name},'
+emails.link_to_poll: 'You can find your poll at the link: {url}'
+emails.new_comment.posted: '{commenter_name} has just commented on the “{poll_name}” poll.'
+emails.new_comment.subject: 'New comment on a poll: {poll_name}'
+emails.new_poll_admin.created: 'You have just created the poll “{poll_name}”. You can edit your poll at any time by clicking on the following link:'
+emails.new_poll_admin.keep_it_secret: 'Make sure to keep this link to yourself!'
+emails.new_poll_admin.subject: 'New poll: {poll_name}'
+emails.new_vote.subject: 'New vote on a poll: {poll_name}'
+emails.new_vote.voted: '{voter_name} has just voted in the “{poll_name}” poll.'
+emails.polls_list.here_is_the_list: 'Here is the list of the polls you administrate on {appName}:'
+emails.polls_list.subject: 'List of your polls'
+emails.share.body: "Hello,\n\nA poll is available to gather your feedback.\nParticipation is possible via the following link: {poll_url}\n\nThank you in advance.\n\nKind regards,"
+emails.share.subject: 'Feedback requested for the poll: {poll_name}'
+errors.404.description: 'The requested page couldn’t be located. Checkout for any URL misspelling.'
+errors.404.title: 'Page not found!'
+errors.back_home: 'Back to the homepage'
+errors.generic.description: 'Please tell your administrator what you were doing when the error occurred. This will be fixed as soon as possible.'
+errors.generic.sorry: 'Sorry for any inconvenience caused.'
+errors.generic.title: 'An error has occured!'
+forms.apply: Apply
+forms.cancel: Cancel
+forms.comment_form.author_name.label: 'Your name'
+forms.comment_form.content.label: 'Your message'
+forms.comment_form.submit: Post
+forms.complete: Complete
+forms.confirm: Confirm
+forms.date_type.label.label_pattern: 'Date __number__'
+forms.error: Error
+forms.labels.max_length: '(max. {length} characters)'
+forms.labels.optional: (optional)
+forms.labels.optional_and_max_length: '(optional, max. {length} characters)'
+forms.login.password: Password
+forms.login.username: Username
+forms.next: Next
+forms.poll_authentication_form.password.label: Password
+forms.poll_authentication_form.submit: Authenticate
+forms.poll_dates_form.add_date: 'Add a date'
+forms.poll_dates_form.enter_manually: 'Enter the dates manually'
+forms.poll_dates_form.remove_date: 'Remove the date'
+forms.poll_dates_form.use_calendar: 'Select the dates from a calendar'
+forms.poll_form.timezone_mode.label: 'Timezone reference for the poll'
+forms.poll_form.timezone_mode.help: 'Dates and time slots will be interpreted using the selected timezone. Server timezone: {timezone}.'
+forms.poll_form.timezone_mode.server: 'Server timezone ({timezone})'
+forms.poll_form.timezone_mode.browser: 'My current timezone'
+forms.poll_deletion_form.submit: 'I want to delete this poll'
+forms.poll_form.author_email.help: 'Your address will not be shared with other poll participants. It will only be used to enable you to find your poll if you lose its address and to notify you when new votes are made.'
+forms.poll_form.author_email.label: 'Your email address'
+forms.poll_form.author_name.label: 'Your name'
+forms.poll_form.closed_at.help: 'Participants will be able to vote until this date.'
+forms.poll_form.closed_at.label: 'Poll closing date'
+forms.poll_form.description.label: Description
+forms.poll_form.title.label: 'Name of your poll'
+forms.poll_proposals_form.add_proposal: 'Add a proposal'
+forms.poll_proposals_form.remove_proposal: 'Remove the proposal'
+forms.poll_settings_form.are_results_public.label: 'The results are visible to all the participants'
+forms.poll_settings_form.disable_maybe.label: 'Disable “if needed” votes'
+forms.poll_settings_form.max_votes.label: 'Maximum number of “yes” votes per proposal'
+forms.poll_settings_form.notify_on_comments.label: 'Receive an email for each comment'
+forms.poll_settings_form.notify_on_votes.label: 'Receive an email for each vote'
+forms.poll_settings_form.password.label: Password
+forms.poll_settings_form.password.leave_empty_to_keep: 'Leave empty to keep the current password.'
+forms.poll_settings_form.password.protect: 'Protect the poll by password'
+forms.poll_settings_form.password_for_votes_only.label: 'Results can be viewed without a password'
+forms.poll_settings_form.repeat_password.label: 'Repeat password'
+forms.poll_settings_form.slug.help: 'Please note that changing the link to your poll makes it more easily accessible to everyone. It is recommended to protect it with a password.'
+forms.poll_settings_form.slug.label: 'Enter the poll link'
+forms.poll_settings_form.vote_no_by_default.label: 'Vote “no” by default if no response is given'
+forms.poll_slots_form.add_slot: 'Add a time slot'
+forms.poll_slots_form.remove_slot: 'Remove the time slot'
+forms.preferences.color_scheme.auto: Auto
+forms.preferences.color_scheme.dark: Dark
+forms.preferences.color_scheme.label: 'Color scheme'
+forms.preferences.color_scheme.light: Light
+forms.preferences.locale.label: Language
+forms.previous: Previous
+forms.proposal_type.label.label_pattern: 'Proposal __number__'
+forms.search_polls_form.email.help: 'We will send you the links to the polls that you have created.'
+forms.search_polls_form.email.label: 'Your email address'
+forms.search_polls_form.submit: Send
+forms.slot_type.label.label_pattern: 'Time slot __number__'
+forms.slots_form.day: Day
+forms.vote_form.author_name.label: 'Your name'
+forms.vote_form.leave_confirmation: 'You have not yet confirmed your vote. By continuing, you will lose your entry. Are you sure you want to continue?'
+forms.vote_form.password.help: 'A password is required to vote in this poll.'
+forms.vote_form.password.label: Password
+forms.vote_form.required_choice: 'Please select at least one option from the choices above.'
+forms.vote_form.submit.label: Vote
+home.create_poll: 'Create a new poll'
+home.free_software: 'Pollaris is a free software licensed under AGPL 3.'
+home.free_software.custom: '{appName} uses Pollaris, a free software licensed under AGPL 3.'
+home.intro: 'Use our polling tool to plan, organise and make decisions quickly, easily and without registration.'
+home.my_polls_and_votes: 'My polls and votes'
+home.show.poll.deleted: 'Your poll has been successfully deleted.'
+home.source_code: 'Access the source code.'
+home.title: 'Organise events or gather opinions from friends and family, simply and freely.'
+layout.header.my: 'My polls and votes'
+layout.header.preferences: Preferences
+layout.logout: Logout
+layout.modal.close: Close
+login.log_in: 'Log in'
+login.title: 'Login to administration'
+login.wikimedia.button: 'Continue with Wikimedia'
+login.wikimedia.error.cancelled: 'Wikimedia login was cancelled.'
+login.wikimedia.error.code: 'Wikimedia did not return an authorization code.'
+login.wikimedia.error.generic: 'We could not sign you in with Wikimedia.'
+login.wikimedia.error.state: 'The Wikimedia login session has expired or is invalid.'
+login.wikimedia.help: 'Use your Wikimedia / Wikipedia account to fill in your profile details and manage the polls you create.'
+login.wikimedia.not_configured: 'Wikimedia login is not configured yet.'
+login.wikimedia.title: 'Login with Wikimedia'
+my.index.admin_link: 'Administration link'
+my.index.description: 'Find all your polls and votes stored in your browser here. For greater privacy, remove them if you share your browser with other people.'
+my.index.poll_link: 'Poll link'
+my.index.polls.confirm_removal: 'You are about to remove all polls from this browser (the polls will continue to exist). Are you sure you want to continue?'
+my.index.polls.empty_placeholder: 'No polls'
+my.index.polls.of_by: 'Poll of __date__ by __author__'
+my.index.polls.remove: 'Remove the poll'
+my.index.polls.title: Polls
+my.index.remove_all: 'Remove all'
+my.index.search.success: 'We have sent you an email containing links to your polls. Please check your spam folder if you cannot see it.'
+my.index.search.title: 'Find my polls by email'
+my.index.title: 'My polls and votes'
+my.index.vote_link: 'Vote link'
+my.index.votes.confirm_removal: 'You are about to remove all votes from this browser (the votes will continue to exist). Are you sure you want to continue?'
+my.index.votes.date: '(vote of __vote_date__)'
+my.index.votes.empty_placeholder: 'No votes'
+my.index.votes.poll: 'On the “<strong>__poll_title__</strong>” poll by __poll_author__'
+my.index.votes.remove: 'Remove the vote'
+my.index.votes.title: Votes
+notifications.close: Close
+pagination.next: 'Next page'
+pagination.previous: 'Previous page'
+polls.admin.comments: Comments
+polls.admin.confirm_delete_comment: 'Are you sure to delete this comment?'
+polls.admin.confirm_delete_vote: 'Are you sure to delete this vote?'
+polls.admin.delete: Delete
+polls.admin.edit: Edit
+polls.admin.go_to_poll: 'Go to the poll'
+polls.admin.have_voted: '{voter} has voted on {date}.'
+polls.admin.no_comments: 'No comments have been published on the poll.'
+polls.admin.no_votes: 'No votes have been made on the poll.'
+polls.admin.title: 'Administration of the poll'
+polls.admin.votes: Votes
+polls.authenticate.title: 'Authentication to a protected poll'
+polls.choose.classic: 'Poll classic'
+polls.choose.classic_help: 'A poll to choose between several free options.'
+polls.choose.date: 'Poll date'
+polls.choose.date_help: 'A poll to choose the best possible date or time slot.'
+polls.choose.next: Next
+polls.choose.title: 'Choose the type of poll'
+polls.complete.consult: 'Consult your poll now'
+polls.complete.created: 'The poll “{poll}” is created. You can invite your contacts to take part by sharing the link below.'
+polls.complete.public_link: 'Public sharing link'
+polls.complete.see: 'See my poll'
+polls.complete.title: 'Your poll is ready!'
+polls.dates.slots_at_next_step: 'Select one or more dates. You’ll be able to select time slots at the next step.'
+polls.dates.title: 'Choose the dates'
+polls.deletion.information: 'Attention, you are about to delete the poll “<strong>{title}</strong>” along with its associated votes and comments.'
+polls.deletion.title: 'Deletion of a poll'
+polls.edit_vote_mode.any: 'Each participant may change any vote'
+polls.edit_vote_mode.no: 'Participants cannot change their vote'
+polls.edit_vote_mode.own: 'Each participant may change their own vote'
+polls.new.title: 'Poll creation'
+polls.new.who_you_are: 'Who you are'
+polls.proposals.best: 'Preferred choice'
+polls.proposals.title: 'Choose the proposals'
+polls.settings.notifications.title: Notifications
+polls.settings.options.title: 'Votes options'
+polls.settings.password.title: 'Protect by password'
+polls.settings.permissions.title: Permissions
+polls.settings.slug.title: 'Customise the poll link'
+polls.settings.title: 'Configure the poll'
+polls.sharing.public_link: 'Public sharing link'
+polls.sharing.send_by_email: 'Send by email'
+polls.sharing.share_by_email: 'Share by email'
+polls.sharing.share_with_qr_code: 'Share with a QR code'
+polls.sharing.title: 'Share the poll'
+polls.show.administer: Administer
+polls.show.authenticated: 'You have successfully authenticated.'
+polls.show.comment.created: 'Your comment has been published.'
+polls.show.comments.explain: 'Your comment will be directly visible on the poll’s page.'
+polls.show.comments.new: 'New comment'
+polls.show.comments.none: 'No comments have been published.'
+polls.show.comments.title: Comments
+polls.show.created_by: 'Poll created by {by}'
+polls.show.display_list: 'List view'
+polls.show.display_table: 'Table view'
+polls.show.export_csv: 'Export (<abbr>CSV</abbr>)'
+polls.show.is_closed: 'This poll is closed.'
+polls.show.login_required_to_vote: 'You must be logged in to vote.'
+polls.show.my_votes.date: '(vote of __date__)'
+polls.show.my_votes.description: 'Your votes are stored in your browser. For greater privacy, delete them if you share your browser with other people.'
+polls.show.my_votes.edit: 'Edit {authorName}’s vote'
+polls.show.my_votes.information: Information
+polls.show.my_votes.remove: Remove
+polls.show.my_votes.title: 'My votes'
+polls.show.no_vote: 'For the moment no votes have been cast, but don’t panic, it won’t be long now. Just remember to share your poll with the other participants!'
+polls.show.poll: Poll
+polls.show.print: Print
+polls.show.results: Results
+polls.show.results.info: '{ countChoices, plural, one {The preferred choice with <strong>{countYes} yes</strong> is:} other {The preferred choices with <strong>{countYes} yes</strong> are:} }'
+polls.show.results.results_graph: 'Results graph'
+polls.show.results.title: Results
+polls.show.share: Share
+polls.show.vote.created: 'Your vote is confirmed.'
+polls.show.vote.updated: 'Your vote has been changed.'
+polls.slots.help: 'Time slots can be entered freely (for example: 8 a.m. or morning). If you do not specify a time slot, the entire day will be taken into account.'
+polls.slots.same_slots.apply: 'Apply the same time slots to all dates'
+polls.slots.same_slots.title: 'Choose the time slots to apply to all dates'
+polls.slots.title: 'Choose the time slots'
+polls.timezone.reference: 'Reference timezone for this poll: {timezone}'
+polls.timezone.display.label: 'Display time slots in'
+polls.timezone.display.poll: 'Poll timezone ({timezone})'
+polls.timezone.display.local: 'My local timezone'
+polls.steps: 'Step {step} on {total}'
+polls.summary.admin_access: 'Please keep the following link to administrate your poll at any time. <strong>Keep this link to yourself!</strong>'
+polls.summary.admin_access.sent_by_email: 'This link has also been sent to you by email.'
+polls.summary.admin_access.title: 'Private administration link'
+polls.summary.admin_access.will_send_by_email: 'This link will also be sent to you by email.'
+polls.summary.admin_link: 'Private administration link'
+polls.summary.admin_link.remember: 'Remember the link in this browser'
+polls.summary.admin_link.remember.description: 'By checking the “Remember the link in this browser” option, this poll will be saved on this device. This will allow you to find it later from the same browser in order to view or modify it. For greater confidentiality, do not check this option if this device is shared with other people.'
+polls.summary.admin_link.remember.information: Information
+polls.summary.author.email: 'Email address'
+polls.summary.author.name: Nickname
+polls.summary.author.no_email: 'No address given'
+polls.summary.closed_at: 'Closing date'
+polls.summary.closed_at.none: None
+polls.summary.delete_poll: 'Delete the poll'
+polls.summary.edit: Edit
+polls.summary.information.title: 'General information'
+polls.summary.is_closed: '(poll closed)'
+polls.summary.proposals.title: 'My proposals'
+polls.summary.settings.customised_slug: 'The link of the poll is customised.'
+polls.summary.settings.edit_vote_mode.any: 'Each participant may change any vote.'
+polls.summary.settings.edit_vote_mode.no: 'Participants cannot change their vote.'
+polls.summary.settings.edit_vote_mode.own: 'Each participant may change their own vote.'
+polls.summary.settings.is_disable_maybe: 'The participants will not be able to vote “if needed”.'
+polls.summary.settings.is_vote_no_by_default: 'No response is equivalent to a “no” vote.'
+polls.summary.settings.max_votes: 'A maximum of { number, plural, one {1 participant} other {# participants} } can vote per proposal.'
+polls.summary.settings.notify_on_comments.do: 'I will receive an email each time someone comments on the poll.'
+polls.summary.settings.notify_on_comments.dont: 'I will not receive an email when someone comments on the poll.'
+polls.summary.settings.notify_on_votes.do: 'I will receive an email each time someone votes in the poll.'
+polls.summary.settings.notify_on_votes.dont: 'I will not receive an email when someone votes in the poll.'
+polls.summary.settings.password_protected.full: 'The poll is protected by a password.'
+polls.summary.settings.password_protected.not: 'The poll is not protected by a password.'
+polls.summary.settings.password_protected.vote: 'The poll is protected by a password (the results are visible without password).'
+polls.summary.settings.results.private: 'I’m the only who can see the poll results.'
+polls.summary.settings.results.public: 'Everyone can see the poll results.'
+polls.summary.settings.title: 'Poll options'
+polls.summary.timezone: Timezone
+polls.summary.title: 'Summary of your poll'
+polls.table.toolbar.scroll_to_left.title: 'Scroll to the left'
+polls.table.toolbar.scroll_to_right.title: 'Scroll to the right'
+polls.table.toolbar.show_less.label: 'Reduce the row'
+polls.table.toolbar.show_less.title: 'Reduce the row to limit the display of labels'
+polls.table.toolbar.show_more.label: 'Expand the row'
+polls.table.toolbar.show_more.title: 'Expand the row to display all labels'
+polls.votes.maybe: 'If needed'
+polls.votes.maybe.count: "{count}\_If needed"
+polls.votes.maybe.count_alt: '(+{count})'
+polls.votes.no: 'No'
+polls.votes.no.count: "{count}\_No"
+polls.votes.sum: Sum
+polls.votes.yes: 'Yes'
+polls.votes.yes.count: "{count}\_Yes"
+polls.votes.yours: 'Your vote'
+preferences.edit.title: 'Your preferences'

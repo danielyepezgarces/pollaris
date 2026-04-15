@@ -1,0 +1,320 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+<div class="flow">
+    <h2 class="text--primary">{{ 'polls.summary.admin_access.title' | trans }}</h2>
+
+    <div class="panel panel--primary panel--rounded flow">
+        <p>
+            {{ 'polls.summary.admin_access' | trans | raw }}
+        </p>
+
+        {% if poll.authorEmail and poll.isCompleted %}
+            <p>{{ 'polls.summary.admin_access.sent_by_email' | trans }}</p>
+        {% elseif poll.authorEmail %}
+            <p>{{ 'polls.summary.admin_access.will_send_by_email' | trans }}</p>
+        {% endif %}
+
+        <div class="flow flow--small">
+            <label for="poll-admin-link">
+                {{ 'polls.summary.admin_link' | trans }}
+            </label>
+
+            <div
+                class="cols cols--always cols--gap-small"
+                data-controller="copy-to-clipboard"
+                data-label-copied="{{ 'base.copied' | trans }}"
+            >
+                <input
+                    id="poll-admin-link"
+                    type="url"
+                    value="{{ url('poll admin', { id: poll.id, token: poll.adminToken }) }}"
+                    readonly
+                    data-copy-to-clipboard-target="copyable"
+                />
+
+                <button
+                    type="button"
+                    class="button--primary"
+                    data-copy-to-clipboard-target="button"
+                    data-action="copy-to-clipboard#copy"
+                >
+                    {{ 'base.copy' | trans }}
+                </button>
+            </div>
+        </div>
+
+        <div class="cols cols--always cols--center cols--gap">
+            <div class="col--extend">
+                <input
+                    type="checkbox"
+                    id="remember_poll_admin"
+                    data-controller="storage"
+                    data-action="storage#sync"
+                    data-storage-namespace-value="polls"
+                    data-storage-key-value="{{ poll.id }}"
+                    data-storage-entry-value="{{ {
+                        title: poll.title,
+                        type: poll.type,
+                        date: poll.createdAt | dateIso,
+                        author: poll.authorName,
+                        pollUrl: url('poll', { slug: poll.slug }),
+                        adminUrl: url('poll admin', { id: poll.id, token: poll.adminToken }),
+                    } | json_encode }}"
+                >
+                <label for="remember_poll_admin">
+                    {{ 'polls.summary.admin_link.remember' | trans }}
+                    {{ icon('thumbtack') }}
+                </label>
+            </div>
+
+            <button
+                type="button"
+                class="button--icon"
+                data-controller="modal-opener"
+                data-action="modal-opener#copy"
+                data-modal-opener-selector-value="#modal-local-storage-details"
+            >
+                {{ icon('question') }}
+
+                <span class="sr-only">
+                    {{ 'polls.summary.admin_link.remember.information' | trans }}
+                </span>
+            </button>
+
+            <template id="modal-local-storage-details">
+                <div class="flow flow--large">
+                    <h1 id="modal-title">
+                        {{ 'polls.summary.admin_link.remember' | trans }}
+                    </h1>
+
+                    <p>
+                        {{ 'polls.summary.admin_link.remember.description' | trans }}
+                    </p>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
+
+<div class="flow">
+    <h2 class="text--primary">{{ 'polls.summary.information.title' | trans }}</h2>
+
+    <div class="panel panel--rounded panel--primary flow">
+        <div class="flow">
+            <p class="text--bold">
+                {{ poll.title }}
+            </p>
+
+            {% if poll.description %}
+                <div class="flow flow--small">
+                    {{ poll.description | markdown }}
+                </div>
+            {% endif %}
+
+            <dl class="list--nostyle flow">
+                <dt class="flow flow--small text--bold">
+                    {{ 'polls.summary.author.name' | trans }}
+                </dt>
+
+                <dd>
+                    {{ poll.authorName }}
+                </dd>
+
+                <dt class="flow flow--small text--bold">
+                    {{ 'polls.summary.author.email' | trans }}
+                </dt>
+
+                <dd>
+                    {% if poll.authorEmail %}
+                        {{ poll.authorEmail }}
+                    {% else %}
+                        {{ 'polls.summary.author.no_email' | trans }}
+                    {% endif %}
+                </dd>
+
+                <dt class="flow flow--small text--bold">
+                    {{ 'polls.summary.closed_at' | trans }}
+                </dt>
+
+                <dd>
+                    {% if poll.closedAt %}
+                        <time datetime="{{ poll.closedAt | dateIso(poll.timezoneName) }}">
+                            {{ poll.closedAt | dateShort(fullMonth: true, timezone: poll.timezoneName) }}
+                        </time>
+                    {% else %}
+                        {{ 'polls.summary.closed_at.none' | trans }}
+                    {% endif %}
+
+                    {% if poll.isClosed %}
+                        <span class="text--bold text--danger">
+                            {{ 'polls.summary.is_closed' | trans }}
+                        </span>
+                    {% endif %}
+                </dd>
+
+                <dt class="flow flow--small text--bold">
+                    {{ 'polls.summary.timezone' | trans }}
+                </dt>
+
+                <dd>
+                    {{ 'polls.timezone.reference' | trans({ timezone: poll.timezoneName }) }}
+                </dd>
+            </dl>
+        </div>
+
+        <div class="panel__separator"></div>
+
+        <div class="cols cols--center cols--gap">
+            <a class="button button--menuitem col--size6" href="{{ path('edit poll', { id: poll.id, token: poll.adminToken }) }}">
+                {{ icon('pen-to-square') }}
+                {{ 'polls.summary.edit' | trans }}
+            </a>
+
+            <button
+                type="button"
+                class="button button--danger col--size6"
+                data-controller="modal-opener"
+                data-action="modal-opener#fetch"
+                data-modal-opener-selector-value="{{ path('delete poll', { id: poll.id, token: poll.adminToken }) }}"
+            >
+                {{ icon('trash') }}
+                {{ 'polls.summary.delete_poll' | trans }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="flow">
+    <h2 class="text--primary">{{ 'polls.summary.proposals.title' | trans }}</h2>
+
+    <div class="panel panel--rounded panel--primary flow">
+        {% if poll.isDatePoll %}
+            {{ include('polls/_timezone_toggle.html.twig', { poll: poll }) }}
+
+            <ul class="list--nostyle flow">
+                {% for date in poll.dates %}
+                    <li class="flow flow--small">
+                        <h3>
+                            {{ date.value | dateTrans('EEEE d MMMM yyyy', poll.timezoneName) }}
+                        </h3>
+
+                        <ul class="list--nostyle flow flow--smaller">
+                            {% for proposal in date.proposals %}
+                                <li data-controller="local-time" data-local-time-source-timezone-value="{{ poll.timezoneName }}" data-local-time-date-value="{{ date.value | date('Y-m-d', poll.timezoneName) }}">{{ proposal.label }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="panel__separator"></div>
+
+            <a class="button button--menuitem" href="{{ path('edit poll dates', { id: poll.id, token: poll.adminToken }) }}">
+                {{ icon('pen-to-square') }}
+                {{ 'polls.summary.edit' | trans }}
+            </a>
+        {% else %}
+            <ul class="list--nostyle flow">
+                {% for proposal in poll.proposals %}
+                    <li>
+                        <h3>{{ proposal.label }}</h3>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="panel__separator"></div>
+
+            <a class="button button--menuitem" href="{{ path('edit poll proposals', { id: poll.id, token: poll.adminToken }) }}">
+                {{ icon('pen-to-square') }}
+                {{ 'polls.summary.edit' | trans }}
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="flow">
+    <h2 class="text--primary">{{ 'polls.summary.settings.title' | trans }}</h2>
+
+    <div class="panel panel--rounded panel--primary flow">
+        <ul class="list--nostyle flow text--bold">
+            {% if poll.isDisableMaybe %}
+                <li>
+                    {{ 'polls.summary.settings.is_disable_maybe' | trans }}
+                </li>
+            {% endif %}
+
+            {% if poll.isVoteNoByDefault %}
+                <li>
+                    {{ 'polls.summary.settings.is_vote_no_by_default' | trans }}
+                </li>
+            {% endif %}
+
+            {% if poll.maxVotes > 0 %}
+                <li>
+                    {{ 'polls.summary.settings.max_votes' | trans({ number: poll.maxVotes }) }}
+                </li>
+            {% endif %}
+
+            {% if poll.isSlugCustomized %}
+                <li>
+                    {{ 'polls.summary.settings.customised_slug' | trans }}
+                </li>
+            {% endif %}
+
+            <li>
+                {% if poll.isFullPasswordProtected %}
+                    {{ 'polls.summary.settings.password_protected.full' | trans }}
+                {% elseif poll.isVotePasswordProtected %}
+                    {{ 'polls.summary.settings.password_protected.vote' | trans }}
+                {% else %}
+                    {{ 'polls.summary.settings.password_protected.not' | trans }}
+                {% endif %}
+            </li>
+
+            <li>
+                {% if poll.editVoteMode == 'own' %}
+                    {{ 'polls.summary.settings.edit_vote_mode.own' | trans }}
+                {% elseif poll.editVoteMode == 'any' %}
+                    {{ 'polls.summary.settings.edit_vote_mode.any' | trans }}
+                {% else %}
+                    {{ 'polls.summary.settings.edit_vote_mode.no' | trans }}
+                {% endif %}
+            </li>
+
+            <li>
+                {% if poll.areResultsPublic %}
+                    {{ 'polls.summary.settings.results.public' | trans }}
+                {% else %}
+                    {{ 'polls.summary.settings.results.private' | trans }}
+                {% endif %}
+            </li>
+
+            <li>
+                {% if poll.notifyOnVotes %}
+                    {{ 'polls.summary.settings.notify_on_votes.do' | trans }}
+                {% else %}
+                    {{ 'polls.summary.settings.notify_on_votes.dont' | trans }}
+                {% endif %}
+            </li>
+
+            <li>
+                {% if poll.notifyOnComments %}
+                    {{ 'polls.summary.settings.notify_on_comments.do' | trans }}
+                {% else %}
+                    {{ 'polls.summary.settings.notify_on_comments.dont' | trans }}
+                {% endif %}
+            </li>
+        </ul>
+
+        <div class="panel__separator"></div>
+
+        <a class="button button--menuitem" href="{{ path('edit poll settings', { id: poll.id, token: poll.adminToken }) }}">
+            {{ icon('pen-to-square') }}
+            {{ 'polls.summary.edit' | trans }}
+        </a>
+    </div>
+</div>

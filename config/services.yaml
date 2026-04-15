@@ -1,0 +1,49 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    app.public_directory: "%kernel.project_dir%/public"
+    app.name: "%env(APP_NAME)%"
+    app.require_emails: "%env(bool:APP_REQUIRE_EMAILS)%"
+    poll.expires.completed: "%env(string:POLL_EXPIRES_COMPLETED)%"
+    poll.expires.incomplete: "%env(string:POLL_EXPIRES_INCOMPLETE)%"
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Utils/AdditionalTranslations.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    App\Twig\AssetExtension:
+        arguments:
+            - "assets"
+
+when@dev:
+    services:
+        _defaults:
+            autowire: true
+            autoconfigure: true
+
+        App\Twig\AssetExtension:
+            arguments:
+                - "dev_assets"
+
+when@test:
+    services:
+        _defaults:
+            autowire: true
+            autoconfigure: true
+
+        App\Tests\Factory\:
+            resource: '../tests/Factory'

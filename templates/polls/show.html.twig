@@ -1,0 +1,547 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ poll.title }}{% endblock %}
+
+{% block additional_head_tags %}
+    {% if preserveScroll is defined and preserveScroll %}
+        <meta name="turbo-refresh-method" content="morph">
+        <meta name="turbo-refresh-scroll" content="preserve">
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% set preferredChoices = poll.preferredChoices %}
+
+    <div id="mainFlow" class="flow flow--larger">
+        <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+            {% for message in app.flashes('success') %}
+                {% if message == 'vote.created' %}
+                    {{ include('notifications/_success.html.twig', { message: 'polls.show.vote.created' | trans }) }}
+                {% elseif message == 'vote.updated' %}
+                    {{ include('notifications/_success.html.twig', { message: 'polls.show.vote.updated' | trans }) }}
+                {% elseif message == 'comment.created' %}
+                    {{ include('notifications/_success.html.twig', { message: 'polls.show.comment.created' | trans }) }}
+                {% elseif message == 'poll.authenticated' %}
+                    {{ include('notifications/_success.html.twig', { message: 'polls.show.authenticated' | trans }) }}
+                {% endif %}
+            {% endfor %}
+
+            <div class="panel panel--primary panel--rounded flow flow--small">
+                <h1>
+                    {{ poll.title }}
+                </h1>
+
+                {% if poll.description %}
+                    <div class="flow flow--small">
+                        {{ poll.description | markdown }}
+                    </div>
+                {% endif %}
+
+                <p class="text--secondary">
+                    {{ 'polls.show.created_by' | trans({ by: include('_wikimedia_user_link.html.twig', { username: poll.authorName }) }) | raw }}
+                </p>
+
+                <div class="panel__separator no-print"></div>
+
+                <div class="flow flow--smaller no-print">
+                    <div>
+                        {% if canViewResults(poll) and preferredChoices %}
+                            <a
+                                href="#results"
+                                class="button button--primary button--small"
+                            >
+                                {{ icon('chart-simple') }}
+                                {{ 'polls.show.results' | trans }}
+                            </a>
+                        {% endif %}
+
+                        <button
+                            type="button"
+                            class="button--ghost button--small"
+                            data-controller="modal-opener"
+                            data-action="modal-opener#copy"
+                            data-modal-opener-selector-value="#modal-sharing"
+                        >
+                            {{ icon('share') }}
+                            {{ 'polls.show.share' | trans }}
+                        </button>
+
+                        <button
+                            type="button"
+                            data-controller="printer"
+                            data-action="printer#print"
+                            class="button button--ghost button--small"
+                        >
+                            {{ icon('print') }}
+                            {{ 'polls.show.print' | trans }}
+                        </button>
+
+                        {% if canViewResults(poll) %}
+                            <a
+                                href="{{ path('poll csv', { slug: poll.slug }) }}"
+                                class="button button--ghost button--small"
+                            >
+                                {{ icon('file-csv') }}
+                                {{ 'polls.show.export_csv' | trans | raw }}
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    {% if hasAccessToAdmin(poll) or (app.user and poll.owner and poll.owner.id == app.user.id) %}
+                        <a
+                            href="{{ path('poll admin', { id: poll.id, token: poll.adminToken }) }}"
+                            class="button button--small button--block text--center"
+                        >
+                            {{ icon('lock') }}
+                            {{ 'polls.show.administer' | trans }}
+                        </a>
+                    {% endif %}
+                </div>
+
+                <template id="modal-sharing">
+                    <div class="flow flow--large">
+                        <h1 id="modal-title">{{ 'polls.sharing.title' | trans }}</h1>
+
+                        <div class="panel panel--primary panel--rounded flow flow--small">
+                            <label for="poll-public-link">
+                                {{ 'polls.sharing.public_link' | trans }}
+                            </label>
+
+                            <div
+                                class="cols cols--gap-small"
+                                data-controller="copy-to-clipboard"
+                                data-label-copied="{{ 'base.copied' | trans }}"
+                            >
+                                <input
+                                    id="poll-public-link"
+                                    type="url"
+                                    value="{{ url('poll', { slug: poll.slug }) }}"
+                                    readonly
+                                    data-copy-to-clipboard-target="copyable"
+                                />
+
+                                <button
+                                    type="button"
+                                    class="button--primary"
+                                    data-copy-to-clipboard-target="button"
+                                    data-action="copy-to-clipboard#copy"
+                                >
+                                    {{ 'base.copy' | trans }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="cols cols--gap-large">
+                            <div
+                                class="col--size7 panel panel--primary panel--rounded flow flow--small"
+                                data-controller="copy-to-clipboard mailto"
+                                data-label-copied="{{ 'base.copied' | trans }}"
+                                data-mailto-subject-value="{{ 'emails.share.subject'|trans({ poll_name: poll.title }) }}"
+                            >
+                                <label for="email_content">
+                                    {{ 'polls.sharing.share_by_email' | trans }}
+                                </label>
+
+                                <textarea
+                                    name="email_content"
+                                    id="email_content"
+                                    rows="10"
+                                    class="text--smaller"
+                                    data-copy-to-clipboard-target="copyable"
+                                    data-action="mailto#updateLink"
+                                    data-mailto-target="textarea"
+                                >
+                                    {{- 'emails.share.body' | trans({ poll_url: url('poll', { slug: poll.slug }) }) -}}
+                                </textarea>
+
+                                <div class="cols cols--gap-small">
+                                    <button
+                                        type="button"
+                                        class="button--smaller"
+                                        data-copy-to-clipboard-target="button"
+                                        data-action="copy-to-clipboard#copy"
+                                    >
+                                        {{ 'base.copy' | trans }}
+                                    </button>
+
+                                    <a
+                                        class="button button--block button--primary button--smaller"
+                                        data-mailto-target="link"
+                                        href="mailto:?subject={{ 'emails.share.subject' | trans({ poll_name: poll.title }) | url_encode }}&body={{ 'emails.share.body' | trans({ poll_url:  url('poll', { slug: poll.slug }) }) | url_encode }}"
+                                    >
+                                        {{ 'polls.sharing.send_by_email' | trans }}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div
+                                class="col--size5 panel panel--primary panel--rounded flow"
+                                data-controller="copy-to-clipboard"
+                                data-label-copied="{{ 'base.copied' | trans }}"
+                            >
+                                <p class="text--medium">{{ 'polls.sharing.share_with_qr_code' | trans }}</p>
+
+                                <div class="text--center">
+                                    <canvas
+                                        class="qr-code"
+                                        data-controller="qr-code"
+                                        data-qr-code-url-value="{{ url('poll', { slug: poll.slug }) }}"
+                                        data-copy-to-clipboard-target="copyable"
+                                    >
+                                    </canvas>
+                                </div>
+
+                                <div class="flow flow--small">
+                                    <button
+                                        type="button"
+                                        class="button--block button--smaller"
+                                        data-copy-to-clipboard-target="button"
+                                        data-action="copy-to-clipboard#copy"
+                                    >
+                                        {{ 'base.copy' | trans }}
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="button--primary button--block button--smaller"
+                                        data-copy-to-clipboard-target="button"
+                                        data-action="copy-to-clipboard#downloadBlob"
+                                        data-copy-to-clipboard-filename-param="{{ poll.title }} - QR Code.png"
+                                    >
+                                        {{ 'base.download' | trans }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            {% if poll.isClosed %}
+                <p class="text--bolder text--center text--danger no-print">
+                    {{ 'polls.show.is_closed' | trans }}
+                </p>
+            {% endif %}
+
+            {% if myVote and app.flashes('storeMyVote') %}
+                <div
+                    data-controller="storage"
+                    data-storage-namespace-value="votes"
+                    data-storage-key-value="{{ myVote.id }}"
+                    data-storage-entry-value="{{ {
+                        pollId: poll.id,
+                        pollTitle: poll.title,
+                        pollType: poll.type,
+                        pollDate: poll.createdAt | dateIso,
+                        pollAuthor: poll.authorName,
+                        pollUrl: url('poll', { slug: poll.slug }),
+                        voteAuthor: myVote.authorName,
+                        voteDate: myVote.createdAt | dateIso,
+                        voteUrl: url('edit vote', { slug: poll.slug, id: myVote.id, _fragment: 'poll' }),
+                        canEditVote: canEditVotes(poll, ignoreAdminAccess: true),
+                    } | json_encode }}"
+                ></div>
+            {% endif %}
+
+        </div>
+
+        {% if poll.isDatePoll %}
+            {% set datesAndProposals = poll.proposalsByDates %}
+            {% set proposals = datesAndProposals|column(1)|flatten %}
+        {% else %}
+            {% set proposals = poll.proposals %}
+        {% endif %}
+
+        <div
+            id="poll"
+            class="poll flow"
+            data-controller="poll-view"
+            data-action="resize@window->poll-view#setPollWidth"
+            aria-live="polite"
+        >
+            <div class="poll-toolbar flow">
+                <div class="cols cols--always cols--center cols--gap-small">
+                    <h2 class="col--extend text--primary">{{ 'polls.show.poll' | trans }}</h2>
+
+                    {% if poll.isDatePoll %}
+                        {{ include('polls/_timezone_toggle.html.twig', { poll: poll, compact: true }) }}
+                    {% endif %}
+
+                    <div class="poll-toolbar__actions  no-print">
+                        <button
+                            class="button button--small"
+                            data-poll-view-target="listButton"
+                            data-action="poll-view#displayList"
+                        >
+                            {{ icon('bars') }}
+                            {{ 'polls.show.display_list' | trans }}
+                        </button>
+
+                        <button
+                            class="button button--small"
+                            data-poll-view-target="tableButton"
+                            data-action="poll-view#displayTable"
+                        >
+                            {{ icon('table') }}
+                            {{ 'polls.show.display_table' | trans }}
+                        </button>
+                    </div>
+                </div>
+
+                {% if poll.countVotes == 0 %}
+                    <p class="panel panel--primary panel--rounded panel--border text--primary">
+                        {{ 'polls.show.no_vote' | trans }}
+                    </p>
+                {% endif %}
+
+                {% if voteForm is null and not poll.isClosed and app.user is null %}
+                    <div class="panel panel--primary panel--rounded panel--border text--primary no-print polls-login-required flow flow--small">
+                        <p>
+                            {{ 'polls.show.login_required_to_vote' | trans }}
+                        </p>
+
+                        <a href="{{ path('login', {'returnto': path('poll', {'slug': poll.slug})}) }}" class="button button--small button--primary polls-login-required__button">
+                            <span class="polls-login-required__icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path d="M640 115.2L639.7 127.4C611.6 128.2 594.7 143.2 583.9 167.7C558.9 225.5 480.6 407.7 428.6 526.3L415 526.3L333.1 333.2C300.6 396.8 264.8 463.2 233.9 526.3C233.6 526.6 218.9 526.3 218.9 526C172 416.3 122.8 307.4 75.8 197.4C64.4 170.7 26.4 127.4 .2 127.7C.2 124.6-.1 117.7-.1 113.5L161.8 113.5L161.8 127.4C142.6 128.5 109 140.7 118.5 161.6C140.4 211.3 222.1 401.9 244.1 450.2C259.1 420.5 301.9 341 319.4 307.4C305.5 279.1 260.8 173.5 246.6 147.4C236.9 129.6 210.5 128 190.8 127.7L190.8 113.8L333.3 114.1L333.3 127.2C313.9 127.8 295.2 135 303.9 153.3C322.8 193.3 334.5 221.4 352 258C357.6 247.2 386.7 188.6 400.1 157.2C409 136.6 396.2 128.6 361.5 127.8C361.8 124.2 361.5 117.5 361.8 114.2C406.2 113.9 472.9 113.9 484.9 113.6L484.9 127.2C462.4 128 439.1 140 426.8 158.9L367.6 281.7C374 297.8 430.9 424.5 436.8 438.4L559.2 155.8C550.6 132.7 522.8 127.7 512 127.5L512 113.6L639.8 114.7L640 115.2z" />
+                                </svg>
+                            </span>
+                            {{ 'login.wikimedia.button' | trans }}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if voteForm %}
+                {{ form_start(voteForm) }}
+                    {{ form_errors(voteForm) }}
+
+                    <div hidden>
+                        {% for proposal in proposals %}
+                            <div data-poll-view-target="voteForm" data-proposal="{{ proposal.id }}">
+                                {% set answerForm = voteForm | getAnswerFormForProposal(proposal) %}
+                                {{ form_row(answerForm) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div data-poll-view-target="listView">
+                        {{ include('proposals/_list.html.twig') }}
+                    </div>
+
+                    <div data-poll-view-target="tableView">
+                        {{ include('proposals/_table.html.twig') }}
+                    </div>
+
+                    <div class="poll-submit-wrapper no-print">
+                        <div class="poll-submit-wrapper__inputs">
+                            {{ form_row(voteForm.authorName) }}
+
+                            {% if voteForm.password is defined %}
+                                {{ form_row(voteForm.password) }}
+                            {% endif %}
+                        </div>
+
+                        <div class="poll-submit-wrapper__actions">
+                            {% if onEditPage %}
+                                <a class="button"
+                                   href="{{ path('poll', { slug: poll.slug }) }}"
+                                >
+                                    {{ 'forms.cancel' | trans }}
+                                </a>
+                            {% endif %}
+
+                            <div class="poll-submit-wrapper__actions__inner">
+                                <p
+                                    id="vote-help"
+                                    data-form-vote-validation-target="voteHelp"
+                                    class="poll-submit-indication"
+                                >
+                                    {{- 'forms.vote_form.required_choice' | trans -}}
+                                </p>
+
+                                {{ form_row(voteForm.submit) }}
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(voteForm) }}
+            {% else %}
+                <div data-poll-view-target="listView">
+                    {{ include('proposals/_list.html.twig') }}
+                </div>
+
+                <div data-poll-view-target="tableView">
+                    {{ include('proposals/_table.html.twig') }}
+                </div>
+            {% endif %}
+        </div>
+
+        {% if canViewResults(poll) and preferredChoices %}
+            {% set firstChoice = preferredChoices|first %}
+
+            <div id="results" class="flow flow--smaller">
+                <div class="wrapper wrapper--small wrapper--center flow">
+                    <h2 class="text--primary">
+                        {{ 'polls.show.results.title' | trans(count: preferredChoices|length) }}
+                    </h2>
+
+                    <div class="panel panel--primary panel--rounded flow">
+                        <p>
+                            {{ 'polls.show.results.info' | trans({
+                                countChoices: preferredChoices|length,
+                                countYes: firstChoice.countAnswers('yes'),
+                            }) | raw }}
+                        </p>
+
+                        <div class="panel panel--success panel--rounded panel--border">
+                            {% if preferredChoices|length == 1 %}
+                                <p class="flow flow--small">
+                                    {% set date = firstChoice.date %}
+                                    {% if date %}
+                                        <span class="text--block text--bold">{{ date.value | dateTrans('EEEE d MMMM yyyy', poll.timezoneName) }}</span>
+                                        <span
+                                            class="text--block"
+                                            {% if date %}
+                                                data-controller="local-time"
+                                                data-local-time-source-timezone-value="{{ poll.timezoneName }}"
+                                                data-local-time-date-value="{{ date.value | date('Y-m-d', poll.timezoneName) }}"
+                                            {% endif %}
+                                        >{{ firstChoice.label }}</span>
+                                    {% else %}
+                                        <span class="text--bold">{{ firstChoice.label }}</span>
+                                    {% endif %}
+                                </p>
+                            {% elseif poll.isClassicPoll %}
+                                <ul class="list--nostyle flow flow--small">
+                                    {% for choice in preferredChoices %}
+                                        <li class="text--bold">
+                                            {{ choice.label }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% elseif poll.isDatePoll %}
+                                <ul class="list--nostyle flow flow--small">
+                                    {% for dateAndChoices in preferredChoices|groupDateProposals %}
+                                        {% set date = dateAndChoices[0] %}
+                                        {% set choices = dateAndChoices[1] %}
+
+                                        <li class="flow flow--small">
+                                            <span class="text--block text--bold">{{ date.value | dateTrans('EEEE d MMMM yyyy', poll.timezoneName) }}</span>
+
+                                            {% if choices|length == 1 %}
+                                                <span
+                                                    class="text--block"
+                                                    {% if date %}
+                                                        data-controller="local-time"
+                                                        data-local-time-source-timezone-value="{{ poll.timezoneName }}"
+                                                        data-local-time-date-value="{{ date.value | date('Y-m-d', poll.timezoneName) }}"
+                                                    {% endif %}
+                                                >{{ choices[0].label }}</span>
+                                            {% else %}
+                                                <ul class="list--nostyle flow flow--small">
+                                                    {% for choice in choices %}
+                                                        <li
+                                                            {% if date %}
+                                                                data-controller="local-time"
+                                                                data-local-time-source-timezone-value="{{ poll.timezoneName }}"
+                                                                data-local-time-date-value="{{ date.value | date('Y-m-d', poll.timezoneName) }}"
+                                                            {% endif %}
+                                                        >{{ choice.label }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <details class="flow flow--smaller">
+                    <summary class="wrapper wrapper--small wrapper--center">
+                        {{ icon('chart-simple') }}
+                        {{ 'polls.show.results.results_graph' | trans }}
+                    </summary>
+
+                    <ul class="wrapper wrapper--small wrapper--center panel panel--white panel--border panel--rounded panel--nopadding">
+                        {% set maxCount = poll.positiveAnswersMaxCount %}
+
+                        {% if poll.isClassicPoll %}
+                            {% for proposal in proposals %}
+                                {{ include('proposals/_result.html.twig') }}
+                            {% endfor %}
+                        {% elseif poll.isDatePoll %}
+                            {% for dateAndProposals in datesAndProposals %}
+                                {% set date = dateAndProposals[0] %}
+                                {% set dateProposals = dateAndProposals[1] %}
+
+                                {% for proposal in dateProposals %}
+                                    {{ include('proposals/_result.html.twig') }}
+                                {% endfor %}
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </details>
+            </div>
+        {% endif %}
+
+        <hr class="wrapper wrapper--center">
+
+        <div class="wrapper wrapper--small wrapper--center flow flow--large">
+            <h2 class="text--primary">{{ 'polls.show.comments.title' | trans }}</h2>
+
+            {% for comment in poll.comments %}
+                <article id="comment-{{ comment.id }}" class="panel panel--rounded flow flow--small">
+                    <header class="cols cols--always cols--gap-small text--secondary">
+                        <span class="col--extend">
+                            {{ include('_wikimedia_user_link.html.twig', { username: comment.authorName }) }}
+                        </span>
+
+                        <a class="anchor--dotted anchor--currentcolor text--small" href="#comment-{{ comment.id }}">
+                            <time datetime="{{ comment.createdAt | dateIso }}">
+                                {{ comment.createdAt | dateTrans }}
+                            </time>
+                        </a>
+                    </header>
+
+                    <div class="flow flow--small">
+                        {{ comment.content | markdown }}
+                    </div>
+                </article>
+            {% else %}
+                <p class="panel panel--rounded">
+                    {{ 'polls.show.comments.none' | trans }}
+                </p>
+            {% endfor %}
+
+            {% if commentForm %}
+                <div class="panel panel--primary panel--rounded flow no-print">
+                    <h3 class="text--primary">{{ 'polls.show.comments.new' | trans }}</h3>
+
+                    <p>
+                        {{ 'polls.show.comments.explain' | trans }}
+                    </p>
+
+                    {{ form_start(commentForm) }}
+                        {{ form_errors(commentForm) }}
+
+                        {{ form_row(commentForm.authorName) }}
+
+                        {{ form_row(commentForm.content) }}
+
+                        <div class="text--right">
+                            {{ form_row(commentForm.submit) }}
+                        </div>
+                    {{ form_end(commentForm) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

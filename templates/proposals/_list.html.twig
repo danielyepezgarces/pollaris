@@ -1,0 +1,43 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% set preferredChoices = poll.preferredChoices %}
+{% set displayMode = poll.type %}
+
+<div class="flow flow--large">
+    {% if displayMode == 'classic' %}
+        {% for proposal in proposals %}
+            <div class="panel panel--primary panel--rounded">
+                {{ include('proposals/_proposal.html.twig', {
+                    proposal: proposal,
+                    isPreferred: preferredChoices and proposal in preferredChoices,
+                    voteForm: voteForm,
+                    myVote: myVote,
+                }) }}
+            </div>
+        {% endfor %}
+    {% elseif displayMode == 'date' %}
+        {% for dateAndProposals in datesAndProposals %}
+            {% set date = dateAndProposals[0] %}
+            {% set proposals = dateAndProposals[1] %}
+
+            <fieldset class="panel panel--primary panel--rounded panel--date flow">
+                <div class="panel--date__legend">
+                    <legend>{{ date.value | dateTrans('EEEE d MMMM yyyy', poll.timezoneName) }}</legend>
+                </div>
+
+                {% for proposal in proposals %}
+                    {{ include('proposals/_proposal.html.twig', {
+                        proposal: proposal,
+                        isPreferred: preferredChoices and proposal in preferredChoices,
+                        voteForm: voteForm,
+                        myVote: myVote,
+                    }) }}
+                {% endfor %}
+            </fieldset>
+        {% endfor %}
+    {% endif %}
+</div>

@@ -1,0 +1,51 @@
+#!/bin/sh
+
+set -eu
+
+extract_mycnf_value() {
+    config_file="$1"
+    key="$2"
+    awk -F '=' -v wanted="$key" '
+        BEGIN { in_client = 0 }
+        /^\[client\]/ { in_client = 1; next }
+        /^\[/ { in_client = 0 }
+        in_client && $1 ~ "^[[:space:]]*" wanted "[[:space:]]*$" {
+            value = $2
+            sub(/^[[:space:]]+/, "", value)
+            sub(/[[:space:]]+$/, "", value)
+            gsub(/^"/, "", value)
+            gsub(/"$/, "", value)
+            print value
+            exit
+        }
+    ' "$config_file"
+}
+
+tool_data_dir="${TOOL_DATA_DIR:-${HOME}}"
+replica_mycnf="${tool_data_dir}/replica.my.cnf"
+
+if [ -z "${DATABASE_URL:-}" ] && [ -n "${TOOLFORGE_DB_NAME:-}" ]; then
+    db_user="${TOOL_TOOLSDB_USER:-}"
+    db_password="${TOOL_TOOLSDB_PASSWORD:-}"
+
+    if [ -z "$db_user" ] || [ -z "$db_password" ]; then
+        if [ -f "$replica_mycnf" ]; then
+            db_user="$(extract_mycnf_value "$replica_mycnf" user)"
+            db_password="$(extract_mycnf_value "$replica_mycnf" password)"
+        elif [ -f "${tool_data_dir}/.my.cnf" ]; then
+            db_user="$(extract_mycnf_value "${tool_data_dir}/.my.cnf" user)"
+            db_password="$(extract_mycnf_value "${tool_data_dir}/.my.cnf" password)"
+        else
+            echo "Missing Toolforge DB credentials. Set TOOL_TOOLSDB_USER/TOOL_TOOLSDB_PASSWORD or provide replica.my.cnf." >&2
+            exit 1
+        fi
+    fi
+
+    db_host="${TOOLFORGE_DB_HOST:-tools.db.svc.wikimedia.cloud}"
+    db_port="${TOOLFORGE_DB_PORT:-3306}"
+    db_server_version="${TOOLFORGE_DB_SERVER_VERSION:-mariadb-10.11.2}"
+
+    export DATABASE_URL="mysql://${db_user}:${db_password}@${db_host}:${db_port}/${TOOLFORGE_DB_NAME}?serverVersion=${db_server_version}&charset=utf8mb4"
+fi
+
+exec heroku-php-apache2 public/

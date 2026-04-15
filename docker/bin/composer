@@ -1,0 +1,14 @@
+#!/bin/bash
+# This file is part of Pollaris.
+# Copyright 2024-2026 Marien Fressinaud
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+SCRIPT_PATH=$(dirname $(realpath -s $0))
+export COMPOSE_FILE=$SCRIPT_PATH/../development/docker-compose.yml
+export USER=$(id -u):$(id -g)
+
+if [ -z `docker compose ps -q php` ] || [ -z `docker ps -q --no-trunc | grep $(docker compose ps -q php)` ]; then
+    docker compose run -T --rm php composer "$@"
+else
+    docker compose exec -T php composer "$@"
+fi

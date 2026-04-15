@@ -1,0 +1,58 @@
+# This file is part of Pollaris.
+# Copyright 2024-2026 Marien Fressinaud
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: pollaris
+
+services:
+    php:
+        build: .
+        restart: unless-stopped
+        volumes:
+            - ../..:/var/www/html:z
+            - ./php-custom.ini:/usr/local/etc/php/conf.d/custom.ini:z
+        user: $USER
+        links:
+            - database
+
+    worker:
+        build: .
+        restart: unless-stopped
+        command: php bin/console messenger:consume async scheduler_default -vv
+        volumes:
+            - ../..:/var/www/html:z
+            - ./php-custom.ini:/usr/local/etc/php/conf.d/custom.ini:z
+        user: $USER
+
+    bundler:
+        image: node:20-alpine
+        restart: unless-stopped
+        command: npm run watch
+        working_dir: /app
+        volumes:
+            - ../..:/app:z
+        user: $USER
+
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - "${PORT:-8000}:80"
+        volumes:
+            - ../..:/var/www/html:z
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf:z
+        links:
+            - php
+
+    database:
+        image: mariadb:10.11
+        restart: unless-stopped
+        environment:
+            MARIADB_ROOT_PASSWORD: root
+            MARIADB_DATABASE: pollaris
+
+    mailserver:
+        image: axllent/mailpit
+        restart: unless-stopped
+        ports:
+            - "${PORT_MAILPIT:-8025}:8025"

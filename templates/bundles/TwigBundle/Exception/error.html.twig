@@ -1,0 +1,31 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'errors.generic.title' | trans }}{% endblock %}
+
+{% block body %}
+    <main class="layout__body">
+        <div class="text--center wrapper wrapper--small wrapper--center flow flow--large">
+            <h1>{{ 'errors.generic.title' | trans }}</h1>
+
+            <p class="text--big">
+                {{ 'errors.generic.description' | trans }}
+            </p>
+
+            <p>
+                {{ 'errors.generic.sorry' | trans }}
+            </p>
+
+            <p>
+                <a class="button button--primary" href="{{ path('home') }}">
+                    {{ 'errors.back_home' | trans }}
+                </a>
+            </p>
+        </div>
+    </main>
+{% endblock %}

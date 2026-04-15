@@ -1,0 +1,41 @@
+Error: Помилка
+'The CSRF token is invalid. Please try to resubmit the form.': Сталася помилка, 
+  будь ласка, надішліть форму заново (недійсний токен CSRF).
+answer.value.invalid: Виберіть варіант зі списку.
+comment.author_name.max_length: Введіть ім'я, яке має бути коротшим за {limit} 
+  символів.
+comment.author_name.required: Введіть ім'я.
+comment.content.required: Введіть повідомлення.
+date.value.required: Введіть дату.
+poll.author_email.invalid: Введіть дійсну адресу електронної пошти.
+poll.author_email.required: Введіть адресу електронної пошти.
+poll.author_name.max_length: Введіть ім'я, яке має бути коротшим за {limit} 
+  символів.
+poll.dates.required: Виберіть принаймні одну дату.
+poll.edit_vote_mode.invalid: Виберіть режим редагування голосу зі списку.
+poll.password.incorrect: Пароль невірний.
+poll.password.required: Необхідний пароль.
+poll.slug.already_used: Таке посилання вже використовується. Будь ласка, введіть
+  інше.
+poll.slug.max_length: Введіть посилання, яке має бути коротшим за {limit} 
+  символів.
+poll.slug.pattern: Введіть посилання, яке складається лише із латинських літер 
+  від A до Z, цифр, тире або символів нижнього підкреслення.
+poll.slug.required: Введіть посилання.
+poll.title.max_length: Введіть назву, яка має бути коротшою за {limit} символів.
+poll.title.required: Введіть назву.
+poll.type.invalid: Виберіть тип зі списку.
+proposal.label.max_length: Введіть пропозицію, яка має бути коротшою за {limit} 
+  символів.
+proposal.label.required: Введіть пропозицію.
+user.author_name.already_used: Введіть інше ім'я, це вже використовується.
+user.username.already_used: введіть інше ім'я користувача, це вже 
+  використовується.
+user.username.max_length: Введіть ім'я користувача, яке має бути коротшим за 
+  {limit} символів.
+user.username.required: Введіть ім'я користувача.
+vote.author_name.max_length: Введіть ім'я, яке має бути коротшим за {limit} 
+  символів.
+vote.author_name.required: Введіть ім'я.
+vote.max_votes.limited: Ця пропозиція вже має {max} голосів, ви не можете за неї
+  проголосувати.

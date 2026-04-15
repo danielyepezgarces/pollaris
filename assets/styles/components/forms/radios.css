@@ -1,0 +1,118 @@
+/* This file is part of Pollaris. */
+/* Copyright 2024-2026 Marien Fressinaud */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+
+/**
+ * Accessible custom checkboxes and radio buttons.
+ * @see https://www.a11ywithlindsey.com/blog/create-custom-keyboard-accesible-checkboxes
+ */
+input[type="radio"] {
+    position: absolute;
+
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+
+    width: 1px;
+    height: 1px;
+}
+
+input[type="radio"] + label {
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+}
+
+input[type="radio"] + label::before {
+    content: "";
+
+    position: relative;
+
+    width: 25px;
+    height: 25px;
+    margin-right: var(--space-small);
+
+    flex-shrink: 0;
+
+    background-color: var(--color-grey1);
+    border: 1px solid var(--color-grey12);
+    border-radius: 50%;
+
+    transition:
+        border-color 0.2s ease-in-out,
+        background-color 0.2s ease-in-out;
+}
+
+input[type="radio"]:focus + label {
+    outline: var(--outline-width) solid var(--outline-color);
+    outline-offset: var(--outline-offset);
+}
+
+input[type="radio"]:checked + label::before {
+    border-color: var(--color-primary11);
+}
+
+input[type="radio"]:checked + label::after {
+    content: "";
+
+    position: absolute;
+
+    width: 15px;
+    height: 15px;
+    margin-left: 5px;
+
+    background-color: var(--color-primary11);
+    border-radius: 100%;
+}
+
+.radio-container {
+    padding: var(--space-medium);
+
+    background-color: var(--color-primary3);
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+}
+
+.radio-container label {
+    width: 100%;
+    margin-top: calc(-1 * var(--space-medium));
+    padding-top: var(--space-small);
+    padding-bottom: var(--space-small);
+
+    border-radius: var(--border-radius);
+}
+
+.radio-container:focus-within {
+    outline: var(--outline-width) solid var(--outline-color);
+    outline-offset: var(--outline-offset);
+}
+
+.radio-container input[type="radio"]:checked + label {
+    outline: none;
+}
+
+.radio-container:has(input[type="radio"]:checked) {
+    border-color: var(--color-primary11);
+}
+
+.radio-container input[type="radio"] + label::before {
+    position: absolute;
+    right: 0;
+
+    margin-right: 0;
+    margin-left: var(--space-small);
+}
+
+.radio-container input[type="radio"]:checked + label::after {
+    right: 0;
+
+    margin-right: 5px;
+    margin-left: 0;
+}
+
+.radio-container__help {
+    padding-left: calc(1.1em + 2 * var(--space-smaller));
+
+    color: var(--color-grey11);
+}

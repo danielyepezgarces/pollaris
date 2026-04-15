@@ -1,0 +1,85 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+<template id="modal-slots-applier">
+    <div class="flow flow--large">
+        <h1 id="modal-title">{{ 'polls.slots.same_slots.title' | trans }}</h1>
+
+        <form
+            class="flow"
+            data-controller="slots-applier"
+            data-action="slots-applier#apply modal#close"
+        >
+            <div
+                class="flow"
+                data-controller="collection"
+                data-collection-index-value="1"
+            >
+                <div data-collection-target="container" class="flow">
+                    <div class="flow flow--small" data-item="element">
+                        <label for="slots-applier_element_0_label">
+                            {{ 'forms.slot_type.label.label_pattern' | trans }}
+                        </label>
+
+                        <input
+                            id="slots-applier_element_0_label"
+                            type="time"
+                            data-slots-applier-target="element"
+                        />
+                    </div>
+                </div>
+
+                <button
+                    type="button"
+                    class="button--menuitem"
+                    data-action="collection#addElement"
+                >
+                    {{ icon('circle-plus') }}
+
+                    {{ 'forms.poll_slots_form.add_slot' | trans }}
+                </button>
+
+                <template data-collection-target="prototype">
+                    <div class="flow flow--small" data-item="element">
+                        <label for="slots-applier_element___name___label">
+                            {{ 'forms.slot_type.label.label_pattern' | trans }}
+                        </label>
+
+                        <div class="cols cols--always cols--gap">
+                            <input
+                                id="slots-applier_element___name___label"
+                                type="time"
+                                data-slots-applier-target="element"
+                            />
+
+                            <button
+                                type="button"
+                                class="button--ghost button--small"
+                                data-action="collection#removeElement"
+                            >
+                                {{ icon('trash') }}
+
+                                <span class="sr-only">
+                                    {{ 'forms.poll_slots_form.remove_slot' | trans }}
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="cols cols--always cols--gap cols--hend">
+                <button type="button" data-action="modal#close">
+                    {{ 'forms.cancel' | trans }}
+                </button>
+
+                <button type="submit" class="button--primary">
+                    {{ 'forms.apply' | trans }}
+                </button>
+            </div>
+        </form>
+    </div>
+</template>

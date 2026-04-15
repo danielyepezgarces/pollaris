@@ -1,0 +1,62 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% if previousLabel is not defined %}
+    {% if flow.isStepOutOfFlow %}
+        {% set previousLabel = 'forms.cancel' | trans %}
+    {% else %}
+        {% set previousLabel = 'forms.previous' | trans %}
+    {% endif %}
+{% endif %}
+
+{% if nextLabel is not defined %}
+    {% if flow.isStepOutOfFlow %}
+        {% set nextLabel = 'forms.confirm' | trans %}
+    {% else %}
+        {% set nextLabel = 'forms.next' | trans %}
+    {% endif %}
+{% endif %}
+
+{% if flow.hasPreviousStep(step) %}
+    <div class="cols cols--always cols--gap">
+        {% if flow.isStepOutOfFlow %}
+            <a class="button" href="{{ flow.previousStepUrl(step) }}">
+                {{ previousLabel }}
+            </a>
+
+            <div class="col--extend"></div>
+
+            <button type="submit" class="button--primary">
+                {{ nextLabel }}
+            </button>
+        {% else %}
+            <button
+                type="submit"
+                name="step-action"
+                value="back"
+            >
+                {{ previousLabel }}
+            </button>
+
+            <div class="col--extend"></div>
+
+            <button
+                type="submit"
+                name="step-action"
+                value="next"
+                class="button--primary"
+            >
+                {{ nextLabel }}
+            </button>
+        {% endif %}
+    </div>
+{% else %}
+    <div class="text--right">
+        <button type="submit" class="button--primary">
+            {{ nextLabel }}
+        </button>
+    </div>
+{% endif %}
