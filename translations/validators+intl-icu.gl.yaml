@@ -33,3 +33,4 @@ vote.max_votes.limited: Xa hai {max} voto(s) para esta proposta, non podes votar
   por ela.
 user.author_name.already_used: Escribe un nome diferente, este xa se está a 
   usar.
+vote.owner.already_voted: Xa votaches nesta enquisa.

@@ -1,7 +1,15 @@
 {#
  # This file is part of Pollaris.
  # Copyright 2024-2026 Marien Fressinaud
+ # Copyright 2026 Daniel Yepez Garces
  # SPDX-License-Identifier: AGPL-3.0-or-later
+ #
+ # Modified by Daniel Yepez Garces on 2026-04-15:
+ # - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+ # - Added Wikimedia login support
+ # - Removed local username/password authentication
+ # - Added multilingual survey support
+ # - Added user timezone display for survey times when different from server UTC
  #}
 
 {% extends 'base.html.twig' %}
@@ -14,40 +22,51 @@
             {{ 'polls.choose.title' | trans }}
         </h1>
 
-        <form method="get" action="{{ path('new poll') }}" class="flow">
-            <div class="radio-container">
-                <input id="type-date" type="radio" name="type" value="date" aria-describedby="type-date-help" checked/>
-
-                <label for="type-date">
-                    {{ icon('calendar-check') }}
-                    {{ 'polls.choose.date' | trans }}
-                </label>
-
-                <p id="type-date-help" class="radio-container__help">
-                    {{ 'polls.choose.date_help' | trans }}
+        {% if not app.user %}
+            <div class="panel panel--primary panel--rounded flow flow--small text--center">
+                <p class="text--bold">{{ 'polls.choose.login_required' | trans }}</p>
+                <p>
+                    <a class="button button--primary button--small" href="{{ path('login', { returnto: path('choose poll type') }) }}">
+                        {{ 'layout.login' | trans }}
+                    </a>
                 </p>
             </div>
+        {% else %}
+            <form method="get" action="{{ path('new poll') }}" class="flow">
+                <div class="radio-container">
+                    <input id="type-date" type="radio" name="type" value="date" aria-describedby="type-date-help" checked/>
 
-            <div class="radio-container">
-                <input id="type-classic" type="radio" name="type" value="classic" aria-describedby="type-classic-help" />
+                    <label for="type-date">
+                        {{ icon('calendar-check') }}
+                        {{ 'polls.choose.date' | trans }}
+                    </label>
 
-                <label for="type-classic">
-                    {{ icon('poll') }}
-                    {{ 'polls.choose.classic' | trans }}
-                </label>
+                    <p id="type-date-help" class="radio-container__help">
+                        {{ 'polls.choose.date_help' | trans }}
+                    </p>
+                </div>
 
-                <p id="type-classic-help" class="radio-container__help">
-                    {{ 'polls.choose.classic_help' | trans }}
-                </p>
-            </div>
+                <div class="radio-container">
+                    <input id="type-classic" type="radio" name="type" value="classic" aria-describedby="type-classic-help" />
 
-            <div class="text--right">
-                <button type="submit" class="button--primary">
-                    {{ 'polls.choose.next' | trans }}
-                </button>
-            </div>
+                    <label for="type-classic">
+                        {{ icon('poll') }}
+                        {{ 'polls.choose.classic' | trans }}
+                    </label>
 
-            <input type="hidden" name="flow" value="on">
-        </form>
+                    <p id="type-classic-help" class="radio-container__help">
+                        {{ 'polls.choose.classic_help' | trans }}
+                    </p>
+                </div>
+
+                <div class="text--right">
+                    <button type="submit" class="button--primary">
+                        {{ 'polls.choose.next' | trans }}
+                    </button>
+                </div>
+
+                <input type="hidden" name="flow" value="on">
+            </form>
+        {% endif %}
     </div>
 {% endblock %}

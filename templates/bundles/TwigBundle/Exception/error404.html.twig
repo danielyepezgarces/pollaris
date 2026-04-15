@@ -1,7 +1,15 @@
 {#
  # This file is part of Pollaris.
  # Copyright 2024-2026 Marien Fressinaud
+ # Copyright 2026 Daniel Yepez Garces
  # SPDX-License-Identifier: AGPL-3.0-or-later
+ #
+ # Modified by Daniel Yepez Garces on 2026-04-15:
+ # - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+ # - Added Wikimedia login support
+ # - Removed local username/password authentication
+ # - Added multilingual survey support
+ # - Added user timezone display for survey times when different from server UTC
  #}
 
 {% extends 'base.html.twig' %}
@@ -9,19 +17,17 @@
 {% block title %}{{ 'errors.404.title' | trans }}{% endblock %}
 
 {% block body %}
-    <main class="layout__body">
-        <div class="text--center wrapper wrapper--small wrapper--center flow flow--large">
-            <h1>{{ 'errors.404.title' | trans }}</h1>
+    <div class="text--center wrapper wrapper--small wrapper--center flow flow--large">
+        <h1>{{ 'errors.404.title' | trans }}</h1>
 
-            <p class="text--big">
-                {{ 'errors.404.description' | trans }}
-            </p>
+        <p class="text--big">
+            {{ 'errors.404.description' | trans }}
+        </p>
 
-            <p>
-                <a class="button button--primary" href="{{ path('home') }}">
-                    {{ 'errors.back_home' | trans }}
-                </a>
-            </p>
-        </div>
-    </main>
+        <p>
+            <a class="button button--primary" href="{{ path('home') }}">
+                {{ 'errors.back_home' | trans }}
+            </a>
+        </p>
+    </div>
 {% endblock %}

@@ -34,3 +34,4 @@ vote.author_name.required: Írjon be egy nevet.
 vote.max_votes.limited: Már {max} szavazat érkezett erre a javaslatra, ezért nem
   szavazhat rá.
 user.author_name.already_used: Válasszon másik nevet, ez már használatban van.
+vote.owner.already_voted: Már szavazott ebben a szavazásban.

@@ -65,7 +65,9 @@ forms.poll_form.author_email.help: Non se vai compartir o teu enderezo coas
   túa enquisa se perdes o seu enderezo e para notificarche cando haxa novos 
   votos.
 forms.poll_form.author_email.label: O teu enderezo de correo
+forms.poll_form.author_email.coming_soon: 'Próximamente'
 forms.poll_form.author_name.label: O teu nome
+forms.poll_form.author_name.label.wikimedia: O teu nome de usuario de Wikimedia
 forms.poll_form.closed_at.help: As persoas participantes poderán votar ata esta 
   data.
 forms.poll_form.closed_at.label: Data de finalización da enquisa
@@ -122,13 +124,11 @@ home.create_poll: Crear nova enquisa
 home.free_software: Pollaris é software libre baixo licenza AGPL 3.
 home.free_software.custom: '{appName} usa Pollaris, software libre baixo licenza AGPL
   3.'
-home.intro: Utiliza a esta ferramenta para planificar, organizar e tomar 
-  decisións de xeito áxil, simple e sen precisar crear unha conta.
+home.intro: 'Usa esta ferramenta de votación para organizar editatóns, reunións, campañas e consultas comunitarias de xeito rápido, sinxelo e aberto.'
 home.my_polls_and_votes: As miñas enquisas e votos
 home.show.poll.deleted: Eliminouse correctamente a túa enquisa.
 home.source_code: Accede ao código fonte.
-home.title: Organiza eventos e consulta opinións das amizades e familia, de 
-  xeito fácil e libre.
+home.title: 'Coordina eventos e toma decisións coa túa comunidade Wikimedia.'
 layout.header.my: As miñas enquisas e votos
 layout.header.preferences: Preferencias
 layout.logout: Fechar sesión
@@ -155,7 +155,6 @@ my.index.title: As miñas enquisas e votos
 my.index.vote_link: Ligazón do voto
 my.index.votes.confirm_removal: Vas eliminar todos os votos deste navegador (os 
   votos continuarán existindo). Tes certeza de querer continuar?
-my.index.votes.date: (voto do __vote_date__)
 my.index.votes.empty_placeholder: Sen votos
 my.index.votes.remove: Retirar o voto
 my.index.votes.title: Votos
@@ -182,6 +181,7 @@ polls.choose.date: Enquisa para data
 polls.choose.date_help: Unha enquisa para escoller a máis axeitada entre varias 
   datas ou horas.
 polls.choose.next: Seguinte
+polls.choose.login_required: 'Tes que iniciar sesión coa túa conta de Wikimedia para crear unha enquisa.'
 polls.choose.title: Escolle o tipo de enquisa
 polls.complete.consult: Consulta a túa enquisa
 polls.complete.created: Creouse a enquisa «{poll}». Podes convidar aos teus 
@@ -226,8 +226,7 @@ polls.show.is_closed: A enquisa está fechada.
 polls.show.my_votes.date: (voto do __date__)
 polls.show.my_votes.description: Os teus votos gárdanse no navegador. Para ter 
   maior privacidade, elimínaos se compartes o navegador con outras persoas.
-my.index.votes.poll: Na enquisa “<strong>__poll_title__</strong>” de 
-  __poll_author__
+my.index.votes.meta: 'De __poll_author__ · Votado o __vote_date__'
 polls.show.my_votes.edit: Editar o voto de {authorName}
 polls.show.my_votes.information: Información
 polls.show.my_votes.remove: Retirar
@@ -326,3 +325,6 @@ polls.votes.yours: O teu voto
 preferences.edit.title: Preferencias
 polls.summary.settings.max_votes: Un máximo de { number, plural, one {1 
   participante} other {# participantes} } poden votar a proposta.
+polls.show.already_voted: Xa votaches nesta enquisa.
+layout.login: 'Iniciar sesión'
+home.credits: 'Baseado en <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Modificado por <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Código fonte</a>'

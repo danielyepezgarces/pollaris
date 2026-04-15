@@ -31,3 +31,4 @@ vote.author_name.max_length: Zadejte název o méně než {limit} znacích.
 vote.author_name.required: Zadejte název.
 vote.max_votes.limited: Tento návrh již získal {max} hlasů, nemůžete pro něj 
   hlasovat.
+vote.owner.already_voted: V tomto hlasování jste již hlasoval(a).

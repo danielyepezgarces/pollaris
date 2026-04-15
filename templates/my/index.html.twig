@@ -1,7 +1,15 @@
 {#
  # This file is part of Pollaris.
  # Copyright 2024-2026 Marien Fressinaud
+ # Copyright 2026 Daniel Yepez Garces
  # SPDX-License-Identifier: AGPL-3.0-or-later
+ #
+ # Modified by Daniel Yepez Garces on 2026-04-15:
+ # - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+ # - Added Wikimedia login support
+ # - Removed local username/password authentication
+ # - Added multilingual survey support
+ # - Added user timezone display for survey times when different from server UTC
  #}
 
 {% extends 'base.html.twig' %}
@@ -12,93 +20,75 @@
     <div
         class="wrapper wrapper--small wrapper--center flow flow--larger"
         data-controller="my"
-        data-my-confirmation-polls-removal-value="{{ 'my.index.polls.confirm_removal' | trans }}"
-        data-my-confirmation-votes-removal-value="{{ 'my.index.votes.confirm_removal' | trans }}"
     >
         <h1>
             {{ 'my.index.title' | trans }}
             {{ icon('thumbtack') }}
         </h1>
 
-        {% if app.request.query.get('mailSent') %}
-            <div class="panel panel--success panel--rounded cols cols--gap-small">
-                <div class="text--bigger text--success">
-                    {{ icon('circle-check') }}
-                </div>
-
-                <p class="text--success" role="alert">
-                    {{ 'my.index.search.success' | trans }}
+        {% if not app.user %}
+            <div class="panel panel--primary panel--rounded flow flow--small text--center">
+                <p class="text--bold">{{ 'my.index.login_required' | trans }}</p>
+                <p>
+                    <a class="button button--primary button--small" href="{{ path('login', { returnto: path('my') }) }}">
+                        {{ 'layout.login' | trans }}
+                    </a>
                 </p>
             </div>
-        {% endif %}
+        {% else %}
+            {% if app.request.query.get('mailSent') %}
+                <div class="panel panel--success panel--rounded cols cols--gap-small">
+                    <div class="text--bigger text--success">
+                        {{ icon('circle-check') }}
+                    </div>
 
-        <p>
-            {{ 'my.index.description' | trans }}
-        </p>
+                    <p class="text--success" role="alert">
+                        {{ 'my.index.search.success' | trans }}
+                    </p>
+                </div>
+            {% endif %}
 
         <div class="flow">
             <div class="cols cols--center cols--always cols--gap-small">
                 <h2 class="col--extend text--primary">
                     {{ 'my.index.votes.title' | trans }}
                 </h2>
-
-                <button
-                    type="button"
-                    class="button--danger button--smaller"
-                    data-action="my#removeVotes"
-                    data-my-target="votesRemovalButton"
-                >
-                    {{ icon('thumbtack-slash') }}
-                    {{ 'my.index.remove_all' | trans }}
-                </button>
             </div>
 
-            <ul class="panel panel--primary panel--rounded list--nostyle flow" data-my-target="votes">
-            </ul>
+            {% if userVotes is not empty %}
+                <ul class="panel panel--primary panel--rounded list--nostyle flow">
+                    {% for vote in userVotes %}
+                        <li class="panel panel--white panel--rounded flow flow--small">
+                            <p class="text--bold">
+                                {{ vote.poll.title }}
+                            </p>
 
-            <p class="panel panel--primary panel--rounded text--bold text--center" data-my-target="votesPlaceholder">
-                {{ 'my.index.votes.empty_placeholder' | trans }}
-            </p>
+                            <p class="text--secondary">
+                                {{ 'my.index.votes.meta' | trans | replace({
+                                    '__poll_author__': vote.poll.authorName,
+                                    '__vote_date__': vote.createdAt | dateTrans,
+                                }) }}
+                            </p>
 
-            <template data-my-target="voteTemplate">
-                <li class="panel panel--white panel--rounded flow flow--small" data-vote="__key__">
-                    <div class="cols cols--center cols--always cols--gap-small">
-                        <span class="text--bold col--extend">
-                            __vote_author__
-                            <span class="text--secondary">
-                                {{ 'my.index.votes.date' | trans }}
-                            </span>
-                        </span>
+                            <div class="cols cols--center cols--gap-small">
+                                {% if vote.poll.isCompleted %}
+                                    <a href="{{ path('poll', { slug: vote.poll.slug }) }}" class="button button--smaller">
+                                        {{ 'my.index.poll_link' | trans }}
+                                    </a>
+                                {% endif %}
 
-                        <button
-                            type="button"
-                            class="button--smaller"
-                            data-action="my#removeVote"
-                            data-storage-key="__key__"
-                            title="{{ 'my.index.votes.remove' | trans }}"
-                        >
-                            {{ icon('thumbtack-slash') }}
-                            <span class="sr-only">
-                                {{ 'my.index.votes.remove' | trans }}
-                            </span>
-                        </button>
-                    </div>
-
-                    <p class="text--secondary">
-                        {{ 'my.index.votes.poll' | trans | raw }}
-                    </p>
-
-                    <div class="cols cols--center cols--gap-small">
-                        <a href="__poll_url__" class="button button--smaller">
-                            {{ 'my.index.poll_link' | trans }}
-                        </a>
-
-                        <a href="__vote_url__" class="button button--smaller" data-link-to-vote>
-                            {{ 'my.index.vote_link' | trans }}
-                        </a>
-                    </div>
-                </li>
-            </template>
+                                <a href="{{ path('edit vote', { slug: vote.poll.slug, id: vote.id }) }}" class="button button--smaller">
+                                    {{ 'my.index.vote_link' | trans }}
+                                </a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="panel panel--primary panel--rounded text--bold text--center">
+                    {{ 'my.index.votes.empty_placeholder' | trans }}
+                </p>
+            {% endif %}
         </div>
 
         <div class="flow">
@@ -106,79 +96,43 @@
                 <h2 class="col--extend text--primary">
                     {{ 'my.index.polls.title' | trans }}
                 </h2>
-
-                <button
-                    type="button"
-                    class="button--danger button--smaller"
-                    data-action="my#removePolls"
-                    data-my-target="pollsRemovalButton"
-                >
-                    {{ icon('thumbtack-slash') }}
-                    {{ 'my.index.remove_all' | trans }}
-                </button>
             </div>
 
-            <ul class="panel panel--primary panel--rounded list--nostyle flow" data-my-target="polls">
-            </ul>
+            {% if ownedPolls is not empty %}
+                <ul class="panel panel--primary panel--rounded list--nostyle flow">
+                    {% for poll in ownedPolls %}
+                        <li class="panel panel--white panel--rounded flow flow--small">
+                            <h3>{{ poll.title }}</h3>
 
-            <p class="panel panel--primary panel--rounded text--bold text--center" data-my-target="pollsPlaceholder">
-                {{ 'my.index.polls.empty_placeholder' | trans }}
-            </p>
+                            <p class="text--secondary">
+                                {{ 'my.index.polls.of_by' | trans | replace({
+                                    '__date__': poll.createdAt | dateTrans,
+                                    '__author__': poll.authorName,
+                                }) }}
+                            </p>
 
-            <template data-my-target="pollTemplate">
-                <li class="panel panel--white panel--rounded flow flow--small">
-                    <div class="cols cols--center cols--always cols--gap-small">
-                        <h3 class="col--extend">
-                            __title__
-                        </h3>
+                            <div class="cols cols--center cols--gap-small">
+                                {% if poll.isCompleted %}
+                                    <a href="{{ path('poll', { slug: poll.slug }) }}" class="button button--smaller">
+                                        {{ 'my.index.poll_link' | trans }}
+                                    </a>
+                                {% endif %}
 
-                        <button
-                            type="button"
-                            class="button--smaller"
-                            data-action="my#removePoll"
-                            data-storage-key="__key__"
-                            title="{{ 'my.index.polls.remove' | trans }}"
-                        >
-                            {{ icon('thumbtack-slash') }}
-                            <span class="sr-only">
-                                {{ 'my.index.polls.remove' | trans }}
-                            </span>
-                        </button>
-                    </div>
-
-                    <p class="text--secondary">
-                        {{ 'my.index.polls.of_by' | trans }}
-                    </p>
-
-                    <div class="cols cols--center cols--gap-small">
-                        <a href="__poll_url__" class="button button--smaller">
-                            {{ 'my.index.poll_link' | trans }}
-                        </a>
-
-                        <a href="__admin_url__" class="button button--smaller">
-                            {{ 'my.index.admin_link' | trans }}
-                        </a>
-                    </div>
-                </li>
-            </template>
+                                <a href="{{ path('poll admin', { id: poll.id, token: poll.adminToken }) }}" class="button button--smaller">
+                                    {{ 'my.index.admin_link' | trans }}
+                                </a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="panel panel--primary panel--rounded text--bold text--center">
+                    {{ 'my.index.polls.empty_placeholder' | trans }}
+                </p>
+            {% endif %}
         </div>
 
-        <div class="flow">
-            <h2 class="text--primary">
-                {{ 'my.index.search.title' | trans }}
-            </h2>
+        {% endif %}{# end app.user #}
 
-            <div class="panel panel--primary panel--rounded">
-                {{ form_start(searchForm) }}
-                    {{ form_errors(searchForm) }}
-
-                    {{ form_row(searchForm.email) }}
-
-                    <div class="text--right">
-                        {{ form_row(searchForm.submit) }}
-                    </div>
-                {{ form_end(searchForm) }}
-            </div>
-        </div>
     </div>
 {% endblock %}

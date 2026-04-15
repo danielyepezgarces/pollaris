@@ -2,7 +2,15 @@
 
 // This file is part of Pollaris.
 // Copyright 2024-2026 Marien Fressinaud
+// Copyright 2026 Daniel Yepez Garces
 // SPDX-License-Identifier: AGPL-3.0-or-later
+//
+// Modified by Daniel Yepez Garces on 2026-04-15:
+// - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+// - Added Wikimedia login support
+// - Removed local username/password authentication
+// - Added multilingual survey support
+// - Added user timezone display for survey times when different from server UTC
 
 namespace App\Security;
 
@@ -10,11 +18,13 @@ use App\Entity;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class PollSecurity
 {
     public function __construct(
         private RequestStack $requestStack,
+        private TokenStorageInterface $tokenStorage,
         #[Autowire('%kernel.secret%')]
         #[\SensitiveParameter]
         private string $secret,
@@ -51,13 +61,19 @@ class PollSecurity
 
         $hasAdminAccess = !$ignoreAdminAccess && $this->hasAccessToAdmin($poll);
 
+        // For logged-in users, check ownership via DB
+        $currentUser = $this->tokenStorage->getToken()?->getUser();
+        $isOwner = $currentUser instanceof Entity\User && $vote->getOwner()?->getId() === $currentUser->getId();
+
+        // For guests, fall back to session-based check
         $session = $this->requestStack->getSession();
         $myVoteId = $session->get("vote-{$poll->getId()}");
-        $myVoteIsGivenOne = $myVoteId === $vote->getId();
+        $myVoteIsGivenOne = !$isOwner && $myVoteId === $vote->getId();
 
         return (
             !$poll->isClosed() && (
                 $poll->getEditVoteMode() === 'any' ||
+                $isOwner ||
                 $myVoteIsGivenOne ||
                 $hasAdminAccess
             )

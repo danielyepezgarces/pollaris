@@ -2,7 +2,15 @@
 
 // This file is part of Pollaris.
 // Copyright 2024-2026 Marien Fressinaud
+// Copyright 2026 Daniel Yepez Garces
 // SPDX-License-Identifier: AGPL-3.0-or-later
+//
+// Modified by Daniel Yepez Garces on 2026-04-15:
+// - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+// - Added Wikimedia login support
+// - Removed local username/password authentication
+// - Added multilingual survey support
+// - Added user timezone display for survey times when different from server UTC
 
 namespace App\Controller;
 
@@ -37,8 +45,6 @@ class PollsController extends BaseController
     #[Route('/polls/choose', name: 'choose poll type')]
     public function choose(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
-
         return $this->render('polls/choose.html.twig');
     }
 
@@ -72,7 +78,9 @@ class PollsController extends BaseController
 
         $flow = $this->pollFlowBuilder->build($poll);
 
-        $form = $this->createNamedForm('poll', Form\PollForm::class, $poll);
+        $form = $this->createNamedForm('poll', Form\PollForm::class, $poll, [
+            'current_user' => $currentUser,
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -198,17 +206,37 @@ class PollsController extends BaseController
         $commentForm = null;
         $currentUser = $this->getUser();
 
-        if (!$poll->isClosed()) {
+        if ($currentUser instanceof Entity\User) {
+            // For logged-in users, always load their vote from DB (cross-device sync)
+            $myVote = $this->voteRepository->findOneByOwnerAndPoll($currentUser, $poll);
+
+            // Claim any unclaimed vote with matching authorName (votes cast before owner feature)
+            if ($myVote === null) {
+                $unclaimed = $this->voteRepository->findOneUnclaimedByAuthorNameAndPoll(
+                    $currentUser->getUserIdentifier(),
+                    $poll
+                );
+                if ($unclaimed !== null) {
+                    $unclaimed->setOwner($currentUser);
+                    $this->voteRepository->save($unclaimed);
+                    $myVote = $unclaimed;
+                }
+            }
+        } else {
+            // For guests, load from session (device-specific)
             $session = $request->getSession();
             $voteId = $session->get("vote-{$poll->getId()}");
-
             if ($voteId) {
                 $myVote = $this->voteRepository->find($voteId);
             }
+        }
 
-            if ($currentUser instanceof Entity\User) {
+        if (!$poll->isClosed()) {
+            if ($currentUser instanceof Entity\User && $myVote === null) {
+                // User is logged in but hasn't voted yet: show the vote form
                 $vote = new Entity\Vote();
                 $vote->setPoll($poll);
+                $vote->setOwner($currentUser);
                 $vote->setAuthorName($currentUser->getUserIdentifier());
 
                 $voteForm = $this->createNamedForm('vote', Form\VoteForm::class, $vote, [
@@ -224,17 +252,15 @@ class PollsController extends BaseController
                     $voteEvent = new PollActivity\VoteEvent($vote);
                     $this->eventDispatcher->dispatch($voteEvent, PollActivity\VoteEvent::NEW);
 
-                    $session = $request->getSession();
-                    $session->set("vote-{$poll->getId()}", $vote->getId());
-
                     $this->addFlash('success', 'vote.created');
-                    $this->addFlash('storeMyVote', true);
 
                     return $this->redirectToRoute('poll', [
                         'slug' => $poll->getSlug(),
                     ]);
                 }
+            }
 
+            if ($currentUser instanceof Entity\User) {
                 $comment = new Entity\Comment();
                 $comment->setPoll($poll);
                 $comment->setAuthorName($currentUser->getUserIdentifier());
@@ -310,6 +336,9 @@ class PollsController extends BaseController
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
         $flow = $this->pollFlowBuilder->build($poll);
 
         $form = $this->createNamedForm('poll', Form\PollForm::class, $poll);
@@ -337,6 +366,9 @@ class PollsController extends BaseController
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
         $flow = $this->pollFlowBuilder->build($poll);
 
         if (!$flow->isAccessible('summary')) {
@@ -372,6 +404,9 @@ class PollsController extends BaseController
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
         if (!$poll->isClassicPoll()) {
             throw $this->createNotFoundException('The poll must be of type classic');
         }
@@ -411,6 +446,9 @@ class PollsController extends BaseController
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
         if (!$poll->isDatePoll()) {
             throw $this->createNotFoundException('The poll must be of type date');
         }
@@ -450,6 +488,9 @@ class PollsController extends BaseController
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
         if (!$poll->isDatePoll()) {
             throw $this->createNotFoundException('The poll must be of type date');
         }
@@ -489,6 +530,9 @@ class PollsController extends BaseController
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
         if ($poll->isCompleted()) {
             return $this->redirectToRoute('poll admin', [
                 'id' => $poll->getId(),
@@ -536,7 +580,9 @@ class PollsController extends BaseController
         if ($poll->getAdminToken() !== $token) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
-
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
         $flow = $this->pollFlowBuilder->build($poll);
 
         if (!$flow->isAccessible('end')) {
@@ -556,6 +602,9 @@ class PollsController extends BaseController
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
         if (!$poll->isCompleted()) {
             return $this->redirectToRoute('poll summary', [
                 'id' => $poll->getId(),
@@ -579,6 +628,9 @@ class PollsController extends BaseController
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
         $form = $this->createNamedForm('poll_deletion', Form\PollDeletionForm::class, $poll);
 
         $form->handleRequest($request);

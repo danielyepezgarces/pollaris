@@ -10,6 +10,12 @@
     --poll-outer-border-size: 2px;
 }
 
+#mainFlow {
+    max-width: var(--poll-max-width);
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .poll-view--table .poll {
     --cell-width: 120px;
     --cell-sticky-width: 150px;

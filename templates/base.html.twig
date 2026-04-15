@@ -1,7 +1,15 @@
 {#
  # This file is part of Pollaris.
  # Copyright 2024-2026 Marien Fressinaud
+ # Copyright 2026 Daniel Yepez Garces
  # SPDX-License-Identifier: AGPL-3.0-or-later
+ #
+ # Modified by Daniel Yepez Garces on 2026-04-15:
+ # - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+ # - Added Wikimedia login support
+ # - Removed local username/password authentication
+ # - Added multilingual survey support
+ # - Added user timezone display for survey times when different from server UTC
  #}
 
 <!DOCTYPE html>
@@ -43,52 +51,69 @@
     <body>
         <div class="layout" id="layout">
             {% block header %}
-                <header class="layout__header header cols cols--always cols--center cols--gap-small no-print" role="banner">
-                    <div class="col--extend">
+                <header class="layout__header header no-print" role="banner" data-controller="nav-toggle">
+                    <div class="header__brand">
                         <a class="header__title" href="{{ path('home') }}">
                             {{ appName }}
                         </a>
 
-                        <a class="header__link" href="{{ path('my') }}">
-                            {{ 'layout.header.my' | trans }}
-                        </a>
-
-                        {% if app.user %}
-                            <a class="header__link" href="{{ path('admin') }}">
-                                {{ 'admin.title' | trans }}
-                            </a>
-                        {% endif %}
-                    </div>
-
-                    <div class="cols cols--gap-small">
                         <button
-                            class="header__button button--small"
-                            data-controller="modal-opener"
-                            data-action="modal-opener#fetch"
-                            data-modal-opener-selector-value="{{ path('edit preferences') }}"
+                            class="header__hamburger"
+                            type="button"
+                            data-action="nav-toggle#toggle"
+                            data-nav-toggle-target="button"
+                            aria-expanded="false"
+                            aria-label="Menu"
                         >
-                            {{ icon('gear') }}
-                            {{ 'layout.header.preferences' | trans }}
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </button>
-
-                        {% if app.user %}
-                            <form action="{{ path('logout') }}" method="post" data-turbo="false">
-                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
-
-                                <button class="header__button button--small" type="submit">
-                                    {{ 'layout.logout' | trans }}
-                                </button>
-                            </form>
-                        {% else %}
-                            <a class="button header__button button--small" href="{{ path('login', {'returnto': app.request.pathinfo}) }}">
-                                {{ 'login.title' | trans }}
-                            </a>
-                        {% endif %}
                     </div>
+
+                    <nav class="header__nav" data-nav-toggle-target="nav">
+                        <div class="header__links">
+                            <a class="header__link" href="{{ path('my') }}">
+                                {{ 'layout.header.my' | trans }}
+                            </a>
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="header__link" href="{{ path('admin') }}">
+                                    {{ 'admin.title' | trans }}
+                                </a>
+                            {% endif %}
+                        </div>
+
+                        <div class="header__actions">
+                            <button
+                                class="header__button button--small"
+                                data-controller="modal-opener"
+                                data-action="modal-opener#fetch"
+                                data-modal-opener-selector-value="{{ path('edit preferences') }}"
+                            >
+                                {{ icon('gear') }}
+                                {{ 'layout.header.preferences' | trans }}
+                            </button>
+
+                            {% if app.user %}
+                                <form action="{{ path('logout') }}" method="post" data-turbo="false">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+
+                                    <button class="header__button button--small" type="submit">
+                                        {{ 'layout.logout' | trans }}
+                                    </button>
+                                </form>
+                            {% else %}
+                                <a class="button header__button button--small" href="{{ path('login', {'returnto': app.request.pathinfo}) }}">
+                                    {{ 'layout.login' | trans }}
+                                </a>
+                            {% endif %}
+                        </div>
+                    </nav>
                 </header>
             {% endblock %}
 
-            <main class="layout__body" id="content" tabindex="-1">
+            <main class="layout__body {% block main_class %}{% endblock %}" id="content" tabindex="-1">
                 {% block body %}
                 {% endblock %}
             </main>

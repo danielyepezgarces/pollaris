@@ -1,6 +1,14 @@
 // This file is part of Pollaris.
 // Copyright 2024-2026 Marien Fressinaud
+// Copyright 2026 Daniel Yepez Garces
 // SPDX-License-Identifier: AGPL-3.0-or-later
+//
+// Modified by Daniel Yepez Garces on 2026-04-15:
+// - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+// - Added Wikimedia login support
+// - Removed local username/password authentication
+// - Added multilingual survey support
+// - Added user timezone display for survey times when different from server UTC
 
 import dayjsLocaleCs from 'dayjs/locale/cs';
 import dayjsLocaleEs from 'dayjs/locale/es';
@@ -10,13 +18,15 @@ import dayjsLocaleGl from 'dayjs/locale/gl';
 import dayjsLocaleHu from 'dayjs/locale/hu';
 import dayjsLocaleIt from 'dayjs/locale/it';
 import dayjsLocaleOc from 'dayjs/locale/oc-lnc';
+import dayjsLocalePt from 'dayjs/locale/pt';
+import dayjsLocalePtBr from 'dayjs/locale/pt-br';
 import dayjsLocaleUk from 'dayjs/locale/uk';
 import dayjsPluginLocalizedFormat from 'dayjs/plugin/localizedFormat';
 
 export function setDayjsLocale (dayjs) {
     dayjs.extend(dayjsPluginLocalizedFormat);
 
-    const lang = document.documentElement.lang;
+    const lang = (document.documentElement.lang || 'en').toLowerCase().replace(/_/g, '-');
 
     if (lang.startsWith('cs')) {
         dayjs.locale('cs');
@@ -34,6 +44,10 @@ export function setDayjsLocale (dayjs) {
         dayjs.locale('it');
     } else if (lang.startsWith('oc')) {
         dayjs.locale('oc-lnc');
+    } else if (lang.startsWith('pt-br')) {
+        dayjs.locale('pt-br');
+    } else if (lang.startsWith('pt')) {
+        dayjs.locale('pt');
     } else if (lang.startsWith('uk')) {
         dayjs.locale('uk');
     } else {

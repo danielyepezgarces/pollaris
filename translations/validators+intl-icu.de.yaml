@@ -41,3 +41,4 @@ vote.max_votes.limited: Es gab bereits {max} Stimme(n) für diesen Vorschlag, Si
   können nicht mehr dafür stimmen.
 user.author_name.already_used: Geben Sie einen anderen Namen ein, dieser wird 
   bereits verwendet.
+vote.owner.already_voted: Sie haben in dieser Abstimmung bereits abgestimmt.

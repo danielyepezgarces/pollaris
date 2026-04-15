@@ -66,7 +66,9 @@ forms.poll_form.author_email.help: Ihre Adresse wird nicht an andere
   ermöglichen, Ihre Umfrage wiederzufinden, falls Sie die Adresse verlieren, und
   Sie zu benachrichtigen, wenn neue Stimmen abgegeben werden.
 forms.poll_form.author_email.label: Ihre E-Mail-Adresse
+forms.poll_form.author_email.coming_soon: 'Demnächst verfügbar'
 forms.poll_form.author_name.label: Ihr Name
+forms.poll_form.author_name.label.wikimedia: Ihr Wikimedia-Benutzername
 forms.poll_form.closed_at.help: Die Teilnehmenden können bis zu diesem Datum 
   abstimmen.
 forms.poll_form.closed_at.label: Schlussdatum der Umfrage
@@ -125,13 +127,11 @@ home.free_software: Pollaris ist eine freie Software, die unter der AGPL 3
   lizenziert ist.
 home.free_software.custom: '{appName} benutzt Pollaris, eine unter AGPL 3 lizenzierte,
   freie Software.'
-home.intro: Nutzen Sie unser Umfrage-Tool, um schnell, einfach und ohne 
-  Registrierung zu planen, zu organisieren und Entscheidungen zu treffen.
+home.intro: 'Nutze dieses Abstimmungswerkzeug, um Edit-a-thons, Treffen, Kampagnen und Community-Konsultationen schnell, einfach und offen zu organisieren.'
 home.my_polls_and_votes: Meine Umfragen und Stimmen
 home.show.poll.deleted: Ihre Umfrage wurde erfolgreich gelöscht.
 home.source_code: Auf den Quelltext zugreifen.
-home.title: Veranstaltungen organisieren oder Meinungen von Freunden und Familie
-  einholen – ganz einfach und kostenlos.
+home.title: 'Koordiniere Veranstaltungen und triff Entscheidungen mit deiner Wikimedia-Community.'
 layout.header.my: Meine Umfragen und Stimmen
 layout.header.preferences: Einstellungen
 layout.logout: Abmelden
@@ -160,10 +160,8 @@ my.index.vote_link: Abstimmungslink
 my.index.votes.confirm_removal: Sie sind dabei, alle Stimmen aus diesem Browser 
   zu entfernen (die Stimmen bleiben weiterhin bestehen). Möchten Sie wirklich 
   fortfahren?
-my.index.votes.date: (Stimme vom __vote_date__)
 my.index.votes.empty_placeholder: Keine Stimmen
-my.index.votes.poll: In der Umfrage „<strong>__poll_title__</strong>“ von 
-  __poll_author__
+my.index.votes.meta: 'Von __poll_author__ · Abgestimmt am __vote_date__'
 my.index.votes.remove: Die Stimme entfernen
 my.index.votes.title: Stimmen
 notifications.close: Schließen
@@ -190,6 +188,7 @@ polls.choose.date: Datums-Umfrage
 polls.choose.date_help: Eine Umfrage zur Auswahl des bestmöglichen Datums oder 
   Zeitfensters.
 polls.choose.next: Nächstes
+polls.choose.login_required: 'Du musst dich mit deinem Wikimedia-Konto anmelden, um eine Umfrage zu erstellen.'
 polls.choose.title: Umfrage-Art wählen
 polls.complete.consult: Umfrage jetzt einsehen
 polls.complete.created: Die Umfrage „{poll}“ wurde erstellt. Sie können Ihre 
@@ -344,3 +343,6 @@ polls.table.toolbar.show_less.label: Die Zeile reduzieren
 polls.table.toolbar.show_more.title: Die Zeile erweitern, um alle Beschriftungen
   anzuzeigen
 polls.table.toolbar.show_more.label: Die Zeile erweitern
+polls.show.already_voted: Sie haben in dieser Abstimmung bereits abgestimmt.
+layout.login: 'Anmelden'
+home.credits: 'Basierend auf <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Bearbeitet von <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Quellcode</a>'

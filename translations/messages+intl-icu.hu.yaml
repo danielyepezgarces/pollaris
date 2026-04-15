@@ -67,7 +67,9 @@ forms.poll_form.author_email.help: Az Ön e-mail-címét nem osztjuk meg a szava
   többi résztvevőjével. Csak arra használjuk, hogy Ön megtalálja a szavazását, 
   ha elveszíti a hivatkozást, valamint hogy értesítsük az új szavazatokról.
 forms.poll_form.author_email.label: Az Ön e-mail címe
+forms.poll_form.author_email.coming_soon: 'Hamarosan'
 forms.poll_form.author_name.label: Az Ön neve
+forms.poll_form.author_name.label.wikimedia: Az Ön Wikimedia felhasználóneve
 forms.poll_form.closed_at.help: A résztvevők eddig szavazhatnak.
 forms.poll_form.closed_at.label: A szavazás lezárásának dátuma
 forms.poll_form.description.label: Leírás
@@ -121,13 +123,11 @@ home.create_poll: Új szavazás létrehozása
 home.free_software: A Pollaris egy AGPL 3 licenc alatt kiadott szabad szoftver.
 home.free_software.custom: A(z) {appName} a Pollaris nevű, AGPL 3 licenc alatt 
   kiadott szabad szoftvert használja.
-home.intro: Szavazóeszközünk segítségével gyorsan, egyszerűen és regisztráció 
-  nélkül tervezhet, szervezhet és hozhat döntéseket.
+home.intro: 'Használja ezt a szavazóeszközt editatonok, találkozók, kampányok és közösségi konzultációk gyors, egyszerű és nyílt megszervezéséhez.'
 home.my_polls_and_votes: Szavazások és válaszok
 home.show.poll.deleted: A szavazást sikeresen töröltük.
 home.source_code: Forráskód megnyitása.
-home.title: Szervezzen eseményeket, vagy kérje ki ismerősei véleményét 
-  egyszerűen, szabadon.
+home.title: 'Koordináljon eseményeket és hozzon döntéseket Wikimedia-közösségével.'
 layout.header.my: Szavazásaim és válaszaim
 layout.header.preferences: Beállítások
 layout.logout: Kijelentkezés
@@ -154,10 +154,8 @@ my.index.title: Szavazásaim és válaszaim
 my.index.vote_link: Szavazat hivatkozása
 my.index.votes.confirm_removal: Az összes választ el fogja távolítani ebből a 
   böngészőből (a válaszok továbbra is megmaradnak). Biztosan folytatja?
-my.index.votes.date: '(szavazat dátuma: __vote_date__)'
 my.index.votes.empty_placeholder: Nincs szavazat
-my.index.votes.poll: A(z) „<strong>__poll_title__</strong>” szavazáson 
-  (__poll_author__ által)
+my.index.votes.meta: '__poll_author__ · Szavazás dátuma: __vote_date__'
 my.index.votes.remove: Szavazat eltávolítása
 my.index.votes.title: Szavazatok
 notifications.close: Bezárás
@@ -182,6 +180,7 @@ polls.choose.date: Időpontszavazás
 polls.choose.date_help: Szavazás a legmegfelelőbb dátum vagy időpont 
   kiválasztásához.
 polls.choose.next: Következő
+polls.choose.login_required: 'Be kell jelentkezned a Wikimedia-fiókodba egy szavazás létrehozásához.'
 polls.choose.title: Válassza ki a szavazás típusát
 polls.complete.consult: Tekintse meg szavazását most
 polls.complete.created: A(z) „{poll}” szavazás létrejött. Meghívhatja ismerőseit
@@ -328,3 +327,6 @@ polls.table.toolbar.show_less.title: Sor összecsukása a címkék rövidebb
 polls.table.toolbar.show_more.label: Sor kibontása
 polls.table.toolbar.show_more.title: Sor kibontása az összes címke 
   megjelenítéséhez
+polls.show.already_voted: Már szavazott ebben a szavazásban.
+layout.login: 'Bejelentkezés'
+home.credits: 'Alapja: <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Módosította: <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Forráskód</a>'

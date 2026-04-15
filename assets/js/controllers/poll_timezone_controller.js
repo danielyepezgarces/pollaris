@@ -13,5 +13,19 @@ export default class extends Controller {
         this.browserTimezoneTargets.forEach((input) => {
             input.value = browserTimezone;
         });
+
+        if (browserTimezone) {
+            const browserRadio = this.element.querySelector('input[type="radio"][value="browser"]');
+            if (browserRadio) {
+                const label = this.element.querySelector(`label[for="${browserRadio.id}"]`);
+                if (label && !label.querySelector('.timezone-name')) {
+                    const span = document.createElement('span');
+                    span.className = 'timezone-name';
+                    span.style.marginLeft = '0.25em';
+                    span.textContent = `(${browserTimezone})`;
+                    label.appendChild(span);
+                }
+            }
+        }
     }
 }

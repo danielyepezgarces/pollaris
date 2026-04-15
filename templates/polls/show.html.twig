@@ -1,7 +1,15 @@
 {#
  # This file is part of Pollaris.
  # Copyright 2024-2026 Marien Fressinaud
+ # Copyright 2026 Daniel Yepez Garces
  # SPDX-License-Identifier: AGPL-3.0-or-later
+ #
+ # Modified by Daniel Yepez Garces on 2026-04-15:
+ # - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+ # - Added Wikimedia login support
+ # - Removed local username/password authentication
+ # - Added multilingual survey support
+ # - Added user timezone display for survey times when different from server UTC
  #}
 
 {% extends 'base.html.twig' %}
@@ -37,9 +45,24 @@
                     {{ poll.title }}
                 </h1>
 
-                {% if poll.description %}
-                    <div class="flow flow--small">
-                        {{ poll.description | markdown }}
+                {% if poll.description or poll.localizedDescriptions %}
+                    <div
+                        class="flow flow--small"
+                        data-controller="description-translator"
+                        data-description-translator-descriptions-value="{{ poll.localizedDescriptions | json_encode }}"
+                    >
+                        <div data-description-translator-target="content">
+                            {% if poll.description %}{{ poll.description | markdown }}{% endif %}
+                        </div>
+                        {% if poll.localizedDescriptions %}
+                            <p
+                                data-description-translator-target="loading"
+                                hidden
+                                class="text--secondary text--small"
+                            >
+                                {{ 'polls.show.description.translating' | trans }}
+                            </p>
+                        {% endif %}
                     </div>
                 {% endif %}
 
@@ -93,7 +116,7 @@
                         {% endif %}
                     </div>
 
-                    {% if hasAccessToAdmin(poll) or (app.user and poll.owner and poll.owner.id == app.user.id) %}
+                    {% if app.user and poll.owner and poll.owner.id == app.user.id %}
                         <a
                             href="{{ path('poll admin', { id: poll.id, token: poll.adminToken }) }}"
                             class="button button--small button--block text--center"
@@ -229,25 +252,7 @@
                 </p>
             {% endif %}
 
-            {% if myVote and app.flashes('storeMyVote') %}
-                <div
-                    data-controller="storage"
-                    data-storage-namespace-value="votes"
-                    data-storage-key-value="{{ myVote.id }}"
-                    data-storage-entry-value="{{ {
-                        pollId: poll.id,
-                        pollTitle: poll.title,
-                        pollType: poll.type,
-                        pollDate: poll.createdAt | dateIso,
-                        pollAuthor: poll.authorName,
-                        pollUrl: url('poll', { slug: poll.slug }),
-                        voteAuthor: myVote.authorName,
-                        voteDate: myVote.createdAt | dateIso,
-                        voteUrl: url('edit vote', { slug: poll.slug, id: myVote.id, _fragment: 'poll' }),
-                        canEditVote: canEditVotes(poll, ignoreAdminAccess: true),
-                    } | json_encode }}"
-                ></div>
-            {% endif %}
+
 
         </div>
 

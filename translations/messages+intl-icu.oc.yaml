@@ -67,7 +67,9 @@ forms.poll_form.author_email.help: Vòstra adreça electronica serà pas parteja
   permetre de retrobar vòstre sondatge se perdètz son adreça e per vos avisar 
   quand son faches de vòtes novèls.
 forms.poll_form.author_email.label: Vòstra adreça electronica
+forms.poll_form.author_email.coming_soon: 'Lèu disponible'
 forms.poll_form.author_name.label: Vòstre nom
+forms.poll_form.author_name.label.wikimedia: Vòstre utilizaire Wikimedia
 forms.poll_form.closed_at.help: Los participants poiràn votar dusca aquesta 
   data.
 forms.poll_form.closed_at.label: Data de fin del sondatge
@@ -121,13 +123,11 @@ home.create_poll: Crear un sondatge novèl
 home.free_software: Pollaris es un logicial liure jos licéncia AGPL 3.
 home.free_software.custom: '{appName} utiliza Pollaris, un logicial liure jos licéncia
   AGPL 3.'
-home.intro: Gràcias a nòstre esplech de sondatge, planificatz, organizatz e 
-  prenètz de decisions rapidament, simplament e sens inscripcion.
+home.intro: 'Utilizatz aqueste esplech de sondatge per organizar de modificatons, rencòntres, campanhas e consultacion comunitàrias rapidament, simplament e uvertament.'
 home.my_polls_and_votes: Mos sondatge e vòtes
 home.show.poll.deleted: Vòstre sondatge es estat corrèctament suprimit.
 home.source_code: Accedir al còdi font.
-home.title: Organizatz d'eveniments o reculhissètz lo vejaire de vòstre monde, 
-  simplament, liurament.
+home.title: 'Coordinatz los eveniments e prenètz de decisions amb vòstra comunautat Wiquimèdia.'
 layout.header.my: Mos sondatges e vòtes
 layout.header.preferences: Preferéncias
 layout.logout: Se desconnectar
@@ -154,10 +154,8 @@ my.index.title: Mos sondatges e vòtes
 my.index.vote_link: Ligam del vòte
 my.index.votes.confirm_removal: Sètz a mand de levar totes los vòtes d'aqueste 
   navegador (los vòtes contunharàn d'existir). Volètz vertadièrament contunhar ?
-my.index.votes.date: (vòte del __vote_date__)
 my.index.votes.empty_placeholder: Cap de vòte
-my.index.votes.poll: Sul sondatge « <strong>__poll_title__</strong> » de 
-  __poll_author__
+my.index.votes.meta: 'De __poll_author__ · Votat lo __vote_date__'
 my.index.votes.remove: Levar lo vòte
 my.index.votes.title: Vòtes
 notifications.close: Tampar
@@ -181,6 +179,7 @@ polls.choose.classic_help: Un sondatge per causir entre mantuna opcion liura.
 polls.choose.date: Sondatge data
 polls.choose.date_help: Un sondatge per causir la melhora data o orari possible.
 polls.choose.next: Seguent
+polls.choose.login_required: 'Cal vos connectar amb vòstre compte Wiquimèdia per crear un sondatge.'
 polls.choose.title: Causissètz lo tipe de sondatge
 polls.complete.consult: Consultatz vòstre sondatge tre ara
 polls.complete.created: Lo sondatge « {poll} » es estat creat. Podètz convidar 
@@ -330,3 +329,6 @@ polls.table.toolbar.show_less.title: Reduire la linha per limitar l’afichatge
 polls.table.toolbar.show_more.label: Espandir la linha
 polls.table.toolbar.show_more.title: Espandir la linha per afichar totes los 
   labèls
+polls.show.already_voted: "Avètz ja votat en aquesta enquèsta."
+layout.login: 'Se connectar'
+home.credits: 'Basat sus <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Modificat per <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Còdi font</a>'

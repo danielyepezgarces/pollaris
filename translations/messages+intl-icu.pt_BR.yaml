@@ -1,0 +1,301 @@
+admin.polls.admin_link: 'Ligacao de administracao'
+admin.polls.author: Autor
+admin.polls.created_at: 'Criado em'
+admin.polls.my_title: 'As minhas sondagens'
+admin.polls.none: 'A pesquisa nao devolveu nenhuma sondagem correspondente.'
+admin.polls.not_completed: 'Sondagem nao concluida'
+admin.polls.public_link: 'Ligacao publica'
+admin.polls.search: Pesquisar
+admin.polls.title: 'Lista de sondagens'
+admin.title: Administracao
+answers.value.maybe: 'Se necessario'
+answers.value.no: 'Nao'
+answers.value.yes: 'Sim'
+base.copied: Copiado!
+base.copy: Copiar
+base.default_title: 'Bem-vindo ao {appName}!'
+base.download: Descarregar
+base.edit: Editar
+calendar.hints.dates_period: 'Dica: pode selecionar um intervalo de datas mantendo premida a tecla <kbd>Shift</kbd>.'
+calendar.patterns.next_month: 'Mes seguinte (__date__)'
+calendar.patterns.previous_month: 'Mes anterior (__date__)'
+emails.hello: 'Ola {name},'
+emails.link_to_poll: 'Pode encontrar a sua sondagem nesta ligacao: {url}'
+emails.new_comment.posted: '{commenter_name} acabou de comentar na sondagem "{poll_name}".'
+emails.new_comment.subject: 'Novo comentario numa sondagem: {poll_name}'
+emails.new_poll_admin.created: 'Acabou de criar a sondagem "{poll_name}". Pode editá-la a qualquer momento clicando na ligacao seguinte:'
+emails.new_poll_admin.keep_it_secret: 'Guarde esta ligacao apenas para si!'
+emails.new_poll_admin.subject: 'Nova sondagem: {poll_name}'
+emails.new_vote.subject: 'Novo voto numa sondagem: {poll_name}'
+emails.new_vote.voted: '{voter_name} acabou de votar na sondagem "{poll_name}".'
+emails.polls_list.here_is_the_list: 'Aqui esta a lista das sondagens que administra em {appName}:'
+emails.polls_list.subject: 'Lista das suas sondagens'
+emails.share.body: "Ola,\n\nEsta disponivel uma sondagem para recolher a sua opiniao.\nPode participar atraves da seguinte ligacao: {poll_url}\n\nObrigado antecipadamente.\n\nCumprimentos,"
+emails.share.subject: 'Pedido de opiniao para a sondagem: {poll_name}'
+errors.404.description: 'A pagina pedida nao foi encontrada. Verifique se existe algum erro no URL.'
+errors.404.title: 'Pagina nao encontrada!'
+errors.back_home: 'Voltar a pagina inicial'
+errors.generic.description: 'Informe a administracao sobre o que estava a fazer quando ocorreu o erro. Isto sera corrigido o mais rapidamente possivel.'
+errors.generic.sorry: 'Lamentamos o incomodo causado.'
+errors.generic.title: 'Ocorreu um erro!'
+forms.apply: Aplicar
+forms.cancel: Cancelar
+forms.localized_description_item.locale.label: 'Idioma'
+forms.localized_description_item.text.label: 'Descricao'
+forms.poll_form.description.help: 'Descricao principal da sondagem (suporta Markdown). E exibida quando nao existe descricao localizada para o idioma do visitante.'
+forms.poll_form.localized_descriptions.add: 'Adicionar descricao traduzida'
+forms.poll_form.localized_descriptions.help: 'Adicione a descricao da sondagem em idiomas especificos. Os visitantes verao automaticamente a descricao no seu idioma, ou uma traducao em tempo real se o navegador suportar.'
+forms.poll_form.localized_descriptions.label: 'Descricoes noutros idiomas'
+forms.poll_form.localized_descriptions.remove: 'Remover traducao'
+forms.comment_form.author_name.label: 'O seu nome'
+forms.comment_form.content.label: 'A sua mensagem'
+forms.comment_form.submit: Publicar
+forms.complete: Concluir
+forms.confirm: Confirmar
+forms.date_type.label.label_pattern: 'Data __number__'
+forms.error: Erro
+forms.labels.max_length: '(max. {length} caracteres)'
+forms.labels.optional: (opcional)
+forms.labels.optional_and_max_length: '(opcional, max. {length} caracteres)'
+forms.login.password: Palavra-passe
+forms.login.username: Nome de utilizador
+forms.next: Seguinte
+forms.poll_authentication_form.password.label: Palavra-passe
+forms.poll_authentication_form.submit: Autenticar
+forms.poll_dates_form.add_date: 'Adicionar data'
+forms.poll_dates_form.enter_manually: 'Introduzir as datas manualmente'
+forms.poll_dates_form.remove_date: 'Remover data'
+forms.poll_dates_form.use_calendar: 'Selecionar datas no calendario'
+forms.poll_form.timezone_mode.label: 'Fuso horario de referencia da sondagem'
+forms.poll_form.timezone_mode.help: 'As datas e intervalos horarios serao interpretados com o fuso horario selecionado. Fuso horario do servidor: {timezone}.'
+forms.poll_form.timezone_mode.server: 'Fuso horario do servidor ({timezone})'
+forms.poll_form.timezone_mode.browser: 'O meu fuso horario atual'
+forms.poll_deletion_form.submit: 'Quero apagar esta sondagem'
+forms.poll_form.author_email.help: 'O seu endereco nao sera partilhado com os outros participantes. Sera usado apenas para encontrar a sua sondagem se perder a ligacao e para o notificar quando houver novos votos.'
+forms.poll_form.author_email.label: 'O seu endereco de email'
+forms.poll_form.author_email.coming_soon: 'Em breve'
+forms.poll_form.author_name.label: 'O seu nome'
+forms.poll_form.author_name.label.wikimedia: 'O seu nome de usuário de Wikimedia'
+forms.poll_form.closed_at.help: 'Os participantes poderao votar ate esta data.'
+forms.poll_form.closed_at.label: 'Data de fecho da sondagem'
+forms.poll_form.description.label: Descricao
+forms.poll_form.title.label: 'Nome da sua sondagem'
+forms.poll_proposals_form.add_proposal: 'Adicionar proposta'
+forms.poll_proposals_form.remove_proposal: 'Remover proposta'
+forms.poll_settings_form.are_results_public.label: 'Os resultados sao visiveis para todos os participantes'
+forms.poll_settings_form.disable_maybe.label: 'Desativar votos "se necessario"'
+forms.poll_settings_form.max_votes.label: 'Numero maximo de votos "sim" por proposta'
+forms.poll_settings_form.notify_on_comments.label: 'Receber email por cada comentario'
+forms.poll_settings_form.notify_on_votes.label: 'Receber email por cada voto'
+forms.poll_settings_form.password.label: Palavra-passe
+forms.poll_settings_form.password.leave_empty_to_keep: 'Deixe vazio para manter a palavra-passe atual.'
+forms.poll_settings_form.password.protect: 'Proteger a sondagem com palavra-passe'
+forms.poll_settings_form.password_for_votes_only.label: 'Os resultados podem ser vistos sem palavra-passe'
+forms.poll_settings_form.repeat_password.label: 'Repetir palavra-passe'
+forms.poll_settings_form.slug.help: 'Tenha em conta que alterar a ligacao da sondagem torna-a mais facil de aceder por qualquer pessoa. Recomenda-se protege-la com palavra-passe.'
+forms.poll_settings_form.slug.label: 'Introduza a ligacao da sondagem'
+forms.poll_settings_form.vote_no_by_default.label: 'Votar "nao" por defeito quando nao ha resposta'
+forms.poll_slots_form.add_slot: 'Adicionar intervalo horario'
+forms.poll_slots_form.remove_slot: 'Remover intervalo horario'
+forms.preferences.color_scheme.auto: Auto
+forms.preferences.color_scheme.dark: Escuro
+forms.preferences.color_scheme.label: 'Esquema de cores'
+forms.preferences.color_scheme.light: Claro
+forms.preferences.locale.label: Idioma
+forms.previous: Anterior
+forms.proposal_type.label.label_pattern: 'Proposta __number__'
+forms.search_polls_form.email.help: 'Enviaremos as ligacoes das sondagens que criou.'
+forms.search_polls_form.email.label: 'O seu endereco de email'
+forms.search_polls_form.submit: Enviar
+forms.slot_type.label.label_pattern: 'Intervalo horario __number__'
+forms.slots_form.day: Dia
+forms.vote_form.author_name.label: 'O seu nome'
+forms.vote_form.leave_confirmation: 'Ainda nao confirmou o seu voto. Se continuar, perdera o que escreveu. Tem a certeza de que quer continuar?'
+forms.vote_form.password.help: 'E necessaria uma palavra-passe para votar nesta sondagem.'
+forms.vote_form.password.label: Palavra-passe
+forms.vote_form.required_choice: 'Selecione pelo menos uma opcao entre as escolhas acima.'
+forms.vote_form.submit.label: Votar
+home.create_poll: 'Criar nova sondagem'
+home.free_software: 'Pollaris e software livre sob licenca AGPL 3.'
+home.free_software.custom: '{appName} usa Pollaris, software livre sob licenca AGPL 3.'
+home.intro: 'Use esta ferramenta de votação para organizar maratonas de edição, reuniões, campanhas e consultas comunitárias de forma rápida, simples e aberta.'
+home.my_polls_and_votes: 'As minhas sondagens e votos'
+home.show.poll.deleted: 'A sua sondagem foi apagada com sucesso.'
+home.source_code: 'Aceder ao codigo-fonte.'
+home.title: 'Coordene eventos e tome decisões com sua comunidade Wikimedia.'
+layout.header.my: 'As minhas sondagens e votos'
+layout.header.preferences: Preferencias
+layout.logout: Terminar sessao
+layout.modal.close: Fechar
+login.log_in: 'Iniciar sessao'
+login.title: 'Iniciar sessao na administracao'
+login.wikimedia.button: 'Continuar com Wikimedia'
+login.wikimedia.error.cancelled: 'O login Wikimedia foi cancelado.'
+login.wikimedia.error.code: 'A Wikimedia nao devolveu um codigo de autorizacao.'
+login.wikimedia.error.generic: 'Nao foi possivel iniciar sessao com Wikimedia.'
+login.wikimedia.error.state: 'A sessao de login Wikimedia expirou ou e invalida.'
+login.wikimedia.help: 'Use a sua conta Wikimedia / Wikipedia para preencher os dados de perfil e gerir as sondagens que criar.'
+login.wikimedia.not_configured: 'O login Wikimedia ainda nao esta configurado.'
+login.wikimedia.title: 'Iniciar sessao com Wikimedia'
+my.index.admin_link: 'Ligacao de administracao'
+my.index.description: 'Encontre aqui todas as suas sondagens e votos guardados no navegador. Para maior privacidade, remova-os se partilhar o navegador com outras pessoas.'
+my.index.poll_link: 'Ligacao da sondagem'
+my.index.polls.confirm_removal: 'Vai remover todas as sondagens deste navegador (as sondagens continuarao a existir). Tem a certeza de que quer continuar?'
+my.index.polls.empty_placeholder: 'Sem sondagens'
+my.index.polls.of_by: 'Sondagem de __date__ por __author__'
+my.index.polls.remove: 'Remover sondagem'
+my.index.polls.title: Sondagens
+my.index.remove_all: 'Remover todas'
+my.index.search.success: 'Enviamos-lhe um email com as ligacoes para as suas sondagens. Verifique a pasta de spam se nao o encontrar.'
+my.index.search.title: 'Encontrar as minhas sondagens por email'
+my.index.title: 'As minhas sondagens e votos'
+my.index.vote_link: 'Ligacao do voto'
+my.index.votes.confirm_removal: 'Vai remover todos os votos deste navegador (os votos continuarao a existir). Tem a certeza de que quer continuar?'
+my.index.votes.empty_placeholder: 'Sem votos'
+my.index.votes.meta: 'Por __poll_author__ · Votado em __vote_date__'
+my.index.votes.remove: 'Remover voto'
+my.index.votes.title: Votos
+notifications.close: Fechar
+pagination.next: 'Pagina seguinte'
+pagination.previous: 'Pagina anterior'
+polls.admin.comments: Comentarios
+polls.admin.confirm_delete_comment: 'Tem a certeza de que quer apagar este comentario?'
+polls.admin.confirm_delete_vote: 'Tem a certeza de que quer apagar este voto?'
+polls.admin.delete: Apagar
+polls.admin.edit: Editar
+polls.admin.go_to_poll: 'Ir para a sondagem'
+polls.admin.have_voted: '{voter} votou em {date}.'
+polls.admin.no_comments: 'Nao foram publicados comentarios nesta sondagem.'
+polls.admin.no_votes: 'Nao foram registados votos nesta sondagem.'
+polls.admin.title: 'Administracao da sondagem'
+polls.admin.votes: Votos
+polls.authenticate.title: 'Autenticacao numa sondagem protegida'
+polls.choose.classic: 'Sondagem classica'
+polls.choose.classic_help: 'Uma sondagem para escolher entre varias opcoes livres.'
+polls.choose.date: 'Sondagem de datas'
+polls.choose.date_help: 'Uma sondagem para escolher a melhor data ou intervalo horario.'
+polls.choose.next: Seguinte
+polls.choose.login_required: 'Você precisa fazer login com sua conta Wikimedia para criar uma enquete.'
+polls.choose.title: 'Escolha o tipo de sondagem'
+polls.complete.consult: 'Consultar a sua sondagem'
+polls.complete.created: 'A sondagem "{poll}" foi criada. Pode convidar os seus contactos a participar partilhando a ligacao abaixo.'
+polls.complete.public_link: 'Ligacao publica para partilha'
+polls.complete.see: 'Ver a minha sondagem'
+polls.complete.title: 'A sua sondagem esta pronta!'
+polls.dates.slots_at_next_step: 'Selecione uma ou mais datas. No passo seguinte podera escolher intervalos horarios.'
+polls.dates.title: 'Escolher as datas'
+polls.deletion.information: 'Atencao: esta prestes a apagar a sondagem "<strong>{title}</strong>" juntamente com os votos e comentarios associados.'
+polls.deletion.title: 'Eliminacao de uma sondagem'
+polls.edit_vote_mode.any: 'Cada participante pode alterar qualquer voto'
+polls.edit_vote_mode.no: 'Os participantes nao podem alterar o seu voto'
+polls.edit_vote_mode.own: 'Cada participante pode alterar o seu proprio voto'
+polls.new.title: 'Criacao de sondagem'
+polls.new.who_you_are: 'Quem e voce'
+polls.proposals.best: 'Opcao preferida'
+polls.proposals.title: 'Escolher as propostas'
+polls.settings.notifications.title: Notificacoes
+polls.settings.options.title: 'Opcoes de voto'
+polls.settings.password.title: 'Proteger com palavra-passe'
+polls.settings.permissions.title: Permissoes
+polls.settings.slug.title: 'Personalizar ligacao da sondagem'
+polls.settings.title: 'Configurar a sondagem'
+polls.sharing.public_link: 'Ligacao publica para partilha'
+polls.sharing.send_by_email: 'Enviar por email'
+polls.sharing.share_by_email: 'Partilhar por email'
+polls.sharing.share_with_qr_code: 'Partilhar com codigo QR'
+polls.sharing.title: 'Partilhar a sondagem'
+polls.show.administer: Administrar
+polls.show.authenticated: 'Autenticacao efetuada com sucesso.'
+polls.show.comment.created: 'O seu comentario foi publicado.'
+polls.show.comments.explain: 'O seu comentario ficara visivel diretamente na pagina da sondagem.'
+polls.show.comments.new: 'Novo comentario'
+polls.show.comments.none: 'Nao foram publicados comentarios.'
+polls.show.comments.title: Comentarios
+polls.show.created_by: 'Sondagem criada por {by}'
+polls.show.description.translating: 'A traduzir descricao...'
+polls.show.display_list: 'Vista em lista'
+polls.show.display_table: 'Vista em tabela'
+polls.show.export_csv: 'Exportar (<abbr>CSV</abbr>)'
+polls.show.is_closed: 'Esta sondagem esta fechada.'
+polls.show.login_required_to_vote: 'Tem de iniciar sessao para votar.'
+polls.show.my_votes.date: '(voto de __date__)'
+polls.show.my_votes.description: 'Os seus votos sao guardados no navegador. Para maior privacidade, apague-os se partilhar o navegador com outras pessoas.'
+polls.show.my_votes.edit: 'Editar voto de {authorName}'
+polls.show.my_votes.information: Informacao
+polls.show.my_votes.remove: Remover
+polls.show.my_votes.title: 'Os meus votos'
+polls.show.no_vote: 'De momento ainda nao foram registados votos, mas nao se preocupe, nao vai demorar. Lembre-se de partilhar a sua sondagem com os participantes!'
+polls.show.poll: Sondagem
+polls.show.print: Imprimir
+polls.show.results: Resultados
+polls.show.results.info: '{ countChoices, plural, one {A opcao preferida com <strong>{countYes} sim</strong> e:} other {As opcoes preferidas com <strong>{countYes} sim</strong> sao:} }'
+polls.show.results.results_graph: 'Grafico de resultados'
+polls.show.results.title: Resultados
+polls.show.share: Partilhar
+polls.show.vote.created: 'O seu voto foi confirmado.'
+polls.show.vote.updated: 'O seu voto foi alterado.'
+polls.slots.help: 'Os intervalos horarios podem ser introduzidos livremente (por exemplo: 8h00 ou manha). Se nao indicar um intervalo horario, sera considerado o dia completo.'
+polls.slots.same_slots.apply: 'Aplicar os mesmos intervalos horarios a todas as datas'
+polls.slots.same_slots.title: 'Escolher os intervalos horarios a aplicar a todas as datas'
+polls.slots.title: 'Escolher os intervalos horarios'
+polls.timezone.reference: 'Fuso horario de referencia desta sondagem: {timezone}'
+polls.timezone.display.label: 'Mostrar intervalos horarios em'
+polls.timezone.display.poll: 'Fuso horario da sondagem ({timezone})'
+polls.timezone.display.local: 'O meu fuso horario local'
+polls.steps: 'Passo {step} de {total}'
+polls.summary.admin_access: 'Guarde a ligacao seguinte para administrar a sua sondagem a qualquer momento. <strong>Mantenha esta ligacao apenas para si!</strong>'
+polls.summary.admin_access.sent_by_email: 'Esta ligacao tambem lhe foi enviada por email.'
+polls.summary.admin_access.title: 'Ligacao privada de administracao'
+polls.summary.admin_access.will_send_by_email: 'Esta ligacao tambem sera enviada por email.'
+polls.summary.admin_link: 'Ligacao privada de administracao'
+polls.summary.admin_link.remember: 'Memorizar a ligacao neste navegador'
+polls.summary.admin_link.remember.description: 'Ao marcar a opcao "Memorizar a ligacao neste navegador", esta sondagem ficara guardada neste dispositivo. Isso permite encontra-la mais tarde no mesmo navegador para consultar ou modificar. Para maior confidencialidade, nao ative esta opcao se o dispositivo for partilhado com outras pessoas.'
+polls.summary.admin_link.remember.information: Informacao
+polls.summary.author.email: 'Endereco de email'
+polls.summary.author.name: Alcunha
+polls.summary.author.no_email: 'Sem endereco indicado'
+polls.summary.closed_at: 'Data de fecho'
+polls.summary.closed_at.none: Nenhuma
+polls.summary.delete_poll: 'Apagar sondagem'
+polls.summary.edit: Editar
+polls.summary.information.title: 'Informacao geral'
+polls.summary.is_closed: '(sondagem fechada)'
+polls.summary.proposals.title: 'As minhas propostas'
+polls.summary.settings.customised_slug: 'A ligacao da sondagem esta personalizada.'
+polls.summary.settings.edit_vote_mode.any: 'Cada participante pode alterar qualquer voto.'
+polls.summary.settings.edit_vote_mode.no: 'Os participantes nao podem alterar o seu voto.'
+polls.summary.settings.edit_vote_mode.own: 'Cada participante pode alterar o seu proprio voto.'
+polls.summary.settings.is_disable_maybe: 'Os participantes nao poderao votar "se necessario".'
+polls.summary.settings.is_vote_no_by_default: 'Sem resposta equivale a voto "nao".'
+polls.summary.settings.max_votes: 'Um maximo de { number, plural, one {1 participante} other {# participantes} } pode votar por proposta.'
+polls.summary.settings.notify_on_comments.do: 'Receberei um email sempre que alguem comentar na sondagem.'
+polls.summary.settings.notify_on_comments.dont: 'Nao receberei email quando alguem comentar na sondagem.'
+polls.summary.settings.notify_on_votes.do: 'Receberei um email sempre que alguem votar na sondagem.'
+polls.summary.settings.notify_on_votes.dont: 'Nao receberei email quando alguem votar na sondagem.'
+polls.summary.settings.password_protected.full: 'A sondagem esta protegida por palavra-passe.'
+polls.summary.settings.password_protected.not: 'A sondagem nao esta protegida por palavra-passe.'
+polls.summary.settings.password_protected.vote: 'A sondagem esta protegida por palavra-passe (os resultados sao visiveis sem palavra-passe).'
+polls.summary.settings.results.private: 'Sou a unica pessoa que pode ver os resultados da sondagem.'
+polls.summary.settings.results.public: 'Toda a gente pode ver os resultados da sondagem.'
+polls.summary.settings.title: 'Opcoes da sondagem'
+polls.summary.timezone: 'Fuso horario'
+polls.summary.title: 'Resumo da sua sondagem'
+polls.table.toolbar.scroll_to_left.title: 'Deslocar para a esquerda'
+polls.table.toolbar.scroll_to_right.title: 'Deslocar para a direita'
+polls.table.toolbar.show_less.label: 'Reduzir linha'
+polls.table.toolbar.show_less.title: 'Reduzir a linha para limitar a apresentacao das etiquetas'
+polls.table.toolbar.show_more.label: 'Expandir linha'
+polls.table.toolbar.show_more.title: 'Expandir a linha para mostrar todas as etiquetas'
+polls.votes.maybe: 'Se necessario'
+polls.votes.maybe.count: "{count}\_Se necessario"
+polls.votes.maybe.count_alt: '(+{count})'
+polls.votes.no: 'Nao'
+polls.votes.no.count: "{count}\_Nao"
+polls.votes.sum: Soma
+polls.votes.yes: 'Sim'
+polls.votes.yes.count: "{count}\_Sim"
+polls.votes.yours: 'O seu voto'
+preferences.edit.title: 'As suas preferencias'
+polls.show.already_voted: 'Você já votou nesta enquete.'
+layout.login: 'Entrar'
+home.credits: 'Baseado em <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Modificado por <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Código fonte</a>'

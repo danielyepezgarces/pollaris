@@ -66,7 +66,9 @@ forms.poll_form.author_email.help: Il tuo indirizzo non sarà condiviso con altr
   il sondaggio se dovessi perdere l'indirizzo e per avvisarti quando vengono 
   aggiunti nuovi voti.
 forms.poll_form.author_email.label: Il tuo indirizzo email
+forms.poll_form.author_email.coming_soon: 'Prossimamente'
 forms.poll_form.author_name.label: Il tuo nome
+forms.poll_form.author_name.label.wikimedia: Il tuo nome utente Wikimedia
 forms.poll_form.closed_at.help: I partecipanti potranno votare fino a questa 
   data.
 forms.poll_form.closed_at.label: Data di chiusura del sondaggio
@@ -122,13 +124,11 @@ home.free_software: Pollaris è un software libero distribuito con licenza AGPL
   3.
 home.free_software.custom: '{appName} usa Pollaris, un software libero distribuito
   con licenza AGPL 3.'
-home.intro: Grazie al nostro strumento per i sondaggi, pianifica, organizza e 
-  prendi decisioni in modo rapido, semplice e senza registrazione.
+home.intro: 'Usa questo strumento di votazione per organizzare editaton, riunioni, campagne e consultazioni comunitarie in modo rapido, semplice e aperto.'
 home.my_polls_and_votes: I miei sondaggi e i miei voti
 home.show.poll.deleted: Il tuo sondaggio è stato eliminato con successo.
 home.source_code: Accedi al codice sorgente.
-home.title: Organizza eventi o raccogli opinioni da amici e familiari, in modo 
-  semplice e libero.
+home.title: 'Coordina eventi e prendi decisioni con la tua comunità Wikimedia.'
 layout.header.my: I miei sondaggi e i miei voti
 layout.header.preferences: Preferenze
 layout.logout: Esci
@@ -155,10 +155,8 @@ my.index.title: I miei sondaggi e i miei voti
 my.index.vote_link: Link del voto
 my.index.votes.confirm_removal: Stai per eliminare tutti i voti da questo 
   browser (i voti continueranno a esistere). Sei sicuro di voler continuare?
-my.index.votes.date: (vote of __vote_date__)
 my.index.votes.empty_placeholder: Nessun voto
-my.index.votes.poll: Sul sondaggio “<strong>__poll_title__</strong>” di 
-  __poll_author__
+my.index.votes.meta: 'Di __poll_author__ · Votato il __vote_date__'
 my.index.votes.remove: Elimina il voto
 my.index.votes.title: Voti
 notifications.close: Chiudi
@@ -184,6 +182,7 @@ polls.choose.date: Data sondaggio
 polls.choose.date_help: Un sondaggio per scegliere la data o l'orario migliore 
   possibile.
 polls.choose.next: Successivo
+polls.choose.login_required: 'Devi accedere con il tuo account Wikimedia per creare un sondaggio.'
 polls.choose.title: Scegli il tipo di sondaggio
 polls.complete.consult: Consulta subito il tuo sondaggio
 polls.complete.created: Il sondaggio “{poll}” è stato creato. Puoi invitare i 
@@ -309,3 +308,6 @@ polls.votes.yes: Sì
 polls.votes.yes.count: '{count} Sì'
 polls.votes.yours: Il tuo voto
 preferences.edit.title: Le tue preferenze
+polls.show.already_voted: Hai già votato in questo sondaggio.
+layout.login: 'Accedi'
+home.credits: 'Basato su <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Modificato da <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Codice sorgente</a>'

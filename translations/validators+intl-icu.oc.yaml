@@ -34,3 +34,4 @@ vote.max_votes.limited: I a ja agut {max} vòte(s) per aquesta proposicion,
   podètz pas votar per ela.
 user.author_name.already_used: Aqueste nom es ja utilizat. Mercés de ne causir 
   un autre.
+vote.owner.already_voted: "Avètz ja votat en aquesta enquèsta."

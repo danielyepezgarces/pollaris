@@ -39,3 +39,4 @@ vote.author_name.max_length: Введіть ім'я, яке має бути ко
 vote.author_name.required: Введіть ім'я.
 vote.max_votes.limited: Ця пропозиція вже має {max} голосів, ви не можете за неї
   проголосувати.
+vote.owner.already_voted: Ви вже проголосували в цьому опитуванні.

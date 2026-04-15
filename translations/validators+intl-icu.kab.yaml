@@ -9,3 +9,4 @@ vote.author_name.required: Sekcem-d isem.
 poll.author_email.required: Sekcem-d tansa imayl.
 poll.password.incorrect: Awal n uɛeddi d arameɣtu.
 poll.author_email.invalid: Efk-d tansa imayl tameɣtut.
+vote.owner.already_voted: Tesnulfud yakan deg tezrawin-agi.

@@ -1,7 +1,15 @@
 {#
  # This file is part of Pollaris.
  # Copyright 2024-2026 Marien Fressinaud
+ # Copyright 2026 Daniel Yepez Garces
  # SPDX-License-Identifier: AGPL-3.0-or-later
+ #
+ # Modified by Daniel Yepez Garces on 2026-04-15:
+ # - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+ # - Added Wikimedia login support
+ # - Removed local username/password authentication
+ # - Added multilingual survey support
+ # - Added user timezone display for survey times when different from server UTC
  #}
 
 {% extends 'base.html.twig' %}
@@ -29,6 +37,57 @@
             <div class="panel panel--primary panel--rounded flow flow--large">
                 {{ form_row(form.title) }}
                 {{ form_row(form.description) }}
+
+                    <div
+                        class="flow"
+                        data-controller="collection"
+                        data-collection-index-value="{{ form.localizedDescriptions | length > 0 ? form.localizedDescriptions | last.vars.name + 1 : 0 }}"
+                    >
+                        <p class="text--bold">{{ 'forms.poll_form.localized_descriptions.label' | trans }}</p>
+                        <p class="text--secondary text--small">{{ 'forms.poll_form.localized_descriptions.help' | trans }}</p>
+
+                        <div data-collection-target="container" class="flow">
+                            {% for item in form.localizedDescriptions %}
+                                <div class="panel panel--rounded panel--secondary flow flow--small" data-item="element">
+                                    {{ form_row(item.locale) }}
+                                    {{ form_row(item.text) }}
+                                    <button
+                                        type="button"
+                                        class="button--menuitem"
+                                        data-action="collection#removeElement"
+                                    >
+                                        {{ icon('trash') }}
+                                        {{ 'forms.poll_form.localized_descriptions.remove' | trans }}
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <template data-collection-target="prototype">
+                            <div class="panel panel--rounded panel--secondary flow flow--small" data-item="element">
+                                {{ form_row(form.localizedDescriptions.vars.prototype.locale) }}
+                                {{ form_row(form.localizedDescriptions.vars.prototype.text) }}
+                                <button
+                                    type="button"
+                                    class="button--menuitem"
+                                    data-action="collection#removeElement"
+                                >
+                                    {{ icon('trash') }}
+                                    {{ 'forms.poll_form.localized_descriptions.remove' | trans }}
+                                </button>
+                            </div>
+                        </template>
+
+                        <button
+                            type="button"
+                            class="button--block button--small"
+                            data-action="collection#addElement"
+                        >
+                            {{ icon('plus') }}
+                            {{ 'forms.poll_form.localized_descriptions.add' | trans }}
+                        </button>
+                    </div>
+
                 {{ form_row(form.closedAt) }}
                 {{ form_row(form.timezoneMode) }}
             </div>
@@ -38,7 +97,18 @@
 
                 <div class="flow flow--large">
                     {{ form_row(form.authorName) }}
-                    {{ form_row(form.authorEmail) }}
+                    
+                    {% if form.authorEmail.vars.disabled %}
+                        <div class="flow flow--small">
+                            <label for="{{ form.authorEmail.vars.id }}">{{ form.authorEmail.vars.label | trans }}</label>
+                            {{ form_widget(form.authorEmail, { attr: { placeholder: 'forms.poll_form.author_email.coming_soon' | trans } }) }}
+                            <p class="text--secondary text--small">{{ 'forms.poll_form.author_email.help' | trans }}</p>
+                        </div>
+                        {% do form.authorEmail.setRendered() %}
+                    {% else %}
+                        {{ form_row(form.authorEmail) }}
+                    {% endif %}
+                    {% do form.localizedDescriptions.setRendered() %}
                 </div>
             </fieldset>
 

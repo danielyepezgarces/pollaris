@@ -2,7 +2,15 @@
 
 // This file is part of Pollaris.
 // Copyright 2024-2026 Marien Fressinaud
+// Copyright 2026 Daniel Yepez Garces
 // SPDX-License-Identifier: AGPL-3.0-or-later
+//
+// Modified by Daniel Yepez Garces on 2026-04-15:
+// - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+// - Added Wikimedia login support
+// - Removed local username/password authentication
+// - Added multilingual survey support
+// - Added user timezone display for survey times when different from server UTC
 
 namespace App\Entity;
 
@@ -88,6 +96,9 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
+
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $localizedDescriptions = null;
 
     #[ORM\Column(length: 255, options: ['default' => ''])]
     private ?string $password = null;
@@ -311,6 +322,25 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /** @return list<array{locale: string, text: string}> */
+    public function getLocalizedDescriptions(): array
+    {
+        return $this->localizedDescriptions ?? [];
+    }
+
+    /** @param list<array{locale: string, text: string}> $localizedDescriptions */
+    public function setLocalizedDescriptions(array $localizedDescriptions): static
+    {
+        // Filter out empty entries
+        $filtered = array_values(array_filter(
+            $localizedDescriptions,
+            static fn (array $item) => isset($item['locale'], $item['text']) && $item['text'] !== '',
+        ));
+        $this->localizedDescriptions = $filtered ?: null;
 
         return $this;
     }

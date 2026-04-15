@@ -2,7 +2,15 @@
 
 // This file is part of Pollaris.
 // Copyright 2024-2026 Marien Fressinaud
+// Copyright 2026 Daniel Yepez Garces
 // SPDX-License-Identifier: AGPL-3.0-or-later
+//
+// Modified by Daniel Yepez Garces on 2026-04-15:
+// - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+// - Added Wikimedia login support
+// - Removed local username/password authentication
+// - Added multilingual survey support
+// - Added user timezone display for survey times when different from server UTC
 
 namespace App\Controller;
 
@@ -56,7 +64,12 @@ class VotesController extends BaseController
         }
 
         if ($currentUser instanceof Entity\User) {
+            // A logged-in user can only edit their own vote
+            if ($vote->getOwner() !== null && $vote->getOwner()->getId() !== $currentUser->getId()) {
+                throw $this->createAccessDeniedException('You cannot edit another user\'s vote.');
+            }
             $vote->setAuthorName($currentUser->getUserIdentifier());
+            $vote->setOwner($currentUser);
         }
 
         $form = $this->createNamedForm('vote', Form\VoteForm::class, $vote, [
@@ -70,11 +83,7 @@ class VotesController extends BaseController
             if ($form->isValid()) {
                 $this->voteRepository->save($vote);
 
-                $session = $request->getSession();
-                $session->set("vote-{$poll->getId()}", $vote->getId());
-
                 $this->addFlash('success', 'vote.updated');
-                $this->addFlash('storeMyVote', true);
 
                 return $this->redirectToRoute('poll', [
                     'slug' => $poll->getSlug(),
@@ -110,6 +119,9 @@ class VotesController extends BaseController
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
         if ($poll->getId() !== $vote->getPoll()->getId()) {
             throw $this->createNotFoundException('Vote is not part of the poll');
         }

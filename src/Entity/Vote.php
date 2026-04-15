@@ -2,7 +2,15 @@
 
 // This file is part of Pollaris.
 // Copyright 2024-2026 Marien Fressinaud
+// Copyright 2026 Daniel Yepez Garces
 // SPDX-License-Identifier: AGPL-3.0-or-later
+//
+// Modified by Daniel Yepez Garces on 2026-04-15:
+// - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+// - Added Wikimedia login support
+// - Removed local username/password authentication
+// - Added multilingual survey support
+// - Added user timezone display for survey times when different from server UTC
 
 namespace App\Entity;
 
@@ -25,6 +33,11 @@ use Symfony\Component\Validator\Constraints as Assert;
     fields: ['authorName', 'poll'],
     repositoryMethod: 'findByPollAndAuthorName',
     message: new TranslatableMessage('user.author_name.already_used', domain: 'validators'),
+)]
+#[UniqueEntity(
+    fields: ['owner', 'poll'],
+    message: new TranslatableMessage('vote.owner.already_voted', domain: 'validators'),
+    ignoreNull: ['owner'],
 )]
 class Vote implements ActivityMonitor\TrackableEntityInterface
 {
@@ -55,6 +68,10 @@ class Vote implements ActivityMonitor\TrackableEntityInterface
     #[ORM\ManyToOne(inversedBy: 'votes')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Poll $poll = null;
+
+    #[ORM\ManyToOne(inversedBy: 'votes')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    private ?User $owner = null;
 
     /** @var Collections\Collection<int, Answer> */
     #[ORM\OneToMany(
@@ -122,6 +139,18 @@ class Vote implements ActivityMonitor\TrackableEntityInterface
     public function setPoll(?Poll $poll): static
     {
         $this->poll = $poll;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
 
         return $this;
     }

@@ -15,6 +15,7 @@ forms.next: Uḍfir
 forms.poll_authentication_form.password.label: Awal n uɛeddi
 forms.poll_authentication_form.submit: Asesteb
 forms.poll_form.description.label: Aglam
+forms.poll_form.closed_at.label: 'Azemz n ugbur n usesteb'
 forms.poll_settings_form.password.label: Awal n uɛeddi
 forms.preferences.color_scheme.auto: Awurman
 forms.preferences.color_scheme.dark: Ubrik
@@ -32,6 +33,7 @@ polls.admin.comments: Iwenniten
 polls.admin.delete: Kkes
 polls.admin.edit: Ẓreg
 polls.choose.next: Uḍfir
+polls.choose.login_required: 'Ilaq ad tkecmeḍ s umiḍan-ik n Wikimedia akken ad tesnulfḍ asesteb.'
 polls.settings.notifications.title: Ilɣa
 polls.settings.permissions.title: Tisirag
 polls.show.comments.title: Iwenniten
@@ -48,6 +50,8 @@ forms.comment_form.author_name.label: Isem-ik
 forms.comment_form.content.label: Izen-ik·im
 forms.date_type.label.label_pattern: Date __number__
 forms.poll_form.author_name.label: Isem-ik
+forms.poll_form.author_name.label.wikimedia: Isem-ik n Wikimedia
+forms.poll_form.title.label: 'Isem n usesteb-ik'
 forms.vote_form.author_name.label: Isem-ik
 login.log_in: Qqen
 polls.show.comments.new: Awennit amaynut
@@ -62,6 +66,8 @@ forms.labels.max_length: (max. {length} n yisekkilen)
 forms.poll_dates_form.add_date: Rnu azemz
 forms.poll_dates_form.remove_date: Kkes azemz
 forms.poll_form.author_email.label: Tansa-k imayl
+forms.poll_form.author_email.help: 'Tansa-k ur d-ttwaṣeḍruqen ara d imḍebren nniḍen n usesteb. Ad tettusemres kan i wakken ad afeḍ asesteb-ik ma tufiḍ tansa-s d wakken ad k-ssensaren seld tabratin timaynutin.'
+forms.poll_form.author_email.coming_soon: 'Deg wussan-nni'
 forms.search_polls_form.email.label: Tansa-k imayl
 login.title: Tuqqna ar tedbelt
 polls.new.who_you_are: Tamagit-ik
@@ -69,6 +75,29 @@ errors.back_home: Tuɣalin ar usebter agejdan
 base.copied: Yettwanɣel!
 my.index.admin_link: Aseɣwen n tedbelt
 my.index.remove_all: Kkes-iten akk
+my.index.polls.of_by: Talast n __date__ sɣur __author__
 admin.polls.admin_link: Aseɣwen n tedbelt
 pagination.next: Asebter uḍfiṛ
 pagination.previous: Asebter uzwir
+polls.show.already_voted: Tesnulfud yakan deg tezrawin-agi.
+my.index.votes.meta: '__poll_author__ · Itesnulf __vote_date__'
+my.index.title: Tezrawin-iw d tesnulfin-iw
+my.index.votes.title: Tesnulfin
+my.index.polls.title: Tezrawin
+layout.header.my: Tezrawin-iw d tesnulfin-iw
+layout.login: 'Kcem'
+home.title: 'Ssenqes tigawin u ttmenyif d ugama inek n Wikimedia.'
+home.intro: 'Seqdec aẓḍaḍ-a n ugbur akken ad tesnulfeḍ editatons, timlilin, tiwuriwin d tewsatin n ugama s tuffɣa, s lehna d taẓult.'
+home.credits: 'Yettwaselmed ɣef <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Yesfernu <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Tangalt n usleḍ</a>'
+polls.new.title: 'Asnifel n usesteb'
+polls.steps: 'Adim {step} s {total}'
+preferences.edit.title: 'Ismenyafen-ik'
+forms.preferences.color_scheme.label: 'Asentel n yiniten'
+polls.admin.title: 'Anagar n usesteb'
+polls.admin.votes: 'Tesnulfin'
+polls.admin.have_voted: '{voter} yesnulfa ass {date}.'
+polls.admin.go_to_poll: 'Ddu ɣer usesteb'
+polls.admin.no_votes: 'Ulac tesnulfin i d-yettwasnulfan deg usesteb.'
+polls.admin.no_comments: 'Ulac ticraḍ i d-yettwasnulfan deg usesteb.'
+polls.admin.confirm_delete_vote: 'Tebɣiḍ ad tkesfuḍ tesnulfa-yagi?'
+polls.admin.confirm_delete_comment: 'Tebɣiḍ ad tkesfuḍ tacrḍit-yagi?'

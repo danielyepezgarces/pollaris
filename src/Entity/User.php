@@ -2,7 +2,15 @@
 
 // This file is part of Pollaris.
 // Copyright 2024-2026 Marien Fressinaud
+// Copyright 2026 Daniel Yepez Garces
 // SPDX-License-Identifier: AGPL-3.0-or-later
+//
+// Modified by Daniel Yepez Garces on 2026-04-15:
+// - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+// - Added Wikimedia login support
+// - Removed local username/password authentication
+// - Added multilingual survey support
+// - Added user timezone display for survey times when different from server UTC
 
 namespace App\Entity;
 
@@ -75,9 +83,16 @@ class User implements ActivityMonitor\TrackableEntityInterface, UserInterface, P
     #[ORM\OneToMany(targetEntity: Poll::class, mappedBy: 'owner')]
     private Collections\Collection $ownedPolls;
 
+    /**
+     * @var Collections\Collection<int, Vote>
+     */
+    #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'owner')]
+    private Collections\Collection $votes;
+
     public function __construct()
     {
         $this->ownedPolls = new Collections\ArrayCollection();
+        $this->votes = new Collections\ArrayCollection();
     }
 
     public function getId(): ?int
@@ -234,5 +249,13 @@ class User implements ActivityMonitor\TrackableEntityInterface, UserInterface, P
     public function getOwnedPolls(): Collections\Collection
     {
         return $this->ownedPolls;
+    }
+
+    /**
+     * @return Collections\Collection<int, Vote>
+     */
+    public function getVotes(): Collections\Collection
+    {
+        return $this->votes;
     }
 }

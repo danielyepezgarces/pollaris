@@ -33,3 +33,4 @@ vote.author_name.max_length: Inserisci un nome con meno di {limit} caratteri.
 vote.author_name.required: Inserisci un nome.
 vote.max_votes.limited: Ci sono già stati {max} voti per questa proposta, non 
   puoi votarla.
+vote.owner.already_voted: Hai già votato in questo sondaggio.

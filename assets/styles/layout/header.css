@@ -1,8 +1,20 @@
 /* This file is part of Pollaris. */
 /* Copyright 2024-2026 Marien Fressinaud */
+/* Copyright 2026 Daniel Yepez Garces */
 /* SPDX-License-Identifier: AGPL-3.0-or-later */
+/*
+ * Modified by Daniel Yepez Garces on 2026-04-15:
+ * - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+ * - Added Wikimedia login support
+ * - Removed local username/password authentication
+ * - Added multilingual survey support
+ * - Added user timezone display for survey times when different from server UTC
+ */
 
 .header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-small);
     padding: var(--space-small) var(--space-medium);
 
     color: var(--color-iris1);
@@ -41,4 +53,97 @@
     --button-color: currentcolor;
     --button-background-color: transparent;
     --button-border-color: currentcolor;
+}
+
+/* Brand row: logo + hamburger button */
+.header__brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+/* Desktop nav: horizontal row */
+.header__nav {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: var(--space-medium);
+}
+
+.header__links {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-small);
+}
+
+.header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-small);
+}
+
+/* Hamburger button: hidden on desktop */
+.header__hamburger {
+    display: none;
+}
+
+/* Mobile styles */
+@media (max-width: 799px) {
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    .header__brand {
+        width: 100%;
+    }
+
+    .header__hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        background: none;
+        border: 1px solid currentcolor;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        padding: var(--space-smaller) var(--space-small);
+        color: currentcolor;
+        line-height: 1;
+    }
+
+    .header__hamburger span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: currentcolor;
+        border-radius: 1px;
+    }
+
+    .header__nav {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-small);
+        padding-top: var(--space-small);
+        padding-bottom: var(--space-small);
+        margin-top: var(--space-small);
+        border-top: 1px solid rgba(255 255 255 / 20%);
+    }
+
+    .header__nav.is-open {
+        display: flex;
+    }
+
+    .header__links {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header__actions {
+        flex-wrap: wrap;
+    }
 }

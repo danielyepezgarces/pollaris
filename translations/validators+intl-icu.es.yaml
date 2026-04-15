@@ -5,3 +5,4 @@ answer.value.invalid: Seleccione una opción de la lista.
 comment.author_name.max_length: Introduzca un nombre de menos de {limit} 
   caracteres.
 poll.timezone_mode.invalid: Seleccione una zona horaria válida.
+vote.owner.already_voted: Ya has votado en esta encuesta.
