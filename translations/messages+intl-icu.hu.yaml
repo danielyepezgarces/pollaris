@@ -327,6 +327,20 @@ polls.table.toolbar.show_less.title: Sor összecsukása a címkék rövidebb
 polls.table.toolbar.show_more.label: Sor kibontása
 polls.table.toolbar.show_more.title: Sor kibontása az összes címke 
   megjelenítéséhez
+base.download: Letöltés
+emails.share.body: |-
+  Szia,
+
+  Elérhető egy szavazás, amelyben megoszthatja a véleményét.
+  A részvételhez használja az alábbi hivatkozást: {poll_url}
+
+  Köszönjük előre is.
+
+  Üdvözlettel,
+emails.share.subject: Meghívás a(z) {poll_name} szavazásra
+polls.sharing.send_by_email: E-mail küldése
+polls.sharing.share_by_email: Megosztás e-mailben
+polls.sharing.share_with_qr_code: Megosztás QR kóddal
 polls.show.already_voted: Már szavazott ebben a szavazásban.
 layout.login: 'Bejelentkezés'
 home.credits: 'Alapja: <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Módosította: <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Forráskód</a>'
