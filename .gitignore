@@ -16,5 +16,8 @@
 /public/custom.js
 /templates/home/custom.html.twig
 
+# Source maps
+*.map
+
 .env
 .env.dev
