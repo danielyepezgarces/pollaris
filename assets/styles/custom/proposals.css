@@ -57,12 +57,16 @@
 }
 
 .proposals-table thead .proposals-table__sticky-cell {
+    position: sticky;
+    left: 0;
+    z-index: 10;
     vertical-align: top;
     text-align: center;
     padding: 0;
     width: calc(var(--cell-sticky-width) + var(--cell-author-border-size));
     min-width: calc(var(--cell-sticky-width) + var(--cell-author-border-size));
-    max-width: calc(var(--cell-sticky-width) + var(--cell-author-border-size));
+    background-color: var(--color-primary1);
+    border-inline-end: var(--cell-author-border-size) solid var(--color-grey6);
 }
 
 .proposals-table .proposals-table-actions {
@@ -210,6 +214,15 @@
     width: var(--cell-width);
 }
 
+.proposals-table thead .proposals-table__hour,
+.proposals-table tbody td,
+.proposals-table tfoot td {
+    width: var(--cell-width);
+    min-width: var(--cell-width);
+    max-width: var(--cell-width);
+    box-sizing: border-box;
+}
+
 .proposals-table__month,
 .proposals-table__day,
 .proposals-table__hour {
@@ -237,7 +250,6 @@
 
     font-size: var(--font-size-smaller);
     line-height: 1.1;
-    white-space: nowrap;
 }
 
 .proposals-table__day .proposal__day-week::after {
@@ -246,6 +258,7 @@
 
 .proposals-table__hour .proposal__label--time {
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .proposals-table__hour {
@@ -362,8 +375,8 @@
     left: 0;
     z-index: 1;
     width: calc(var(--cell-sticky-width) + var(--cell-author-border-size));
-    min-width: calc(var(--cell-sticky-width) + var(--cell-author-border-size));
     max-width: calc(var(--cell-sticky-width) + var(--cell-author-border-size));
+    min-width: calc(var(--cell-sticky-width) + var(--cell-author-border-size));
     background-color: var(--color-grey1);
     border-inline-end: var(--cell-author-border-size) solid var(--color-grey6);
 }
@@ -384,19 +397,20 @@ html[dir="rtl"] .proposals-table__sticky-cell {
 }
 
 .proposals-table__author {
-    overflow: hidden;
-
     display: flex;
     align-items: center;
     gap: 0.5rem;
     justify-content: flex-end;
+    flex-wrap: nowrap;
 
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
 
     font-size: var(--font-size-small);
     font-weight: normal;
     text-align: right;
-    text-overflow: ellipsis;
+    overflow-wrap: anywhere;
 }
 
 .poll-view--table .proposals-table__author {
@@ -407,6 +421,16 @@ html[dir="rtl"] .proposals-table__sticky-cell {
     .proposals-table__author {
         width: 100px;
     }
+}
+
+.proposals-table__author .button {
+    flex-shrink: 0;
+}
+
+.proposals-table__author a:not(.button),
+.proposals-table__sum {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .proposals-table__author--new {
@@ -442,9 +466,40 @@ html[dir="rtl"] .proposals-table__sticky-cell {
     padding: var(--space-small) var(--space-smaller);
 }
 
+.proposals-table__sum-content {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    gap: 0.15rem;
+    width: 100%;
+    min-height: 100%;
+}
+
+.proposals-table__sum-star {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.proposals-table__sum-star .icon {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.proposals-table__sum-yes,
+.proposals-table__sum-maybe {
+    display: block;
+    width: 100%;
+}
+
 @media screen and (min-width: 768px) {
     .proposals-table .proposals-table__author,
     .proposals-table .proposals-table__sum {
         padding: var(--space-small) var(--space-small);
+    }
+
+    .proposals-table__author {
+        white-space: nowrap;
     }
 }

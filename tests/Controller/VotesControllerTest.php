@@ -32,11 +32,17 @@ class VotesControllerTest extends WebTestCase
     public function testGetEditRendersCorrectly(): void
     {
         $client = static::createClient();
+        $owner = Factory\UserFactory::createOne([
+            'username' => 'vote-owner-show',
+        ]);
+        $client->loginUser($owner);
         $poll = Factory\PollFactory::new([
             'title' => 'My poll',
         ])->completed()->create();
         $vote = Factory\VoteFactory::createOne([
             'poll' => $poll,
+            'owner' => $owner,
+            'authorName' => $owner->getUserIdentifier(),
         ]);
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit");
@@ -48,12 +54,18 @@ class VotesControllerTest extends WebTestCase
     public function testGetEditRedirectsToPollIfPollIsClosed(): void
     {
         $client = static::createClient();
+        $owner = Factory\UserFactory::createOne([
+            'username' => 'vote-owner-closed',
+        ]);
+        $client->loginUser($owner);
         $poll = Factory\PollFactory::new([
             'title' => 'My poll',
             'closedAt' => Utils\Time::ago(1, 'day'),
         ])->completed()->create();
         $vote = Factory\VoteFactory::createOne([
             'poll' => $poll,
+            'owner' => $owner,
+            'authorName' => $owner->getUserIdentifier(),
         ]);
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit");
@@ -64,12 +76,18 @@ class VotesControllerTest extends WebTestCase
     public function testGetEditRedirectsIfEditionIsDisabled(): void
     {
         $client = static::createClient();
+        $owner = Factory\UserFactory::createOne([
+            'username' => 'vote-owner-disabled',
+        ]);
+        $client->loginUser($owner);
         $poll = Factory\PollFactory::new([
             'title' => 'My poll',
             'editVoteMode' => 'no',
         ])->completed()->create();
         $vote = Factory\VoteFactory::createOne([
             'poll' => $poll,
+            'owner' => $owner,
+            'authorName' => $owner->getUserIdentifier(),
         ]);
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit");
@@ -92,18 +110,100 @@ class VotesControllerTest extends WebTestCase
         $client->request(Request::METHOD_GET, "/polls/{$poll2->getSlug()}/votes/{$vote->getId()}/edit");
     }
 
-    public function testPostEditChangesTheVoteValues(): void
+    public function testGuestCannotEditVoteOwnedByLoggedInUser(): void
+    {
+        $client = static::createClient();
+        $poll = Factory\PollFactory::new()->completed()->create();
+        $owner = Factory\UserFactory::createOne();
+        $vote = Factory\VoteFactory::createOne([
+            'poll' => $poll,
+            'owner' => $owner,
+            'authorName' => $owner->getUserIdentifier(),
+        ]);
+
+        $client->request(Request::METHOD_GET, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit");
+
+        $this->assertResponseRedirects("/polls/{$poll->getSlug()}", 302);
+    }
+
+    public function testLoggedInUserCannotEditAnotherUsersVote(): void
+    {
+        $client = static::createClient();
+        $poll = Factory\PollFactory::new()->completed()->create();
+        $owner = Factory\UserFactory::createOne([
+            'username' => 'vote-owner',
+        ]);
+        $intruder = Factory\UserFactory::createOne([
+            'username' => 'vote-intruder',
+        ]);
+        $client->loginUser($intruder);
+        $vote = Factory\VoteFactory::createOne([
+            'poll' => $poll,
+            'owner' => $owner,
+            'authorName' => $owner->getUserIdentifier(),
+        ]);
+
+        $client->request(Request::METHOD_GET, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit");
+
+        $this->assertResponseRedirects("/polls/{$poll->getSlug()}", 302);
+    }
+
+    public function testPostEditDoesNotAllowLoggedInUserToEditAnotherUsersVote(): void
     {
         $client = static::createClient();
         $poll = Factory\PollFactory::new()->completed()->create();
         $proposal = $poll->getProposals()->first();
-        $oldName = 'Alix';
-        $newName = 'Benedict';
+        $owner = Factory\UserFactory::createOne([
+            'username' => 'vote-owner-post',
+        ]);
+        $intruder = Factory\UserFactory::createOne([
+            'username' => 'vote-intruder-post',
+        ]);
+        $client->loginUser($intruder);
+        $vote = Factory\VoteFactory::createOne([
+            'poll' => $poll,
+            'owner' => $owner,
+            'authorName' => $owner->getUserIdentifier(),
+        ]);
+        $answer = Factory\AnswerFactory::createOne([
+            'vote' => $vote,
+            'proposal' => $proposal,
+            'value' => 'no',
+        ]);
+
+        $client->request(Request::METHOD_POST, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit", [
+            'vote' => [
+                '_token' => $this->getCsrf($client, 'vote'),
+                'authorName' => $intruder->getUserIdentifier(),
+                'answers' => [
+                    ['value' => 'yes'],
+                ],
+            ],
+        ]);
+
+        $this->assertResponseRedirects("/polls/{$poll->getSlug()}", 302);
+        $this->refresh($vote);
+        $this->assertSame($owner->getUserIdentifier(), $vote->getAuthorName());
+        $this->assertSame($owner->getId(), $vote->getOwner()?->getId());
+        $this->refresh($answer);
+        $this->assertSame('no', $answer->getValue());
+    }
+
+    public function testPostEditChangesTheVoteValues(): void
+    {
+        $client = static::createClient();
+        $owner = Factory\UserFactory::createOne([
+            'username' => 'vote-owner-edit',
+        ]);
+        $client->loginUser($owner);
+        $poll = Factory\PollFactory::new()->completed()->create();
+        $proposal = $poll->getProposals()->first();
         $oldValue = 'no';
         $newValue = 'yes';
         $vote = Factory\VoteFactory::createOne([
             'poll' => $poll,
-            'authorName' => $oldName,
+            'owner' => $owner,
+            'authorName' => $owner->getUserIdentifier(),
         ]);
         $answer = Factory\AnswerFactory::createOne([
             'vote' => $vote,
@@ -114,7 +214,7 @@ class VotesControllerTest extends WebTestCase
         $client->request(Request::METHOD_POST, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit", [
             'vote' => [
                 '_token' => $this->getCsrf($client, 'vote'),
-                'authorName' => $newName,
+                'authorName' => 'should-not-change',
                 'answers' => [
                     ['value' => $newValue],
                 ],
@@ -122,7 +222,7 @@ class VotesControllerTest extends WebTestCase
         ]);
 
         $this->refresh($vote);
-        $this->assertSame($newName, $vote->getAuthorName());
+        $this->assertSame($owner->getUserIdentifier(), $vote->getAuthorName());
         $this->refresh($answer);
         $this->assertSame($newValue, $answer->getValue());
     }
@@ -130,18 +230,21 @@ class VotesControllerTest extends WebTestCase
     public function testPostEditFailsIfRequiredPasswordIsIncorrect(): void
     {
         $client = static::createClient();
+        $owner = Factory\UserFactory::createOne([
+            'username' => 'vote-owner-password',
+        ]);
+        $client->loginUser($owner);
         $poll = Factory\PollFactory::new([
             'password' => 'secret',
             'isPasswordForVotesOnly' => true,
         ])->completed()->create();
         $proposal = $poll->getProposals()->first();
-        $oldName = 'Alix';
-        $newName = 'Benedict';
         $oldValue = 'no';
         $newValue = 'yes';
         $vote = Factory\VoteFactory::createOne([
             'poll' => $poll,
-            'authorName' => $oldName,
+            'owner' => $owner,
+            'authorName' => $owner->getUserIdentifier(),
         ]);
         $answer = Factory\AnswerFactory::createOne([
             'vote' => $vote,
@@ -152,7 +255,7 @@ class VotesControllerTest extends WebTestCase
         $client->request(Request::METHOD_POST, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit", [
             'vote' => [
                 '_token' => $this->getCsrf($client, 'vote'),
-                'authorName' => $newName,
+                'authorName' => $owner->getUserIdentifier(),
                 'answers' => [
                     ['value' => $newValue],
                 ],
@@ -162,7 +265,7 @@ class VotesControllerTest extends WebTestCase
 
         $this->assertSelectorTextContains('#vote_password_error', 'The password is incorrect');
         $vote = Factory\VoteFactory::find($vote->getId());
-        $this->assertSame($oldName, $vote->getAuthorName());
+        $this->assertSame($owner->getUserIdentifier(), $vote->getAuthorName());
         $answer = Factory\AnswerFactory::find($answer->getId());
         $this->assertSame($oldValue, $answer->getValue());
     }
@@ -170,15 +273,18 @@ class VotesControllerTest extends WebTestCase
     public function testPostEditFailsIfCsrfIsInvalid(): void
     {
         $client = static::createClient();
+        $owner = Factory\UserFactory::createOne([
+            'username' => 'vote-owner-csrf',
+        ]);
+        $client->loginUser($owner);
         $poll = Factory\PollFactory::new()->completed()->create();
         $proposal = $poll->getProposals()->first();
-        $oldName = 'Alix';
-        $newName = 'Benedict';
         $oldValue = 'no';
         $newValue = 'yes';
         $vote = Factory\VoteFactory::createOne([
             'poll' => $poll,
-            'authorName' => $oldName,
+            'owner' => $owner,
+            'authorName' => $owner->getUserIdentifier(),
         ]);
         $answer = Factory\AnswerFactory::createOne([
             'vote' => $vote,
@@ -189,7 +295,7 @@ class VotesControllerTest extends WebTestCase
         $client->request(Request::METHOD_POST, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit", [
             'vote' => [
                 '_token' => 'not the token',
-                'authorName' => $newName,
+                'authorName' => $owner->getUserIdentifier(),
                 'answers' => [
                     ['value' => $newValue],
                 ],
@@ -198,56 +304,33 @@ class VotesControllerTest extends WebTestCase
 
         $this->assertSelectorTextContains('#vote_error', 'please submit the form again');
         $vote = Factory\VoteFactory::find($vote->getId());
-        $this->assertSame($oldName, $vote->getAuthorName());
+        $this->assertSame($owner->getUserIdentifier(), $vote->getAuthorName());
         $answer = Factory\AnswerFactory::find($answer->getId());
         $this->assertSame($oldValue, $answer->getValue());
     }
 
-    public function testPostVoteFailsIfAuthorNameAlreadyUsed(): void
+    public function testGuestCannotEditUnownedVote(): void
     {
         $client = static::createClient();
         $poll = Factory\PollFactory::new()->completed()->create();
-        $proposal = $poll->getProposals()->first();
         $vote = Factory\VoteFactory::createOne([
             'poll' => $poll,
-            'authorName' => 'Alix',
-        ]);
-        $answer = Factory\AnswerFactory::createOne([
-            'vote' => $vote,
-            'proposal' => $proposal,
-            'value' => 'no',
-        ]);
-        $newVote = Factory\VoteFactory::createOne([
-            'poll' => $poll,
-            'authorName' => 'Kael',
-        ]);
-        $newAnswer = Factory\AnswerFactory::createOne([
-            'vote' => $newVote,
-            'proposal' => $proposal,
-            'value' => 'yes',
+            'authorName' => 'guest-vote',
         ]);
 
-        $client->request(Request::METHOD_POST, "/polls/{$poll->getSlug()}/votes/{$newVote->getId()}/edit", [
-            'vote' => [
-                '_token' => $this->getCsrf($client, 'vote'),
-                'authorName' => ' ALiX ',
-                'answers' => [
-                    ['value' => 'no'],
-                ],
-            ],
-        ]);
+        $client->request(Request::METHOD_GET, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit");
 
-        $this->assertSelectorTextContains('#vote_authorName_error', 'Enter a different name');
-        $newVote = Factory\VoteFactory::find($newVote->getId());
-        $this->assertSame('Kael', $newVote->getAuthorName());
-        $newAnswer = Factory\AnswerFactory::find($newAnswer->getId());
-        $this->assertSame('yes', $newAnswer->getValue());
+        $this->assertResponseRedirects("/polls/{$poll->getSlug()}", 302);
     }
 
     public function testPostDeletionDeletesTheVote(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->completed()->create();
+        $owner = Factory\UserFactory::createOne();
+        $client->loginUser($owner);
+        $poll = Factory\PollFactory::new([
+            'owner' => $owner,
+        ])->completed()->create();
         $vote = Factory\VoteFactory::createOne([
             'poll' => $poll,
         ]);
@@ -267,7 +350,11 @@ class VotesControllerTest extends WebTestCase
     public function testPostDeletionFailsIfCsrfIsInvalid(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->completed()->create();
+        $owner = Factory\UserFactory::createOne();
+        $client->loginUser($owner);
+        $poll = Factory\PollFactory::new([
+            'owner' => $owner,
+        ])->completed()->create();
         $vote = Factory\VoteFactory::createOne([
             'poll' => $poll,
         ]);
@@ -287,7 +374,11 @@ class VotesControllerTest extends WebTestCase
     public function testPostDeletionFailsIfAdminTokenIsInvalid(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->completed()->create();
+        $owner = Factory\UserFactory::createOne();
+        $client->loginUser($owner);
+        $poll = Factory\PollFactory::new([
+            'owner' => $owner,
+        ])->completed()->create();
         $vote = Factory\VoteFactory::createOne([
             'poll' => $poll,
         ]);
@@ -307,7 +398,11 @@ class VotesControllerTest extends WebTestCase
     public function testPostDeletionFailsIfVoteIsNotPartOfPoll(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->completed()->create();
+        $owner = Factory\UserFactory::createOne();
+        $client->loginUser($owner);
+        $poll = Factory\PollFactory::new([
+            'owner' => $owner,
+        ])->completed()->create();
         $otherPoll = Factory\PollFactory::new()->completed()->create();
         $vote = Factory\VoteFactory::createOne([
             'poll' => $otherPoll,

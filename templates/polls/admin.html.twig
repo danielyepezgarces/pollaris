@@ -49,7 +49,7 @@
                                 </span>
 
 
-                                {% if not poll.isClosed %}
+                                {% if not poll.isClosed and canEditVote(vote) %}
                                     <a class="button button--smaller" href="{{ path('edit vote', { slug: poll.slug, id: vote.id, _fragment: 'poll' }) }}">
                                         {{ icon('pen-to-square') }}
                                         {{ 'polls.admin.edit' | trans }}

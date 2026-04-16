@@ -329,29 +329,35 @@
                             {% set isPreferred = preferredChoices and proposal in preferredChoices %}
 
                             <td class="text--center{% if isPreferred %} text--success text--bold{% endif %}">
-                                {% if isPreferred %}
-                                    {{ icon('star') }}
-                                {% endif %}
+                                <div class="proposals-table__sum-content{% if isPreferred %} proposals-table__sum-content--preferred{% endif %}">
+                                    {% if isPreferred %}
+                                        <span class="proposals-table__sum-star" aria-hidden="true">
+                                            {{ icon('star') }}
+                                        </span>
+                                    {% endif %}
 
-                                {% if countYes > 0 %}
-                                    {{ countYes }}
+                                    {% if countYes > 0 %}
+                                        <span class="proposals-table__sum-yes">
+                                            {{ countYes }}
+                                        </span>
 
-                                    <span class="sr-only">
-                                        {{ 'polls.votes.yes' | trans }}
-                                    </span>
-                                {% endif %}
+                                        <span class="sr-only">
+                                            {{ 'polls.votes.yes' | trans }}
+                                        </span>
+                                    {% endif %}
 
-                                {% if countMaybe > 0 %}
-                                    <span class="text--secondary text--small">
-                                        {{ 'polls.votes.maybe.count_alt' | trans({ count: countMaybe }) }}
-                                    </span>
-                                {% endif %}
+                                    {% if countMaybe > 0 %}
+                                        <span class="text--secondary text--small proposals-table__sum-maybe">
+                                            {{ 'polls.votes.maybe.count_alt' | trans({ count: countMaybe }) }}
+                                        </span>
+                                    {% endif %}
 
-                                {% if isPreferred %}
-                                    <span class="sr-only">
-                                        {{ 'polls.proposals.best' | trans }}
-                                    </span>
-                                {% endif %}
+                                    {% if isPreferred %}
+                                        <span class="sr-only">
+                                            {{ 'polls.proposals.best' | trans }}
+                                        </span>
+                                    {% endif %}
+                                </div>
                             </td>
                         {% endfor %}
                     </tr>

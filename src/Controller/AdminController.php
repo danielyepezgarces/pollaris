@@ -31,14 +31,14 @@ class AdminController extends BaseController
     #[Route('/admin', name: 'admin')]
     public function show(Request $request): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createNotFoundException('Page not found.');
+        }
+
         $page = $request->query->getInt('page', 1);
         $search = $request->query->getString('q', '');
         $currentUser = $this->getUser();
-        $includeAllPolls = $this->isGranted('ROLE_ADMIN');
-
-        if (!$includeAllPolls && !$currentUser instanceof Entity\User) {
-            throw $this->createAccessDeniedException('You must be authenticated to access this page.');
-        }
+        $includeAllPolls = true;
 
         $searchQuery = $this->pollRepository->getSearchQuery(
             $search,

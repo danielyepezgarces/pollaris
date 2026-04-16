@@ -57,17 +57,13 @@ class VotesController extends BaseController
             ]);
         }
 
-        if (!$this->pollSecurity->canEditVotes($poll)) {
+        if (!$this->pollSecurity->canEditVote($vote)) {
             return $this->redirectToRoute('poll', [
                 'slug' => $poll->getSlug(),
             ]);
         }
 
         if ($currentUser instanceof Entity\User) {
-            // A logged-in user can only edit their own vote
-            if ($vote->getOwner() !== null && $vote->getOwner()->getId() !== $currentUser->getId()) {
-                throw $this->createAccessDeniedException('You cannot edit another user\'s vote.');
-            }
             $vote->setAuthorName($currentUser->getUserIdentifier());
             $vote->setOwner($currentUser);
         }

@@ -44,7 +44,7 @@
         </div>
 
         <p class="cols cols--center cols--gap" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-            <a class="button button--primary" href="{{ app.user ? path('choose poll type') : path('login') }}">
+            <a class="button button--primary" href="{{ path('choose poll type') }}">
                 {{ 'home.create_poll' | trans }}
             </a>
 

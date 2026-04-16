@@ -118,24 +118,77 @@ export default class extends Controller {
         });
     }
 
+    setStickyWidth() {
+        const rootStyles = getComputedStyle(document.documentElement);
+        const minWidth = parseInt(
+            rootStyles.getPropertyValue('--cell-sticky-width').trim()
+        ) || 150;
+        const mainFlowEl = document.getElementById('mainFlow');
+        const availableWidth = mainFlowEl?.clientWidth || window.innerWidth;
+
+        if (window.innerWidth < 768) {
+            document.documentElement.style.setProperty('--cell-sticky-width', `${minWidth}px`);
+            return;
+        }
+
+        const cells = [
+            ...this.element.querySelectorAll('.proposals-table__sticky-cell')
+        ];
+        if (!cells.length) return;
+
+        // Temporarily release the width constraint so each sticky cell sizes
+        // to its real content before we compute a shared width.
+        cells.forEach(cell => {
+            cell.style.width = 'max-content';
+            cell.style.minWidth = '0';
+        });
+        void this.element.offsetWidth; // flush
+
+        let measuredWidth = 0;
+        cells.forEach(cell => {
+            measuredWidth = Math.max(measuredWidth, cell.scrollWidth, cell.offsetWidth);
+        });
+
+        cells.forEach(cell => {
+            cell.style.width = '';
+            cell.style.minWidth = '';
+        });
+
+        // Keep the sticky column adaptive, but cap it so it does not eat too
+        // much of the horizontal space and push the answer columns around.
+        const maxWidth = Math.min(320, Math.floor(availableWidth * 0.28));
+        const stickyWidth = Math.max(minWidth, Math.min(measuredWidth, maxWidth));
+
+        document.documentElement.style.setProperty(
+            '--cell-sticky-width',
+            `${stickyWidth}px`
+        );
+    }
+
     setPollWidth() {
+        // Update sticky column width first so theadLineWidth reflects it.
+        this.setStickyWidth();
+        void this.element.offsetWidth; // flush after sticky-width change
+
         const mainFlowEl = document.getElementById('mainFlow');
         const mainFlowWidth = mainFlowEl.clientWidth;
         const theadLineEl = this.theadTarget.querySelector('tr');
         const theadLineWidth = theadLineEl?.clientWidth || null;
         const rootStyles = getComputedStyle(document.documentElement);
-        const borderSize = rootStyles.getPropertyValue('--poll-outer-border-size').trim();
+        const borderSize = parseInt(
+            rootStyles.getPropertyValue('--poll-outer-border-size').trim()
+        ) || 0;
 
-        let pollWidth = Math.min(mainFlowWidth, (theadLineWidth + (parseInt(borderSize) * 2)))
+        let pollWidth = Math.min(mainFlowWidth, theadLineWidth + (borderSize * 2));
 
         if (mainFlowWidth < 650 && pollWidth < 650) {
-            pollWidth = mainFlowWidth
+            pollWidth = mainFlowWidth;
         }
 
         if (theadLineWidth < 650 && mainFlowWidth >= 650) {
             document.documentElement.style.setProperty('--poll-width', `650px`);
         } else {
-            document.documentElement.style.setProperty('--poll-width', `calc(${pollWidth}px`);
+            document.documentElement.style.setProperty('--poll-width', `${pollWidth}px`);
         }
     }
 }

@@ -17,7 +17,7 @@
 }
 
 .poll-view--table .poll {
-    --cell-width: 120px;
+    --cell-width: 88px;
     --cell-sticky-width: 150px;
 
     border-radius: var(--border-radius);

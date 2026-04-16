@@ -58,26 +58,17 @@ class PollSecurity
     public function canEditVote(Entity\Vote $vote, bool $ignoreAdminAccess = false): bool
     {
         $poll = $vote->getPoll();
-
-        $hasAdminAccess = !$ignoreAdminAccess && $this->hasAccessToAdmin($poll);
+        if (!$this->canEditVotes($poll, $ignoreAdminAccess)) {
+            return false;
+        }
 
         // For logged-in users, check ownership via DB
         $currentUser = $this->tokenStorage->getToken()?->getUser();
-        $isOwner = $currentUser instanceof Entity\User && $vote->getOwner()?->getId() === $currentUser->getId();
+        if ($currentUser instanceof Entity\User) {
+            return $vote->getOwner()?->getId() === $currentUser->getId();
+        }
 
-        // For guests, fall back to session-based check
-        $session = $this->requestStack->getSession();
-        $myVoteId = $session->get("vote-{$poll->getId()}");
-        $myVoteIsGivenOne = !$isOwner && $myVoteId === $vote->getId();
-
-        return (
-            !$poll->isClosed() && (
-                $poll->getEditVoteMode() === 'any' ||
-                $isOwner ||
-                $myVoteIsGivenOne ||
-                $hasAdminAccess
-            )
-        );
+        return false;
     }
 
     public function isAuthenticated(Entity\Poll $poll): bool

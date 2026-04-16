@@ -17,7 +17,6 @@ namespace App\Tests\Controller;
 use App\Tests\Factory;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AdminControllerTest extends WebTestCase
 {
@@ -35,16 +34,16 @@ class AdminControllerTest extends WebTestCase
         $this->assertSelectorTextContains('h1', 'Administration');
     }
 
-    public function testGetShowRedirectsIfNotAuthenticated(): void
+    public function testGetShowReturns404IfNotAuthenticated(): void
     {
         $client = static::createClient();
 
         $client->request(Request::METHOD_GET, '/admin');
 
-        $this->assertResponseRedirects('/login', 302);
+        $this->assertResponseStatusCodeSame(404);
     }
 
-    public function testGetShowFailsIfUserIsNotAdmin(): void
+    public function testGetShowReturns404IfUserIsNotAdmin(): void
     {
         $client = static::createClient();
         $user = Factory\UserFactory::createOne([
@@ -52,9 +51,8 @@ class AdminControllerTest extends WebTestCase
         ]);
         $client->loginUser($user);
 
-        $this->expectException(AccessDeniedException::class);
-
-        $client->catchExceptions(false);
         $client->request(Request::METHOD_GET, '/admin');
+
+        $this->assertResponseStatusCodeSame(404);
     }
 }
