@@ -25,6 +25,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class LoginController extends BaseController
 {
+    private const SESSION_SKIP_WIKIMEDIA_AUTO_REDIRECT = 'login_skip_wikimedia_auto_redirect';
+
     public function __construct(
         private readonly Security $security,
         private readonly Service\WikimediaOAuth $wikimediaOAuth,
@@ -45,12 +47,15 @@ class LoginController extends BaseController
             $request->getSession()->set('login_returnto', $returnto);
         }
 
-        if ($this->wikimediaOAuth->isConfigured()) {
+        $wikimediaOAuthEnabled = $this->wikimediaOAuth->isConfigured();
+        $skipWikimediaAutoRedirect = $request->getSession()->remove(self::SESSION_SKIP_WIKIMEDIA_AUTO_REDIRECT) === true;
+
+        if ($wikimediaOAuthEnabled && !$skipWikimediaAutoRedirect) {
             return $this->redirectToRoute('login wikimedia');
         }
 
         return $this->render('login/login.html.twig', [
-            'wikimediaOAuthEnabled' => false,
+            'wikimediaOAuthEnabled' => $wikimediaOAuthEnabled,
         ]);
     }
 
@@ -61,7 +66,14 @@ class LoginController extends BaseController
             throw $this->createNotFoundException('Wikimedia OAuth is not configured.');
         }
 
-        return $this->redirect($this->wikimediaOAuth->buildAuthorizationUrl($request->getSession()));
+        try {
+            return $this->redirect($this->wikimediaOAuth->buildAuthorizationUrl($request->getSession()));
+        } catch (\Throwable) {
+            $request->getSession()->set(self::SESSION_SKIP_WIKIMEDIA_AUTO_REDIRECT, true);
+            $this->addFlash('error', 'login.wikimedia.error.generic');
+
+            return $this->redirectToRoute('login');
+        }
     }
 
     #[Route(path: '/login/wikimedia/callback', name: 'login wikimedia callback')]
@@ -75,6 +87,7 @@ class LoginController extends BaseController
         $oauthVerifier = $request->query->getString('oauth_verifier');
 
         if (!$this->wikimediaOAuth->hasValidCallback($request->getSession(), $oauthToken, $oauthVerifier)) {
+            $request->getSession()->set(self::SESSION_SKIP_WIKIMEDIA_AUTO_REDIRECT, true);
             $this->addFlash('error', 'login.wikimedia.error.cancelled');
 
             return $this->redirectToRoute('login');
@@ -84,6 +97,7 @@ class LoginController extends BaseController
             $profile = $this->wikimediaOAuth->fetchProfile($request->getSession(), $oauthVerifier);
             $user = $this->synchronizeWikimediaUser($profile);
         } catch (\Throwable) {
+            $request->getSession()->set(self::SESSION_SKIP_WIKIMEDIA_AUTO_REDIRECT, true);
             $this->addFlash('error', 'login.wikimedia.error.generic');
 
             return $this->redirectToRoute('login');
