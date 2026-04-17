@@ -44,6 +44,10 @@ class PollsControllerTest extends WebTestCase
     public function testGetNewRendersCorrectly(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'new-owner',
+        ]);
+        $client->loginUser($user);
 
         $client->request(Request::METHOD_GET, '/polls/new');
 
@@ -54,28 +58,33 @@ class PollsControllerTest extends WebTestCase
     public function testPostNewCreatesAPoll(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'new-owner',
+            'email' => 'owner@example.org',
+        ]);
+        $client->loginUser($user);
         $title = 'My poll';
         $description = 'Description of my poll';
         $name = 'Alix';
         $email = 'alix@example.org';
 
-        $client->request(Request::METHOD_POST, '/polls/new', [
-            'poll' => [
-                '_token' => $this->getCsrf($client, 'poll'),
-                'title' => $title,
-                'description' => $description,
-                'authorName' => $name,
-                'authorEmail' => $email,
-            ],
+        $crawler = $client->request(Request::METHOD_GET, '/polls/new');
+        $form = $crawler->filter('form[name="poll"]')->form([
+            'poll[title]' => $title,
+            'poll[description]' => $description,
+            'poll[closedAt]' => '2026-04-20',
+            'poll[timezoneMode]' => 'server',
         ]);
+        $client->submit($form);
 
         $poll = Factory\PollFactory::last();
         $this->assertSame($title, $poll->getTitle());
         $this->assertSame($description, $poll->getDescription());
-        $this->assertSame($name, $poll->getAuthorName());
-        $this->assertSame($email, $poll->getAuthorEmail());
+        $this->assertSame('new-owner', $poll->getAuthorName());
+        $this->assertSame('owner@example.org', $poll->getAuthorEmail());
         $this->assertSame('classic', $poll->getType());
         $this->assertSame('en_GB', $poll->getLocale());
+        $this->assertSame($user->getId(), $poll->getOwner()?->getId());
         $id = $poll->getId();
         $adminToken = $poll->getAdminToken();
         $this->assertSame(20, strlen($id ?? ''));
@@ -86,54 +95,67 @@ class PollsControllerTest extends WebTestCase
     public function testPostNewDatePollRedirectsToPollDates(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'date-owner',
+            'email' => 'date-owner@example.org',
+        ]);
+        $client->loginUser($user);
         $title = 'My poll';
         $name = 'Alix';
         $email = 'alix@example.org';
 
-        $client->request(Request::METHOD_POST, '/polls/new?type=date', [
-            'poll' => [
-                '_token' => $this->getCsrf($client, 'poll'),
-                'title' => $title,
-                'authorName' => $name,
-                'authorEmail' => $email,
-            ],
+        $crawler = $client->request(Request::METHOD_GET, '/polls/new?type=date');
+        $form = $crawler->filter('form[name="poll"]')->form([
+            'poll[title]' => $title,
+            'poll[closedAt]' => '2026-04-20',
+            'poll[timezoneMode]' => 'server',
         ]);
+        $client->submit($form);
 
         $poll = Factory\PollFactory::last();
         $this->assertSame($title, $poll->getTitle());
         $this->assertSame('date', $poll->getType());
+        $this->assertSame('date-owner', $poll->getAuthorName());
+        $this->assertSame('date-owner@example.org', $poll->getAuthorEmail());
         $id = $poll->getId();
         $adminToken = $poll->getAdminToken();
         $this->assertResponseRedirects("/polls/{$id}/{$adminToken}/dates?flow=on", 302);
     }
 
-    public function testPostNewFailsIfEmailIsEmptyButRequired(): void
+    public function testPostNewUsesLoggedInUserProfileDetails(): void
     {
-        // Emails are not required by default, but there are during tests (see
-        // the .env.test file).
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'new-owner',
+            'email' => 'owner@example.org',
+        ]);
+        $client->loginUser($user);
         $title = 'My poll';
         $description = 'Description of my poll';
-        $name = 'Alix';
-        $email = '';
 
-        $result = $client->request(Request::METHOD_POST, '/polls/new', [
-            'poll' => [
-                '_token' => $this->getCsrf($client, 'poll'),
-                'title' => $title,
-                'description' => $description,
-                'authorName' => $name,
-                'authorEmail' => $email,
-            ],
+        $crawler = $client->request(Request::METHOD_GET, '/polls/new');
+        $form = $crawler->filter('form[name="poll"]')->form([
+            'poll[title]' => $title,
+            'poll[description]' => $description,
+            'poll[closedAt]' => '2026-04-20',
+            'poll[timezoneMode]' => 'server',
         ]);
+        $client->submit($form);
 
-        Factory\PollFactory::assert()->count(0);
-        $this->assertSelectorTextContains('#poll_authorEmail_error', 'Enter an email address.');
+        $poll = Factory\PollFactory::last();
+        $this->assertSame($title, $poll->getTitle());
+        $this->assertSame($description, $poll->getDescription());
+        $this->assertSame('new-owner', $poll->getAuthorName());
+        $this->assertSame('owner@example.org', $poll->getAuthorEmail());
     }
 
     public function testPostNewFailsIfCsrfIsInvalid(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'new-owner',
+        ]);
+        $client->loginUser($user);
         $title = 'My poll';
         $name = 'Alix';
         $description = 'Description of my poll';
@@ -144,6 +166,12 @@ class PollsControllerTest extends WebTestCase
                 'title' => $title,
                 'description' => $description,
                 'authorName' => $name,
+                'closedAt' => [
+                    'year' => '2026',
+                    'month' => '4',
+                    'day' => '20',
+                ],
+                'timezoneMode' => 'server',
             ],
         ]);
 
@@ -162,6 +190,35 @@ class PollsControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'My poll');
+    }
+
+    public function testGetShowDisplaysWikimediaEligibilityErrorsForLoggedInUsers(): void
+    {
+        $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'restricted-user',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'title' => 'My poll',
+            'minWikimediaAccountAgeMonths' => 6,
+        ])->completed()->create();
+
+        $eligibilityChecker = $this->createMock(Service\WikimediaEligibilityChecker::class);
+        $eligibilityChecker
+            ->method('getVoteEligibilityErrors')
+            ->willReturn([
+                'Your Wikimedia account must be at least 6 months old to vote in this poll.',
+            ]);
+        static::getContainer()->set(Service\WikimediaEligibilityChecker::class, $eligibilityChecker);
+
+        $client->request(Request::METHOD_GET, "/polls/{$poll->getSlug()}");
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains(
+            'main',
+            'Your Wikimedia account must be at least 6 months old to vote in this poll.'
+        );
     }
 
     public function testGetShowWithCustomSlugRendersCorrectly(): void
@@ -246,6 +303,10 @@ class PollsControllerTest extends WebTestCase
     public function testPostShowWithVoteCreatesAVote(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'alix-user',
+        ]);
+        $client->loginUser($user);
         $authorEmail = 'charlie@example.com';
         $poll = Factory\PollFactory::new([
             'authorEmail' => $authorEmail,
@@ -269,7 +330,7 @@ class PollsControllerTest extends WebTestCase
         $this->assertResponseRedirects("/polls/{$poll->getSlug()}", 302);
         $votes = Factory\VoteFactory::all();
         $this->assertSame(1, count($votes));
-        $this->assertSame($name, $votes[0]->getAuthorName());
+        $this->assertSame('alix-user', $votes[0]->getAuthorName());
         $this->assertSame($poll->getId(), $votes[0]->getPoll()->getId());
         $answers = $votes[0]->getAnswers()->toArray();
         $this->assertSame(1, count($answers));
@@ -278,7 +339,7 @@ class PollsControllerTest extends WebTestCase
         $this->assertEmailCount(1);
         $email = $this->getMailerMessage();
         $this->assertNotNull($email);
-        $this->assertEmailTextBodyContains($email, $name);
+        $this->assertEmailTextBodyContains($email, 'alix-user');
         $this->assertEmailAddressContains($email, 'To', $authorEmail);
     }
 
@@ -313,6 +374,10 @@ class PollsControllerTest extends WebTestCase
     public function testPostShowWithMissingVoteIsConsideredAsNoIfOptionIsTrue(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'alix-user',
+        ]);
+        $client->loginUser($user);
         $poll = Factory\PollFactory::new([
             'voteNoByDefault' => true,
         ])->completed()->create();
@@ -333,7 +398,7 @@ class PollsControllerTest extends WebTestCase
         $this->assertResponseRedirects("/polls/{$poll->getSlug()}", 302);
         $votes = Factory\VoteFactory::all();
         $this->assertSame(1, count($votes));
-        $this->assertSame($name, $votes[0]->getAuthorName());
+        $this->assertSame('alix-user', $votes[0]->getAuthorName());
         $this->assertSame($poll->getId(), $votes[0]->getPoll()->getId());
         $answers = $votes[0]->getAnswers()->toArray();
         $this->assertSame(1, count($answers));
@@ -344,6 +409,10 @@ class PollsControllerTest extends WebTestCase
     public function testPostShowWithVoteDoesNothingIfPollIsClosed(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'alix-user',
+        ]);
+        $client->loginUser($user);
         $authorEmail = 'charlie@example.com';
         $poll = Factory\PollFactory::new([
             'authorEmail' => $authorEmail,
@@ -373,6 +442,10 @@ class PollsControllerTest extends WebTestCase
     public function testPostShowWithMaybeVoteFailsIfMaybeDisabled(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'alix-user',
+        ]);
+        $client->loginUser($user);
         $poll = Factory\PollFactory::new([
             'disableMaybe' => true,
         ])->completed()->create();
@@ -402,6 +475,10 @@ class PollsControllerTest extends WebTestCase
     public function testPostShowWithVoteFailsIfMaxVoteIsReached(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'alix-user',
+        ]);
+        $client->loginUser($user);
         $poll = Factory\PollFactory::new([
             'maxVotes' => 1,
         ])->completed()->create();
@@ -437,6 +514,10 @@ class PollsControllerTest extends WebTestCase
     public function testPostShowWithVoteFailsIfRequiredPasswordIsIncorrect(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'alix-user',
+        ]);
+        $client->loginUser($user);
         $poll = Factory\PollFactory::new([
             'password' => 'secret',
             'isPasswordForVotesOnly' => true,
@@ -464,6 +545,10 @@ class PollsControllerTest extends WebTestCase
     public function testPostShowWithVoteFailsIfCsrfIsInvalid(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'alix-user',
+        ]);
+        $client->loginUser($user);
         $poll = Factory\PollFactory::new()->completed()->create();
         $proposal = $poll->getProposals()->first();
         $name = 'Alix';
@@ -539,6 +624,10 @@ class PollsControllerTest extends WebTestCase
     public function testPostShowWithCommentDoesNothingIfPollIsClosed(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'wikimedia-user',
+        ]);
+        $client->loginUser($user);
         $authorEmail = 'charlie@example.com';
         $poll = Factory\PollFactory::new([
             'authorEmail' => $authorEmail,
@@ -551,7 +640,7 @@ class PollsControllerTest extends WebTestCase
         $client->request(Request::METHOD_POST, "/polls/{$poll->getSlug()}", [
             'comment' => [
                 '_token' => $this->getCsrf($client, 'comment'),
-                'authorName' => $name,
+                'authorName' => 'ignored',
                 'content' => $content,
             ],
         ]);
@@ -564,6 +653,10 @@ class PollsControllerTest extends WebTestCase
     public function testPostShowWithCommentFailsIfContentIsEmpty(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'wikimedia-user',
+        ]);
+        $client->loginUser($user);
         $poll = Factory\PollFactory::new()->completed()->create();
         $name = 'Alix';
         $content = '';
@@ -571,7 +664,7 @@ class PollsControllerTest extends WebTestCase
         $client->request(Request::METHOD_POST, "/polls/{$poll->getSlug()}", [
             'comment' => [
                 '_token' => $this->getCsrf($client, 'comment'),
-                'authorName' => $name,
+                'authorName' => 'ignored',
                 'content' => $content,
             ],
         ]);
@@ -584,6 +677,10 @@ class PollsControllerTest extends WebTestCase
     public function testPostShowWithCommentFailsIfCsrfIsInvalid(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'wikimedia-user',
+        ]);
+        $client->loginUser($user);
         $poll = Factory\PollFactory::new()->completed()->create();
         $name = 'Alix';
         $content = 'Lorem ipsum';
@@ -591,7 +688,7 @@ class PollsControllerTest extends WebTestCase
         $client->request(Request::METHOD_POST, "/polls/{$poll->getSlug()}", [
             'comment' => [
                 '_token' => 'not the token',
-                'authorName' => $name,
+                'authorName' => 'ignored',
                 'content' => $content,
             ],
         ]);
@@ -783,7 +880,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetEditRendersCorrectly(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::createOne();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::createOne([
+            'owner' => $user,
+        ]);
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/edit");
 
@@ -805,6 +908,10 @@ class PollsControllerTest extends WebTestCase
     public function testPostEditChangesTheTitleAndDescription(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
         $oldTitle = 'The poll';
         $newTitle = 'My poll';
         $oldDescription = 'Outdated description';
@@ -814,33 +921,40 @@ class PollsControllerTest extends WebTestCase
         $oldEmail = 'alix@example.org';
         $newEmail = 'charlie@example.org';
         $poll = Factory\PollFactory::new()->classic()->create([
+            'owner' => $user,
             'title' => $oldTitle,
             'description' => $oldDescription,
             'authorName' => $oldName,
             'authorEmail' => $oldEmail,
         ]);
 
-        $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/edit", [
-            'poll' => [
-                '_token' => $this->getCsrf($client, 'poll'),
-                'title' => $newTitle,
-                'description' => $newDescription,
-                'authorName' => $newName,
-                'authorEmail' => $newEmail,
-            ],
+        $crawler = $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/edit");
+        $form = $crawler->filter('form[name="poll"]')->form([
+            'poll[title]' => $newTitle,
+            'poll[description]' => $newDescription,
+            'poll[authorName]' => $newName,
+            'poll[authorEmail]' => $newEmail,
+            'poll[closedAt]' => '2026-04-20',
+            'poll[timezoneMode]' => 'server',
         ]);
+        $client->submit($form);
 
-        $this->refresh($poll);
-        $this->assertSame($newTitle, $poll->getTitle());
-        $this->assertSame($newDescription, $poll->getDescription());
-        $this->assertSame($newName, $poll->getAuthorName());
-        $this->assertSame($newEmail, $poll->getAuthorEmail());
+        $updatedPoll = Factory\PollFactory::find(['id' => $poll->getId()]);
+        $this->assertNotNull($updatedPoll);
+        $this->assertSame($newTitle, $updatedPoll->getTitle());
+        $this->assertSame($newDescription, $updatedPoll->getDescription());
+        $this->assertSame($newName, $updatedPoll->getAuthorName());
+        $this->assertSame($newEmail, $updatedPoll->getAuthorEmail());
         $this->assertResponseRedirects("/polls/{$poll->getId()}/{$poll->getAdminToken()}/proposals?flow=on", 302);
     }
 
     public function testPostEditFailsIfCsrfIsInvalid(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
         $oldTitle = 'The poll';
         $newTitle = 'My poll';
         $oldDescription = 'Outdated description';
@@ -850,6 +964,7 @@ class PollsControllerTest extends WebTestCase
         $oldEmail = 'alix@example.org';
         $newEmail = 'charlie@example.org';
         $poll = Factory\PollFactory::new()->classic()->create([
+            'owner' => $user,
             'title' => $oldTitle,
             'description' => $oldDescription,
             'authorName' => $oldName,
@@ -863,6 +978,12 @@ class PollsControllerTest extends WebTestCase
                 'description' => $newDescription,
                 'authorName' => $newName,
                 'authorEmail' => $newEmail,
+                'closedAt' => [
+                    'year' => '2026',
+                    'month' => '4',
+                    'day' => '20',
+                ],
+                'timezoneMode' => 'server',
             ],
         ]);
 
@@ -877,7 +998,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetProposalsRendersCorrectly(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->classic()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->classic()->create();
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/proposals");
 
@@ -888,7 +1015,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetProposalsFailsIfTypeIsDate(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->date()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->date()->create();
 
         $this->expectException(NotFoundHttpException::class);
 
@@ -910,7 +1043,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostProposalsCreatesProposals(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->classic()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->classic()->create();
 
         $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/proposals", [
             'poll_proposals' => [
@@ -934,7 +1073,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostProposalsSynchronizesExistingVotesWithNewProposals(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->classic()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->classic()->create();
         $existingProposal = Factory\ProposalFactory::createOne([
             'label' => 'Foo',
             'poll' => $poll,
@@ -978,7 +1123,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostProposalsReplacesExistingProposals(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->classic()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->classic()->create();
         $proposal1 = Factory\ProposalFactory::createOne([
             'label' => 'Bar',
             'poll' => $poll,
@@ -1010,7 +1161,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostProposalsFailsIfCsrfIsInvalid(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->classic()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->classic()->create();
 
         $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/proposals", [
             'poll_proposals' => [
@@ -1029,7 +1186,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetDatesRendersCorrectly(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->date()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->date()->create();
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/dates");
 
@@ -1040,7 +1203,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetDatesFailsIfTypeIsClassic(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->classic()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->classic()->create();
 
         $this->expectException(NotFoundHttpException::class);
 
@@ -1062,11 +1231,18 @@ class PollsControllerTest extends WebTestCase
     public function testPostDatesCreatesDates(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->date()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->date()->create();
 
         $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/dates", [
             'poll_dates' => [
                 '_token' => $this->getCsrf($client, 'poll_dates'),
+                'timezoneMode' => 'server',
                 'dates' => [
                     ['value' => '2024-11-01'],
                     ['value' => '2024-11-02'],
@@ -1086,8 +1262,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostDatesSynchronizesExistingVotesWithNewDateSlots(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
         $poll = Factory\PollFactory::createOne([
             'type' => 'date',
+            'owner' => $user,
         ]);
         $existingDate = Factory\DateFactory::createOne([
             'poll' => $poll,
@@ -1106,6 +1287,7 @@ class PollsControllerTest extends WebTestCase
         $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/dates", [
             'poll_dates' => [
                 '_token' => $this->getCsrf($client, 'poll_dates'),
+                'timezoneMode' => 'server',
                 'dates' => [
                     ['value' => '2024-11-01'],
                     ['value' => '2024-11-02'],
@@ -1138,11 +1320,18 @@ class PollsControllerTest extends WebTestCase
     public function testPostDatesFailsIfCsrfIsInvalid(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->date()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->date()->create();
 
         $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/dates", [
             'poll_dates' => [
                 '_token' => 'not the token',
+                'timezoneMode' => 'server',
                 'dates' => [
                     ['value' => '2024-11-01'],
                     ['value' => '2024-11-02'],
@@ -1157,7 +1346,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetSlotsRendersCorrectly(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->withDate()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->withDate()->create();
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/slots");
 
@@ -1168,7 +1363,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetSlotsFailsIfTypeIsClassic(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->classic()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->classic()->create();
 
         $this->expectException(NotFoundHttpException::class);
 
@@ -1179,7 +1380,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetSlotsRedirectsIfThereAreNoDates(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->date()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->date()->create();
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/slots");
 
@@ -1200,12 +1407,18 @@ class PollsControllerTest extends WebTestCase
     public function testPostSlotsCreatesAProposal(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->date()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->date()->create();
         $date = Factory\DateFactory::createOne([
             'poll' => $poll,
         ]);
-        $slot1 = '19h';
-        $slot2 = '20h';
+        $slot1 = '19:00';
+        $slot2 = '20:00';
 
         $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/slots", [
             'poll_slots' => [
@@ -1224,9 +1437,9 @@ class PollsControllerTest extends WebTestCase
         $this->refresh($poll);
         $proposals = $poll->getProposals()->toArray();
         $this->assertSame(2, count($proposals));
-        $this->assertSame($slot1, $proposals[0]->getLabel());
+        $this->assertSame('19:00:00', $proposals[0]->getLabel());
         $this->assertSame($date, $proposals[0]->getDate());
-        $this->assertSame($slot2, $proposals[1]->getLabel());
+        $this->assertSame('20:00:00', $proposals[1]->getLabel());
         $this->assertSame($date, $proposals[1]->getDate());
         $this->assertResponseRedirects("/polls/{$poll->getId()}/{$poll->getAdminToken()}/admin", 302);
     }
@@ -1234,7 +1447,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostSlotsCreatesADefaultProposalIfNoneArePosted(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->date()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->date()->create();
         $date = Factory\DateFactory::createOne([
             'poll' => $poll,
         ]);
@@ -1261,7 +1480,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostSlotsFailsIfCsrfTokenIsInvalid(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->date()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->date()->create();
         $date1 = Factory\DateFactory::createOne([
             'poll' => $poll,
         ]);
@@ -1299,7 +1524,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetSettingsRendersCorrectly(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->withProposal()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'settings-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->withProposal()->create();
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/settings");
 
@@ -1310,7 +1541,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetSettingsRedirectsIfThereAreNoProposals(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::createOne();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'settings-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::createOne([
+            'owner' => $user,
+        ]);
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/settings");
 
@@ -1331,17 +1568,29 @@ class PollsControllerTest extends WebTestCase
     public function testPostSettingsCanChangeOptions(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->withProposal()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'settings-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->withProposal()->create();
         $maxVotes = 1;
         $slug = 'my-slug';
         $password = 'secret';
         $notifyOnVotes = true;
         $notifyOnComments = true;
+        $minWikimediaAccountAgeMonths = 6;
+        $minWikimediaEditsProject = 'eswiki';
+        $minWikimediaEditsCount = 500;
 
         $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/settings", [
             'poll_settings' => [
                 '_token' => $this->getCsrf($client, 'poll_settings'),
                 'maxVotes' => $maxVotes,
+                'minWikimediaAccountAgeMonths' => $minWikimediaAccountAgeMonths,
+                'minWikimediaEditsProject' => $minWikimediaEditsProject,
+                'minWikimediaEditsCount' => $minWikimediaEditsCount,
                 'slug' => $slug,
                 'isPasswordProtected' => true,
                 'plainPassword' => [
@@ -1355,6 +1604,9 @@ class PollsControllerTest extends WebTestCase
 
         $this->refresh($poll);
         $this->assertSame($maxVotes, $poll->getMaxVotes());
+        $this->assertSame($minWikimediaAccountAgeMonths, $poll->getMinWikimediaAccountAgeMonths());
+        $this->assertSame($minWikimediaEditsProject, $poll->getMinWikimediaEditsProject());
+        $this->assertSame($minWikimediaEditsCount, $poll->getMinWikimediaEditsCount());
         $this->assertSame($slug, $poll->getSlug());
         $this->assertTrue($poll->isNotifyOnVotes());
         $this->assertTrue($poll->isNotifyOnComments());
@@ -1363,11 +1615,41 @@ class PollsControllerTest extends WebTestCase
         $this->assertTrue($pollPassword->verify($poll->getPassword() ?? '', $password));
     }
 
+    public function testPostSettingsRequiresProjectAndEditCountTogether(): void
+    {
+        $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'settings-owner-2',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->withProposal()->create();
+
+        $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/settings", [
+            'poll_settings' => [
+                '_token' => $this->getCsrf($client, 'poll_settings'),
+                'slug' => 'my-slug',
+                'minWikimediaEditsProject' => 'eswiki',
+            ]
+        ]);
+
+        $this->assertSelectorTextContains(
+            '#poll_settings_minWikimediaEditsProject_error',
+            'Project and minimum edits must be configured together.'
+        );
+    }
+
     public function testPostSettingsDoesNotChangePasswordIfNotSet(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'settings-owner',
+        ]);
+        $client->loginUser($user);
         $poll = Factory\PollFactory::new([
             'password' => 'secret',
+            'owner' => $user,
         ])->withProposal()->create();
         $maxVotes = 1;
         $slug = 'my-slug';
@@ -1394,8 +1676,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostSettingsRemovesPasswordIfIsPasswordProtectedIsNotSent(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'settings-owner',
+        ]);
+        $client->loginUser($user);
         $poll = Factory\PollFactory::new([
             'password' => 'secret',
+            'owner' => $user,
         ])->withProposal()->create();
         $maxVotes = 1;
         $slug = 'my-slug';
@@ -1419,7 +1706,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostSettingsFailsIfCsrfIsInvalid(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->withProposal()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'settings-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->withProposal()->create();
         $slug = 'my-slug';
 
         $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/settings", [
@@ -1437,7 +1730,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetSummaryRendersCorrectly(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->withProposal()->withAuthor()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'summary-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->withProposal()->withAuthor()->create();
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/summary");
 
@@ -1448,7 +1747,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetSummaryRedirectsIfThereAreNoProposals(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::createOne();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'summary-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::createOne([
+            'owner' => $user,
+        ]);
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/summary");
 
@@ -1469,11 +1774,16 @@ class PollsControllerTest extends WebTestCase
     public function testPostSummaryCompletesThePoll(): void
     {
         $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'summary-owner',
+        ]);
+        $client->loginUser($user);
         $title = 'My poll';
         $authorEmail = 'alix@example.org';
         $poll = Factory\PollFactory::new([
             'title' => $title,
             'authorEmail' => $authorEmail,
+            'owner' => $user,
         ])->withProposal()->withAuthor()->create();
 
         $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/summary", [
@@ -1494,7 +1804,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostSummaryFailsIfCsrfIsInvalid(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->withProposal()->withAuthor()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'summary-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->withProposal()->withAuthor()->create();
 
         $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/summary", [
             'poll_summary' => [
@@ -1510,7 +1826,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetCompleteRendersCorrectly(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->completed()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->completed()->create();
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/complete");
 
@@ -1522,7 +1844,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetCompleteRedirectsIfNotCompleted(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->withProposal()->withAuthor()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->withProposal()->withAuthor()->create();
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/complete");
 
@@ -1543,7 +1871,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetAdminRendersCorrectly(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->completed()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->completed()->create();
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/admin");
 
@@ -1554,7 +1888,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetAdminRedirectsIfNotCompleted(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->withProposal()->withAuthor()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->withProposal()->withAuthor()->create();
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/admin");
 
@@ -1575,7 +1915,13 @@ class PollsControllerTest extends WebTestCase
     public function testGetDeletionRendersCorrectly(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->completed()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->completed()->create();
 
         $client->request(
             Request::METHOD_GET,
@@ -1603,7 +1949,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostDeletionDeletesThePoll(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->completed()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->completed()->create();
 
         $client->request(
             Request::METHOD_POST,
@@ -1622,7 +1974,13 @@ class PollsControllerTest extends WebTestCase
     public function testPostDeletionFailsIfCsrfIsInvalid(): void
     {
         $client = static::createClient();
-        $poll = Factory\PollFactory::new()->completed()->create();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'poll-owner',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->completed()->create();
 
         $client->request(
             Request::METHOD_POST,

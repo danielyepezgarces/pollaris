@@ -17,6 +17,7 @@ namespace App\Form;
 use App\Entity;
 use App\Service;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -24,6 +25,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class PollSettingsForm extends AbstractType
@@ -31,6 +33,7 @@ class PollSettingsForm extends AbstractType
     public function __construct(
         private Service\PollPassword $pollPassword,
         private UrlGeneratorInterface $urlGenerator,
+        private TranslatorInterface $translator,
     ) {
     }
 
@@ -49,6 +52,35 @@ class PollSettingsForm extends AbstractType
         $builder->add('maxVotes', Type\IntegerType::class, [
             'label' => new TranslatableMessage('forms.poll_settings_form.max_votes.label'),
             'required' => false,
+        ]);
+
+        $builder->add('minWikimediaAccountAgeMonths', Type\IntegerType::class, [
+            'label' => new TranslatableMessage('forms.poll_settings_form.min_wikimedia_account_age_months.label'),
+            'help' => new TranslatableMessage('forms.poll_settings_form.min_wikimedia_account_age_months.help'),
+            'required' => false,
+            'attr' => [
+                'min' => 1,
+            ],
+        ]);
+
+        $builder->add('minWikimediaEditsProject', Type\TextType::class, [
+            'label' => new TranslatableMessage('forms.poll_settings_form.min_wikimedia_edits_project.label'),
+            'help' => new TranslatableMessage('forms.poll_settings_form.min_wikimedia_edits_project.help'),
+            'required' => false,
+            'empty_data' => '',
+            'attr' => [
+                'maxlength' => 50,
+                'placeholder' => 'eswiki',
+            ],
+        ]);
+
+        $builder->add('minWikimediaEditsCount', Type\IntegerType::class, [
+            'label' => new TranslatableMessage('forms.poll_settings_form.min_wikimedia_edits_count.label'),
+            'help' => new TranslatableMessage('forms.poll_settings_form.min_wikimedia_edits_count.help'),
+            'required' => false,
+            'attr' => [
+                'min' => 1,
+            ],
         ]);
 
         $pollBaseUrl = $this->urlGenerator->generate('home', referenceType: UrlGeneratorInterface::ABSOLUTE_URL);
@@ -170,6 +202,19 @@ class PollSettingsForm extends AbstractType
             } elseif (!$isPasswordProtected) {
                 $poll->setPassword('');
                 $poll->setIsPasswordForVotesOnly(false);
+            }
+
+            $project = trim((string) $poll->getMinWikimediaEditsProject());
+            $count = $poll->getMinWikimediaEditsCount();
+
+            $poll->setMinWikimediaEditsProject($project !== '' ? mb_strtolower($project) : null);
+
+            if (($project !== '' && $count === null) || ($project === '' && $count !== null)) {
+                $message = $this->translator->trans(
+                    'forms.poll_settings_form.min_wikimedia_edits.require_both'
+                );
+                $form->get('minWikimediaEditsProject')->addError(new FormError($message));
+                $form->get('minWikimediaEditsCount')->addError(new FormError($message));
             }
         });
     }

@@ -37,6 +37,7 @@ class PollsController extends BaseController
         private readonly Repository\CommentRepository $commentRepository,
         private readonly Flow\PollFlowBuilder $pollFlowBuilder,
         private readonly Security\PollSecurity $pollSecurity,
+        private readonly Service\WikimediaEligibilityChecker $wikimediaEligibilityChecker,
         private readonly TranslatorInterface $translator,
         private readonly EventDispatcherInterface $eventDispatcher,
     ) {
@@ -203,6 +204,7 @@ class PollsController extends BaseController
 
         $myVote = null;
         $voteForm = null;
+        $voteEligibilityErrors = [];
         $commentForm = null;
         $currentUser = $this->getUser();
 
@@ -233,30 +235,37 @@ class PollsController extends BaseController
 
         if (!$poll->isClosed()) {
             if ($currentUser instanceof Entity\User && $myVote === null) {
-                // User is logged in but hasn't voted yet: show the vote form
-                $vote = new Entity\Vote();
-                $vote->setPoll($poll);
-                $vote->setOwner($currentUser);
-                $vote->setAuthorName($currentUser->getUserIdentifier());
+                $voteEligibilityErrors = $this->wikimediaEligibilityChecker->getVoteEligibilityErrors(
+                    $poll,
+                    $currentUser,
+                );
 
-                $voteForm = $this->createNamedForm('vote', Form\VoteForm::class, $vote, [
-                    'author_name_locked' => true,
-                ]);
+                if ($voteEligibilityErrors === []) {
+                    // User is logged in but hasn't voted yet: show the vote form
+                    $vote = new Entity\Vote();
+                    $vote->setPoll($poll);
+                    $vote->setOwner($currentUser);
+                    $vote->setAuthorName($currentUser->getUserIdentifier());
 
-                $voteForm->handleRequest($request);
-                if ($voteForm->isSubmitted() && $voteForm->isValid()) {
-                    $vote = $voteForm->getData();
-
-                    $this->voteRepository->save($vote);
-
-                    $voteEvent = new PollActivity\VoteEvent($vote);
-                    $this->eventDispatcher->dispatch($voteEvent, PollActivity\VoteEvent::NEW);
-
-                    $this->addFlash('success', 'vote.created');
-
-                    return $this->redirectToRoute('poll', [
-                        'slug' => $poll->getSlug(),
+                    $voteForm = $this->createNamedForm('vote', Form\VoteForm::class, $vote, [
+                        'author_name_locked' => true,
                     ]);
+
+                    $voteForm->handleRequest($request);
+                    if ($voteForm->isSubmitted() && $voteForm->isValid()) {
+                        $vote = $voteForm->getData();
+
+                        $this->voteRepository->save($vote);
+
+                        $voteEvent = new PollActivity\VoteEvent($vote);
+                        $this->eventDispatcher->dispatch($voteEvent, PollActivity\VoteEvent::NEW);
+
+                        $this->addFlash('success', 'vote.created');
+
+                        return $this->redirectToRoute('poll', [
+                            'slug' => $poll->getSlug(),
+                        ]);
+                    }
                 }
             }
 
@@ -290,6 +299,7 @@ class PollsController extends BaseController
             'poll' => $poll,
             'myVote' => $myVote,
             'voteForm' => $voteForm,
+            'voteEligibilityErrors' => $voteEligibilityErrors,
             'commentForm' => $commentForm,
             'onEditPage' => false,
         ]);

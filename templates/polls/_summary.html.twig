@@ -267,6 +267,18 @@
                 </li>
             {% endif %}
 
+            {% if poll.minWikimediaAccountAgeMonths %}
+                <li>
+                    {{ 'polls.summary.settings.min_wikimedia_account_age_months' | trans({ months: poll.minWikimediaAccountAgeMonths }) }}
+                </li>
+            {% endif %}
+
+            {% if poll.minWikimediaEditsProject and poll.minWikimediaEditsCount %}
+                <li>
+                    {{ 'polls.summary.settings.min_wikimedia_edits' | trans({ count: poll.minWikimediaEditsCount, project: poll.minWikimediaEditsProject }) }}
+                </li>
+            {% endif %}
+
             {% if poll.isSlugCustomized %}
                 <li>
                     {{ 'polls.summary.settings.customised_slug' | trans }}

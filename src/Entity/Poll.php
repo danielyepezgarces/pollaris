@@ -171,6 +171,19 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     #[ORM\Column(nullable: true)]
     private ?int $maxVotes = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $minWikimediaAccountAgeMonths = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    #[Assert\Regex(
+        pattern: '/^[a-z0-9_-]+$/',
+        message: new TranslatableMessage('poll.wikimedia_edits_project.invalid', domain: 'validators'),
+    )]
+    private ?string $minWikimediaEditsProject = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $minWikimediaEditsCount = null;
+
     #[ORM\Column(options: ['default' => false])]
     private bool $notifyOnVotes = false;
 
@@ -640,6 +653,42 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     public function setMaxVotes(?int $maxVotes): static
     {
         $this->maxVotes = $maxVotes;
+
+        return $this;
+    }
+
+    public function getMinWikimediaAccountAgeMonths(): ?int
+    {
+        return $this->minWikimediaAccountAgeMonths;
+    }
+
+    public function setMinWikimediaAccountAgeMonths(?int $minWikimediaAccountAgeMonths): static
+    {
+        $this->minWikimediaAccountAgeMonths = $minWikimediaAccountAgeMonths;
+
+        return $this;
+    }
+
+    public function getMinWikimediaEditsProject(): ?string
+    {
+        return $this->minWikimediaEditsProject;
+    }
+
+    public function setMinWikimediaEditsProject(?string $minWikimediaEditsProject): static
+    {
+        $this->minWikimediaEditsProject = $minWikimediaEditsProject;
+
+        return $this;
+    }
+
+    public function getMinWikimediaEditsCount(): ?int
+    {
+        return $this->minWikimediaEditsCount;
+    }
+
+    public function setMinWikimediaEditsCount(?int $minWikimediaEditsCount): static
+    {
+        $this->minWikimediaEditsCount = $minWikimediaEditsCount;
 
         return $this;
     }

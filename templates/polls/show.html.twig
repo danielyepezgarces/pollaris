@@ -321,6 +321,20 @@
                         </a>
                     </div>
                 {% endif %}
+
+                {% if voteForm is null and not poll.isClosed and app.user and voteEligibilityErrors is not empty %}
+                    <div class="panel panel--primary panel--rounded panel--border text--primary no-print flow flow--small">
+                        <p class="text--bold">
+                            {{ 'polls.show.wikimedia_requirements.title' | trans }}
+                        </p>
+
+                        <ul>
+                            {% for error in voteEligibilityErrors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
 
             {% if voteForm %}
