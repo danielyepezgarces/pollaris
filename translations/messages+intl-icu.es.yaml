@@ -114,7 +114,7 @@ forms.poll_settings_form.min_wikimedia_account_age_months.label: 'Antigüedad m�
 forms.poll_settings_form.min_wikimedia_edits.require_both: 'El proyecto y el mínimo de ediciones deben configurarse juntos.'
 forms.poll_settings_form.min_wikimedia_edits_count.help: 'Solo podrán votar los usuarios con al menos este número de ediciones en el proyecto seleccionado.'
 forms.poll_settings_form.min_wikimedia_edits_count.label: 'Mínimo de ediciones en ese proyecto de Wikimedia'
-forms.poll_settings_form.min_wikimedia_edits_project.help: 'Usa un nombre de base de datos de proyecto Wikimedia como eswiki, commonswiki, wikidatawiki o eswikiquote.'
+forms.poll_settings_form.min_wikimedia_edits_project.help: 'Puedes escribir el nombre de base de datos del proyecto Wikimedia o pegar su URL, por ejemplo eswiki, commonswiki, wikidatawiki o https://es.wikipedia.org.'
 forms.poll_settings_form.min_wikimedia_edits_project.label: 'Nombre de base de datos del proyecto Wikimedia para el mínimo de ediciones'
 polls.new.who_you_are: 'Quién eres'
 polls.new.title: 'Creación de consulta'

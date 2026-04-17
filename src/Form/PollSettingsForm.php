@@ -17,6 +17,7 @@ namespace App\Form;
 use App\Entity;
 use App\Service;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -70,9 +71,16 @@ class PollSettingsForm extends AbstractType
             'empty_data' => '',
             'attr' => [
                 'maxlength' => 50,
-                'placeholder' => 'eswiki',
+                'placeholder' => 'https://es.wikipedia.org',
+                'list' => 'wikimedia-project-suggestions',
             ],
         ]);
+
+        $builder->get('minWikimediaEditsProject')
+            ->addModelTransformer(new CallbackTransformer(
+                static fn (?string $project): string => $project ?? '',
+                fn (?string $project): ?string => $this->normalizeWikimediaProjectInput($project),
+            ));
 
         $builder->add('minWikimediaEditsCount', Type\IntegerType::class, [
             'label' => new TranslatableMessage('forms.poll_settings_form.min_wikimedia_edits_count.label'),
@@ -227,5 +235,52 @@ class PollSettingsForm extends AbstractType
             ],
             'data_class' => Entity\Poll::class,
         ]);
+    }
+
+    private function normalizeWikimediaProjectInput(?string $project): ?string
+    {
+        $project = mb_strtolower(trim((string) $project));
+
+        if ($project === '') {
+            return null;
+        }
+
+        if (preg_match('/^[a-z0-9_-]+$/', $project) === 1) {
+            return match ($project) {
+                'commons' => 'commonswiki',
+                'wikidata' => 'wikidatawiki',
+                'meta' => 'metawiki',
+                'species' => 'specieswiki',
+                'incubator' => 'incubatorwiki',
+                'mediawiki' => 'mediawikiwiki',
+                default => $project,
+            };
+        }
+
+        $host = parse_url($project, PHP_URL_HOST);
+
+        if (!is_string($host) || $host === '') {
+            $host = parse_url("https://{$project}", PHP_URL_HOST);
+        }
+
+        if (!is_string($host) || $host === '') {
+            return $project;
+        }
+
+        $host = mb_strtolower($host);
+
+        if (preg_match('/^([a-z0-9_-]+)\.(wikipedia|wiktionary|wikibooks|wikiquote|wikinews|wikisource|wikivoyage|wikiversity)\.org$/', $host, $matches) === 1) {
+            return "{$matches[1]}{$matches[2]}";
+        }
+
+        return match ($host) {
+            'commons.wikimedia.org' => 'commonswiki',
+            'meta.wikimedia.org' => 'metawiki',
+            'species.wikimedia.org' => 'specieswiki',
+            'incubator.wikimedia.org' => 'incubatorwiki',
+            'www.wikidata.org', 'wikidata.org' => 'wikidatawiki',
+            'www.mediawiki.org', 'mediawiki.org' => 'mediawikiwiki',
+            default => $project,
+        };
     }
 }

@@ -90,7 +90,7 @@ forms.poll_settings_form.min_wikimedia_account_age_months.label: 'Minimum Wikime
 forms.poll_settings_form.min_wikimedia_edits.require_both: 'Project and minimum edits must be configured together.'
 forms.poll_settings_form.min_wikimedia_edits_count.help: 'Only users with at least this many edits on the selected project will be allowed to vote.'
 forms.poll_settings_form.min_wikimedia_edits_count.label: 'Minimum edits on that Wikimedia project'
-forms.poll_settings_form.min_wikimedia_edits_project.help: 'Use a Wikimedia project database name such as eswiki, commonswiki, wikidatawiki or eswikiquote.'
+forms.poll_settings_form.min_wikimedia_edits_project.help: 'You can enter a Wikimedia project database name or paste its URL, for example eswiki, commonswiki, wikidatawiki or https://es.wikipedia.org.'
 forms.poll_settings_form.min_wikimedia_edits_project.label: 'Wikimedia project database name for minimum edits'
 forms.poll_settings_form.notify_on_comments.label: 'Receive an email for each comment'
 forms.poll_settings_form.notify_on_votes.label: 'Receive an email for each vote'

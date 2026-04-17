@@ -1640,6 +1640,30 @@ class PollsControllerTest extends WebTestCase
         );
     }
 
+    public function testPostSettingsNormalizesWikimediaProjectUrls(): void
+    {
+        $client = static::createClient();
+        $user = Factory\UserFactory::createOne([
+            'username' => 'settings-owner-3',
+        ]);
+        $client->loginUser($user);
+        $poll = Factory\PollFactory::new([
+            'owner' => $user,
+        ])->withProposal()->create();
+
+        $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/settings", [
+            'poll_settings' => [
+                '_token' => $this->getCsrf($client, 'poll_settings'),
+                'slug' => 'my-slug',
+                'minWikimediaEditsProject' => 'https://commons.wikimedia.org',
+                'minWikimediaEditsCount' => 500,
+            ]
+        ]);
+
+        $this->refresh($poll);
+        $this->assertSame('commonswiki', $poll->getMinWikimediaEditsProject());
+    }
+
     public function testPostSettingsDoesNotChangePasswordIfNotSet(): void
     {
         $client = static::createClient();
