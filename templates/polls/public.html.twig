@@ -1,0 +1,68 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2024-2026 Marien Fressinaud
+ # Copyright 2026 Daniel Yepez Garces
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'polls.public.title' | trans }}{% endblock %}
+
+{% block robots_head_tags %}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--center flow flow--larger">
+        <div class="flow">
+            <h1>{{ 'polls.public.title' | trans }}</h1>
+
+            <p class="text--secondary">
+                {{ 'polls.public.description' | trans }}
+            </p>
+        </div>
+
+        {% if pollsPagination.count > 0 %}
+            <div class="flow">
+                {{ include('_pagination.html.twig', { pagination: pollsPagination }) }}
+
+                <ul class="list--nostyle flow">
+                    {% for poll in pollsPagination.items %}
+                        <li class="panel panel--primary panel--rounded flow flow--small">
+                            <h2>{{ poll.title }}</h2>
+
+                            <p class="text--secondary">
+                                {{ 'polls.public.meta' | trans({ author: poll.authorName }) }}
+                            </p>
+
+                            {% if poll.description %}
+                                <div class="flow">
+                                    {{ poll.description | markdown }}
+                                </div>
+                            {% endif %}
+
+                            <p class="text--secondary">
+                                {% if poll.closedAt %}
+                                    {{ 'polls.public.closed_at' | trans({ date: poll.closedAt | dateTrans }) }}
+                                {% else %}
+                                    {{ 'polls.public.open_until' | trans({ date: 'polls.public.no_closing_date' | trans }) }}
+                                {% endif %}
+                            </p>
+
+                            <p>
+                                <a class="button button--primary" href="{{ path('poll', { slug: poll.slug }) }}">
+                                    {{ 'polls.public.open' | trans }}
+                                </a>
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                {{ include('_pagination.html.twig', { pagination: pollsPagination }) }}
+            </div>
+        {% else %}
+            <p class="panel panel--grey panel--rounded">
+                {{ 'polls.public.none' | trans }}
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

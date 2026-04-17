@@ -332,3 +332,13 @@ polls.table.toolbar.show_more.title: Espandir la linha per afichar totes los
 polls.show.already_voted: "Avètz ja votat en aquesta enquèsta."
 layout.login: 'Se connectar'
 home.credits: 'Basat sus <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Modificat per <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Còdi font</a>'
+home.public_polls: 'Open public polls'
+layout.header.public_polls: 'Open public polls'
+polls.public.closed_at: 'Closes on {date}'
+polls.public.description: 'Browse public polls that are currently open.'
+polls.public.meta: 'Created by {author}'
+polls.public.no_closing_date: 'no closing date'
+polls.public.none: 'There are no public polls open right now.'
+polls.public.open: 'Open poll'
+polls.public.open_until: 'Open until {date}'
+polls.public.title: 'Open public polls'

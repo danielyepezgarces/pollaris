@@ -16,6 +16,7 @@
 namespace App\Repository;
 
 use App\Entity;
+use App\Utils;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Doctrine\ORM;
 use Doctrine\Persistence\ManagerRegistry;
@@ -92,6 +93,27 @@ class PollRepository extends BaseRepository
         }
 
         $queryBuilder->orderBy('p.createdAt', 'DESC');
+
+        return $queryBuilder->getQuery();
+    }
+
+    /**
+     * @return ORM\Query<null, Entity\Poll>
+     */
+    public function getPublicPollsQuery(): ORM\Query
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        $today = Utils\Time::relative('today');
+
+        $queryBuilder
+            ->andWhere('p.completedAt IS NOT NULL')
+            ->andWhere('(p.closedAt IS NULL OR p.closedAt >= :today)')
+            ->andWhere('p.areResultsPublic = TRUE')
+            ->andWhere('p.isPubliclyListed = TRUE')
+            ->andWhere('(p.password = :emptyPassword OR p.isPasswordForVotesOnly = TRUE)')
+            ->setParameter('today', $today)
+            ->setParameter('emptyPassword', '')
+            ->orderBy('p.createdAt', 'DESC');
 
         return $queryBuilder->getQuery();
     }

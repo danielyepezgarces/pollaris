@@ -73,6 +73,10 @@
 
                     <nav class="header__nav" data-nav-toggle-target="nav">
                         <div class="header__links">
+                            <a class="header__link" href="{{ path('public polls') }}">
+                                {{ 'layout.header.public_polls' | trans }}
+                            </a>
+
                             <a class="header__link" href="{{ path('my') }}">
                                 {{ 'layout.header.my' | trans }}
                             </a>

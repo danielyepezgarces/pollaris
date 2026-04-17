@@ -313,6 +313,12 @@
                 {% endif %}
             </li>
 
+            {% if poll.isPubliclyListed %}
+                <li>
+                    {{ 'polls.summary.settings.is_publicly_listed' | trans }}
+                </li>
+            {% endif %}
+
             <li>
                 {% if poll.notifyOnVotes %}
                     {{ 'polls.summary.settings.notify_on_votes.do' | trans }}

@@ -144,6 +144,12 @@ class PollSettingsForm extends AbstractType
             'required' => false,
         ]);
 
+        $builder->add('isPubliclyListed', Type\CheckboxType::class, [
+            'label' => new TranslatableMessage('forms.poll_settings_form.is_publicly_listed.label'),
+            'help' => new TranslatableMessage('forms.poll_settings_form.is_publicly_listed.help'),
+            'required' => false,
+        ]);
+
         $builder->add('notifyOnVotes', Type\CheckboxType::class, [
             'label' => new TranslatableMessage('forms.poll_settings_form.notify_on_votes.label'),
             'required' => false,

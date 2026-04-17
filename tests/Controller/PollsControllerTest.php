@@ -1583,6 +1583,7 @@ class PollsControllerTest extends WebTestCase
         $minWikimediaAccountAgeMonths = 6;
         $minWikimediaEditsProject = 'eswiki';
         $minWikimediaEditsCount = 500;
+        $isPubliclyListed = true;
 
         $client->request(Request::METHOD_POST, "/polls/{$poll->getId()}/{$poll->getAdminToken()}/settings", [
             'poll_settings' => [
@@ -1597,6 +1598,7 @@ class PollsControllerTest extends WebTestCase
                     'first' => $password,
                     'second' => $password,
                 ],
+                'isPubliclyListed' => $isPubliclyListed,
                 'notifyOnVotes' => $notifyOnVotes,
                 'notifyOnComments' => $notifyOnComments,
             ]
@@ -1608,6 +1610,7 @@ class PollsControllerTest extends WebTestCase
         $this->assertSame($minWikimediaEditsProject, $poll->getMinWikimediaEditsProject());
         $this->assertSame($minWikimediaEditsCount, $poll->getMinWikimediaEditsCount());
         $this->assertSame($slug, $poll->getSlug());
+        $this->assertTrue($poll->isPubliclyListed());
         $this->assertTrue($poll->isNotifyOnVotes());
         $this->assertTrue($poll->isNotifyOnComments());
         /** @var Service\PollPassword */

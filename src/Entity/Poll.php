@@ -207,6 +207,9 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     #[ORM\Column(options: ['default' => true])]
     private ?bool $areResultsPublic = null;
 
+    #[ORM\Column(options: ['default' => false])]
+    private bool $isPubliclyListed = false;
+
     #[ORM\Column(length: 20, options: ['default' => self::DEFAULT_EDIT_VOTE_MODE])]
     #[Assert\Choice(
         choices: self::EDIT_VOTE_MODES,
@@ -233,6 +236,7 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
         $this->notifyOnVotes = true;
         $this->notifyOnComments = true;
         $this->areResultsPublic = true;
+        $this->isPubliclyListed = false;
         $this->editVoteMode = self::DEFAULT_EDIT_VOTE_MODE;
         $this->timezoneMode = self::DEFAULT_TIMEZONE_MODE;
         $this->timezoneName = Utils\Time::getServerTimezoneName();
@@ -780,6 +784,18 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     public function setAreResultsPublic(bool $areResultsPublic): static
     {
         $this->areResultsPublic = $areResultsPublic;
+
+        return $this;
+    }
+
+    public function isPubliclyListed(): bool
+    {
+        return $this->isPubliclyListed;
+    }
+
+    public function setIsPubliclyListed(bool $isPubliclyListed): static
+    {
+        $this->isPubliclyListed = $isPubliclyListed;
 
         return $this;
     }

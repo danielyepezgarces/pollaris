@@ -14,6 +14,10 @@
 
 namespace App\Controller;
 
+use App\Entity;
+use App\Repository;
+use App\Utils;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig;
@@ -21,7 +25,8 @@ use Twig;
 class HomeController extends BaseController
 {
     public function __construct(
-        private readonly Twig\Environment $twig
+        private readonly Twig\Environment $twig,
+        private readonly Repository\PollRepository $pollRepository,
     ) {
     }
 
@@ -34,5 +39,20 @@ class HomeController extends BaseController
         } else {
             return $this->render('home/show.html.twig');
         }
+    }
+
+    #[Route('/polls/public', name: 'public polls')]
+    public function publicPolls(Request $request): Response
+    {
+        $page = $request->query->getInt('page', 1);
+        /** @var Utils\Pagination<Entity\Poll> $pollsPagination */
+        $pollsPagination = Utils\Pagination::paginate(
+            $this->pollRepository->getPublicPollsQuery(),
+            $page,
+        );
+
+        return $this->render('polls/public.html.twig', [
+            'pollsPagination' => $pollsPagination,
+        ]);
     }
 }
