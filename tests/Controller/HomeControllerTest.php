@@ -29,10 +29,10 @@ class HomeControllerTest extends WebTestCase
         $this->assertSelectorTextContains('h1', 'Coordinate events and make decisions with your Wikimedia community.');
         $this->assertSelectorExists('meta[name="description"][content*="Use this polling tool to organise edit-a-thons"]');
         $this->assertSelectorExists('meta[property="og:title"][content="Welcome to Pollaris!"]');
-        $this->assertSelectorExists('meta[property="og:image"][content="http://localhost/social-share.png"]');
-        $this->assertSelectorExists('meta[property="og:image:type"][content="image/png"]');
-        $this->assertSelectorExists('meta[property="og:image:width"][content="1200"]');
-        $this->assertSelectorExists('meta[property="og:image:height"][content="630"]');
+        $this->assertSelectorExists('meta[property="og:image"][content="http://localhost/screenshot.webp"]');
+        $this->assertSelectorExists('meta[property="og:image:type"][content="image/webp"]');
+        $this->assertSelectorExists('meta[property="og:image:width"][content="1280"]');
+        $this->assertSelectorExists('meta[property="og:image:height"][content="800"]');
         $this->assertSelectorExists('meta[name="twitter:card"][content="summary_large_image"]');
         $this->assertSelectorExists('meta[name="robots"][content="index, follow"]');
     }

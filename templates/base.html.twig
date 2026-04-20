@@ -50,7 +50,7 @@
         {% endif %}
         {% set social_image = block_social_image|trim %}
         {% if social_image is empty %}
-            {% set social_image = absolute_url(asset('social-share.png')) %}
+            {% set social_image = absolute_url(asset('screenshot.webp')) %}
         {% endif %}
         {% set social_image_alt = block_social_image_alt|striptags|trim %}
         {% if social_image_alt is empty %}
@@ -58,15 +58,15 @@
         {% endif %}
         {% set social_image_width = block_social_image_width|trim %}
         {% if social_image_width is empty %}
-            {% set social_image_width = '1200' %}
+            {% set social_image_width = '1280' %}
         {% endif %}
         {% set social_image_height = block_social_image_height|trim %}
         {% if social_image_height is empty %}
-            {% set social_image_height = '630' %}
+            {% set social_image_height = '800' %}
         {% endif %}
         {% set social_image_type = block_social_image_type|trim %}
         {% if social_image_type is empty %}
-            {% set social_image_type = 'image/png' %}
+            {% set social_image_type = 'image/webp' %}
         {% endif %}
 
         <title>{{ page_title }}</title>
