@@ -16,6 +16,28 @@
 
 {% block title %}{{ poll.title }}{% endblock %}
 
+{% block robots_head_tags %}
+    <meta name="robots" content="index, follow">
+{% endblock %}
+
+{% block meta_description %}
+    {% if poll.description %}
+        {{ poll.description | markdown | striptags | replace({'\r': ' ', '\n': ' '}) | trim | slice(0, 200) }}
+    {% else %}
+        {{ 'polls.show.created_by' | trans({ by: poll.authorName }) }}
+    {% endif %}
+{% endblock %}
+
+{% block social_title %}{{ poll.title }}{% endblock %}
+
+{% block social_description %}{{ block('meta_description') }}{% endblock %}
+
+{% block canonical_url %}{{ url('poll', { slug: poll.slug }) }}{% endblock %}
+
+{% block social_image %}{{ absolute_url(asset('screenshot.webp')) }}{% endblock %}
+
+{% block social_image_alt %}{{ poll.title }}{% endblock %}
+
 {% block additional_head_tags %}
     {% if preserveScroll is defined and preserveScroll %}
         <meta name="turbo-refresh-method" content="morph">

@@ -9,7 +9,17 @@
 
 {% block title %}{{ 'polls.public.title' | trans }}{% endblock %}
 
-{% block robots_head_tags %}{% endblock %}
+{% block robots_head_tags %}
+    <meta name="robots" content="index, follow">
+{% endblock %}
+
+{% block meta_description %}{{ 'polls.public.description' | trans }}{% endblock %}
+
+{% block canonical_url %}{{ url('public polls') }}{% endblock %}
+
+{% block social_image %}{{ absolute_url(asset('screenshot.webp')) }}{% endblock %}
+
+{% block social_image_alt %}{{ 'polls.public.title' | trans }}{% endblock %}
 
 {% block body %}
     <div class="wrapper wrapper--center flow flow--larger">

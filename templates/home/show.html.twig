@@ -14,7 +14,15 @@
 
 {% extends 'base.html.twig' %}
 
-{% block robots_head_tags %}{% endblock %}
+{% block robots_head_tags %}
+    <meta name="robots" content="index, follow">
+{% endblock %}
+
+{% block meta_description %}{{ 'home.intro' | trans }}{% endblock %}
+
+{% block social_image %}{{ absolute_url(asset('calendar.png')) }}{% endblock %}
+
+{% block social_image_alt %}{{ 'home.title' | trans }}{% endblock %}
 
 {% block main_class %}layout__body--centered{% endblock %}
 

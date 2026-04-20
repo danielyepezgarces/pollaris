@@ -26,6 +26,11 @@ class HomeControllerTest extends WebTestCase
         $client->request(Request::METHOD_GET, '/');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Organise events or gather opinions from friends and family');
+        $this->assertSelectorTextContains('h1', 'Coordinate events and make decisions with your Wikimedia community.');
+        $this->assertSelectorExists('meta[name="description"][content*="Use this polling tool to organise edit-a-thons"]');
+        $this->assertSelectorExists('meta[property="og:title"][content="Welcome to Pollaris!"]');
+        $this->assertSelectorExists('meta[property="og:image"][content="http://localhost/calendar.png"]');
+        $this->assertSelectorExists('meta[name="twitter:card"][content="summary_large_image"]');
+        $this->assertSelectorExists('meta[name="robots"][content="index, follow"]');
     }
 }

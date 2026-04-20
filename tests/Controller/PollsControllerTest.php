@@ -184,12 +184,19 @@ class PollsControllerTest extends WebTestCase
         $client = static::createClient();
         $poll = Factory\PollFactory::new([
             'title' => 'My poll',
+            'description' => 'Description of my poll',
         ])->completed()->create();
 
         $client->request(Request::METHOD_GET, "/polls/{$poll->getSlug()}");
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'My poll');
+        $this->assertSelectorExists('meta[name="description"][content="Description of my poll"]');
+        $this->assertSelectorExists('link[rel="canonical"][href="http://localhost/polls/' . $poll->getSlug() . '"]');
+        $this->assertSelectorExists('meta[property="og:title"][content="My poll"]');
+        $this->assertSelectorExists('meta[property="og:url"][content="http://localhost/polls/' . $poll->getSlug() . '"]');
+        $this->assertSelectorExists('meta[property="og:image"][content="http://localhost/screenshot.webp"]');
+        $this->assertSelectorExists('meta[name="robots"][content="index, follow"]');
     }
 
     public function testGetShowDisplaysWikimediaEligibilityErrorsForLoggedInUsers(): void

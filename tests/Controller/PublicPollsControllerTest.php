@@ -63,11 +63,14 @@ class PublicPollsControllerTest extends WebTestCase
         $client->request(Request::METHOD_GET, '/polls/public');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Public polls');
+        $this->assertSelectorTextContains('h1', 'Open public polls');
         $this->assertSelectorTextContains('main', 'Listed poll');
         $this->assertSelectorTextNotContains('main', 'Unlisted poll');
         $this->assertSelectorTextNotContains('main', 'Private results poll');
         $this->assertSelectorTextNotContains('main', 'Protected poll');
         $this->assertSelectorTextNotContains('main', 'Closed poll');
+        $this->assertSelectorExists('link[rel="canonical"][href="http://localhost/polls/public"]');
+        $this->assertSelectorExists('meta[property="og:title"][content="Open public polls – Pollaris"]');
+        $this->assertSelectorExists('meta[name="robots"][content="index, follow"]');
     }
 }

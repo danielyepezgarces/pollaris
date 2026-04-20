@@ -17,12 +17,58 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {% set block_title = block('title') %}
+        {% set block_title %}{% block title %}{% endblock %}{% endset %}
+        {% set block_meta_description %}{% block meta_description %}{% endblock %}{% endset %}
+        {% set block_social_title %}{% block social_title %}{% endblock %}{% endset %}
+        {% set block_social_description %}{% block social_description %}{% endblock %}{% endset %}
+        {% set block_canonical_url %}{% block canonical_url %}{% endblock %}{% endset %}
+        {% set block_social_image %}{% block social_image %}{% endblock %}{% endset %}
+        {% set block_social_image_alt %}{% block social_image_alt %}{% endblock %}{% endset %}
         {% if block_title is not empty %}
-            <title>{% block title %}{% endblock %} – {{ appName }}</title>
+            {% set page_title = "#{block_title|striptags|trim} – #{appName}" %}
         {% else %}
-            <title>{{ 'base.default_title' | trans({ appName: appName}) }}</title>
+            {% set page_title = 'base.default_title' | trans({ appName: appName}) %}
         {% endif %}
+        {% set meta_description = block_meta_description|striptags|replace({'\r': ' ', '\n': ' '})|trim %}
+        {% if meta_description is empty %}
+            {% set meta_description = page_title %}
+        {% endif %}
+        {% set canonical_url = block_canonical_url|trim %}
+        {% if canonical_url is empty %}
+            {% set canonical_url = app.request.uri %}
+        {% endif %}
+        {% set social_title = block_social_title|striptags|trim %}
+        {% if social_title is empty %}
+            {% set social_title = page_title %}
+        {% endif %}
+        {% set social_description = block_social_description|striptags|replace({'\r': ' ', '\n': ' '})|trim %}
+        {% if social_description is empty %}
+            {% set social_description = meta_description %}
+        {% endif %}
+        {% set social_image = block_social_image|trim %}
+        {% if social_image is empty %}
+            {% set social_image = absolute_url(asset('screenshot.webp')) %}
+        {% endif %}
+        {% set social_image_alt = block_social_image_alt|striptags|trim %}
+        {% if social_image_alt is empty %}
+            {% set social_image_alt = appName %}
+        {% endif %}
+
+        <title>{{ page_title }}</title>
+        <meta name="description" content="{{ meta_description }}">
+        <link rel="canonical" href="{{ canonical_url }}">
+        <meta property="og:locale" content="{{ app.locale|locale_to_bcp47 }}">
+        <meta property="og:site_name" content="{{ appName }}">
+        <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+        <meta property="og:title" content="{{ social_title }}">
+        <meta property="og:description" content="{{ social_description }}">
+        <meta property="og:url" content="{{ canonical_url }}">
+        <meta property="og:image" content="{{ social_image }}">
+        <meta property="og:image:alt" content="{{ social_image_alt }}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ social_title }}">
+        <meta name="twitter:description" content="{{ social_description }}">
+        <meta name="twitter:image" content="{{ social_image }}">
 
         {% set primary_font = asset_match('assets/lexend-latin-*.woff2') %}
         {% if primary_font %}
