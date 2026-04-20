@@ -24,6 +24,11 @@
             <title>{{ 'base.default_title' | trans({ appName: appName}) }}</title>
         {% endif %}
 
+        {% set primary_font = asset_match('assets/lexend-latin-*.woff2') %}
+        {% if primary_font %}
+            <link rel="preload" href="{{ primary_font }}" as="font" type="font/woff2" crossorigin>
+        {% endif %}
+
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ esbuild_asset('styles/application.css') }}" data-turbo-track="reload">
         {% endblock %}

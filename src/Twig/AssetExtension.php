@@ -46,4 +46,19 @@ class AssetExtension
         $assetPathname = "{$this->pathToPublic}/{$assetPath}";
         return file_exists($assetPathname);
     }
+
+    #[AsTwigFunction('asset_match')]
+    public function assetMatch(string $pattern): string
+    {
+        $matches = glob("{$this->pathToPublic}/{$pattern}");
+        if ($matches === false || $matches === []) {
+            return '';
+        }
+
+        sort($matches);
+
+        $publicPath = substr($matches[0], strlen($this->pathToPublic));
+
+        return $this->assetPackage->getUrl($publicPath);
+    }
 }

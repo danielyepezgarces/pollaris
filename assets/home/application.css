@@ -1,0 +1,77 @@
+/* This file is part of Pollaris. */
+/* Copyright 2024-2026 Marien Fressinaud */
+/* Copyright 2026 Daniel Yepez Garces */
+/* SPDX-License-Identifier: AGPL-3.0-or-later */
+/*
+ * Modified by Daniel Yepez Garces on 2026-04-15:
+ * - Migrated database backend from PostgreSQL to MariaDB for Toolforge deployment
+ * - Added Wikimedia login support
+ * - Removed local username/password authentication
+ * - Added multilingual survey support
+ * - Added user timezone display for survey times when different from server UTC
+ */
+
+@import "../styles/_reset.css";
+@import "../styles/variables/colors.tokens.css";
+@import "../styles/variables/colors.dark.css";
+@import "../styles/variables/colors.light.css";
+@import "../styles/variables/sizes.css";
+@import "../styles/utils/accessibility.css";
+@import "../styles/utils/cols.css";
+@import "../styles/utils/flow.css";
+@import "../styles/utils/fonts.css";
+@import "../styles/utils/mobile.css";
+@import "../styles/utils/text.css";
+@import "../styles/utils/wrapper.css";
+@import "../styles/components/anchors.css";
+@import "../styles/components/buttons.css";
+@import "../styles/components/icons.css";
+@import "../styles/components/images.css";
+@import "../styles/components/panels.css";
+@import "../styles/layout/body.css";
+@import "../styles/layout/header.css";
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    color: var(--color-grey12);
+    font-family:
+        Lexend,
+        system-ui,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        "Helvetica Neue",
+        sans-serif;
+
+    background-color: var(--color-grey1);
+}
+
+hr {
+    border: 2px solid var(--color-grey6);
+    border-radius: 5px;
+}
+
+.turbo-progress-bar {
+    position: fixed;
+    top: 0;
+
+    height: 0.3rem;
+
+    background: var(--color-primary6);
+    border-radius: 0 var(--border-radius-small) var(--border-radius-small) 0;
+}
