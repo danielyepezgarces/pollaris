@@ -195,7 +195,8 @@ class PollsControllerTest extends WebTestCase
         $this->assertSelectorExists('link[rel="canonical"][href="http://localhost/polls/' . $poll->getSlug() . '"]');
         $this->assertSelectorExists('meta[property="og:title"][content="My poll"]');
         $this->assertSelectorExists('meta[property="og:url"][content="http://localhost/polls/' . $poll->getSlug() . '"]');
-        $this->assertSelectorExists('meta[property="og:image"][content="http://localhost/screenshot.webp"]');
+        $this->assertSelectorExists('meta[property="og:image"][content="http://localhost/social-share.png"]');
+        $this->assertSelectorExists('meta[property="og:image:type"][content="image/png"]');
         $this->assertSelectorExists('meta[name="robots"][content="index, follow"]');
     }
 

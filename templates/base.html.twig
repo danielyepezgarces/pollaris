@@ -24,6 +24,9 @@
         {% set block_canonical_url %}{% block canonical_url %}{% endblock %}{% endset %}
         {% set block_social_image %}{% block social_image %}{% endblock %}{% endset %}
         {% set block_social_image_alt %}{% block social_image_alt %}{% endblock %}{% endset %}
+        {% set block_social_image_width %}{% block social_image_width %}{% endblock %}{% endset %}
+        {% set block_social_image_height %}{% block social_image_height %}{% endblock %}{% endset %}
+        {% set block_social_image_type %}{% block social_image_type %}{% endblock %}{% endset %}
         {% if block_title is not empty %}
             {% set page_title = "#{block_title|striptags|trim} – #{appName}" %}
         {% else %}
@@ -47,11 +50,23 @@
         {% endif %}
         {% set social_image = block_social_image|trim %}
         {% if social_image is empty %}
-            {% set social_image = absolute_url(asset('screenshot.webp')) %}
+            {% set social_image = absolute_url(asset('social-share.png')) %}
         {% endif %}
         {% set social_image_alt = block_social_image_alt|striptags|trim %}
         {% if social_image_alt is empty %}
             {% set social_image_alt = appName %}
+        {% endif %}
+        {% set social_image_width = block_social_image_width|trim %}
+        {% if social_image_width is empty %}
+            {% set social_image_width = '1200' %}
+        {% endif %}
+        {% set social_image_height = block_social_image_height|trim %}
+        {% if social_image_height is empty %}
+            {% set social_image_height = '630' %}
+        {% endif %}
+        {% set social_image_type = block_social_image_type|trim %}
+        {% if social_image_type is empty %}
+            {% set social_image_type = 'image/png' %}
         {% endif %}
 
         <title>{{ page_title }}</title>
@@ -64,11 +79,16 @@
         <meta property="og:description" content="{{ social_description }}">
         <meta property="og:url" content="{{ canonical_url }}">
         <meta property="og:image" content="{{ social_image }}">
+        <meta property="og:image:secure_url" content="{{ social_image }}">
+        <meta property="og:image:type" content="{{ social_image_type }}">
+        <meta property="og:image:width" content="{{ social_image_width }}">
+        <meta property="og:image:height" content="{{ social_image_height }}">
         <meta property="og:image:alt" content="{{ social_image_alt }}">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="{{ social_title }}">
         <meta name="twitter:description" content="{{ social_description }}">
         <meta name="twitter:image" content="{{ social_image }}">
+        <meta name="twitter:image:alt" content="{{ social_image_alt }}">
 
         {% set primary_font = asset_match('assets/lexend-latin-*.woff2') %}
         {% if primary_font %}
