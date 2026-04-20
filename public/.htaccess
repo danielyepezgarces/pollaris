@@ -1,0 +1,39 @@
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # Fingerprinted support assets can be cached for a long time.
+    <FilesMatch "\.(?:woff2|svg|png|webp|jpg|jpeg|gif|ico)$">
+        ExpiresDefault "access plus 1 year"
+    </FilesMatch>
+
+    # Main bundles use a version query string, so browser caches stay safe.
+    <FilesMatch "\.(?:css|js)$">
+        ExpiresDefault "access plus 1 month"
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(?:woff2|svg|png|webp|jpg|jpeg|gif|ico)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    <FilesMatch "\.(?:css|js)$">
+        Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=86400"
+    </FilesMatch>
+
+    <FilesMatch "\.(?:html|php)$">
+        Header unset Cache-Control
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>

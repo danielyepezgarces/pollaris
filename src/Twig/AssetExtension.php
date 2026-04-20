@@ -21,22 +21,23 @@ use Twig\Attribute\AsTwigFunction;
 
 class AssetExtension
 {
+    private Asset\Package $assetPackage;
+
     public function __construct(
         private string $pathToAssets,
         #[Autowire('%app.public_directory%')]
         private string $pathToPublic,
     ) {
+        $assetStrategy = new Utils\AssetsMtimeStrategy($this->pathToPublic);
+        $this->assetPackage = new Asset\Package($assetStrategy);
     }
 
     #[AsTwigFunction('esbuild_asset')]
     public function esbuildAsset(string $assetPath): string
     {
-        $assetStrategy = new Utils\AssetsMtimeStrategy($this->pathToPublic);
-        $assetPackage = new Asset\Package($assetStrategy);
-
         $assetPathname = "/{$this->pathToAssets}/{$assetPath}";
 
-        return $assetPackage->getUrl($assetPathname);
+        return $this->assetPackage->getUrl($assetPathname);
     }
 
     #[AsTwigFunction('asset_exists')]

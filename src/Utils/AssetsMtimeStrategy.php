@@ -18,6 +18,11 @@ use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
 
 class AssetsMtimeStrategy implements VersionStrategyInterface
 {
+    /**
+     * @var array<string, string>
+     */
+    private array $versions = [];
+
     public function __construct(
         private string $publicPath,
     ) {
@@ -25,13 +30,19 @@ class AssetsMtimeStrategy implements VersionStrategyInterface
 
     public function getVersion(string $path): string
     {
+        if (array_key_exists($path, $this->versions)) {
+            return $this->versions[$path];
+        }
+
         $fullpath = "{$this->publicPath}/{$path}";
         $modicationTime = @filemtime($fullpath);
         if ($modicationTime) {
-            return (string) $modicationTime;
+            $this->versions[$path] = (string) $modicationTime;
         } else {
-            return '';
+            $this->versions[$path] = '';
         }
+
+        return $this->versions[$path];
     }
 
     public function applyVersion(string $path): string
