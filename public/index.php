@@ -23,6 +23,6 @@ if (isset($_SERVER['TRUSTED_HOSTS'])) {
     Request::setTrustedHosts([$_SERVER['TRUSTED_HOSTS']]);
 }
 
-return function (array $context): \App\Kernel {
+return static function (array $context): \App\Kernel {
     return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
 };
