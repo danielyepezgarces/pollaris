@@ -26,9 +26,9 @@ class Locales
     {
         return [
             'en_GB' => 'English',
-            'cs' => 'Čeština',
+            //'cs' => 'Čeština',
             'de' => 'Deutsch',
-            'es' => 'Español',
+            //'es' => 'Español',
             'fr_FR' => 'Français',
             'gl' => 'Galego',
             'hu' => 'Magyar',
