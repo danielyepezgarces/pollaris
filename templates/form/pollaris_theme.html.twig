@@ -127,18 +127,20 @@
     {%- set required = required|default(false) -%}
     {%- set no_optional = no_optional|default(false) -%}
 
-    {%- if not no_optional and not required and attr.maxlength is defined -%}
-        <span class="label__details">
-            {{ 'forms.labels.optional_and_max_length' | trans({ length: attr.maxlength }) }}
-        </span>
-    {%- elseif not no_optional and not required -%}
-        <span class="label__details">
-            {{ 'forms.labels.optional' | trans }}
-        </span>
-    {%- elseif attr.maxlength is defined -%}
-        <span class="label__details">
-            {{ 'forms.labels.max_length' | trans({ length: attr.maxlength }) }}
-        </span>
+    {%- if 'button' not in form.vars.block_prefixes -%}
+        {%- if not no_optional and not required and attr.maxlength is defined -%}
+            <span class="label__details">
+                {{ 'forms.labels.optional_and_max_length' | trans({ length: attr.maxlength }) }}
+            </span>
+        {%- elseif not no_optional and not required -%}
+            <span class="label__details">
+                {{ 'forms.labels.optional' | trans }}
+            </span>
+        {%- elseif attr.maxlength is defined -%}
+            <span class="label__details">
+                {{ 'forms.labels.max_length' | trans({ length: attr.maxlength }) }}
+            </span>
+        {%- endif %}
     {%- endif %}
 {%- endblock -%}
 
