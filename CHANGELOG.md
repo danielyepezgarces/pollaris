@@ -1,6 +1,6 @@
 # Changelog
 
-## unreleased
+## 2026-04-22 - 1.2.0
 
 ### Migration notes
 
@@ -11,6 +11,44 @@ See the `pollaris-worker.service` example in [the documentation](/docs/administr
 You now can set the `POLL_EXPIRES_COMPLETED` and `POLL_EXPIRES_INCOMPLETE` environment variable to automatically clean expired polls.
 See [`env.sample`](/env.sample) for more information.
 You'll need to restart the worker after setting these variables.
+
+### Features
+
+- Add an option to allow anyone to edit any vote ([27e71bb](https://framagit.org/pollaris/pollaris/-/commit/27e71bb))
+- Force author name to be unique for votes ([d57daf9](https://framagit.org/pollaris/pollaris/-/commit/d57daf9))
+- Add email sharing and QR code sharing options ([51295d0](https://framagit.org/pollaris/pollaris/-/commit/51295d0))
+- Display time using browser preferred timezone ([5f725ee](https://framagit.org/pollaris/pollaris/-/commit/5f725ee))
+- Persist step data when navigating back in poll flow ([5a89869](https://framagit.org/pollaris/pollaris/-/commit/5a89869))
+- Clean up 404 entries from local storage ([82b28ec](https://framagit.org/pollaris/pollaris/-/commit/82b28ec))
+- Prevent indexation of all pages except homepage ([4337049](https://framagit.org/pollaris/pollaris/-/commit/4337049))
+
+### Improvements
+
+- Rework the UX of poll view ([25ab574](https://framagit.org/pollaris/pollaris/-/commit/25ab574))
+- Add poll title in email subjects ([4ff9551](https://framagit.org/pollaris/pollaris/-/commit/4ff9551))
+- Suggest English before German ([296b93b](https://framagit.org/pollaris/pollaris/-/commit/296b93b))
+- Clarify button label as "Affichage mobile" ([a9d8597](https://framagit.org/pollaris/pollaris/-/commit/a9d8597))
+- Clarify admin access email message when emails are required ([a1d2d74](https://framagit.org/pollaris/pollaris/-/commit/a1d2d74))
+- Add poll remember information modal ([f51dd63](https://framagit.org/pollaris/pollaris/-/commit/f51dd63))
+- Add a title to the admin access section ([bacbcd6](https://framagit.org/pollaris/pollaris/-/commit/bacbcd6))
+- Adjust admin layout and color of the delete poll button ([4ddf04d](https://framagit.org/pollaris/pollaris/-/commit/4ddf04d))
+- Improve the label to enter dates with keyboard ([50dc865](https://framagit.org/pollaris/pollaris/-/commit/50dc865))
+- Update translations and add Galician, Kabyle, Ukrainian and Hungarian languages ([745ea0e](https://framagit.org/pollaris/pollaris/-/commit/745ea0e), [cffb33a](https://framagit.org/pollaris/pollaris/-/commit/cffb33a), [dce41ec](https://framagit.org/pollaris/pollaris/-/commit/dce41ec), [032ba49](https://framagit.org/pollaris/pollaris/-/commit/032ba49), [6f04ece](https://framagit.org/pollaris/pollaris/-/commit/6f04ece), [b56da28](https://framagit.org/pollaris/pollaris/-/commit/b56da28), [2f07398](https://framagit.org/pollaris/pollaris/-/commit/2f07398), [d37aea8](https://framagit.org/pollaris/pollaris/-/commit/d37aea8))
+
+### Bug fixes
+
+- Fix impossibility to see/edit vote after adding proposals ([e10b939](https://framagit.org/pollaris/pollaris/-/commit/e10b939))
+- Ensure that dates have always a proposal ([ceafe24](https://framagit.org/pollaris/pollaris/-/commit/ceafe24))
+- Fix setting locale if session returns null ([d170dcf](https://framagit.org/pollaris/pollaris/-/commit/d170dcf))
+
+### Maintenance
+
+- Add a command and a scheduled task to clean up expired polls ([614492c](https://framagit.org/pollaris/pollaris/-/commit/614492c))
+- Provide an `APP_TIMEZONE` environment variable ([5e30dcb](https://framagit.org/pollaris/pollaris/-/commit/5e30dcb))
+- Update Docker image to PHP 8.4 ([b268eaf](https://framagit.org/pollaris/pollaris/-/commit/b268eaf))
+- Update the dependencies ([720a4c1](https://framagit.org/pollaris/pollaris/-/commit/720a4c1), [cfa8131](https://framagit.org/pollaris/pollaris/-/commit/cfa8131))
+- Upgrade to Symfony 7.4 ([1fa35ef](https://framagit.org/pollaris/pollaris/-/commit/1fa35ef))
+- Upgrade to monolog-bundle 4.0 ([d5e7038](https://framagit.org/pollaris/pollaris/-/commit/d5e7038))
 
 ## 2026-01-25 - 1.1.3
 
