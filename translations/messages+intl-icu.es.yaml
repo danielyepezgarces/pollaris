@@ -18,6 +18,350 @@ admin.polls.created_at: Creado en
 admin.polls.my_title: 'Mis encuestas'
 admin.polls.none: La búsqueda no obtuvo ninguna encuesta coincidente.
 admin.polls.not_completed: Encuesta no completada
+admin.polls.public_link: Enlace público
+admin.polls.search: Buscar
+admin.polls.title: Lista de encuestas
+admin.title: Administración
+answers.value.maybe: Si es necesario
+answers.value.no: No
+answers.value.yes: Sí
+base.copied: ¡Copiado!
+base.copy: Copiar
+base.default_title: ¡Te damos la bienvenida a {appName}!
+base.download: Descargar
+base.edit: Editar
+calendar.hints.dates_period: 'Sugerencia: puede seleccionar un rango de fechas manteniendo
+  presionada la tecla <kbd>Mayús</kbd>.'
+calendar.patterns.next_month: Próximo mes (__date__)
+calendar.patterns.previous_month: Mes anterior (__date__)
+emails.hello: Hola {name},
+emails.link_to_poll: 'Puedes encontrar tu encuesta en el enlace: {url}'
+emails.new_comment.posted: '{commenter_name} acaba de comentar sobre la encuesta «{poll_name}».'
+emails.new_comment.subject: 'Nuevo comentario en una encuesta: {poll_name}'
+emails.new_poll_admin.created: 'Acabas de crear la encuesta «{poll_name}». Puede editar
+  su encuesta en cualquier momento haciendo clic en el siguiente enlace:'
+emails.new_poll_admin.keep_it_secret: ¡Asegúrese de mantener este enlace 
+  secreto!
+emails.new_poll_admin.subject: 'Nueva encuesta: {poll_name}'
+emails.new_vote.subject: 'Nuevo voto en una encuesta: {poll_name}'
+emails.new_vote.voted: '{voter_name} acaba de votar en la encuesta «{poll_name}».'
+emails.polls_list.here_is_the_list: 'Aquí está la lista de las encuestas que administras
+  en {appName}:'
+emails.polls_list.subject: Lista de sus encuestas
+emails.share.body: |-
+  Hola:
+
+  Una encuesta está disponible esperando su opinión.
+  Puede participar a través del siguiente enlace: {poll_url}
+
+  Gracias de antemano.
+  Un cordial saludo,
+emails.share.subject: 'Comentarios solicitados para la encuesta: {poll_name}'
+errors.404.description: La página solicitada no se pudo localizar. Compruebe por
+  si hubiera cualquier error en la URL.
+errors.404.title: ¡Página no encontrada!
+errors.back_home: Volver a la página principal
+errors.generic.description: Por favor, dígale a su administrador lo que estaba 
+  haciendo cuando ocurrió el error. Esto se solucionará lo antes posible.
+errors.generic.sorry: Disculpas por cualquier inconveniente causado.
+errors.generic.title: ¡Ha ocurrido un error!
+forms.apply: Aplicar
+forms.cancel: Cancelar
+forms.comment_form.author_name.label: Su nombre
+forms.comment_form.content.label: Su mensaje
+forms.comment_form.submit: Publicar
+forms.complete: Completar
+forms.confirm: Confirmar
+forms.date_type.label.label_pattern: Fecha __number__
+forms.error: Error
+forms.labels.max_length: (max. {length} caracteres)
+forms.labels.optional: (opcional)
+forms.labels.optional_and_max_length: (opcional, max. {length} caracteres)
+forms.login.password: Contraseña
+forms.login.username: Nombre de usuario
+forms.next: Siguiente
+forms.poll_authentication_form.password.label: Contraseña
+forms.poll_authentication_form.submit: Iniciar sesión
+forms.poll_dates_form.add_date: Añadir una fecha
+forms.poll_dates_form.enter_manually: Añadir fechas manualmente
+forms.poll_dates_form.remove_date: Eliminar la fecha
+forms.poll_dates_form.use_calendar: Seleccionar fechas usando un calendario
+forms.poll_deletion_form.submit: Quiero eliminar esta encuesta
+forms.poll_form.author_email.help: Su dirección de correo electrónico no será 
+  compartida con otros participantes de la encuesta. Solo se utilizará para 
+  permitirle encontrar su encuesta si pierde su URL y para notificarle cuando se
+  registren nuevos votos.
+forms.poll_form.author_email.label: Su dirección de correo electrónico
+forms.poll_form.author_name.label: Su nombre
+forms.poll_form.closed_at.help: Los participantes podrán votar hasta esta fecha.
+forms.poll_form.closed_at.label: Fecha de cierre de encuesta
+forms.poll_form.description.label: Descripción
+forms.poll_form.title.label: Nombre de su encuesta
+forms.poll_proposals_form.add_proposal: Añadir una propuesta
+forms.poll_proposals_form.remove_proposal: Eliminar la propuesta
+forms.poll_settings_form.are_results_public.label: Los resultados son visibles 
+  para todos los participantes
+forms.poll_settings_form.disable_maybe.label: Desactivar votos de «si es 
+  necesario»
+forms.poll_settings_form.max_votes.label: Máximo número de votos «Sí» por 
+  propuesta
+forms.poll_settings_form.notify_on_comments.label: Recibir un mensaje de correo 
+  electrónico para cada comentario
+forms.poll_settings_form.notify_on_votes.label: Recibir un mensaje de correo 
+  electrónico para cada voto
+forms.poll_settings_form.password.label: Contraseña
+forms.poll_settings_form.password.leave_empty_to_keep: Dejar vacío para mantener
+  la contraseña actual.
+forms.poll_settings_form.password.protect: Proteger la encuesta con una 
+  contraseña
+forms.poll_settings_form.password_for_votes_only.label: Los resultados son 
+  visibles sin contraseña
+forms.poll_settings_form.repeat_password.label: Repetir contraseña
+forms.poll_settings_form.slug.help: Tenga en cuenta que cambiar el enlace a su 
+  encuesta lo hace más accesible para todos. Se recomienda protegerlo con una 
+  contraseña.
+forms.poll_settings_form.slug.label: Introduzca el enlace de la encuesta
+forms.poll_settings_form.vote_no_by_default.label: Si no se ofrece respuesta, 
+  asumir "No" como voto por defecto
+forms.poll_slots_form.add_slot: Añadir una franja de tiempo
+forms.poll_slots_form.remove_slot: Eliminar la franja de tiempo
+forms.preferences.color_scheme.auto: Automático
+forms.preferences.color_scheme.dark: Tema oscuro
+forms.preferences.color_scheme.label: Tema
+forms.preferences.color_scheme.light: Modo claro
+forms.preferences.locale.label: Idioma
+forms.previous: Anterior
+forms.proposal_type.label.label_pattern: Propuesta __number__
+forms.search_polls_form.email.help: Te enviaremos los enlaces a las encuestas 
+  que hayas creado.
+forms.search_polls_form.email.label: Su dirección de correo electrónico
+forms.search_polls_form.submit: Enviar
+forms.slot_type.label.label_pattern: Franja horaria __number__
+forms.slots_form.day: Día
+forms.vote_form.author_name.label: Su nombre
+forms.vote_form.leave_confirmation: Aún no ha confirmado su voto. Al continuar, 
+  perderá su respuesta. ¿Seguro que quiere continuar?
+forms.vote_form.password.help: Se requiere una contraseña para votar en esta 
+  encuesta.
+forms.vote_form.password.label: Contraseña
+forms.vote_form.required_choice: Por favor, seleccione al menos una opción de 
+  las opciones anteriores.
+forms.vote_form.submit.label: Votar
+home.create_poll: Crear nueva encuesta
+home.free_software: Pollaris es un software libre con licencia bajo AGPL 3.
+home.free_software.custom: '{appName} utiliza Pollaris, un software libre con licencia
+  de AGPL 3.'
+home.intro: Utilice nuestra herramienta de votación para planificar, organizar y
+  tomar decisiones de forma rápida, fácil y sin registro.
+home.my_polls_and_votes: Mis encuestas y votos
+home.show.poll.deleted: Su encuesta ha sido eliminada con éxito.
+home.source_code: Ver el código fuente.
+home.title: Organizar eventos o reunir opiniones de amigos y familiares, de 
+  manera simple y libre.
+layout.header.my: Mis encuestas y votos
+layout.header.preferences: Preferencias
+layout.logout: Cerrar sesión
+layout.modal.close: Cerrar
+login.log_in: Iniciar sesión
+login.title: Entrar al panel de administración
+my.index.admin_link: Enlace de administración
+my.index.description: Encuentre todas sus encuestas y votos almacenados en su 
+  navegador aquí. Para una mayor privacidad, quítelos si comparte su navegador 
+  con otras personas.
+my.index.poll_link: Enlace a la encuesta
+my.index.polls.confirm_removal: Está a punto de eliminar todas las encuestas de 
+  este navegador (las encuestas seguirán existiendo). ¿Seguro que quiere 
+  continuar?
+my.index.polls.empty_placeholder: Sin encuestas
+my.index.polls.of_by: Encuesta del __date__ por __author__
+my.index.polls.remove: Eliminar la encuesta
+my.index.polls.title: Encuestas
+my.index.remove_all: Eliminar todas
+my.index.search.success: Le hemos enviado un correo electrónico con enlaces a 
+  sus encuestas. Por favor, revise su carpeta de spam si no puede verla.
+my.index.search.title: Encontrar mis encuestas usando mi correo electrónico
+my.index.title: Mis encuestas y votos
+my.index.vote_link: Enlace de votación
+my.index.votes.confirm_removal: Está a punto de eliminar todos los votos de este
+  navegador (los votos seguirán existiendo). ¿Seguro que quiere continuar?
+my.index.votes.date: (voto del __vote_date__)
+my.index.votes.empty_placeholder: Sin votos
+my.index.votes.poll: En la encuesta «<strong>__poll_title__</strong>» de 
+  __poll_author__
+my.index.votes.remove: Eliminar el voto
+my.index.votes.title: Votos
+notifications.close: Cerrar
+pagination.next: Página siguiente
+pagination.previous: Página anterior
+polls.admin.comments: Comentarios
+polls.admin.confirm_delete_comment: ¿Está seguro de eliminar este comentario?
+polls.admin.confirm_delete_vote: ¿Está seguro de eliminar este voto?
+polls.admin.delete: Eliminar
+polls.admin.edit: Editar
+polls.admin.go_to_poll: Ir a la encuesta
+polls.admin.have_voted: '{voter} ha votado el {date}.'
+polls.admin.no_comments: No se han publicado comentarios en la encuesta.
+polls.admin.no_votes: No se han emitido votos en la encuesta.
+polls.admin.title: Administración de la encuesta
+polls.admin.votes: Votos
+polls.authenticate.title: Autenticarse para una encuesta protegida
+polls.choose.classic: Encuesta clásica
+polls.choose.classic_help: Una encuesta para elegir entre varias opciones.
+polls.choose.date: Fecha de la encuesta
+polls.choose.date_help: Una encuesta para elegir la mejor fecha o franja horaria
+  posible.
+polls.choose.next: Siguiente
+polls.choose.title: Elegir el tipo de encuesta
+polls.complete.consult: Consultar su encuesta ahora
+polls.complete.created: La encuesta «{poll}» se ha creado. Puede invitar a 
+  participar compartiendo el siguiente enlace.
+polls.complete.public_link: Enlace público para compartir
+polls.complete.see: Ver mi encuesta
+polls.complete.title: ¡Su encuesta está lista!
+polls.dates.slots_at_next_step: Seleccione una o más fechas. Podrá seleccionar 
+  franjas horarias en el siguiente paso.
+polls.dates.title: Elija las fechas
+polls.deletion.information: Atención, está a punto de eliminar la encuesta 
+  «<strong>{title}</strong>» junto con sus votos y comentarios asociados.
+polls.deletion.title: Eliminación de una encuesta
+polls.edit_vote_mode.any: Cualquier participante puede cambiar cualquier voto
+polls.edit_vote_mode.no: Los participantes no pueden cambiar su voto
+polls.edit_vote_mode.own: Cada participante puede cambiar su propio voto
+polls.new.title: Creación de una encuesta
+polls.new.who_you_are: Quién es usted
+polls.proposals.best: Opción mayoritaria
+polls.proposals.title: Elija las propuestas
+polls.settings.notifications.title: Notificaciones
+polls.settings.options.title: Opciones de voto
+polls.settings.password.title: Proteger con una contraseña
+polls.settings.permissions.title: Permisos
+polls.settings.slug.title: Personalizar el enlace de encuesta
+polls.settings.title: Configurar la encuesta
+polls.sharing.public_link: Enlace público para compartir
+polls.sharing.send_by_email: Enviar por correo electrónico
+polls.sharing.share_by_email: Compartir por correo electrónico
+polls.sharing.share_with_qr_code: Compartir con un código QR
+polls.sharing.title: Compartir la encuesta
+polls.show.administer: Administrar
+polls.show.authenticated: Se ha autenticado correctamente.
+polls.show.comment.created: Su comentario ha sido publicado.
+polls.show.comments.explain: Su comentario será visible directamente en la 
+  página de la encuesta.
+polls.show.comments.new: Nuevo comentario
+polls.show.comments.none: No se han publicado comentarios.
+polls.show.comments.title: Comentarios
+polls.show.created_by: Encuesta creada por {by}
+polls.show.display_list: Vista de lista
+polls.show.display_table: Vista de tabla
+polls.show.export_csv: Exportar (<abbr>CSV</abbr>)
+polls.show.is_closed: Esta encuesta está cerrada.
+polls.show.my_votes.date: (voto del __date__)
+polls.show.my_votes.description: Sus votos se guardan en su navegador. Para 
+  mayor privacidad, bórrelos si comparte el navegador con otras personas.
+polls.show.my_votes.edit: Editar el voto de {authorName}
+polls.show.my_votes.information: Información
+polls.show.my_votes.remove: Eliminar
+polls.show.my_votes.title: Mis votos
+polls.show.no_vote: Por el momento no se ha emitido ningún voto, pero no se 
+  preocupe, ya no queda mucho. ¡No olvide compartir su encuesta con los demás 
+  participantes!
+polls.show.poll: Encuesta
+polls.show.print: imprimir
+polls.show.results: Resultados
+polls.show.results.info: '{ countChoices, plural, one {La opción preferida con <strong>{countYes}
+  sí</strong> es:} other {Las opciones preferidas con <strong>{countYes} sí</strong>
+  son:} }'
+polls.show.results.results_graph: Gráfico de resultados
+polls.show.results.title: Resultados
+polls.show.share: Compartir
+polls.show.vote.created: Su voto está confirmado.
+polls.show.vote.updated: Su voto ha sido modificado.
+polls.slots.help: 'Las franjas horarias se pueden introducir libremente (por ejemplo:
+  8:00 a. m. o por la mañana). Si no se especifica ninguna franja horaria se tendrá
+  en cuenta todo el día.'
+polls.slots.same_slots.apply: Aplicar las mismas franjas horarias a todas las 
+  fechas
+polls.slots.same_slots.title: Selecciona las franjas horarias que se aplicarán a
+  todas las fechas
+polls.slots.title: Elija las franjas horarias
+polls.steps: Paso {step} de {total}
+polls.summary.admin_access: Guarde este enlace para poder gestionar su encuesta 
+  en cualquier momento. <strong>¡No lo comparta con nadie!</strong>
+polls.summary.admin_access.sent_by_email: Este enlace también ha sido enviado a 
+  su correo electrónico.
+polls.summary.admin_access.title: Enlace privado de administración
+polls.summary.admin_access.will_send_by_email: Este enlace también ha sido 
+  enviado a su correo electrónico.
+polls.summary.admin_link: Enlace privado de administración
+polls.summary.admin_link.remember: Recordar este enlace en este navegador
+polls.summary.admin_link.remember.description: Si marca la opción «Recordar este
+  enlace en este navegador», esta encuesta se guardará en este dispositivo. Esto
+  le permitirá encontrarla más tarde desde el mismo navegador para verla o 
+  modificarla. Para mayor confidencialidad, no marque esta opción si comparte 
+  este dispositivo con otras personas.
+polls.summary.admin_link.remember.information: Información
+polls.summary.author.email: Dirección de correo electrónico
+polls.summary.author.name: Apodo
+polls.summary.author.no_email: No se ha indicado ninguna dirección
+polls.summary.closed_at: Fecha límite
+polls.summary.closed_at.none: Ninguno
+polls.summary.delete_poll: Eliminar la encuesta
+polls.summary.edit: Editar
+polls.summary.information.title: Información general
+polls.summary.is_closed: (encuesta cerrada)
+polls.summary.proposals.title: Mis propuestas
+polls.summary.settings.customised_slug: El enlace de la encuesta está 
+  personalizado.
+polls.summary.settings.edit_vote_mode.any: Cualquier participante puede cambiar 
+  cualquier voto.
+polls.summary.settings.edit_vote_mode.no: Los participantes no pueden cambiar su
+  voto.
+polls.summary.settings.edit_vote_mode.own: Cada participante puede cambiar su 
+  propio voto.
+polls.summary.settings.is_disable_maybe: Los participantes no podrán votar «si 
+  fuera necesario».
+polls.summary.settings.is_vote_no_by_default: La falta de respuesta equivale a 
+  votar «No».
+polls.summary.settings.max_votes: Un máximo de { number, plural, one {1 
+  participante} other {# participantes} } pueden votar la propuesta.
+polls.summary.settings.notify_on_comments.do: Recibiré un correo electrónico 
+  cada vez que alguien comente en la encuesta.
+polls.summary.settings.notify_on_comments.dont: No recibiré un correo 
+  electrónico cuando alguien comente en la encuesta.
+polls.summary.settings.notify_on_votes.do: Recibiré un correo electrónico cada 
+  vez que alguien vote en la encuesta.
+polls.summary.settings.notify_on_votes.dont: No recibiré un correo electrónico 
+  cada vez que alguien vote en la encuesta.
+polls.summary.settings.password_protected.full: La encuesta está protegida con 
+  una contraseña.
+polls.summary.settings.password_protected.not: La encuesta no está protegida con
+  contraseña.
+polls.summary.settings.password_protected.vote: La encuesta está protegida con 
+  una contraseña (los resultados son visibles sin contraseña).
+polls.summary.settings.results.private: Soy el único que puede ver los 
+  resultados de la encuesta.
+polls.summary.settings.results.public: Todo el mundo puede ver los resultados de
+  la encuesta.
+polls.summary.settings.title: Opciones de la encuesta
+polls.summary.title: Resumen de su encuesta
+polls.table.toolbar.scroll_to_left.title: Desplazarse a la izquierda
+polls.table.toolbar.scroll_to_right.title: Desplazarse a la derecha
+polls.table.toolbar.show_less.label: Reducir la fila
+polls.table.toolbar.show_less.title: Reduce el número de filas para limitar la 
+  visualización de etiquetas
+polls.table.toolbar.show_more.label: Expandir la fila
+polls.table.toolbar.show_more.title: Expandir la fila para ver todas las 
+  etiquetas
+polls.votes.maybe: Si es necesario
+polls.votes.maybe.count: '{count} Si es necesario'
+polls.votes.maybe.count_alt: (+{count})
+polls.votes.no: No
+polls.votes.no.count: '{count} No'
+polls.votes.sum: Suma
+polls.votes.yes: Sí
+polls.votes.yes.count: '{count} Sí'
+polls.votes.yours: Su voto
+preferences.edit.title: Sus preferencias
 answers.value.maybe: 'Si es necesario'
 answers.value.no: 'No'
 answers.value.yes: 'Sí'
