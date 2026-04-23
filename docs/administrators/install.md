@@ -290,6 +290,12 @@ Switch to the latest version:
 www-data$ git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
 ```
 
+Clear the cache (Composer post-install scripts may fail otherwise):
+
+```console
+www-data$ rm -rf var/cache/*
+```
+
 Install the new/updated dependencies:
 
 ```console
@@ -300,12 +306,6 @@ Execute the migrations:
 
 ```console
 www-data$ php bin/console doctrine:migrations:migrate --no-interaction
-```
-
-Clear the cache:
-
-```console
-www-data$ php bin/console cache:clear
 ```
 
 Restart the Systemd service:
