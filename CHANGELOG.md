@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-04-25 - 1.2.1
+
+### Migration notes
+
+Note that [instructions to update Pollaris](/docs/administrators/install.md) have been updated to take care of an issue with the Symfony cache while running `composer install`.
+
+### Translations
+
+- Update and enable the Spanish translation ([55dba47](https://framagit.org/pollaris/pollaris/-/commit/55dba47), [c984d6f](https://framagit.org/pollaris/pollaris/-/commit/c984d6f))
+
+### Documentation
+
+- Update upgrade documentation ([b7251d8](https://framagit.org/pollaris/pollaris/-/commit/b7251d8))
+
 ## 2026-04-22 - 1.2.0
 
 ### Migration notes
