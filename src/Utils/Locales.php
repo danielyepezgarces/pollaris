@@ -28,7 +28,7 @@ class Locales
             'en_GB' => 'English',
             //'cs' => 'Čeština',
             'de' => 'Deutsch',
-            //'es' => 'Español',
+            'es' => 'Español',
             'fr_FR' => 'Français',
             'gl' => 'Galego',
             'hu' => 'Magyar',
