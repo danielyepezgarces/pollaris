@@ -50,7 +50,7 @@ forms.complete: Véglegesít
 forms.confirm: Megerősít
 forms.date_type.label.label_pattern: Dátum __szám__
 forms.error: Hiba
-forms.labels.max_length: (max. {hossz} karakter)
+forms.labels.max_length: (max. {length} karakter)
 forms.labels.optional: (opcionális)
 forms.labels.optional_and_max_length: (opcionális, max. {hossz} karakter)
 forms.login.password: Jelszó
