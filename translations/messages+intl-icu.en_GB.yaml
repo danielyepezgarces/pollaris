@@ -1,3 +1,28 @@
+			poll_cohost_type:
+				user:
+					label: "User"
+				right:
+					label: "Right"
+					edit: "Edit only"
+					full: "Full access (can delete)"
+			poll_form:
+				cohosts:
+					add: "Add cohost"
+					remove: "Remove"
+		cohosts:
+			label: "Cohosts (co-authors)"
+			help: "Select other users who will be able to edit the poll."
+forms:
+	slot_type:
+		start_time:
+			label: "Start time (optional)"
+		end_time:
+			label: "End time (optional)"
+	poll_form:
+		duration:
+			label: "General duration for each option"
+			help: "Duration in minutes that applies to all options if no start/end time is specified."
+			unit: "minutes"
 admin.polls.admin_link: 'Admin link'
 admin.polls.author: Author
 admin.polls.created_at: 'Created at'

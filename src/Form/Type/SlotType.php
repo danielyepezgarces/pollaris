@@ -25,9 +25,10 @@ class SlotType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('label', Type\TimeType::class, [
-            'widget' => 'single_text',
-            'input'  => 'string',
+        // Etiqueta libre (opcional)
+        $builder->add('label', Type\TextType::class, [
+            'trim' => true,
+            'required' => false,
             'empty_data' => '',
             'label' => new TranslatableMessage('forms.slot_type.label.label_pattern'),
             'attr' => [
@@ -35,24 +36,21 @@ class SlotType extends AbstractType
             ],
         ]);
 
-        $builder->get('label')
-            ->addModelTransformer(new \Symfony\Component\Form\CallbackTransformer(
-                function ($labelFromDatabase) {
-                    // If it's an empty string or invalid time format from old data, feed null to TimeType
-                    if ($labelFromDatabase === null || $labelFromDatabase === '') {
-                        return null;
-                    }
-                    if (!preg_match('/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/', $labelFromDatabase)) {
-                        return null;
-                    }
-                    return $labelFromDatabase;
-                },
-                function ($labelFromForm) {
-                    // If TimeType sends back null, persist it as an empty string for the entity
-                    return $labelFromForm ?? '';
-                }
-            ))
-        ;
+        // Hora de inicio (opcional)
+        $builder->add('startTime', Type\TimeType::class, [
+            'widget' => 'single_text',
+            'input' => 'string',
+            'required' => false,
+            'label' => new TranslatableMessage('forms.slot_type.start_time.label', [], 'messages'),
+        ]);
+
+        // Hora de fin (opcional)
+        $builder->add('endTime', Type\TimeType::class, [
+            'widget' => 'single_text',
+            'input' => 'string',
+            'required' => false,
+            'label' => new TranslatableMessage('forms.slot_type.end_time.label', [], 'messages'),
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -37,6 +37,36 @@
             <div class="panel panel--primary panel--rounded flow flow--large">
                 {{ form_row(form.title) }}
                 {{ form_row(form.description) }}
+                {{ form_row(form.duration) }}
+                <div class="flow">
+                    <label>{{ 'forms.poll_form.cohosts.label' | trans }}</label>
+                    <p class="text--secondary text--small">{{ 'forms.poll_form.cohosts.help' | trans }}</p>
+                    <div data-controller="collection" data-collection-index-value="{{ form.cohosts | length > 0 ? form.cohosts | last.vars.name + 1 : 0 }}">
+                        <div data-collection-target="container" class="flow">
+                            {% for cohost in form.cohosts %}
+                                <div class="panel panel--rounded panel--secondary flow flow--small" data-item="element">
+                                    {{ form_row(cohost.user) }}
+                                    {{ form_row(cohost.right) }}
+                                    <button type="button" class="button--menuitem" data-action="collection#removeElement">
+                                        {{ icon('trash') }} {{ 'forms.poll_form.cohosts.remove' | trans }}
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <template data-collection-target="prototype">
+                            <div class="panel panel--rounded panel--secondary flow flow--small" data-item="element">
+                                {{ form_row(form.cohosts.vars.prototype.user) }}
+                                {{ form_row(form.cohosts.vars.prototype.right) }}
+                                <button type="button" class="button--menuitem" data-action="collection#removeElement">
+                                    {{ icon('trash') }} {{ 'forms.poll_form.cohosts.remove' | trans }}
+                                </button>
+                            </div>
+                        </template>
+                        <button type="button" class="button--block button--small" data-action="collection#addElement">
+                            {{ icon('plus') }} {{ 'forms.poll_form.cohosts.add' | trans }}
+                        </button>
+                    </div>
+                </div>
 
                     <div
                         class="flow"

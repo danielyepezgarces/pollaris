@@ -221,3 +221,37 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
         return $this;
     }
 }
+
+    /**
+     * Hora de inicio (opcional, formato HH:MM)
+     */
+    #[ORM\Column(type: Types::STRING, length: 5, nullable: true)]
+    private ?string $startTime = null;
+
+    /**
+     * Hora de fin (opcional, formato HH:MM)
+     */
+    #[ORM\Column(type: Types::STRING, length: 5, nullable: true)]
+    private ?string $endTime = null;
+
+    public function getStartTime(): ?string
+    {
+        return $this->startTime;
+    }
+
+    public function setStartTime(?string $startTime): static
+    {
+        $this->startTime = $startTime;
+        return $this;
+    }
+
+    public function getEndTime(): ?string
+    {
+        return $this->endTime;
+    }
+
+    public function setEndTime(?string $endTime): static
+    {
+        $this->endTime = $endTime;
+        return $this;
+    }

@@ -33,6 +33,20 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: new TranslatableMessage('user.username.already_used', domain: 'validators'),
 )]
 class User implements ActivityMonitor\TrackableEntityInterface, UserInterface, PasswordAuthenticatedUserInterface
+
+    /**
+     * Relaciones de cohost con derechos
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: PollCohost::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private ?Collections\Collection $pollCohosts = null;
+
+    public function getPollCohosts(): Collections\Collection
+    {
+        if ($this->pollCohosts === null) {
+            $this->pollCohosts = new Collections\ArrayCollection();
+        }
+        return $this->pollCohosts;
+    }
 {
     public const MAX_USERNAME_LENGTH = 100;
     public const MAX_REALNAME_LENGTH = 255;

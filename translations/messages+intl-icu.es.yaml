@@ -1,3 +1,28 @@
+			poll_cohost_type:
+				user:
+					label: "Usuario"
+				right:
+					label: "Derecho"
+					edit: "Solo edición"
+					full: "Acceso total (puede eliminar)"
+			poll_form:
+				cohosts:
+					add: "Añadir cohost"
+					remove: "Quitar"
+		cohosts:
+			label: "Cohosts (coautores)"
+			help: "Selecciona otros usuarios que podrán editar la encuesta."
+forms:
+	slot_type:
+		start_time:
+			label: "Hora de inicio (opcional)"
+		end_time:
+			label: "Hora de fin (opcional)"
+	poll_form:
+		duration:
+			label: "Duración general de cada opción"
+			help: "Duración en minutos que aplica a todas las opciones si no se especifica hora de inicio y fin."
+			unit: "minutos"
 admin.polls.admin_link: Enlace de administración
 admin.polls.author: Autor
 admin.polls.created_at: Creado en

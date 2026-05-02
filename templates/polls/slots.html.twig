@@ -63,23 +63,23 @@
                             {% for proposal in date.proposals %}
                                 <div class="flow flow--small" data-item="element">
                                     {{ form_label(proposal.label) }}
-
                                     {{ form_errors(proposal.label) }}
-
                                     <div class="cols cols--always cols--gap">
                                         {{ form_widget(proposal.label) }}
-
                                         <button
                                             type="button"
                                             class="button--ghost button--small"
                                             data-action="collection#removeElement"
                                         >
                                             {{ icon('trash') }}
-
                                             <span class="sr-only">
                                                 {{ 'forms.poll_slots_form.remove_slot' | trans }}
                                             </span>
                                         </button>
+                                    </div>
+                                    <div class="cols cols--always cols--gap">
+                                        {{ form_row(proposal.startTime) }}
+                                        {{ form_row(proposal.endTime) }}
                                     </div>
                                 </div>
                             {% endfor %}
@@ -98,26 +98,33 @@
                         <template data-collection-target="prototype">
                             <div class="flow flow--small" data-item="element">
                                 {{ form_label(date.proposals.vars.prototype.label) }}
-
                                 {{ form_errors(date.proposals.vars.prototype.label) }}
-
                                 <div class="cols cols--always cols--gap">
                                     {{ form_widget(date.proposals.vars.prototype.label) }}
-
                                     <button
                                         type="button"
                                         class="button--ghost button--small"
                                         data-action="collection#removeElement"
                                     >
                                         {{ icon('trash') }}
-
                                         <span class="sr-only">
                                             {{ 'forms.poll_slots_form.remove_slot' | trans }}
                                         </span>
                                     </button>
                                 </div>
+                                <div class="cols cols--always cols--gap">
+                                    {{ form_row(date.proposals.vars.prototype.startTime) }}
+                                    {{ form_row(date.proposals.vars.prototype.endTime) }}
+                                </div>
                             </div>
                         </template>
+                            {# Mostrar duración general si existe #}
+                            {% if form.parent and form.parent.duration is defined and form.parent.duration.vars.value %}
+                                <div class="panel panel--info flow">
+                                    <strong>{{ 'forms.poll_form.duration.label' | trans }}:</strong>
+                                    {{ form.parent.duration.vars.value }} {{ 'forms.poll_form.duration.unit' | trans }}
+                                </div>
+                            {% endif %}
                     </div>
                 </fieldset>
             {% endfor %}
