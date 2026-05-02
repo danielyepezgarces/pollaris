@@ -26,11 +26,13 @@ class WikimediaOAuthTest extends TestCase
 {
     public function testBuildAuthorizationUrlSendsOutOfBandCallback(): void
     {
+        $capturedMethod = null;
         $capturedOptions = null;
-        $httpClient = new MockHttpClient(function (string $method, string $url, array $options) use (&$capturedOptions): MockResponse {
+        $httpClient = new MockHttpClient(function (string $method, string $url, array $options) use (&$capturedMethod, &$capturedOptions): MockResponse {
+            $capturedMethod = $method;
             $capturedOptions = $options;
 
-            return new MockResponse('oauth_token=request-token&oauth_token_secret=request-secret');
+            return new MockResponse('{"key":"request-token","secret":"request-secret"}');
         });
 
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
@@ -55,9 +57,38 @@ class WikimediaOAuthTest extends TestCase
         self::assertStringContainsString('oauth_token=request-token', $authorizationUrl);
         self::assertSame('request-token', $session->get(WikimediaOAuth::SESSION_REQUEST_TOKEN_KEY));
         self::assertSame('request-secret', $session->get(WikimediaOAuth::SESSION_REQUEST_TOKEN_SECRET));
+        self::assertSame('GET', $capturedMethod);
         self::assertNotNull($capturedOptions);
+        self::assertSame([
+            'title' => 'Special:OAuth/initiate',
+            'format' => 'json',
+        ], $capturedOptions['query']);
         self::assertArrayHasKey('normalized_headers', $capturedOptions);
         self::assertArrayHasKey('authorization', $capturedOptions['normalized_headers']);
         self::assertStringContainsString('oauth_callback="oob"', $capturedOptions['normalized_headers']['authorization'][0]);
+    }
+
+    public function testHasValidCallbackAcceptsMissingOauthToken(): void
+    {
+        $wikimediaOAuth = new WikimediaOAuth(
+            new MockHttpClient(),
+            $this->createMock(UrlGeneratorInterface::class),
+            true,
+            'https://meta.wikimedia.org/w/index.php',
+            'client-id',
+            'client-secret',
+            'Pollaris',
+            'https://pollaris.example',
+            '/home/dyepezgdev/Development/Pollaris',
+        );
+
+        $session = new Session(new MockArraySessionStorage());
+        $session->set(WikimediaOAuth::SESSION_REQUEST_TOKEN_KEY, 'request-token');
+        $session->set(WikimediaOAuth::SESSION_REQUEST_TOKEN_SECRET, 'request-secret');
+
+        self::assertTrue($wikimediaOAuth->hasValidCallback($session, '', 'verifier'));
+        self::assertTrue($wikimediaOAuth->hasValidCallback($session, 'request-token', 'verifier'));
+        self::assertFalse($wikimediaOAuth->hasValidCallback($session, 'other-token', 'verifier'));
+        self::assertFalse($wikimediaOAuth->hasValidCallback($session, '', ''));
     }
 }

@@ -78,7 +78,7 @@ class WikimediaOAuth
             && $requestToken !== ''
             && is_string($requestTokenSecret)
             && $requestTokenSecret !== ''
-            && hash_equals($requestToken, $oauthToken)
+            && ($oauthToken === '' || hash_equals($requestToken, $oauthToken))
             && $oauthVerifier !== '';
     }
 
@@ -111,15 +111,17 @@ class WikimediaOAuth
             'oauth_callback' => 'oob',
         ]);
 
-        $response = $this->sendSignedPostRequest(
+        $response = $this->sendSignedRequest(
+            'GET',
             [
                 'title' => 'Special:OAuth/initiate',
+                'format' => 'json',
             ],
             $authParameters,
             '',
         );
 
-        $payload = $this->parseUrlEncodedResponse($response);
+        $payload = $this->parseTokenResponse($response);
 
         return $this->extractTokenPair($payload, 'request');
     }
@@ -134,15 +136,17 @@ class WikimediaOAuth
             'oauth_verifier' => $oauthVerifier,
         ]);
 
-        $response = $this->sendSignedPostRequest(
+        $response = $this->sendSignedRequest(
+            'GET',
             [
                 'title' => 'Special:OAuth/token',
+                'format' => 'json',
             ],
             $authParameters,
             $requestTokenSecret,
         );
 
-        $payload = $this->parseUrlEncodedResponse($response);
+        $payload = $this->parseTokenResponse($response);
 
         return $this->extractTokenPair($payload, 'access');
     }
@@ -156,7 +160,8 @@ class WikimediaOAuth
             'oauth_token' => $accessToken,
         ]);
 
-        $response = $this->sendSignedPostRequest(
+        $response = $this->sendSignedRequest(
+            'GET',
             [
                 'title' => 'Special:OAuth/identify',
             ],
@@ -175,21 +180,22 @@ class WikimediaOAuth
      * @param array<string, string> $queryParameters
      * @param array<string, string> $authParameters
      */
-    private function sendSignedPostRequest(
+    private function sendSignedRequest(
+        string $method,
         array $queryParameters,
         array $authParameters,
         string $tokenSecret,
     ): string {
         $signatureParameters = $authParameters + $queryParameters;
         $authParameters['oauth_signature'] = $this->signRequest(
-            'POST',
+            $method,
             $this->getIndexPhpUrl(),
             $signatureParameters,
             $tokenSecret,
         );
 
         try {
-            $response = $this->httpClient->request('POST', $this->getIndexPhpUrl(), [
+            $response = $this->httpClient->request($method, $this->getIndexPhpUrl(), [
                 'query' => $queryParameters,
                 'headers' => [
                     'Authorization' => $this->buildAuthorizationHeader($authParameters),
@@ -306,10 +312,24 @@ class WikimediaOAuth
     /**
      * @return array<string, string>
      */
-    private function parseUrlEncodedResponse(string $content): array
+    private function parseTokenResponse(string $content): array
     {
+        $content = trim($content);
+
         if (str_starts_with($content, 'Error: ')) {
             throw new \RuntimeException(substr($content, strlen('Error: ')));
+        }
+
+        $jsonPayload = json_decode($content, true);
+        if (is_array($jsonPayload)) {
+            if (isset($jsonPayload['error'])) {
+                throw new \RuntimeException((string) $jsonPayload['error']);
+            }
+
+            return array_map(
+                fn (mixed $value): string => is_scalar($value) ? (string) $value : '',
+                $jsonPayload,
+            );
         }
 
         parse_str($content, $payload);
@@ -327,8 +347,16 @@ class WikimediaOAuth
      */
     private function extractTokenPair(array $payload, string $kind): array
     {
-        $tokenKey = $payload['oauth_token'] ?? null;
-        $tokenSecret = $payload['oauth_token_secret'] ?? null;
+        if (isset($payload['key'], $payload['secret'])) {
+            $tokenKey = $payload['key'];
+            $tokenSecret = $payload['secret'];
+        } elseif (isset($payload['token'], $payload['key'])) {
+            $tokenKey = $payload['token'];
+            $tokenSecret = $payload['key'];
+        } else {
+            $tokenKey = $payload['oauth_token'] ?? null;
+            $tokenSecret = $payload['oauth_token_secret'] ?? null;
+        }
 
         if (!is_string($tokenKey) || $tokenKey === '' || !is_string($tokenSecret) || $tokenSecret === '') {
             throw new \RuntimeException("Wikimedia did not return a valid {$kind} token.");
