@@ -1,32 +1,5 @@
-    /**
-     * Permite edición a owner o cohost con derecho 'edit' o 'full'.
-     */
-    protected function denyUnlessPollEditor(Entity\Poll $poll): ?Response
-    {
-        $owner = $poll->getOwner();
-        $user = $this->getUser();
 
-        // Permitir si es el owner
-        if ($user !== null && $owner !== null && $owner->getUserIdentifier() === $user->getUserIdentifier()) {
-            return null;
-        }
-
-        // Permitir si es cohost con derecho 'edit' o 'full'
-        foreach ($poll->getCohosts() as $cohost) {
-            if (
-                $cohost->getUser() &&
-                $cohost->getUser()->getUserIdentifier() === $user?->getUserIdentifier() &&
-                in_array($cohost->getRight(), ['edit', 'full'])
-            ) {
-                return null;
-            }
-        }
-
-        // Si no, denegar
-        return $this->render('bundles/TwigBundle/Exception/error404.html.twig', [], new Response('', 404));
-    }
 <?php
-
 // This file is part of Pollaris.
 // Copyright 2024-2026 Marien Fressinaud
 // Copyright 2026 Daniel Yepez Garces
