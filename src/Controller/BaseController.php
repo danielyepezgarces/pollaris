@@ -1,4 +1,3 @@
-
 <?php
 // This file is part of Pollaris.
 // Copyright 2024-2026 Marien Fressinaud
