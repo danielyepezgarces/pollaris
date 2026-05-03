@@ -220,8 +220,6 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
 
         return $this;
     }
-}
-
     /**
      * Hora de inicio (opcional, formato HH:MM)
      */
@@ -255,3 +253,4 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
         $this->endTime = $endTime;
         return $this;
     }
+}

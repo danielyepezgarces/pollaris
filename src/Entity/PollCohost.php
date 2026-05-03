@@ -18,7 +18,7 @@ class PollCohost
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $user = null;
 
-    #[ORM\Column(type: 'string', length: 10)]
+    #[ORM\Column(name: 'cohost_right', type: 'string', length: 10)]
     private string $right = 'edit'; // 'edit' o 'full'
 
     public function getPoll(): ?Poll { return $this->poll; }
