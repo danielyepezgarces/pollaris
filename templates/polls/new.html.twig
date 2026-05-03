@@ -162,6 +162,6 @@
             </fieldset>
 
             {{ include('polls/_flow_actions.html.twig', { step: 'init' }) }}
-        {{ form_end(form) }}
+        {{ form_end(form, { render_rest: false }) }}
     </div>
 {% endblock %}
