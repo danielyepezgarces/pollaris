@@ -45,6 +45,12 @@
                     {{ 'home.title' | trans }}
                 </h1>
 
+                {% if app.user %}
+                    <p class="text--primary text--big text--bold">
+                        Welcome, {{ app.user.userIdentifier }}
+                    </p>
+                {% endif %}
+
                 <p class="text--primary text--big">
                     {{ 'home.intro' | trans }}
                 </p>

@@ -26,16 +26,6 @@ use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class PollForm extends AbstractType
-        // Cohosts/coautores con derechos
-        $builder->add('cohosts', Type\CollectionType::class, [
-            'entry_type' => Type\PollCohostType::class,
-            'allow_add' => true,
-            'allow_delete' => true,
-            'by_reference' => false,
-            'required' => false,
-            'label' => new TranslatableMessage('forms.poll_form.cohosts.label'),
-            'help' => new TranslatableMessage('forms.poll_form.cohosts.help'),
-        ]);
 {
     use TimezonesConfiguratorTrait;
 
@@ -48,7 +38,17 @@ class PollForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $currentUser = $options['current_user'] ?? null;
-        
+
+        $builder->add('cohosts', Type\CollectionType::class, [
+            'entry_type' => \App\Form\Type\PollCohostType::class,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'by_reference' => false,
+            'required' => false,
+            'label' => new TranslatableMessage('forms.poll_form.cohosts.label'),
+            'help' => new TranslatableMessage('forms.poll_form.cohosts.help'),
+        ]);
+
         $builder->add('title', Type\TextType::class, [
             'trim' => true,
             'empty_data' => '',
