@@ -1,6 +1,26 @@
 .searchable-select__input {
     margin-bottom: 0.5rem;
 }
+
+.user-autocomplete__list {
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--border-color, #d0d0d0);
+    border-radius: 6px;
+    background: var(--background-color, #fff);
+    max-height: 220px;
+    overflow: auto;
+}
+
+.user-autocomplete__item {
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+}
+
+.user-autocomplete__item:hover {
+    background: var(--panel-secondary-bg, #f3f3f3);
+}
 /* This file is part of Pollaris. */
 /* Copyright 2024-2026 Marien Fressinaud */
 /* Copyright 2026 Adrien Scholaert */

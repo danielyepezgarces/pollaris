@@ -22,10 +22,10 @@ export default class extends Controller {
 
         this.element.dataset.userAutocompleteInitialized = 'true';
 
-        const listId = `${this.element.id || 'user-autocomplete'}-list-${Math.random().toString(36).slice(2)}`;
-        const list = document.createElement('datalist');
-        list.id = listId;
-        this.element.setAttribute('list', listId);
+        const list = document.createElement('ul');
+        list.classList.add('user-autocomplete__list');
+        list.setAttribute('role', 'listbox');
+        list.hidden = true;
         this.element.parentNode.insertBefore(list, this.element.nextSibling);
 
         if (this.placeholderValue) {
@@ -39,6 +39,7 @@ export default class extends Controller {
 
             if (query.length < this.minLengthValue) {
                 list.innerHTML = '';
+                list.hidden = true;
                 return;
             }
 
@@ -58,16 +59,42 @@ export default class extends Controller {
                 }
                 const results = await response.json();
                 list.innerHTML = '';
+                if (results.length === 0) {
+                    list.hidden = true;
+                    return;
+                }
+
                 results.forEach((item) => {
-                    const option = document.createElement('option');
-                    option.value = item.username;
-                    option.textContent = item.displayName;
+                    const option = document.createElement('li');
+                    option.classList.add('user-autocomplete__item');
+                    option.setAttribute('role', 'option');
+                    option.dataset.username = item.username;
+                    option.textContent = `${item.displayName} (@${item.username})`;
+                    option.addEventListener('mousedown', () => {
+                        this.element.value = item.username;
+                        list.innerHTML = '';
+                        list.hidden = true;
+                    });
                     list.appendChild(option);
                 });
+
+                list.hidden = false;
             } catch (error) {
                 if (error.name !== 'AbortError') {
                     console.error(error);
                 }
+            }
+        });
+
+        this.element.addEventListener('blur', () => {
+            setTimeout(() => {
+                list.hidden = true;
+            }, 150);
+        });
+
+        this.element.addEventListener('focus', () => {
+            if (list.childElementCount > 0) {
+                list.hidden = false;
             }
         });
     }
