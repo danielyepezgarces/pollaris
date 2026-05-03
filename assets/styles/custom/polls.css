@@ -59,6 +59,12 @@
     --flow-size: 0;
 }
 
+.home-welcome {
+    text-align: center;
+    margin-top: clamp(0.75rem, 2vh, 1.5rem);
+    margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+}
+
 .poll-view--table .poll-submit-wrapper .flow.flow--small {
     position: relative;
     display: grid;

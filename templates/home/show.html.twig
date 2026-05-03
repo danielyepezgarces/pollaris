@@ -34,7 +34,7 @@
     {{ parent() }}
 
     {% if is_granted('ROLE_USER') %}
-        <div class="wrapper wrapper--center" style="text-align: center;">
+        <div class="wrapper wrapper--center home-welcome">
             <p class="text--primary text--bold">
                 {{ 'home.welcome' | trans({ name: app.user.displayName }) }}
             </p>
