@@ -32,7 +32,7 @@ class WikimediaOAuthTest extends TestCase
             $capturedMethod = $method;
             $capturedOptions = $options;
 
-            return new MockResponse('{"key":"request-token","secret":"request-secret"}');
+            return new MockResponse('{"token":"request-token","key":"request-secret"}');
         });
 
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
@@ -62,10 +62,11 @@ class WikimediaOAuthTest extends TestCase
         self::assertSame([
             'title' => 'Special:OAuth/initiate',
             'format' => 'json',
+            'oauth_callback' => 'oob',
         ], $capturedOptions['query']);
         self::assertArrayHasKey('normalized_headers', $capturedOptions);
         self::assertArrayHasKey('authorization', $capturedOptions['normalized_headers']);
-        self::assertStringContainsString('oauth_callback="oob"', $capturedOptions['normalized_headers']['authorization'][0]);
+        self::assertStringNotContainsString('oauth_callback="oob"', $capturedOptions['normalized_headers']['authorization'][0]);
     }
 
     public function testHasValidCallbackAcceptsMissingOauthToken(): void

@@ -18,6 +18,7 @@ use App\Entity;
 use App\Repository;
 use App\Service;
 use App\Utils;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,7 @@ class LoginController extends BaseController
         private readonly Security $security,
         private readonly Service\WikimediaOAuth $wikimediaOAuth,
         private readonly Repository\UserRepository $userRepository,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
@@ -59,7 +61,11 @@ class LoginController extends BaseController
 
         try {
             return $this->redirect($this->wikimediaOAuth->buildAuthorizationUrl($request->getSession()));
-        } catch (\Throwable) {
+        } catch (\Throwable $exception) {
+            $this->logger->error('Unable to start Wikimedia OAuth login.', [
+                'exception' => $exception,
+            ]);
+
             $this->addFlash('error', 'login.wikimedia.error.generic');
 
             return $this->redirectToRoute('login');
@@ -85,7 +91,13 @@ class LoginController extends BaseController
         try {
             $profile = $this->wikimediaOAuth->fetchProfile($request->getSession(), $oauthVerifier);
             $user = $this->synchronizeWikimediaUser($profile);
-        } catch (\Throwable) {
+        } catch (\Throwable $exception) {
+            $this->logger->error('Unable to complete Wikimedia OAuth login.', [
+                'exception' => $exception,
+                'has_oauth_token' => $oauthToken !== '',
+                'has_oauth_verifier' => $oauthVerifier !== '',
+            ]);
+
             $this->addFlash('error', 'login.wikimedia.error.generic');
 
             return $this->redirectToRoute('login');

@@ -33,20 +33,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: new TranslatableMessage('user.username.already_used', domain: 'validators'),
 )]
 class User implements ActivityMonitor\TrackableEntityInterface, UserInterface, PasswordAuthenticatedUserInterface
-
-    /**
-     * Relaciones de cohost con derechos
-     */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: PollCohost::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    private ?Collections\Collection $pollCohosts = null;
-
-    public function getPollCohosts(): Collections\Collection
-    {
-        if ($this->pollCohosts === null) {
-            $this->pollCohosts = new Collections\ArrayCollection();
-        }
-        return $this->pollCohosts;
-    }
 {
     public const MAX_USERNAME_LENGTH = 100;
     public const MAX_REALNAME_LENGTH = 255;
@@ -103,6 +89,12 @@ class User implements ActivityMonitor\TrackableEntityInterface, UserInterface, P
     #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'owner')]
     private Collections\Collection $votes;
 
+    /**
+     * @var Collections\Collection<int, PollCohost>|null
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: PollCohost::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private ?Collections\Collection $pollCohosts = null;
+
     public function __construct()
     {
         $this->ownedPolls = new Collections\ArrayCollection();
@@ -112,6 +104,15 @@ class User implements ActivityMonitor\TrackableEntityInterface, UserInterface, P
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getPollCohosts(): Collections\Collection
+    {
+        if ($this->pollCohosts === null) {
+            $this->pollCohosts = new Collections\ArrayCollection();
+        }
+
+        return $this->pollCohosts;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable

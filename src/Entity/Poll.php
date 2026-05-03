@@ -33,37 +33,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: new TranslatableMessage('poll.slug.already_used', domain: 'validators'),
 )]
 class Poll implements ActivityMonitor\TrackableEntityInterface
-
-    /**
-     * Cohosts/coautores con derechos
-     */
-    #[ORM\OneToMany(mappedBy: 'poll', targetEntity: PollCohost::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    private ?Collections\Collection $cohosts = null;
-
-    public function getCohosts(): Collections\Collection
-    {
-        if ($this->cohosts === null) {
-            $this->cohosts = new Collections\ArrayCollection();
-        }
-        return $this->cohosts;
-    }
-
-    /**
-     * Duración general de cada opción (en minutos, opcional)
-     */
-    #[ORM\Column(type: Types::INTEGER, nullable: true)]
-    private ?int $duration = null;
-
-    public function getDuration(): ?int
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(?int $duration): static
-    {
-        $this->duration = $duration;
-        return $this;
-    }
 {
     public const MAX_TITLE_LENGTH = 200;
     public const MAX_AUTHOR_NAME_LENGTH = 100;
@@ -156,6 +125,15 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     #[ORM\ManyToOne(inversedBy: 'ownedPolls')]
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?User $owner = null;
+
+    /**
+     * @var Collections\Collection<int, PollCohost>|null
+     */
+    #[ORM\OneToMany(mappedBy: 'poll', targetEntity: PollCohost::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private ?Collections\Collection $cohosts = null;
+
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    private ?int $duration = null;
 
     #[ORM\Column(length: 20, options: ['default' => self::DEFAULT_TIMEZONE_MODE])]
     #[Assert\Choice(
@@ -275,6 +253,7 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
         $this->votes = new Collections\ArrayCollection();
         $this->dates = new Collections\ArrayCollection();
         $this->comments = new Collections\ArrayCollection();
+        $this->cohosts = new Collections\ArrayCollection();
     }
 
     public function getId(): ?string
@@ -476,6 +455,27 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     public function setOwner(?User $owner): static
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getCohosts(): Collections\Collection
+    {
+        if ($this->cohosts === null) {
+            $this->cohosts = new Collections\ArrayCollection();
+        }
+
+        return $this->cohosts;
+    }
+
+    public function getDuration(): ?int
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?int $duration): static
+    {
+        $this->duration = $duration;
 
         return $this;
     }

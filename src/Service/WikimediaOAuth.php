@@ -107,15 +107,14 @@ class WikimediaOAuth
      */
     private function fetchRequestToken(): array
     {
-        $authParameters = $this->buildOauthParameters([
-            'oauth_callback' => 'oob',
-        ]);
+        $authParameters = $this->buildOauthParameters();
 
         $response = $this->sendSignedRequest(
             'GET',
             [
                 'title' => 'Special:OAuth/initiate',
                 'format' => 'json',
+                'oauth_callback' => 'oob',
             ],
             $authParameters,
             '',
@@ -205,7 +204,14 @@ class WikimediaOAuth
 
             return $response->getContent();
         } catch (ExceptionInterface $exception) {
-            throw new \RuntimeException('Unable to complete Wikimedia OAuth request.', previous: $exception);
+            throw new \RuntimeException(
+                sprintf(
+                    'Unable to complete Wikimedia OAuth request to %s: %s',
+                    $queryParameters['title'] ?? 'OAuth endpoint',
+                    $exception->getMessage(),
+                ),
+                previous: $exception,
+            );
         }
     }
 
