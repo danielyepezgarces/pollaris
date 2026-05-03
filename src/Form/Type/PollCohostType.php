@@ -21,9 +21,10 @@ class PollCohostType extends AbstractType
         ]);
         $builder->add('right', ChoiceType::class, [
             'choices' => [
-                new TranslatableMessage('forms.poll_cohost_type.right.edit') => 'edit',
-                new TranslatableMessage('forms.poll_cohost_type.right.full') => 'full',
+                'forms.poll_cohost_type.right.edit' => 'edit',
+                'forms.poll_cohost_type.right.full' => 'full',
             ],
+            'choice_translation_domain' => 'messages',
             'label' => new TranslatableMessage('forms.poll_cohost_type.right.label'),
         ]);
     }
