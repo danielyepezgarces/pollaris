@@ -59,4 +59,18 @@ class UserRepository extends BaseRepository implements PasswordUpgraderInterface
             'username' => $username,
         ]);
     }
+
+    /**
+     * @return Entity\User[]
+     */
+    public function searchByUsernameOrRealName(string $query, int $limit = 20): array
+    {
+        return $this->createQueryBuilder('user')
+            ->where('user.username LIKE :query')
+            ->orWhere('user.realName LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

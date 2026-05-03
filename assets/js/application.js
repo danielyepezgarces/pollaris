@@ -21,7 +21,6 @@ import PrinterController from './controllers/printer_controller.js';
 import ProtectedButtonController from './controllers/protected_button_controller.js';
 import QRCodeController from './controllers/qr_code_controller.js';
 import ScrollboxController from './controllers/scrollbox_controller.js';
-import SearchableSelectController from './controllers/searchable_select_controller.js';
 import SlotsApplierController from './controllers/slots_applier_controller.js';
 import StorageController from './controllers/storage_controller.js';
 import TimezoneDisplayController from './controllers/timezone_display_controller.js';
@@ -30,6 +29,7 @@ import PollTableHeadView from './controllers/poll_table_head_view.js';
 import FormVoteValidation from './controllers/form_vote_validation.js';
 import LocalTimeController from './controllers/local_time_controller.js';
 import NavToggleController from './controllers/nav_toggle_controller.js';
+import UserAutocompleteController from './controllers/user_autocomplete_controller.js';
 
 const application = Application.start();
 application.register('calendar', CalendarController);
@@ -53,7 +53,6 @@ application.register('printer', PrinterController);
 application.register('protected-button', ProtectedButtonController);
 application.register('qr-code', QRCodeController);
 application.register('scrollbox', ScrollboxController);
-application.register('searchable-select', SearchableSelectController);
 application.register('slots-applier', SlotsApplierController);
 application.register('storage', StorageController);
 application.register('timezone-display', TimezoneDisplayController);
@@ -61,6 +60,7 @@ application.register('toggle-radio', ToggleRadioController);
 application.register('poll-table-head-view', PollTableHeadView);
 application.register('form-vote-validation', FormVoteValidation);
 application.register('nav-toggle', NavToggleController);
+application.register('user-autocomplete', UserAutocompleteController);
 
 // Make sure to visit the response when receiving the `turbo:frame-missing` event.
 // This happens most of the time on redirection after submitting a form in a modal.

@@ -49,8 +49,10 @@
                                     {{ form_errors(cohost.user) }}
                                     {{ form_widget(cohost.user, {
                                         attr: {
-                                            'data-controller': 'searchable-select',
-                                            'data-searchable-select-placeholder-value': 'forms.poll_cohost_type.user.search' | trans,
+                                            'data-controller': 'user-autocomplete',
+                                            'data-user-autocomplete-url-value': path('users_search'),
+                                            'data-user-autocomplete-min-length-value': 2,
+                                            'data-user-autocomplete-placeholder-value': 'forms.poll_cohost_type.user.search' | trans,
                                         }
                                     }) }}
                                     {{ form_row(cohost.right) }}
@@ -66,8 +68,10 @@
                                 {{ form_errors(form.cohosts.vars.prototype.user) }}
                                 {{ form_widget(form.cohosts.vars.prototype.user, {
                                     attr: {
-                                        'data-controller': 'searchable-select',
-                                        'data-searchable-select-placeholder-value': 'forms.poll_cohost_type.user.search' | trans,
+                                        'data-controller': 'user-autocomplete',
+                                        'data-user-autocomplete-url-value': path('users_search'),
+                                        'data-user-autocomplete-min-length-value': 2,
+                                        'data-user-autocomplete-placeholder-value': 'forms.poll_cohost_type.user.search' | trans,
                                     }
                                 }) }}
                                 {{ form_row(form.cohosts.vars.prototype.right) }}
