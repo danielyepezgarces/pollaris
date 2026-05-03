@@ -29,6 +29,16 @@ services:
         arguments:
             - "assets"
 
+    App\Form\Type\PollCohostType:
+        autowire: true
+        autoconfigure: true
+        public: true
+        tags: ['form.type']
+
+    App\Form\Transformer\UserToUsernameTransformer:
+        autowire: true
+        autoconfigure: false
+
 when@dev:
     services:
         _defaults:
