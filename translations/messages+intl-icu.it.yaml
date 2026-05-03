@@ -74,6 +74,17 @@ forms.poll_form.closed_at.help: I partecipanti potranno votare fino a questa
 forms.poll_form.closed_at.label: Data di chiusura del sondaggio
 forms.poll_form.description.label: Descrizione
 forms.poll_form.title.label: Nome del tuo sondaggio
+forms.poll_form.cohosts.label: Cohost (coautori)
+forms.poll_form.cohosts.help: Seleziona altri utenti che potranno modificare il sondaggio.
+forms.poll_form.cohosts.add: Aggiungi cohost
+forms.poll_form.cohosts.remove: Rimuovi
+forms.poll_form.duration.label: Durata generale di ogni opzione
+forms.poll_form.duration.help: Durata in minuti che si applica a tutte le opzioni se non e specificato l'orario di inizio/fine.
+forms.poll_form.duration.unit: minuti
+forms.poll_cohost_type.user.label: Utente
+forms.poll_cohost_type.right.label: Diritto
+forms.poll_cohost_type.right.edit: Solo modifica
+forms.poll_cohost_type.right.full: Accesso completo (puo eliminare)
 forms.poll_proposals_form.add_proposal: Aggiungi una proposta
 forms.poll_proposals_form.remove_proposal: Elimina la proposta
 forms.poll_settings_form.are_results_public.label: I risultati sono visibili a 
@@ -111,6 +122,8 @@ forms.search_polls_form.email.help: Ti invieremo i link ai sondaggi che hai
 forms.search_polls_form.email.label: Il tuo indirizzo email
 forms.search_polls_form.submit: Invia
 forms.slot_type.label.label_pattern: Orario __number__
+forms.slot_type.start_time.label: Ora di inizio (opzionale)
+forms.slot_type.end_time.label: Ora di fine (opzionale)
 forms.slots_form.day: Giorno
 forms.vote_form.author_name.label: Il tuo nome
 forms.vote_form.leave_confirmation: Non hai ancora confermato il tuo voto. 
@@ -120,6 +133,7 @@ forms.vote_form.password.help: Per votare in questo sondaggio è necessaria una
 forms.vote_form.password.label: Password
 forms.vote_form.submit.label: Vota
 home.create_poll: Crea un nuovo sondaggio
+home.welcome: Benvenuto, {name}
 home.free_software: Pollaris è un software libero distribuito con licenza AGPL 
   3.
 home.free_software.custom: '{appName} usa Pollaris, un software libero distribuito

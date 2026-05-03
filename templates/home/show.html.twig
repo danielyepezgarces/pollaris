@@ -30,21 +30,15 @@
     <link rel="stylesheet" href="{{ esbuild_asset('home/application.css') }}" data-turbo-track="reload">
 {% endblock %}
 
-{% block header %}
-    {{ parent() }}
-
+{% block body %}
     {% if is_granted('ROLE_USER') %}
-        <div class="layout__header" role="status">
-            <div class="wrapper wrapper--center">
-                <p class="text--primary text--bold">
-                    {{ 'home.welcome' | trans({ name: app.user.displayName }) }}
-                </p>
-            </div>
+        <div class="wrapper wrapper--center" style="text-align: center;">
+            <p class="text--primary text--bold">
+                {{ 'home.welcome' | trans({ name: app.user.displayName }) }}
+            </p>
         </div>
     {% endif %}
-{% endblock %}
 
-{% block body %}
     <div class="flow flow--larger" style="max-width: 900px; width: 100%; text-align: center;">
 
         {% for message in app.flashes('success') %}
