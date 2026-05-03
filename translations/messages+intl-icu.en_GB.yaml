@@ -146,6 +146,7 @@ home.public_polls: 'Browse open public polls'
 home.show.poll.deleted: 'Your poll has been successfully deleted.'
 home.source_code: 'Access the source code.'
 home.title: 'Coordinate events and make decisions with your Wikimedia community.'
+home.welcome: 'Welcome, {name}'
 layout.header.my: 'My polls and votes'
 layout.header.public_polls: 'Open public polls'
 layout.header.preferences: Preferences

@@ -30,6 +30,20 @@
     <link rel="stylesheet" href="{{ esbuild_asset('home/application.css') }}" data-turbo-track="reload">
 {% endblock %}
 
+{% block header %}
+    {{ parent() }}
+
+    {% if is_granted('ROLE_USER') %}
+        <div class="layout__header" role="status">
+            <div class="wrapper wrapper--center">
+                <p class="text--primary text--bold">
+                    {{ 'home.welcome' | trans({ name: app.user.displayName }) }}
+                </p>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block body %}
     <div class="flow flow--larger" style="max-width: 900px; width: 100%; text-align: center;">
 
@@ -44,12 +58,6 @@
                 <h1>
                     {{ 'home.title' | trans }}
                 </h1>
-
-                {% if app.user %}
-                    <p class="text--primary text--big text--bold">
-                        Welcome, {{ app.user.userIdentifier }}
-                    </p>
-                {% endif %}
 
                 <p class="text--primary text--big">
                     {{ 'home.intro' | trans }}

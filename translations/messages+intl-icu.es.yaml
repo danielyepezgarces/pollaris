@@ -110,6 +110,7 @@ my.index.polls.title: Encuestas
 layout.header.my: Mis encuestas y votos
 admin.title: Administración
 home.title: 'Coordina eventos y toma decisiones con tu comunidad Wikimedia.'
+home.welcome: 'Bienvenido, {name}'
 home.intro: 'Usa esta herramienta de votación para organizar editatones, reuniones, campañas y consultas comunitarias de forma rápida, sencilla y abierta.'
 home.create_poll: Crear una nueva consulta
 home.public_polls: Ver consultas públicas abiertas
