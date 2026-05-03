@@ -14,23 +14,31 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'errors.generic.title' | trans }}{% endblock %}
+{% block title %}
+    {% set title = 'errors.generic.title' | trans %}
+    {{ title == 'errors.generic.title' ? 'Oops! An error occurred' : title }}
+{% endblock %}
 
 {% block body %}
+    {% set title = 'errors.generic.title' | trans %}
+    {% set description = 'errors.generic.description' | trans %}
+    {% set sorry = 'errors.generic.sorry' | trans %}
+    {% set backHome = 'errors.back_home' | trans %}
+
     <div class="text--center wrapper wrapper--small wrapper--center flow flow--large">
-        <h1>{{ 'errors.generic.title' | trans }}</h1>
+        <h1>{{ title == 'errors.generic.title' ? 'Oops! An error occurred' : title }}</h1>
 
         <p class="text--big">
-            {{ 'errors.generic.description' | trans }}
+            {{ description == 'errors.generic.description' ? 'The server returned an internal error.' : description }}
         </p>
 
         <p>
-            {{ 'errors.generic.sorry' | trans }}
+            {{ sorry == 'errors.generic.sorry' ? 'Sorry for any inconvenience caused.' : sorry }}
         </p>
 
         <p>
             <a class="button button--primary" href="{{ path('home') }}">
-                {{ 'errors.back_home' | trans }}
+                {{ backHome == 'errors.back_home' ? 'Back to the homepage' : backHome }}
             </a>
         </p>
     </div>
