@@ -18,7 +18,6 @@ use App\Entity;
 use App\Repository;
 use App\Service;
 use App\Utils;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +29,6 @@ class LoginController extends BaseController
         private readonly Security $security,
         private readonly Service\WikimediaOAuth $wikimediaOAuth,
         private readonly Repository\UserRepository $userRepository,
-        private readonly LoggerInterface $logger,
     ) {
     }
 
@@ -62,9 +60,11 @@ class LoginController extends BaseController
         try {
             return $this->redirect($this->wikimediaOAuth->buildAuthorizationUrl($request->getSession()));
         } catch (\Throwable $exception) {
-            $this->logger->error('Unable to start Wikimedia OAuth login.', [
-                'exception' => $exception,
-            ]);
+            error_log(sprintf(
+                'Unable to start Wikimedia OAuth login: %s: %s',
+                $exception::class,
+                $exception->getMessage(),
+            ));
 
             $this->addFlash('error', 'login.wikimedia.error.generic');
 
@@ -92,11 +92,13 @@ class LoginController extends BaseController
             $profile = $this->wikimediaOAuth->fetchProfile($request->getSession(), $oauthVerifier);
             $user = $this->synchronizeWikimediaUser($profile);
         } catch (\Throwable $exception) {
-            $this->logger->error('Unable to complete Wikimedia OAuth login.', [
-                'exception' => $exception,
-                'has_oauth_token' => $oauthToken !== '',
-                'has_oauth_verifier' => $oauthVerifier !== '',
-            ]);
+            error_log(sprintf(
+                'Unable to complete Wikimedia OAuth login: %s: %s; has_oauth_token=%s; has_oauth_verifier=%s',
+                $exception::class,
+                $exception->getMessage(),
+                $oauthToken !== '' ? 'yes' : 'no',
+                $oauthVerifier !== '' ? 'yes' : 'no',
+            ));
 
             $this->addFlash('error', 'login.wikimedia.error.generic');
 
