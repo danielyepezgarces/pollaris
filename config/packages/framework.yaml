@@ -3,7 +3,10 @@ framework:
     secret: '%env(APP_SECRET)%'
 
     # Note that the session will be started ONLY if you read or write from it.
-    session: true
+    session:
+        handler_id: doctrine.dbal.session_handler
+        cookie_secure: auto
+        cookie_samesite: lax
 
     #esi: true
     #fragments: true
