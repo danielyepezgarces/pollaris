@@ -39,6 +39,14 @@ services:
         autowire: true
         autoconfigure: false
 
+    session.handler.pdo:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+        arguments:
+            - '%env(resolve:DATABASE_URL)%'
+            - { db_table: 'sessions', db_id_col: 'sess_id', db_data_col: 'sess_data', db_time_col: 'sess_time', db_lifetime_col: 'sess_lifetime' }
+
+    doctrine.dbal.session_handler: '@session.handler.pdo'
+
 when@dev:
     services:
         _defaults:

@@ -4,7 +4,7 @@ framework:
 
     # Note that the session will be started ONLY if you read or write from it.
     session:
-        handler_id: doctrine.dbal.session_handler
+        handler_id: session.handler.pdo
         cookie_secure: auto
         cookie_samesite: lax
 
