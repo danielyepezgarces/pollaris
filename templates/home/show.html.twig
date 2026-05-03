@@ -30,7 +30,9 @@
     <link rel="stylesheet" href="{{ esbuild_asset('home/application.css') }}" data-turbo-track="reload">
 {% endblock %}
 
-{% block body %}
+{% block header %}
+    {{ parent() }}
+
     {% if is_granted('ROLE_USER') %}
         <div class="wrapper wrapper--center" style="text-align: center;">
             <p class="text--primary text--bold">
@@ -38,7 +40,9 @@
             </p>
         </div>
     {% endif %}
+{% endblock %}
 
+{% block body %}
     <div class="flow flow--larger" style="max-width: 900px; width: 100%; text-align: center;">
 
         {% for message in app.flashes('success') %}
