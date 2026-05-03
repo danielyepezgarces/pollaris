@@ -468,6 +468,25 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
         return $this->cohosts;
     }
 
+    public function addCohost(PollCohost $cohost): static
+    {
+        if (!$this->getCohosts()->contains($cohost)) {
+            $this->getCohosts()->add($cohost);
+            $cohost->setPoll($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCohost(PollCohost $cohost): static
+    {
+        if ($this->getCohosts()->removeElement($cohost) && $cohost->getPoll() === $this) {
+            $cohost->setPoll(null);
+        }
+
+        return $this;
+    }
+
     public function getDuration(): ?int
     {
         return $this->duration;
