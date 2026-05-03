@@ -53,14 +53,25 @@ export default class extends Controller {
             url.searchParams.set('q', query);
 
             try {
-                const response = await fetch(url.toString(), { signal: abortController.signal });
+                const response = await fetch(url.toString(), {
+                    signal: abortController.signal,
+                    credentials: 'same-origin',
+                    headers: {
+                        Accept: 'application/json',
+                    },
+                });
                 if (!response.ok) {
+                    console.error('User search failed', response.status);
                     return;
                 }
                 const results = await response.json();
                 list.innerHTML = '';
                 if (results.length === 0) {
-                    list.hidden = true;
+                    const empty = document.createElement('li');
+                    empty.classList.add('user-autocomplete__item');
+                    empty.textContent = 'No results';
+                    list.appendChild(empty);
+                    list.hidden = false;
                     return;
                 }
 

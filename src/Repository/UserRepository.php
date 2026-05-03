@@ -65,10 +65,13 @@ class UserRepository extends BaseRepository implements PasswordUpgraderInterface
      */
     public function searchByUsernameOrRealName(string $query, int $limit = 20): array
     {
+        $normalized = mb_strtolower($query);
+
         return $this->createQueryBuilder('user')
-            ->where('user.username LIKE :query')
-            ->orWhere('user.realName LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
+            ->where('LOWER(user.username) LIKE :query')
+            ->orWhere('LOWER(user.realName) LIKE :query')
+            ->setParameter('query', '%' . $normalized . '%')
+            ->orderBy('user.username', 'ASC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
