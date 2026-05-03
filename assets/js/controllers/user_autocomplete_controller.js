@@ -21,6 +21,7 @@ export default class extends Controller {
         }
 
         this.element.dataset.userAutocompleteInitialized = 'true';
+        this.element.classList.add('user-autocomplete__input');
 
         const list = document.createElement('ul');
         list.classList.add('user-autocomplete__list');
