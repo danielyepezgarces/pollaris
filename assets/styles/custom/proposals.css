@@ -9,13 +9,17 @@
     border: 1px solid var(--color-grey7, #d0d0d0);
     border-radius: 6px;
     background: var(--color-grey1, #fff);
+    color: var(--color-grey12, #111);
     max-height: 220px;
     overflow: auto;
+    position: relative;
+    z-index: 5;
 }
 
 .user-autocomplete__item {
     padding: 0.5rem 0.75rem;
     cursor: pointer;
+    color: inherit;
 }
 
 .user-autocomplete__item:hover {
