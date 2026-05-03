@@ -1,4 +1,5 @@
 forms.poll_cohost_type.user.label: 'User'
+forms.poll_cohost_type.user.search: 'Search user'
 forms.poll_cohost_type.right.label: 'Right'
 forms.poll_cohost_type.right.edit: 'Edit only'
 forms.poll_cohost_type.right.full: 'Full access (can delete)'

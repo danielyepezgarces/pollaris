@@ -82,6 +82,7 @@ forms.poll_form.duration.label: Durata generale di ogni opzione
 forms.poll_form.duration.help: Durata in minuti che si applica a tutte le opzioni se non e specificato l'orario di inizio/fine.
 forms.poll_form.duration.unit: minuti
 forms.poll_cohost_type.user.label: Utente
+forms.poll_cohost_type.user.search: Cerca utente
 forms.poll_cohost_type.right.label: Diritto
 forms.poll_cohost_type.right.edit: Solo modifica
 forms.poll_cohost_type.right.full: Accesso completo (puo eliminare)
