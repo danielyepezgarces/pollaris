@@ -25,29 +25,29 @@ emails.new_comment.posted: '{commenter_name} éppen most fűzött megjegyzést a
 emails.new_comment.subject: 'Új hozzászólás szavazáshoz: {poll_name}'
 emails.new_poll_admin.created: 'Most hozta létre a „{poll_name}” nevű szavazást. A
   szavazást bármikor szerkesztheti, ha rákattint a következő hivatkozásra:'
-emails.new_poll_admin.keep_it_secret: Ügyelj rá, hogy ezt a hivatkozást ne oszd 
-  meg másokkal!
+emails.new_poll_admin.keep_it_secret: Ügyeljen rá, hogy ezt a hivatkozást ne 
+  ossza meg másokkal!
 emails.new_poll_admin.subject: 'Új szavazás: {poll_name}'
 emails.new_vote.subject: 'Új szavazás egy kérdőívben: {poll_name}'
 emails.new_vote.voted: '{voter_name} épp most szavazott a „{poll_name}” szavazáson.'
 emails.polls_list.here_is_the_list: 'Az {appName} alkalmazásban általad kezelt szavazások
   listája:'
 emails.polls_list.subject: Szavazásai listája
-errors.404.description: A kért oldal nem található. Ellenőrizze, hogy az URL-cím
+errors.404.description: A kért oldal nem található. Ellenőrizze, hogy a webcím 
   helyes-e.
 errors.404.title: Az oldal nem található!
 errors.back_home: Vissza a kezdőlapra
-errors.generic.description: Kérjük jelezze rendszergazdájának, hogy mit csinált,
-  amikor a hiba történt. A hibát a lehető leghamarabb kijavítjuk.
+errors.generic.description: Jelezze rendszergazdájának, hogy mit csinált, amikor
+  a hiba történt. A hibát a lehető leghamarabb kijavítjuk.
 errors.generic.sorry: Elnézést a kellemetlenségért.
 errors.generic.title: Hiba történt!
 forms.apply: Alkalmaz
-forms.cancel: Mégsem
-forms.comment_form.author_name.label: Az Ön neve
-forms.comment_form.content.label: Az üzenete
+forms.cancel: Mégse
+forms.comment_form.author_name.label: Saját név
+forms.comment_form.content.label: Saját üzenet
 forms.comment_form.submit: Hozzászólás
-forms.complete: Véglegesít
-forms.confirm: Megerősít
+forms.complete: Véglegesítés
+forms.confirm: Megerősítés
 forms.date_type.label.label_pattern: Dátum __szám__
 forms.error: Hiba
 forms.labels.max_length: (max. {length} karakter)
@@ -59,7 +59,7 @@ forms.next: Következő
 forms.poll_authentication_form.password.label: Jelszó
 forms.poll_authentication_form.submit: Hitelesítés
 forms.poll_dates_form.add_date: Dátum hozzáadása
-forms.poll_dates_form.enter_manually: Adja meg a dátumokat manuálisan
+forms.poll_dates_form.enter_manually: Adja meg a dátumokat saját kezűleg
 forms.poll_dates_form.remove_date: Törölje a dátumot
 forms.poll_dates_form.use_calendar: Válassza ki a dátumokat a naptárból
 forms.poll_deletion_form.submit: Ezt a szavazást törölni szeretném
@@ -109,11 +109,11 @@ forms.previous: Előző
 forms.proposal_type.label.label_pattern: Javaslat __szám__
 forms.search_polls_form.email.help: Elküldjük Önnek az Ön által létrehozott 
   szavazások hivatkozásait.
-forms.search_polls_form.email.label: Az Ön e-mail címe
+forms.search_polls_form.email.label: Saját e-mail-cím
 forms.search_polls_form.submit: Küldés
 forms.slot_type.label.label_pattern: Idősáv
 forms.slots_form.day: Nap
-forms.vote_form.author_name.label: Az Ön neve
+forms.vote_form.author_name.label: Saját név
 forms.vote_form.leave_confirmation: Még nem erősítette meg a szavazatát. Ha 
   folytatja, a bevitt adatok elvesznek. Biztosan folytatja?
 forms.vote_form.password.help: A szavazáshoz jelszó szükséges.
@@ -147,8 +147,7 @@ my.index.polls.remove: Szavazás eltávolítása
 my.index.polls.title: Szavazások
 my.index.remove_all: Összes eltávolítása
 my.index.search.success: Egy e-mailt küldtünk Önnek, amely tartalmazza a 
-  szavazásai hivatkozásait. Ha nem érkezik meg, kérjük, ellenőrizze a spam 
-  mappát is.
+  szavazásai hivatkozásait. Ha nem érkezik meg, ellenőrizze a spam mappát is.
 my.index.search.title: Szavazásaim megkeresése e-mailben
 my.index.title: Szavazásaim és válaszaim
 my.index.vote_link: Szavazat hivatkozása
@@ -199,7 +198,7 @@ polls.edit_vote_mode.any: Minden résztvevő módosíthat bármely választ
 polls.edit_vote_mode.no: A résztvevők nem módosíthatják a válaszukat
 polls.edit_vote_mode.own: Minden résztvevő módosíthatja a saját válaszát
 polls.new.title: Szavazás létrehozása
-polls.new.who_you_are: Az Ön azonosítója
+polls.new.who_you_are: Saját azonosító
 polls.proposals.best: Előnyben részesített választás
 polls.proposals.title: Válassza ki a lehetőségeket
 polls.settings.notifications.title: Értesítések
@@ -230,7 +229,7 @@ polls.show.my_votes.description: A válaszai a böngészőjében vannak mentve. 
 polls.show.my_votes.edit: '{authorName} válaszának szerkesztése'
 polls.show.my_votes.information: Információk
 polls.show.my_votes.remove: Eltávolítás
-polls.show.my_votes.title: Válaszaim
+polls.show.my_votes.title: Saját válaszok
 polls.show.no_vote: Egyelőre még nem érkezett válasz, de semmi gond, hamarosan 
   lesznek. Ne felejtse el megosztani a szavazást a többi résztvevővel!
 polls.show.poll: Szavazás
@@ -251,9 +250,9 @@ polls.slots.same_slots.title: Válassza ki a minden dátumra alkalmazandó
   időpontokat
 polls.slots.title: Válassza ki az időpontokat
 polls.steps: '{step}. lépés / {total}'
-polls.summary.admin_access: Kérjük, őrizze meg az alábbi hivatkozást, hogy 
-  bármikor kezelhesse a szavazását. <strong>Tartsa meg ezt a hivatkozást csak 
-  saját magának!</strong>
+polls.summary.admin_access: Őrizze meg az alábbi hivatkozást, hogy bármikor 
+  kezelhesse a szavazását. <strong>Tartsa meg ezt a hivatkozást csak saját 
+  magának!</strong>
 polls.summary.admin_access.sent_by_email: Ezt a hivatkozást e-mailben is 
   elküldtük Önnek.
 polls.summary.admin_access.title: Privát adminisztrációs hivatkozás
@@ -267,7 +266,7 @@ polls.summary.admin_link.remember.description: Ha bejelöli a „Szavazás ment�
   szerkesztheti. A nagyobb adatvédelem érdekében ne jelölje be ezt az opciót, ha
   az eszközt másokkal is megosztja.
 polls.summary.admin_link.remember.information: Információk
-polls.summary.author.email: E-mail cím
+polls.summary.author.email: E-mail-cím
 polls.summary.author.name: Becenév
 polls.summary.author.no_email: Nincs megadott e-mail-cím
 polls.summary.closed_at: Szavazás vége
@@ -276,7 +275,7 @@ polls.summary.delete_poll: Szavazás törlése
 polls.summary.edit: Szerkesztés
 polls.summary.information.title: Általános információk
 polls.summary.is_closed: (szavazás lezárult)
-polls.summary.proposals.title: Javaslataim
+polls.summary.proposals.title: Saját javaslatok
 polls.summary.settings.customised_slug: A szavazás hivatkozása testre lett 
   szabva.
 polls.summary.settings.edit_vote_mode.any: Minden résztvevő módosíthat bármely 
@@ -315,10 +314,10 @@ polls.votes.no.count: '{count} Nem'
 polls.votes.sum: Összeg
 polls.votes.yes: Igen
 polls.votes.yes.count: '{count} Igen'
-polls.votes.yours: Az Ön válasza
-preferences.edit.title: Preferenciák
-forms.vote_form.required_choice: Kérjük, válasszon ki legalább egy lehetőséget a
-  fenti javaslatok közül.
+polls.votes.yours: Saját válasz
+preferences.edit.title: Saját beállítások
+forms.vote_form.required_choice: Válasszon ki legalább egy lehetőséget a fenti 
+  javaslatok közül.
 polls.table.toolbar.scroll_to_left.title: Görgetés balra
 polls.table.toolbar.scroll_to_right.title: Görgetés jobbra
 polls.table.toolbar.show_less.label: Sor összecsukása
