@@ -330,7 +330,7 @@ emails.share.body: |-
   Ola,
 
   Hai unha enquisa dispoñible para coñecer a túa opinión.
-  Podes participar a través da seguinte ligazón: {poll url}
+  Podes participar a través da seguinte ligazón: {poll_url}
 
   Grazas.
 
