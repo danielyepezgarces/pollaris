@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-05-27 - 1.2.2
+
+### Security
+
+This version updates the dependencies, in particular Symfony and Twig which both released a bunch of [critical security patches](https://symfony.com/blog/category/security-advisories).
+As far as I can tell, there are no exploitable critical vulnerabilities within Pollaris.
+**However, you are encouraged to update Pollaris to ensure you are fully protected.**
+
+### Bug fixes
+
+- Fix error 500 when Galician is used ([a3b7e86](https://framagit.org/pollaris/pollaris/-/commit/a3b7e86))
+
+### Maintenance
+
+- Add official support for PHP 8.5 ([2eb6d8f](https://framagit.org/pollaris/pollaris/-/commit/2eb6d8f))
+- Update the dependencies ([5f51cae](https://framagit.org/pollaris/pollaris/-/commit/5f51cae), [8c2619b](https://framagit.org/pollaris/pollaris/-/commit/8c2619b))
+
+### Translations
+
+- Update Czech ([2085ec8](https://framagit.org/pollaris/pollaris/-/commit/2085ec8))
+- Update Hungarian ([fe440b7](https://framagit.org/pollaris/pollaris/-/commit/fe440b7), [b6b0fd1](https://framagit.org/pollaris/pollaris/-/commit/b6b0fd1), [4d5661f](https://framagit.org/pollaris/pollaris/-/commit/4d5661f))
+
 ## 2026-04-25 - 1.2.1
 
 ### Migration notes
