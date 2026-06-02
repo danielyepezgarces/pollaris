@@ -60,20 +60,22 @@
                         data-item="date-collection"
                     >
                         <div data-collection-target="container" class="flow">
-                            {% for proposal in date.proposals %}
+                            {% for proposal in date.proposals if proposal is not null %}
                                 <div class="flow flow--small" data-item="element">
-                                    {{ form_errors(proposal) }}
-                                    {{ form_widget(proposal) }}
-                                    <button
-                                        type="button"
-                                        class="button--ghost button--small"
-                                        data-action="collection#removeElement"
-                                    >
-                                        {{ icon('trash') }}
-                                        <span class="sr-only">
-                                            {{ 'forms.poll_slots_form.remove_slot' | trans }}
-                                        </span>
-                                    </button>
+                                    <div class="cols cols--always cols--gap">
+                                        {{ form_row(proposal.startTime) }}
+                                        {{ form_row(proposal.endTime) }}
+                                        <button
+                                            type="button"
+                                            class="button--ghost button--small"
+                                            data-action="collection#removeElement"
+                                        >
+                                            {{ icon('trash') }}
+                                            <span class="sr-only">
+                                                {{ 'forms.poll_slots_form.remove_slot' | trans }}
+                                            </span>
+                                        </button>
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
@@ -90,17 +92,20 @@
 
                         <template data-collection-target="prototype">
                             <div class="flow flow--small" data-item="element">
-                                {{ form_widget(date.proposals.vars.prototype) }}
-                                <button
-                                    type="button"
-                                    class="button--ghost button--small"
-                                    data-action="collection#removeElement"
-                                >
-                                    {{ icon('trash') }}
-                                    <span class="sr-only">
-                                        {{ 'forms.poll_slots_form.remove_slot' | trans }}
-                                    </span>
-                                </button>
+                                <div class="cols cols--always cols--gap">
+                                    {{ form_row(date.proposals.vars.prototype.startTime) }}
+                                    {{ form_row(date.proposals.vars.prototype.endTime) }}
+                                    <button
+                                        type="button"
+                                        class="button--ghost button--small"
+                                        data-action="collection#removeElement"
+                                    >
+                                        {{ icon('trash') }}
+                                        <span class="sr-only">
+                                            {{ 'forms.poll_slots_form.remove_slot' | trans }}
+                                        </span>
+                                    </button>
+                                </div>
                             </div>
                         </template>
                             {# Mostrar duración general si existe #}
