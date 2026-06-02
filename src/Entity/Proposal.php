@@ -234,23 +234,47 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
 
     public function getStartTime(): ?string
     {
+        if ($this->startTime && !preg_match('/^([01]?\d|2[0-3]):([0-5]\d)$/', $this->startTime)) {
+            return null;
+        }
         return $this->startTime;
     }
 
     public function setStartTime(?string $startTime): static
     {
-        $this->startTime = $startTime !== null ? substr($startTime, 0, 5) : null;
+        if ($startTime !== null && $startTime !== '') {
+            $parts = explode(':', $startTime);
+            if (count($parts) >= 2) {
+                $this->startTime = str_pad(substr($parts[0], -2), 2, '0', STR_PAD_LEFT) . ':' . str_pad(substr($parts[1], 0, 2), 2, '0', STR_PAD_LEFT);
+            } else {
+                $this->startTime = null;
+            }
+        } else {
+            $this->startTime = null;
+        }
         return $this;
     }
 
     public function getEndTime(): ?string
     {
+        if ($this->endTime && !preg_match('/^([01]?\d|2[0-3]):([0-5]\d)$/', $this->endTime)) {
+            return null;
+        }
         return $this->endTime;
     }
 
     public function setEndTime(?string $endTime): static
     {
-        $this->endTime = $endTime !== null ? substr($endTime, 0, 5) : null;
+        if ($endTime !== null && $endTime !== '') {
+            $parts = explode(':', $endTime);
+            if (count($parts) >= 2) {
+                $this->endTime = str_pad(substr($parts[0], -2), 2, '0', STR_PAD_LEFT) . ':' . str_pad(substr($parts[1], 0, 2), 2, '0', STR_PAD_LEFT);
+            } else {
+                $this->endTime = null;
+            }
+        } else {
+            $this->endTime = null;
+        }
         return $this;
     }
 }

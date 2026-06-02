@@ -346,7 +346,7 @@ class PollsController extends BaseController
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
-        if ($response = $this->denyUnlessPollEditor($poll)) {
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
             return $response;
         }
         $flow = $this->pollFlowBuilder->build($poll);
