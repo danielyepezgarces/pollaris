@@ -20,46 +20,61 @@ export default class extends Controller {
 
         // Load all the slots collections in dates
         const dateCollections = document.querySelectorAll('[data-item="date-collection"]');
-        const slotsInputsSelector = '[data-item="element"] input[type="text"]';
+        if (dateCollections.length < 2) {
+            return;
+        }
 
-        dateCollections.forEach((dateCollection) => {
-            // Load the Stimulus "collection" controller of this element
-            const collectionController = this.application.getControllerForElementAndIdentifier(dateCollection, 'collection');
+        // Get the first date collection (Day 1)
+        const firstCollection = dateCollections[0];
+        const firstElements = firstCollection.querySelectorAll('[data-item="element"]');
+        
+        // Extract start and end times from Day 1
+        const sourceValues = Array.from(firstElements).map(el => {
+            const inputs = el.querySelectorAll('input[type="time"]');
+            if (inputs.length < 2) return null;
+            return {
+                start: inputs[0].value,
+                end: inputs[1].value
+            };
+        }).filter(v => v !== null && (v.start !== '' || v.end !== ''));
 
-            // Then, iterate over the different element to add to the different
-            // collections.
-            this.elementTargets.forEach((element) => {
-                if (!element.value) {
-                    return;
-                }
+        if (sourceValues.length === 0) {
+            return; // Nothing to copy
+        }
 
-                // Load the existing inputs and check that the value doesn't
-                // already exist.
-                let slotsInputs = dateCollection.querySelectorAll(slotsInputsSelector);
+        // Apply to all other collections
+        for (let i = 1; i < dateCollections.length; i++) {
+            const targetCollection = dateCollections[i];
+            const collectionController = this.application.getControllerForElementAndIdentifier(targetCollection, 'collection');
 
-                const valueExists = Array.from(slotsInputs).some((input) => {
-                    return input.value === element.value;
+            sourceValues.forEach(sourceValue => {
+                // Check if this exact slot already exists
+                const existingElements = targetCollection.querySelectorAll('[data-item="element"]');
+                const exists = Array.from(existingElements).some(el => {
+                    const inputs = el.querySelectorAll('input[type="time"]');
+                    if (inputs.length < 2) return false;
+                    return inputs[0].value === sourceValue.start && inputs[1].value === sourceValue.end;
                 });
 
-                if (valueExists) {
+                if (exists) {
                     return;
                 }
 
-                // Then, add a new element and set its value to the element
-                // value.
+                // Add element
                 collectionController.addElement();
 
-                slotsInputs = dateCollection.querySelectorAll(slotsInputsSelector);
-
-                if (slotsInputs.length === 0) {
-                    // There is no input, but it should never happen since we
-                    // added an element just above.
-                    return;
+                // Fill the inputs of the newly added element
+                const newElements = targetCollection.querySelectorAll('[data-item="element"]');
+                if (newElements.length === 0) return;
+                
+                const newElement = newElements[newElements.length - 1];
+                const newInputs = newElement.querySelectorAll('input[type="time"]');
+                
+                if (newInputs.length >= 2) {
+                    newInputs[0].value = sourceValue.start;
+                    newInputs[1].value = sourceValue.end;
                 }
-
-                const lastInput = slotsInputs[slotsInputs.length - 1];
-                lastInput.value = element.value;
             });
-        });
+        }
     }
 }

@@ -40,9 +40,8 @@
             <div class="text--center">
                 <button
                     type="button"
-                    data-controller="modal-opener"
-                    data-action="modal-opener#copy"
-                    data-modal-opener-selector-value="#modal-slots-applier"
+                    data-controller="slots-applier"
+                    data-action="slots-applier#apply"
                 >
                     {{ icon('clone') }}
                     {{ 'polls.slots.same_slots.apply' | trans }}
@@ -126,6 +125,5 @@
             {{ include('polls/_flow_actions.html.twig', { step: 'slots' }) }}
         {{ form_end(form) }}
 
-        {{ include('polls/_slots_applier_modal.html.twig') }}
     </div>
 {% endblock %}
