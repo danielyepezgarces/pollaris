@@ -239,7 +239,7 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
 
     public function setStartTime(?string $startTime): static
     {
-        $this->startTime = $startTime;
+        $this->startTime = $startTime !== null ? substr($startTime, 0, 5) : null;
         return $this;
     }
 
@@ -250,7 +250,7 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
 
     public function setEndTime(?string $endTime): static
     {
-        $this->endTime = $endTime;
+        $this->endTime = $endTime !== null ? substr($endTime, 0, 5) : null;
         return $this;
     }
 }
