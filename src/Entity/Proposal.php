@@ -239,7 +239,7 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
         }
         $parts = explode(':', $this->startTime);
         if (count($parts) >= 2 && is_numeric($parts[0]) && is_numeric($parts[1])) {
-            return str_pad((string)(int)$parts[0], 2, '0', STR_PAD_LEFT) . ':' . str_pad((string)(int)$parts[1], 2, '0', STR_PAD_LEFT);
+            return str_pad((string)(int)$parts[0], 2, '0', STR_PAD_LEFT) . ':' . str_pad((string)(int)$parts[1], 2, '0', STR_PAD_LEFT) . ':00';
         }
         return null;
     }
@@ -266,7 +266,7 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
         }
         $parts = explode(':', $this->endTime);
         if (count($parts) >= 2 && is_numeric($parts[0]) && is_numeric($parts[1])) {
-            return str_pad((string)(int)$parts[0], 2, '0', STR_PAD_LEFT) . ':' . str_pad((string)(int)$parts[1], 2, '0', STR_PAD_LEFT);
+            return str_pad((string)(int)$parts[0], 2, '0', STR_PAD_LEFT) . ':' . str_pad((string)(int)$parts[1], 2, '0', STR_PAD_LEFT) . ':00';
         }
         return null;
     }
