@@ -57,7 +57,22 @@ class SlotsForm extends AbstractType
             );
 
             foreach ($date->getProposals() as $proposal) {
-                $proposal->setLabel(str_replace('__number__', (string) $proposalNumber, $labelPattern));
+                $startTime = $proposal->getStartTime();
+                $endTime = $proposal->getEndTime();
+
+                if (!empty($startTime) || !empty($endTime)) {
+                    if (!empty($startTime) && !empty($endTime)) {
+                        $generatedLabel = $startTime . ' - ' . $endTime;
+                    } elseif (!empty($startTime)) {
+                        $generatedLabel = $startTime;
+                    } else {
+                        $generatedLabel = $endTime;
+                    }
+                    $proposal->setLabel($generatedLabel);
+                } else {
+                    $proposal->setLabel(str_replace('__number__', (string) $proposalNumber, $labelPattern));
+                }
+
                 $proposal->setPoll($poll);
                 $proposalNumber++;
             }
