@@ -60,20 +60,27 @@
                         data-item="date-collection"
                     >
                         <div data-collection-target="container" class="flow">
-                            {% for proposal in date.proposals if proposal is not null %}
+                            {% for proposal in date.proposals %}
                                 <div class="flow flow--small" data-item="element">
-                                    {{ form_errors(proposal) }}
-                                    {{ form_widget(proposal) }}
-                                    <button
-                                        type="button"
-                                        class="button--ghost button--small"
-                                        data-action="collection#removeElement"
-                                    >
-                                        {{ icon('trash') }}
-                                        <span class="sr-only">
-                                            {{ 'forms.poll_slots_form.remove_slot' | trans }}
-                                        </span>
-                                    </button>
+                                    {{ form_label(proposal['label']) }}
+                                    {{ form_errors(proposal['label']) }}
+                                    <div class="cols cols--always cols--gap">
+                                        {{ form_widget(proposal['label']) }}
+                                        <button
+                                            type="button"
+                                            class="button--ghost button--small"
+                                            data-action="collection#removeElement"
+                                        >
+                                            {{ icon('trash') }}
+                                            <span class="sr-only">
+                                                {{ 'forms.poll_slots_form.remove_slot' | trans }}
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="cols cols--always cols--gap">
+                                        {{ form_row(proposal['startTime']) }}
+                                        {{ form_row(proposal['endTime']) }}
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
@@ -90,19 +97,25 @@
 
                         <template data-collection-target="prototype">
                             <div class="flow flow--small" data-item="element">
-                                {% if date.proposals.vars.prototype is defined and date.proposals.vars.prototype is not null %}
-                                    {{ form_widget(date.proposals.vars.prototype) }}
-                                {% endif %}
-                                <button
-                                    type="button"
-                                    class="button--ghost button--small"
-                                    data-action="collection#removeElement"
-                                >
-                                    {{ icon('trash') }}
-                                    <span class="sr-only">
-                                        {{ 'forms.poll_slots_form.remove_slot' | trans }}
-                                    </span>
-                                </button>
+                                {{ form_label(date.proposals.vars.prototype['label']) }}
+                                {{ form_errors(date.proposals.vars.prototype['label']) }}
+                                <div class="cols cols--always cols--gap">
+                                    {{ form_widget(date.proposals.vars.prototype['label']) }}
+                                    <button
+                                        type="button"
+                                        class="button--ghost button--small"
+                                        data-action="collection#removeElement"
+                                    >
+                                        {{ icon('trash') }}
+                                        <span class="sr-only">
+                                            {{ 'forms.poll_slots_form.remove_slot' | trans }}
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="cols cols--always cols--gap">
+                                    {{ form_row(date.proposals.vars.prototype['startTime']) }}
+                                    {{ form_row(date.proposals.vars.prototype['endTime']) }}
+                                </div>
                             </div>
                         </template>
                             {# Mostrar duración general si existe #}
