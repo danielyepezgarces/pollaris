@@ -107,8 +107,8 @@ export default class extends Controller {
     }
 
     updateScrollButtonsVisibility() {
-        const atStart = this.isScrollAtStart(this.tfootTarget);
-        const atEnd = this.isScrollAtEnd(this.tfootTarget);
+        const atStart = this.isScrollAtStart(this.theadTarget);
+        const atEnd = this.isScrollAtEnd(this.theadTarget);
 
         this.scrollLeftBtnTarget.disabled = atStart;
         this.scrollRightBtnTarget.disabled = atEnd;
