@@ -75,3 +75,9 @@ hr {
     background: var(--color-primary6);
     border-radius: 0 var(--border-radius-small) var(--border-radius-small) 0;
 }
+
+.home-welcome {
+    text-align: center;
+    margin-top: clamp(0.75rem, 2vh, 1.5rem);
+    margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+}

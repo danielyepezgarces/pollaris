@@ -62,10 +62,9 @@
                         <div data-collection-target="container" class="flow">
                             {% for proposal in date.proposals %}
                                 <div class="flow flow--small" data-item="element">
-                                    {{ form_label(proposal.label) }}
-                                    {{ form_errors(proposal.label) }}
                                     <div class="cols cols--always cols--gap">
-                                        {{ form_widget(proposal.label) }}
+                                        {{ form_row(proposal.startTime) }}
+                                        {{ form_row(proposal.endTime) }}
                                         <button
                                             type="button"
                                             class="button--ghost button--small"
@@ -76,10 +75,6 @@
                                                 {{ 'forms.poll_slots_form.remove_slot' | trans }}
                                             </span>
                                         </button>
-                                    </div>
-                                    <div class="cols cols--always cols--gap">
-                                        {{ form_row(proposal.startTime) }}
-                                        {{ form_row(proposal.endTime) }}
                                     </div>
                                 </div>
                             {% endfor %}
@@ -97,10 +92,9 @@
 
                         <template data-collection-target="prototype">
                             <div class="flow flow--small" data-item="element">
-                                {{ form_label(date.proposals.vars.prototype.label) }}
-                                {{ form_errors(date.proposals.vars.prototype.label) }}
                                 <div class="cols cols--always cols--gap">
-                                    {{ form_widget(date.proposals.vars.prototype.label) }}
+                                    {{ form_row(date.proposals.vars.prototype.startTime) }}
+                                    {{ form_row(date.proposals.vars.prototype.endTime) }}
                                     <button
                                         type="button"
                                         class="button--ghost button--small"
@@ -111,10 +105,6 @@
                                             {{ 'forms.poll_slots_form.remove_slot' | trans }}
                                         </span>
                                     </button>
-                                </div>
-                                <div class="cols cols--always cols--gap">
-                                    {{ form_row(date.proposals.vars.prototype.startTime) }}
-                                    {{ form_row(date.proposals.vars.prototype.endTime) }}
                                 </div>
                             </div>
                         </template>

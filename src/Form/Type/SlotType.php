@@ -14,7 +14,6 @@
 
 namespace App\Form\Type;
 
-use App\Entity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,17 +24,6 @@ class SlotType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // Etiqueta libre (opcional)
-        $builder->add('label', Type\TextType::class, [
-            'trim' => true,
-            'required' => false,
-            'empty_data' => '',
-            'label' => new TranslatableMessage('forms.slot_type.label.label_pattern'),
-            'attr' => [
-                'maxlength' => Entity\Proposal::MAX_LABEL_LENGTH,
-            ],
-        ]);
-
         // Hora de inicio (opcional)
         $builder->add('startTime', Type\TimeType::class, [
             'widget' => 'single_text',

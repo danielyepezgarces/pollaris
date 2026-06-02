@@ -39,7 +39,7 @@
                 {{ form_row(form.description) }}
                 {{ form_row(form.duration) }}
                 <div class="flow">
-                    <label>{{ 'forms.poll_form.cohosts.label' | trans }}</label>
+                    <p class="text--bold">{{ 'forms.poll_form.cohosts.label' | trans }}</p>
                     <p class="text--secondary text--small">{{ 'forms.poll_form.cohosts.help' | trans }}</p>
                     <div data-controller="collection" data-collection-index-value="{{ form.cohosts | length > 0 ? form.cohosts | last.vars.name + 1 : 0 }}">
                         <div data-collection-target="container" class="flow">

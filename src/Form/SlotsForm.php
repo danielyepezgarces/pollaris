@@ -42,19 +42,24 @@ class SlotsForm extends AbstractType
         ]);
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event): void {
-            $form = $event->getForm();
             $date = $event->getData();
             $poll = $date->getPoll();
 
             if (count($date->getProposals()) === 0) {
                 $proposal = new Entity\Proposal();
-                $label = $this->translator->trans('forms.slots_form.day');
-                $proposal->setLabel($label);
                 $date->addProposal($proposal);
             }
 
+            $proposalNumber = 1;
+            $labelPattern = $this->translator->trans(
+                'forms.slot_type.label.label_pattern',
+                locale: $poll ? $poll->getLocale() : null,
+            );
+
             foreach ($date->getProposals() as $proposal) {
+                $proposal->setLabel(str_replace('__number__', (string) $proposalNumber, $labelPattern));
                 $proposal->setPoll($poll);
+                $proposalNumber++;
             }
         });
     }
