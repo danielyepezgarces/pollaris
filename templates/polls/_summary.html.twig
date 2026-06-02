@@ -221,10 +221,16 @@
 
             <div class="panel__separator"></div>
 
-            <a class="button button--menuitem" href="{{ path('edit poll dates', { id: poll.id, token: poll.adminToken }) }}">
-                {{ icon('pen-to-square') }}
-                {{ 'polls.summary.edit' | trans }}
-            </a>
+            <div class="cols cols--center cols--gap">
+                <a class="button button--menuitem col--size6" href="{{ path('edit poll dates', { id: poll.id, token: poll.adminToken }) }}">
+                    {{ icon('calendar-days') }}
+                    {{ 'polls.summary.edit' | trans }} (Fechas)
+                </a>
+                <a class="button button--menuitem col--size6" href="{{ path('edit poll slots', { id: poll.id, token: poll.adminToken }) }}">
+                    {{ icon('clock') }}
+                    {{ 'polls.summary.edit' | trans }} (Horarios)
+                </a>
+            </div>
         {% else %}
             <ul class="list--nostyle flow">
                 {% for proposal in poll.proposals %}
