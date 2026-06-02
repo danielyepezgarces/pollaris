@@ -383,7 +383,7 @@
                                 {{ 'polls.votes.yours' | trans }}
                             </div>
                         </th>
-                        <td colspan="{{ poll.isDatePoll ? (datesAndProposals|column(1)|flatten|length) : (proposals|length) }}" class="text--center">
+                        <td colspan="{{ poll.isDatePoll ? (datesAndProposals|column(1)|flatten|length) : (proposals|length) }}" class="text--center" style="max-width: none; width: auto;">
                             <p class="text--small text--bold" style="margin-bottom: 0.5rem;">
                                 {{ 'polls.show.login_required_to_vote' | trans }}
                             </p>
