@@ -234,10 +234,14 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
 
     public function getStartTime(): ?string
     {
-        if ($this->startTime && !preg_match('/^([01]?\d|2[0-3]):([0-5]\d)$/', $this->startTime)) {
+        if (!$this->startTime) {
             return null;
         }
-        return $this->startTime;
+        $parts = explode(':', $this->startTime);
+        if (count($parts) >= 2 && is_numeric($parts[0]) && is_numeric($parts[1])) {
+            return str_pad((string)(int)$parts[0], 2, '0', STR_PAD_LEFT) . ':' . str_pad((string)(int)$parts[1], 2, '0', STR_PAD_LEFT);
+        }
+        return null;
     }
 
     public function setStartTime(?string $startTime): static
@@ -257,10 +261,14 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
 
     public function getEndTime(): ?string
     {
-        if ($this->endTime && !preg_match('/^([01]?\d|2[0-3]):([0-5]\d)$/', $this->endTime)) {
+        if (!$this->endTime) {
             return null;
         }
-        return $this->endTime;
+        $parts = explode(':', $this->endTime);
+        if (count($parts) >= 2 && is_numeric($parts[0]) && is_numeric($parts[1])) {
+            return str_pad((string)(int)$parts[0], 2, '0', STR_PAD_LEFT) . ':' . str_pad((string)(int)$parts[1], 2, '0', STR_PAD_LEFT);
+        }
+        return null;
     }
 
     public function setEndTime(?string $endTime): static
