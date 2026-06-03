@@ -251,6 +251,7 @@ polls.show.comments.explain: 'Your comment will be directly visible on the pollâ
 polls.show.comments.new: 'New comment'
 polls.show.comments.none: 'No comments have been published.'
 polls.show.comments.title: Comments
+polls.show.and: ' and '
 polls.show.created_by: 'Poll created by {by}'
 polls.show.description.translating: 'Translating descriptionâ€¦'
 polls.show.display_list: 'List view'
