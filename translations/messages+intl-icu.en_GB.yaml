@@ -56,11 +56,17 @@ forms.apply: Apply
 forms.cancel: Cancel
 forms.localized_description_item.locale.label: 'Language'
 forms.localized_description_item.text.label: 'Description'
-forms.poll_form.description.help: 'Main poll description (Markdown supported). Shown when no localized description matches the visitor''s language.'
+forms.localized_title_item.locale.label: 'Language'
+forms.localized_title_item.text.label: 'Title'
+forms.poll_form.description.help: 'Main description of the poll (supports Markdown). Will be shown if no description is provided in the viewer''s language.'
 forms.poll_form.localized_descriptions.add: 'Add translated description'
 forms.poll_form.localized_descriptions.help: 'Add the poll description in specific languages. Visitors will automatically see the description in their language, or a live translation if their browser supports it.'
 forms.poll_form.localized_descriptions.label: 'Descriptions in other languages'
 forms.poll_form.localized_descriptions.remove: 'Remove translation'
+forms.poll_form.localized_titles.add: 'Add translated title'
+forms.poll_form.localized_titles.help: 'Add the poll title in specific languages. Visitors will automatically see the title in their language, or a live translation if their browser supports it.'
+forms.poll_form.localized_titles.label: 'Titles in other languages'
+forms.poll_form.localized_titles.remove: 'Remove translation'
 forms.comment_form.author_name.label: 'Your name'
 forms.comment_form.content.label: 'Your message'
 forms.comment_form.submit: Post
