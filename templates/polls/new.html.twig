@@ -196,6 +196,9 @@
             </fieldset>
 
             {{ include('polls/_flow_actions.html.twig', { step: 'init' }) }}
+        {% if form._token is defined %}
+            {{ form_row(form._token) }}
+        {% endif %}
         {{ form_end(form, { render_rest: false }) }}
     </div>
 {% endblock %}
