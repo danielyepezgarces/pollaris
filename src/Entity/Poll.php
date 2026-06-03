@@ -94,6 +94,9 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     )]
     private ?string $title = null;
 
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $localizedTitles = null;
+
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
@@ -339,6 +342,25 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     public function isTitleSet(): bool
     {
         return $this->title !== null && $this->title !== '';
+    }
+
+    /** @return list<array{locale: string, text: string}> */
+    public function getLocalizedTitles(): array
+    {
+        return $this->localizedTitles ?? [];
+    }
+
+    /** @param list<array{locale: string, text: string}> $localizedTitles */
+    public function setLocalizedTitles(array $localizedTitles): static
+    {
+        // Filter out empty entries
+        $filtered = array_values(array_filter(
+            $localizedTitles,
+            static fn (array $item) => isset($item['locale'], $item['text']) && $item['text'] !== '',
+        ));
+        $this->localizedTitles = $filtered ?: null;
+
+        return $this;
     }
 
     public function getDescription(): ?string

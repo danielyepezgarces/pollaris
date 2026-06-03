@@ -58,6 +58,16 @@ class PollForm extends AbstractType
             ],
         ]);
 
+        $builder->add('localizedTitles', Type\CollectionType::class, [
+            'entry_type' => LocalizedTitleItemType::class,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'by_reference' => false,
+            'required' => false,
+            'label' => new TranslatableMessage('forms.poll_form.localized_titles.label'),
+            'help' => new TranslatableMessage('forms.poll_form.localized_titles.help'),
+        ]);
+
         $builder->add('description', Type\TextareaType::class, [
             'required' => false,
             'trim' => true,

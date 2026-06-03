@@ -63,9 +63,28 @@
             {% endfor %}
 
             <div class="panel panel--primary panel--rounded flow flow--small">
-                <h1>
-                    {{ poll.title }}
-                </h1>
+                {% if poll.localizedTitles %}
+                    <div
+                        data-controller="description-translator"
+                        data-description-translator-descriptions-value="{{ poll.localizedTitles | json_encode }}"
+                    >
+                        <h1 data-description-translator-target="content" style="display: inline;">
+                            {{ poll.title }}
+                        </h1>
+                        <span
+                            data-description-translator-target="loading"
+                            hidden
+                            class="text--secondary text--small"
+                            style="margin-left: 0.5rem;"
+                        >
+                            {{ 'polls.show.description.translating' | trans }}
+                        </span>
+                    </div>
+                {% else %}
+                    <h1>
+                        {{ poll.title }}
+                    </h1>
+                {% endif %}
 
                 {% if poll.description or poll.localizedDescriptions %}
                     <div
