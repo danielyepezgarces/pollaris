@@ -11,6 +11,11 @@ Pollaris is licensed under [GNU Affero General Public License v3.0 or later](htt
 - [The Administrators' Guide](/docs/administrators/README.md)
 - [The Developers' Guide](/docs/developers/README.md)
 
+## Resources
+
+- Website: [pollaris.org](https://pollaris.org)
+- Forum: [forum.pollaris.org](https://forum.pollaris.org)
+
 ## Credits
 
 Pollaris relies on a bunch of other projects:
