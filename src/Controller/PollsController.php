@@ -351,7 +351,9 @@ class PollsController extends BaseController
         }
         $flow = $this->pollFlowBuilder->build($poll);
 
-        $form = $this->createNamedForm('poll', Form\PollForm::class, $poll);
+        $form = $this->createNamedForm('poll', Form\PollForm::class, $poll, [
+            'current_user' => $this->getUser(),
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
