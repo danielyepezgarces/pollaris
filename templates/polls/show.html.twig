@@ -141,7 +141,7 @@
 
                 {% if poll.duration %}
                     <p class="text--secondary" style="margin-top: 0.5rem;">
-                        {{ icon('clock') }} {{ poll.duration }} {{ 'forms.poll_form.duration.unit' | trans }}
+                        {{ icon('clock') }} {{ 'polls.show.duration' | trans({ duration: poll.duration }) }}
                     </p>
                 {% endif %}
 

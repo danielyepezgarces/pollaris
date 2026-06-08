@@ -857,7 +857,11 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
             return false;
         }
 
-        return Utils\Time::relative('today') > $this->closedAt->modify('today');
+        $tz = new \DateTimeZone($this->timezoneName);
+        $now = Utils\Time::now()->setTimezone($tz);
+        $closedAtLocal = $this->closedAt->setTimezone($tz);
+
+        return $now->format('Y-m-d') > $closedAtLocal->format('Y-m-d');
     }
 
     public function getClosedAt(): ?\DateTimeImmutable
