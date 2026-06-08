@@ -121,6 +121,12 @@
                     {{ 'polls.show.created_by' | trans({ by: joinedAuthors }) | raw }}
                 </p>
 
+                {% if poll.duration %}
+                    <p class="text--secondary" style="margin-top: 0.5rem;">
+                        {{ icon('clock') }} {{ poll.duration }} {{ 'forms.poll_form.duration.unit' | trans }}
+                    </p>
+                {% endif %}
+
                 <div class="panel__separator no-print"></div>
 
                 <div class="flow flow--smaller no-print">
