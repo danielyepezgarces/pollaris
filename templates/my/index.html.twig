@@ -63,9 +63,14 @@
                                 {{ vote.poll.title }}
                             </p>
 
+                            {% set plainAuthors = [vote.poll.authorName] %}
+                            {% for cohost in vote.poll.cohosts %}
+                                {% set plainAuthors = plainAuthors|merge([cohost.user.displayName]) %}
+                            {% endfor %}
+                            {% set joinedPlainAuthors = plainAuthors|length > 1 ? plainAuthors|slice(0, -1)|join(', ') ~ ('polls.show.and'|trans|default(' y ')) ~ plainAuthors|last : plainAuthors|first %}
                             <p class="text--secondary">
                                 {{ 'my.index.votes.meta' | trans | replace({
-                                    '__poll_author__': vote.poll.authorName,
+                                    '__poll_author__': joinedPlainAuthors,
                                     '__vote_date__': vote.createdAt | dateTrans,
                                 }) }}
                             </p>
@@ -104,10 +109,15 @@
                         <li class="panel panel--white panel--rounded flow flow--small">
                             <h3>{{ poll.title }}</h3>
 
+                            {% set plainAuthors = [poll.authorName] %}
+                            {% for cohost in poll.cohosts %}
+                                {% set plainAuthors = plainAuthors|merge([cohost.user.displayName]) %}
+                            {% endfor %}
+                            {% set joinedPlainAuthors = plainAuthors|length > 1 ? plainAuthors|slice(0, -1)|join(', ') ~ ('polls.show.and'|trans|default(' y ')) ~ plainAuthors|last : plainAuthors|first %}
                             <p class="text--secondary">
                                 {{ 'my.index.polls.of_by' | trans | replace({
                                     '__date__': poll.createdAt | dateTrans,
-                                    '__author__': poll.authorName,
+                                    '__author__': joinedPlainAuthors,
                                 }) }}
                             </p>
 
