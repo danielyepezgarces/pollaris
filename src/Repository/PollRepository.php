@@ -63,7 +63,8 @@ class PollRepository extends BaseRepository
 
         if ($owner !== null && !$includeAllPolls) {
             $queryBuilder
-                ->andWhere('p.owner = :owner')
+                ->leftJoin('p.cohosts', 'c')
+                ->andWhere('p.owner = :owner OR c.user = :owner')
                 ->setParameter('owner', $owner);
         }
 

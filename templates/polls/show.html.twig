@@ -167,7 +167,7 @@
                         {% endif %}
                     </div>
 
-                    {% if app.user and poll.owner and poll.owner.id == app.user.id %}
+                    {% if poll.canAdminister(app.user) %}
                         <a
                             href="{{ path('poll admin', { id: poll.id, token: poll.adminToken }) }}"
                             class="button button--small button--block text--center"

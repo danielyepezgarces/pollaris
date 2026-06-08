@@ -38,26 +38,12 @@ class BaseController extends AbstractController
      */
     protected function denyUnlessPollAdmin(Entity\Poll $poll): ?Response
     {
-        $owner = $poll->getOwner();
         $user = $this->getUser();
 
-        // Permitir si es el owner
-        if ($user !== null && $owner !== null && $owner->getUserIdentifier() === $user->getUserIdentifier()) {
+        if ($user instanceof Entity\User && $poll->canAdminister($user)) {
             return null;
         }
 
-        // Permitir si es cohost con derecho 'full'
-        foreach ($poll->getCohosts() as $cohost) {
-            if (
-                $cohost->getUser() &&
-                $cohost->getUser()->getUserIdentifier() === $user?->getUserIdentifier() &&
-                $cohost->getRight() === 'full'
-            ) {
-                return null;
-            }
-        }
-
-        // Si no, denegar
         return $this->render('bundles/TwigBundle/Exception/error404.html.twig', [], new Response('', 404));
     }
 }

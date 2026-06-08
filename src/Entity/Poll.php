@@ -509,6 +509,30 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
         return $this;
     }
 
+    public function isCohost(User $user): bool
+    {
+        foreach ($this->getCohosts() as $cohost) {
+            if ($cohost->getUser() && $cohost->getUser()->getId() === $user->getId()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function canAdminister(?User $user): bool
+    {
+        if (!$user) {
+            return false;
+        }
+
+        if ($this->getOwner() && $this->getOwner()->getId() === $user->getId()) {
+            return true;
+        }
+
+        return $this->isCohost($user);
+    }
+
     public function getDuration(): ?int
     {
         return $this->duration;
