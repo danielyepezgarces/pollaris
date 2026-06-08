@@ -62,10 +62,12 @@ class Time
             return null;
         }
 
-        return new \DateTimeImmutable(
+        $localized = new \DateTimeImmutable(
             $date->format('Y-m-d 00:00:00'),
             new \DateTimeZone($timezone),
         );
+
+        return $localized->setTimezone(new \DateTimeZone('UTC'));
     }
 
     public static function now(): \DateTimeImmutable
