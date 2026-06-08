@@ -107,6 +107,8 @@ polls.votes.maybe.count: '{count, plural, =0 {0 si es necesario} one {# si es ne
 my.index.polls.of_by: 'Encuesta del __date__ por __author__'
 forms.poll_form.author_name.label: Tu nombre
 forms.poll_form.author_name.label.wikimedia: Tu usuario de Wikimedia
+forms.poll_form.author_name.label.edit: Autor de la encuesta
+forms.poll_form.author_email.label.edit: Correo electrónico del autor
 forms.poll_form.title.label: 'Nombre de tu consulta'
 forms.poll_form.description.label: 'Descripción'
 forms.poll_form.closed_at.label: 'Fecha de cierre de la consulta'

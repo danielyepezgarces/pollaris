@@ -96,6 +96,8 @@ forms.poll_form.author_email.label: 'Your email address'
 forms.poll_form.author_email.coming_soon: 'Coming soon'
 forms.poll_form.author_name.label: 'Your name'
 forms.poll_form.author_name.label.wikimedia: 'Your Wikimedia username'
+forms.poll_form.author_name.label.edit: 'Poll author'
+forms.poll_form.author_email.label.edit: 'Poll author email'
 forms.poll_form.closed_at.help: 'Participants will be able to vote until this date.'
 forms.poll_form.closed_at.label: 'Poll closing date'
 forms.poll_form.description.label: Description

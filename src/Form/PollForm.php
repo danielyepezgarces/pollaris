@@ -107,9 +107,13 @@ class PollForm extends AbstractType
 
         $this->addTimezoneFields($builder, $options);
 
-        $authorNameLabel = $currentUser instanceof Entity\User
-            ? 'forms.poll_form.author_name.label.wikimedia'
-            : 'forms.poll_form.author_name.label';
+        $isEdit = $options['data'] instanceof Entity\Poll && $options['data']->getId() !== null;
+
+        $authorNameLabel = $isEdit
+            ? 'forms.poll_form.author_name.label.edit'
+            : ($currentUser instanceof Entity\User
+                ? 'forms.poll_form.author_name.label.wikimedia'
+                : 'forms.poll_form.author_name.label');
 
         $builder->add('authorName', Type\TextType::class, [
             'trim' => true,
@@ -121,11 +125,15 @@ class PollForm extends AbstractType
             ],
         ]);
 
+        $authorEmailLabel = $isEdit
+            ? 'forms.poll_form.author_email.label.edit'
+            : 'forms.poll_form.author_email.label';
+
         $authorEmailOptions = [
             'required' => false,
             'trim' => true,
             'empty_data' => '',
-            'label' => new TranslatableMessage('forms.poll_form.author_email.label'),
+            'label' => new TranslatableMessage($authorEmailLabel),
             'help' => new TranslatableMessage('forms.poll_form.author_email.help'),
             'disabled' => $currentUser instanceof Entity\User,
         ];
