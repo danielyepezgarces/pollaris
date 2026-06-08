@@ -47,10 +47,18 @@ export default class extends Controller {
             const targetCollection = dateCollections[i];
             const collectionController = this.application.getControllerForElementAndIdentifier(targetCollection, 'collection');
 
+            // Find all existing empty elements to potentially reuse
+            const existingElements = targetCollection.querySelectorAll('[data-item="element"]');
+            const emptyElements = Array.from(existingElements).filter(el => {
+                const inputs = el.querySelectorAll('input[type="time"]');
+                if (inputs.length < 2) return false;
+                return inputs[0].value === '' && inputs[1].value === '';
+            });
+
             sourceValues.forEach(sourceValue => {
                 // Check if this exact slot already exists
-                const existingElements = targetCollection.querySelectorAll('[data-item="element"]');
-                const exists = Array.from(existingElements).some(el => {
+                const currentElements = targetCollection.querySelectorAll('[data-item="element"]');
+                const exists = Array.from(currentElements).some(el => {
                     const inputs = el.querySelectorAll('input[type="time"]');
                     if (inputs.length < 2) return false;
                     return inputs[0].value === sourceValue.start && inputs[1].value === sourceValue.end;
@@ -60,19 +68,25 @@ export default class extends Controller {
                     return;
                 }
 
-                // Add element
-                collectionController.addElement();
+                // Try to reuse an empty element if available
+                let elementToFill = null;
+                if (emptyElements.length > 0) {
+                    elementToFill = emptyElements.shift();
+                } else {
+                    // Add element
+                    collectionController.addElement();
+                    const newElements = targetCollection.querySelectorAll('[data-item="element"]');
+                    if (newElements.length > 0) {
+                        elementToFill = newElements[newElements.length - 1];
+                    }
+                }
 
-                // Fill the inputs of the newly added element
-                const newElements = targetCollection.querySelectorAll('[data-item="element"]');
-                if (newElements.length === 0) return;
-                
-                const newElement = newElements[newElements.length - 1];
-                const newInputs = newElement.querySelectorAll('input[type="time"]');
-                
-                if (newInputs.length >= 2) {
-                    newInputs[0].value = sourceValue.start;
-                    newInputs[1].value = sourceValue.end;
+                if (elementToFill) {
+                    const newInputs = elementToFill.querySelectorAll('input[type="time"]');
+                    if (newInputs.length >= 2) {
+                        newInputs[0].value = sourceValue.start;
+                        newInputs[1].value = sourceValue.end;
+                    }
                 }
             });
         }
