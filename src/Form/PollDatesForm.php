@@ -28,7 +28,7 @@ class PollDatesForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $this->addTimezoneFields($builder);
+        $this->addTimezoneFields($builder, $options);
 
         $builder->add('dates', Type\CollectionType::class, [
             'entry_type' => DateForm::class,

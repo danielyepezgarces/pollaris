@@ -51,6 +51,10 @@ class Time
             return $currentTimezone;
         }
 
+        if ($timezoneMode === 'custom' && self::isValidTimezone($currentTimezone)) {
+            return $currentTimezone;
+        }
+
         return self::getServerTimezoneName();
     }
 

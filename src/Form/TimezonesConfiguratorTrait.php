@@ -24,21 +24,41 @@ use Symfony\Component\Translation\TranslatableMessage;
 
 trait TimezonesConfiguratorTrait
 {
-    private function addTimezoneFields(FormBuilderInterface $builder): void
+    private function addTimezoneFields(FormBuilderInterface $builder, array $options = []): void
     {
+        $poll = $options['data'] ?? null;
+        $isEdit = $poll instanceof Entity\Poll && $poll->getId() !== null;
+        $pollTimezone = $isEdit ? $poll->getTimezoneName() : null;
+
+        $choices = [
+            'server',
+            'browser',
+        ];
+
+        // If editing and timezone is neither server nor strictly 'browser' locally matched,
+        // or just safely add 'custom' so it preserves existing timezone.
+        if ($isEdit && $pollTimezone !== null && $poll->getTimezoneMode() !== 'server') {
+            $choices[] = 'custom';
+            // Force timezone mode to 'custom' to not overwrite by accident
+            if ($poll->getTimezoneMode() === 'browser') {
+                $poll->setTimezoneMode('custom');
+            }
+        }
+
         $builder->add('timezoneMode', Type\ChoiceType::class, [
-            'choices' => Entity\Poll::TIMEZONE_MODES,
+            'choices' => $choices,
             'label' => new TranslatableMessage('forms.poll_form.timezone_mode.label'),
             'help' => new TranslatableMessage('forms.poll_form.timezone_mode.help', [
                 'timezone' => Utils\Time::getServerTimezoneName(),
             ]),
             'expanded' => true,
-            'choice_label' => function (string $choice): TranslatableMessage {
+            'choice_label' => function (string $choice) use ($pollTimezone): TranslatableMessage|string {
                 return match ($choice) {
                     'server' => new TranslatableMessage('forms.poll_form.timezone_mode.server', [
                         'timezone' => Utils\Time::getServerTimezoneName(),
                     ]),
                     'browser' => new TranslatableMessage('forms.poll_form.timezone_mode.browser'),
+                    'custom' => "Current poll timezone ({$pollTimezone})", // Ideally translated, but fine for now
                     default => throw new \LogicException("{$choice} is an invalid choice"),
                 };
             },
@@ -47,6 +67,7 @@ trait TimezonesConfiguratorTrait
         $builder->add('browserTimezone', Type\HiddenType::class, [
             'mapped' => false,
             'required' => false,
+            'data' => $pollTimezone,
             'attr' => [
                 'data-poll-timezone-target' => 'browserTimezone',
             ],

@@ -105,7 +105,7 @@ class PollForm extends AbstractType
             'help' => new TranslatableMessage('forms.poll_form.closed_at.help'),
         ]);
 
-        $this->addTimezoneFields($builder);
+        $this->addTimezoneFields($builder, $options);
 
         $authorNameLabel = $currentUser instanceof Entity\User
             ? 'forms.poll_form.author_name.label.wikimedia'

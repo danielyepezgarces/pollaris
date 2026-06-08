@@ -45,7 +45,7 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     public const EDIT_VOTE_MODES = ['own', 'no', 'any'];
     public const DEFAULT_EDIT_VOTE_MODE = 'own';
 
-    public const TIMEZONE_MODES = ['server', 'browser'];
+    public const TIMEZONE_MODES = ['server', 'browser', 'custom'];
     public const DEFAULT_TIMEZONE_MODE = 'browser';
 
     #[ORM\Id]
