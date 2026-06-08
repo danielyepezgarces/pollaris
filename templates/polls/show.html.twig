@@ -67,6 +67,24 @@
                 {% endif %}
             {% endfor %}
 
+            {% if not poll.isClosed and poll.closedAt %}
+                {% set diff = date(poll.closedAt).diff(date('now')) %}
+                {% set isFuture = diff.invert == 1 %}
+                {% set daysLeft = diff.days %}
+                {% if isFuture and daysLeft <= 7 %}
+                    <div class="panel panel--border panel--rounded cols cols--always cols--center" style="background-color: var(--color-primary3); border-color: var(--color-primary9); color: var(--color-primary12);">
+                        <p class="col--extend" style="font-weight: 500;">
+                            {{ icon('bell') }} 
+                            {% if daysLeft == 0 %}
+                                {{ 'polls.show.closing_today' | trans }}
+                            {% else %}
+                                {{ 'polls.show.closing_soon' | trans({ days: daysLeft }) }}
+                            {% endif %}
+                        </p>
+                    </div>
+                {% endif %}
+            {% endif %}
+
             <div class="panel panel--primary panel--rounded flow flow--small">
                 {% if poll.localizedTitles %}
                     <div

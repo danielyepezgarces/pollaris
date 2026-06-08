@@ -233,6 +233,8 @@ polls.deletion.information: 'Atención, estás a punto de eliminar la consulta "
 polls.deletion.title: 'Eliminar una consulta'
 polls.proposals.best: 'Opción preferida'
 polls.public.closed_at: 'Cierra el {date}'
+polls.show.closing_today: '¡Atención! La encuesta cierra hoy.'
+polls.show.closing_soon: '{days, plural, one {¡Atención! La encuesta cierra en 1 día.} other {¡Atención! La encuesta cierra en # días.}}'
 polls.public.description: 'Explora consultas públicas que siguen abiertas en este momento.'
 polls.public.meta: 'Creada por {author}'
 polls.public.no_closing_date: 'sin fecha de cierre'
