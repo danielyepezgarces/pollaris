@@ -69,14 +69,17 @@
 
             {% if not poll.isClosed and poll.closedAt %}
                 {% set tz = poll.timezoneName %}
-                {% set nowLocal = date('now', tz) %}
+                {% set nowTs = date('now').timestamp %}
                 {% set closedAtStr = poll.closedAt|date('Y-m-d') ~ ' 23:59:59' %}
-                {% set closedAtLocal = date(closedAtStr, tz) %}
-                {% set diff = nowLocal.diff(closedAtLocal) %}
-                {% set isFuture = diff.invert == 0 %}
-                {% set daysLeft = diff.days %}
-                {% set hoursLeft = diff.h %}
-                {% set minutesLeft = diff.i %}
+                {% set closedAtTs = date(closedAtStr, tz).timestamp %}
+                {% set diffSeconds = closedAtTs - nowTs %}
+                {% set isFuture = diffSeconds > 0 %}
+                
+                {% set daysLeft = (diffSeconds / 86400) | round(0, 'floor') %}
+                {% set remainder = diffSeconds % 86400 %}
+                {% set hoursLeft = (remainder / 3600) | round(0, 'floor') %}
+                {% set remainder = remainder % 3600 %}
+                {% set minutesLeft = (remainder / 60) | round(0, 'floor') %}
                 
                 {% if isFuture and daysLeft <= 7 %}
                     <div class="panel panel--border panel--rounded cols cols--always cols--center" style="background-color: var(--color-primary3); border-color: var(--color-primary9); color: var(--color-primary12);">
