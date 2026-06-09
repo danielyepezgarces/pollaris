@@ -869,6 +869,24 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
         return $this->closedAt;
     }
 
+    /**
+     * Returns the Unix timestamp of the poll's closing moment:
+     * end of the closedAt date (23:59:59) in the poll's own timezone.
+     * This avoids Twig/server-timezone interpretation bugs.
+     */
+    public function getClosingTimestamp(): ?int
+    {
+        if (!$this->closedAt) {
+            return null;
+        }
+
+        $tz = new \DateTimeZone($this->timezoneName);
+        $closingDateStr = $this->closedAt->setTimezone($tz)->format('Y-m-d') . ' 23:59:59';
+        $closing = new \DateTimeImmutable($closingDateStr, $tz);
+
+        return $closing->getTimestamp();
+    }
+
     public function setClosedAt(?\DateTimeImmutable $closedAt): static
     {
         $this->closedAt = $closedAt;

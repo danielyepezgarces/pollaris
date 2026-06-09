@@ -67,24 +67,21 @@
                 {% endif %}
             {% endfor %}
 
-            {% if not poll.isClosed and poll.closedAt %}
-                {% set tz = poll.timezoneName %}
+            {% if not poll.isClosed and poll.closingTimestamp %}
                 {% set nowTs = date('now').timestamp %}
-                {% set closedAtStr = poll.closedAt|date('Y-m-d') ~ ' 23:59:59' %}
-                {% set closedAtTs = date(closedAtStr, tz).timestamp %}
-                {% set diffSeconds = closedAtTs - nowTs %}
+                {% set diffSeconds = poll.closingTimestamp - nowTs %}
                 {% set isFuture = diffSeconds > 0 %}
-                
+
                 {% set daysLeft = diffSeconds // 86400 %}
                 {% set remainder = diffSeconds % 86400 %}
                 {% set hoursLeft = remainder // 3600 %}
                 {% set remainder = remainder % 3600 %}
                 {% set minutesLeft = remainder // 60 %}
-                
+
                 {% if isFuture and daysLeft <= 7 %}
                     <div class="panel panel--border panel--rounded cols cols--always cols--center" style="background-color: var(--color-primary3); border-color: var(--color-primary9); color: var(--color-primary12);">
                         <p class="col--extend" style="font-weight: 500;">
-                            {{ icon('bell') }} 
+                            {{ icon('bell') }}
                             {% if daysLeft == 0 %}
                                 {% if hoursLeft > 0 %}
                                     {{ 'polls.show.closing_soon_hours' | trans({ hours: hoursLeft }) }}
