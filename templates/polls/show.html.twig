@@ -75,11 +75,11 @@
                 {% set diffSeconds = closedAtTs - nowTs %}
                 {% set isFuture = diffSeconds > 0 %}
                 
-                {% set daysLeft = (diffSeconds / 86400) | round(0, 'floor') %}
+                {% set daysLeft = diffSeconds // 86400 %}
                 {% set remainder = diffSeconds % 86400 %}
-                {% set hoursLeft = (remainder / 3600) | round(0, 'floor') %}
+                {% set hoursLeft = remainder // 3600 %}
                 {% set remainder = remainder % 3600 %}
-                {% set minutesLeft = (remainder / 60) | round(0, 'floor') %}
+                {% set minutesLeft = remainder // 60 %}
                 
                 {% if isFuture and daysLeft <= 7 %}
                     <div class="panel panel--border panel--rounded cols cols--always cols--center" style="background-color: var(--color-primary3); border-color: var(--color-primary9); color: var(--color-primary12);">
