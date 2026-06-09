@@ -31,7 +31,7 @@ class ExportCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $translationsDir = $this->projectDir . '/translations';
-        $exportDir = $translationsDir . '/translatewiki';
+        $exportDir = $this->projectDir . '/translatewiki';
 
         if (!is_dir($exportDir)) {
             mkdir($exportDir, 0777, true);

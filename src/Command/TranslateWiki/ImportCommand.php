@@ -31,7 +31,7 @@ class ImportCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $translationsDir = $this->projectDir . '/translations';
-        $importDir = $translationsDir . '/translatewiki';
+        $importDir = $this->projectDir . '/translatewiki';
 
         if (!is_dir($importDir)) {
             $io->error('The translatewiki directory does not exist. Run app:translatewiki:export first.');
