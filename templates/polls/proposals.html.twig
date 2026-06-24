@@ -39,16 +39,14 @@
                         <div class="panel panel--rounded panel--primary flow" data-item="element">
                             {{ form_row(proposal.label) }}
 
-                            {% if not loop.first %}
-                                <button
-                                    type="button"
-                                    class="button--menuitem"
-                                    data-action="collection#removeElement"
-                                >
-                                    {{ icon('trash') }}
-                                    {{ 'forms.poll_proposals_form.remove_proposal' | trans }}
-                                </button>
-                            {% endif %}
+                            <button
+                                type="button"
+                                class="button--menuitem"
+                                data-action="collection#removeElement"
+                            >
+                                {{ icon('trash') }}
+                                {{ 'forms.poll_proposals_form.remove_proposal' | trans }}
+                            </button>
                         </div>
                     {% endfor %}
                 </div>

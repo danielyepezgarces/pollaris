@@ -23,6 +23,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class PollProposalsForm extends AbstractType
 {
@@ -37,6 +38,12 @@ class PollProposalsForm extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,
+            'constraints' => [
+                new Assert\Count(
+                    min: 1,
+                    minMessage: new TranslatableMessage('poll.proposals.required', domain: 'validators'),
+                ),
+            ],
         ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
