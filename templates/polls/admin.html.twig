@@ -45,7 +45,8 @@
                         {% for vote in poll.votes %}
                             <li class="panel panel--white panel--rounded cols cols--center cols--always cols--gap-small">
                                 <span class="col--extend text--overflow">
-                                    {{ 'polls.admin.have_voted' | trans({ voter: include('_wikimedia_user_link.html.twig', { username: vote.authorName }), date: vote.createdAt | dateTrans }) | raw }}
+                                    {% set createdAt = '<time datetime="' ~ (vote.createdAt | dateIso) ~ '" data-controller="relative-time">' ~ (vote.createdAt | dateTrans) ~ '</time>' %}
+                                    {{ ('polls.admin.have_voted' | trans({ voter: include('_wikimedia_user_link.html.twig', { username: vote.authorName | escape }), date: createdAt })) | raw }}
                                 </span>
 
 
