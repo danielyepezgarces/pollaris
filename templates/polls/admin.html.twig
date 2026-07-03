@@ -38,7 +38,7 @@
                             <li class="panel panel--white panel--rounded cols cols--center cols--always cols--gap-small">
                                 <span class="col--extend text--overflow">
                                     {% set createdAt = '<time datetime="' ~ (vote.createdAt | dateIso) ~ '" data-controller="relative-time">' ~ (vote.createdAt | dateTrans) ~ '</time>' %}
-                                    {{ ('polls.admin.have_voted' | trans({ voter: vote.authorName, date: createdAt })) | raw }}
+                                    {{ ('polls.admin.have_voted' | trans({ voter: vote.authorName | escape, date: createdAt })) | raw }}
                                 </span>
 
                                 {% if not poll.isClosed %}
