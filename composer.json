@@ -31,6 +31,7 @@
         "symfony/mime": "7.3.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/notifier": "7.3.*",
+        "symfony/polyfill-intl-messageformatter": "*",
         "symfony/process": "7.3.*",
         "symfony/property-access": "7.3.*",
         "symfony/property-info": "7.3.*",

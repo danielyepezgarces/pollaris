@@ -27,6 +27,12 @@
 @import "../styles/components/buttons.css";
 @import "../styles/components/icons.css";
 @import "../styles/components/images.css";
+@import "../styles/components/forms/errors.css";
+@import "../styles/components/forms/forms.css";
+@import "../styles/components/forms/labels.css";
+@import "../styles/components/forms/selects.css";
+@import "../styles/components/loaders.css";
+@import "../styles/components/modal.css";
 @import "../styles/components/panels.css";
 @import "../styles/layout/body.css";
 @import "../styles/layout/header.css";

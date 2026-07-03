@@ -58,7 +58,24 @@ class ImportCommand extends Command
                 continue;
             }
 
-            $yamlContent = Yaml::dump($data, 4, 4, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK);
+            // Load the English source translation file as template to find original plural variable names
+            $englishSourcePath = $translationsDir . '/' . $domain . '+intl-icu.en_GB.yaml';
+            $englishData = [];
+            if (file_exists($englishSourcePath)) {
+                $englishData = Yaml::parseFile($englishSourcePath);
+            }
+
+            $convertedData = [];
+            foreach ($data as $key => $value) {
+                if (is_string($value)) {
+                    $englishMessage = $englishData[$key] ?? null;
+                    $convertedData[$key] = TranslationConverter::convertMediaWikiToIcu($value, $locale, $englishMessage);
+                } else {
+                    $convertedData[$key] = $value;
+                }
+            }
+
+            $yamlContent = Yaml::dump($convertedData, 4, 4, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK);
 
             $importPath = $translationsDir . '/' . $domain . '+intl-icu.' . $locale . '.yaml';
             file_put_contents($importPath, $yamlContent);
