@@ -75,6 +75,11 @@ class CreateCommand extends Command
         $username = trim($input->getOption('username'));
         $password = $input->getOption('password');
 
+        if (!$password) {
+            $this->outputError($output, 'Enter a password.');
+            return Command::INVALID;
+        }
+
         $user = new Entity\User();
         $user->setUsername($username);
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
@@ -84,9 +89,8 @@ class CreateCommand extends Command
 
         $errors = $this->validator->validate($user);
         if (count($errors) > 0) {
-            $output = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
             foreach ($errors as $error) {
-                $output->writeln($error->getMessage());
+                $this->outputError($output, $error->getMessage());
             }
 
             return Command::INVALID;
@@ -97,5 +101,11 @@ class CreateCommand extends Command
         $output->writeln("The user \"{$user->getUsername()}\" has been created.");
 
         return Command::SUCCESS;
+    }
+
+    private function outputError(OutputInterface $output, string $error): void
+    {
+        $output = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
+        $output->writeln($error);
     }
 }
