@@ -1,5 +1,44 @@
 # Changelog
 
+## 2026-07-04 - 1.2.3
+
+### Security
+
+This version fixes a XSS security issue in the administration.
+**It is highly recommended to update to this version.**
+
+- Fix XSS in poll admin ([c199fd0](https://framagit.org/pollaris/pollaris/-/commit/c199fd0))
+- Make the preferences redirection more secure ([866834f](https://framagit.org/pollaris/pollaris/-/commit/866834f))
+
+### Bug fixes
+
+- Allow to clear all proposals ([cace389](https://framagit.org/pollaris/pollaris/-/commit/cace389))
+- Allow cleanup of polls with comments ([990d652](https://framagit.org/pollaris/pollaris/-/commit/990d652))
+- Fix the assertion of poll's slug length ([973a023](https://framagit.org/pollaris/pollaris/-/commit/973a023))
+- Handle searching polls with invalid email ([42aa564](https://framagit.org/pollaris/pollaris/-/commit/42aa564))
+- Fix poll-width edge-case value ([b2e16fa](https://framagit.org/pollaris/pollaris/-/commit/b2e16fa))
+- Make sure that admins have password ([0bcea55](https://framagit.org/pollaris/pollaris/-/commit/0bcea55))
+- Use alert instead of confirm when submiting vote without answer ([c381246](https://framagit.org/pollaris/pollaris/-/commit/c381246))
+
+### Documentation
+
+- Add links to website and forum to the README ([f09c6cd](https://framagit.org/pollaris/pollaris/-/commit/f09c6cd))
+- Add instruction to generate a safe `APP_SECRET` ([e5cc4e4](https://framagit.org/pollaris/pollaris/-/commit/e5cc4e4))
+
+### Maintenance
+
+- Update the dependencies ([23b7340](https://framagit.org/pollaris/pollaris/-/commit/23b7340))
+
+### Developers
+
+- Add a test to document behaviour of vote edition ([1575b8c](https://framagit.org/pollaris/pollaris/-/commit/1575b8c))
+- Remove useless `cascade_validation` options ([7f19a10](https://framagit.org/pollaris/pollaris/-/commit/7f19a10))
+- Remove unused configuration ([b2f34a0](https://framagit.org/pollaris/pollaris/-/commit/b2f34a0))
+- Configure Poll password hasher in tests ([170b357](https://framagit.org/pollaris/pollaris/-/commit/170b357))
+- Fix CSS typo col--extended ([2aae81c](https://framagit.org/pollaris/pollaris/-/commit/2aae81c))
+- Remove inexistent `php-custom.ini` mount ([4e840e2](https://framagit.org/pollaris/pollaris/-/commit/4e840e2))
+- Remove duplicated `MAILER_DSN` in `.env` ([66101ba](https://framagit.org/pollaris/pollaris/-/commit/66101ba))
+
 ## 2026-05-27 - 1.2.2
 
 ### Security
