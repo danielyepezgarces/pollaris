@@ -8,6 +8,8 @@ comment.content.required: Írjon be egy üzenetet.
 date.value.required: Írjon be egy dátumot.
 poll.author_email.invalid: Érvényes e-mail címet adjon meg.
 poll.author_email.required: Írjon be egy e-mail címet.
+email.invalid: Írjon be egy érvényes e-mail-címet.
+email.required: Írjon be egy e-mail-címet.
 poll.author_name.max_length: Írjon be {limit} karakternél rövidebb nevet.
 poll.dates.required: Válasszon ki legalább egy dátumot.
 poll.edit_vote_mode.invalid: Válasszon szavazatszerkesztési módot a listából.

@@ -4,6 +4,41 @@ Error: Error
 answer.value.invalid: Seleccione una opción de la lista.
 comment.author_name.max_length: Introduzca un nombre de menos de {limit} 
   caracteres.
+comment.author_name.required: Introduzca un nombre.
+comment.content.required: Introduzca un mensaje.
+date.value.required: Introduzca una fecha.
+email.invalid: Introduzca una dirección de correo electrónico válida.
+email.required: Introduzca una dirección de correo electrónico.
+poll.author_name.max_length: Introduzca un nombre de menos de {limit} 
+  caracteres.
+poll.dates.required: Seleccione al menos una fecha.
+poll.edit_vote_mode.invalid: Seleccione un modo de edición de votos de la lista.
+poll.password.incorrect: La contraseña es incorrecta.
+poll.password.required: La contraseña es necesaria.
+poll.slug.already_used: Este enlace ya está en uso. Por favor, introduce uno 
+  nuevo.
+poll.slug.max_length: Introduzca un enlace de menos de {limit} caracteres.
+poll.slug.pattern: Introduzca un enlace utilizando solo caracteres de la A a la 
+  Z, números, guiones o guiones bajos.
+poll.slug.required: Introduzca un enlace.
 poll.timezone_mode.invalid: Seleccione una zona horaria válida.
+poll.title.max_length: Introduzca un título de caracteres de menos de {limit}.
+poll.title.required: Introduzca un título.
+poll.type.invalid: Seleccione un tipo de la lista.
 poll.wikimedia_edits_project.invalid: 'Ingresa un nombre válido de base de datos de proyecto Wikimedia, como eswiki, commonswiki o wikidatawiki.'
+proposal.label.max_length: Introduzca una propuesta de menos de {limit} 
+  caracteres.
+proposal.label.required: Introduzca una propuesta.
+user.author_name.already_used: Introduzca un nombre diferente, este ya está en 
+  uso.
+user.username.already_used: Introduzca un nombre de usuario diferente, este ya 
+  está en uso.
+user.username.max_length: Introduzca un nombre de usuario de menos de {limit} 
+  caracteres.
+user.username.required: Introduzca un nombre de usuario.
+vote.author_name.max_length: Introduzca un nombre de menos de {limit} 
+  caracteres.
+vote.author_name.required: Introduzca un nombre.
+vote.max_votes.limited: Ya ha habido {max} voto(s) para esta propuesta, no se 
+  puede votar más.
 vote.owner.already_voted: Ya has votado en esta encuesta.

@@ -142,7 +142,7 @@ class PollForm extends AbstractType
             $authorEmailOptions['required'] = true;
             $authorEmailOptions['constraints'] = [
                 new Assert\NotBlank(
-                    message: new TranslatableMessage('poll.author_email.required', domain: 'validators'),
+                    message: new TranslatableMessage('email.required', domain: 'validators'),
                 ),
             ];
         }

@@ -118,7 +118,7 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
 
     #[ORM\Column(length: 255)]
     #[Assert\Email(
-        message: new TranslatableMessage('poll.author_email.invalid', domain: 'validators'),
+        message: new TranslatableMessage('email.invalid', domain: 'validators'),
     )]
     private ?string $authorEmail = null;
 

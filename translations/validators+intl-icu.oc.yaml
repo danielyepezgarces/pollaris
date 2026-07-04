@@ -6,8 +6,8 @@ comment.author_name.max_length: Picatz un nom d’almens {limit} caractèrs.
 comment.author_name.required: Picatz un nom.
 comment.content.required: Escrivètz un messatge.
 date.value.required: Dintratz una data.
-poll.author_email.invalid: Picatz una adreça electronica valida.
-poll.author_email.required: Picatz una adreça electronica.
+email.invalid: Picatz una adreça electronica valida.
+email.required: Picatz una adreça electronica.
 poll.author_name.max_length: Picatz un nom de mens de {limit} caractèrs.
 poll.dates.required: Seleccionatz almens una data.
 poll.edit_vote_mode.invalid: Seleccionatz un mòde d’edicion dels vòtes.

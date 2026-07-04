@@ -6,7 +6,8 @@ poll.slug.required: Sekcem-d aseɣwen.
 poll.title.required: Sekcem-d azwel.
 user.username.required: Sekcem-d isem n useqdac.
 vote.author_name.required: Sekcem-d isem.
-poll.author_email.required: Sekcem-d tansa imayl.
+email.required: Sekcem-d tansa imayl.
 poll.password.incorrect: Awal n uɛeddi d arameɣtu.
 poll.author_email.invalid: Efk-d tansa imayl tameɣtut.
+email.invalid: Efk-d tansa imayl tameɣtut.
 vote.owner.already_voted: Tesnulfud yakan deg tezrawin-agi.
