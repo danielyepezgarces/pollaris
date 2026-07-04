@@ -59,7 +59,6 @@ class PollProposalsForm extends AbstractType
                 'class' => 'form--standard',
             ],
             'data_class' => Entity\Poll::class,
-            'cascade_validation' => true,
         ]);
     }
 }
