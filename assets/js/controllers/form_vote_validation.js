@@ -42,7 +42,7 @@ export default class extends Controller {
     onSubmit(e) {
         if (!this.anyCheckedValue()) {
             e.preventDefault();
-            window.confirm(this.requiredChoiceValue);
+            window.alert(this.requiredChoiceValue);
         }
     }
 
