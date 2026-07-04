@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class SearchPollsForm extends AbstractType
 {
@@ -28,6 +29,14 @@ class SearchPollsForm extends AbstractType
             'trim' => true,
             'label' => new TranslatableMessage('forms.search_polls_form.email.label'),
             'help' => new TranslatableMessage('forms.search_polls_form.email.help'),
+            'constraints' => [
+                new Assert\NotBlank(
+                    message: new TranslatableMessage('email.required', domain: 'validators'),
+                ),
+                new Assert\Email(
+                    message: new TranslatableMessage('email.invalid', domain: 'validators'),
+                ),
+            ],
         ]);
 
         $builder->add('submit', Type\SubmitType::class, [

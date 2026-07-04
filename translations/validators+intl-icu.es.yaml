@@ -7,9 +7,9 @@ comment.author_name.max_length: Introduzca un nombre de menos de {limit}
 comment.author_name.required: Introduzca un nombre.
 comment.content.required: Introduzca un mensaje.
 date.value.required: Introduzca una fecha.
-poll.author_email.invalid: Introduzca una dirección de correo electrónico 
+email.invalid: Introduzca una dirección de correo electrónico 
   válida.
-poll.author_email.required: Introduzca una dirección de correo electrónico.
+email.required: Introduzca una dirección de correo electrónico.
 poll.author_name.max_length: Introduzca un nombre de menos de {limit} 
   caracteres.
 poll.dates.required: Seleccione al menos una fecha.

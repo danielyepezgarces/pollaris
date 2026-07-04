@@ -6,8 +6,8 @@ comment.author_name.max_length: Escribe un nome de menos de {limit} caracteres.
 comment.author_name.required: Escribe un nome.
 comment.content.required: Escribe unha mensaxe.
 date.value.required: Escribe unha data.
-poll.author_email.invalid: Escribe un enderezo de correo válido.
-poll.author_email.required: Escribe un enderezo de correo electrónico.
+email.invalid: Escribe un enderezo de correo válido.
+email.required: Escribe un enderezo de correo electrónico.
 poll.author_name.max_length: Escribe un nome de menos de {limit} caracteres.
 poll.dates.required: Indica unha data polo menos.
 poll.edit_vote_mode.invalid: Selecciona na lista un modo de edición do voto.
