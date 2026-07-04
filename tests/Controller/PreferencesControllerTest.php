@@ -38,6 +38,42 @@ class PreferencesControllerTest extends WebTestCase
         $this->assertSame('fr_FR', $session->get('_locale'));
     }
 
+    public function testPostEditRedirectsToReferer(): void
+    {
+        $client = static::createClient();
+        $session = $this->getSession($client);
+
+        $client->request(Request::METHOD_POST, '/preferences', [
+            'preferences' => [
+                '_token' => $this->getCsrf($client, 'preferences'),
+                'locale' => 'fr_FR',
+            ],
+        ], server: [
+            'HTTP_REFERER' => '/my',
+        ]);
+
+        $this->assertResponseRedirects('/my', 302);
+        $this->assertSame('fr_FR', $session->get('_locale'));
+    }
+
+    public function testPostEditRedirectsToHomepageIfRefererIsUnsafe(): void
+    {
+        $client = static::createClient();
+        $session = $this->getSession($client);
+
+        $client->request(Request::METHOD_POST, '/preferences', [
+            'preferences' => [
+                '_token' => $this->getCsrf($client, 'preferences'),
+                'locale' => 'fr_FR',
+            ],
+        ], server: [
+            'HTTP_REFERER' => 'https://evil.example.com',
+        ]);
+
+        $this->assertResponseRedirects('/', 302);
+        $this->assertSame('fr_FR', $session->get('_locale'));
+    }
+
     public function testPostUpdateLocaleFailsIfLocaleIsInvalid(): void
     {
         $client = static::createClient();
