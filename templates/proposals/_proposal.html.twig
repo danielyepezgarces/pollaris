@@ -49,7 +49,7 @@
                 {% endif %}
 
                 {% if countYes > 0 %}
-                    <ul class="col--extended list--nostyle">
+                    <ul class="col--extend list--nostyle">
                         {% for answer in answersByValues['yes'] %}
                             <li class="vote vote--yes">
                                 {{ answer.vote.authorName }}
@@ -69,7 +69,7 @@
                 </span>
 
                 {% if countMaybe > 0 %}
-                    <ul class="col--extended list--nostyle">
+                    <ul class="col--extend list--nostyle">
                         {% for answer in answersByValues['maybe'] %}
                             <li class="vote vote--maybe">
                                 {{ answer.vote.authorName }}
@@ -89,7 +89,7 @@
                 </span>
 
                 {% if countNo > 0 %}
-                    <ul class="col--extended list--nostyle">
+                    <ul class="col--extend list--nostyle">
                         {% for answer in answersByValues['no'] %}
                             <li class="vote vote--no">
                                 {{ answer.vote.authorName }}
