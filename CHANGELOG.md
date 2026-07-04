@@ -1,6 +1,81 @@
 # Changelog
 
-## unreleased
+## 2026-07-04 - 1.2.3
+
+### Security
+
+This version fixes a XSS security issue in the administration.
+**It is highly recommended to update to this version.**
+
+- Fix XSS in poll admin ([c199fd0](https://framagit.org/pollaris/pollaris/-/commit/c199fd0))
+- Make the preferences redirection more secure ([866834f](https://framagit.org/pollaris/pollaris/-/commit/866834f))
+
+### Bug fixes
+
+- Allow to clear all proposals ([cace389](https://framagit.org/pollaris/pollaris/-/commit/cace389))
+- Allow cleanup of polls with comments ([990d652](https://framagit.org/pollaris/pollaris/-/commit/990d652))
+- Fix the assertion of poll's slug length ([973a023](https://framagit.org/pollaris/pollaris/-/commit/973a023))
+- Handle searching polls with invalid email ([42aa564](https://framagit.org/pollaris/pollaris/-/commit/42aa564))
+- Fix poll-width edge-case value ([b2e16fa](https://framagit.org/pollaris/pollaris/-/commit/b2e16fa))
+- Make sure that admins have password ([0bcea55](https://framagit.org/pollaris/pollaris/-/commit/0bcea55))
+- Use alert instead of confirm when submiting vote without answer ([c381246](https://framagit.org/pollaris/pollaris/-/commit/c381246))
+
+### Documentation
+
+- Add links to website and forum to the README ([f09c6cd](https://framagit.org/pollaris/pollaris/-/commit/f09c6cd))
+- Add instruction to generate a safe `APP_SECRET` ([e5cc4e4](https://framagit.org/pollaris/pollaris/-/commit/e5cc4e4))
+
+### Maintenance
+
+- Update the dependencies ([23b7340](https://framagit.org/pollaris/pollaris/-/commit/23b7340))
+
+### Developers
+
+- Add a test to document behaviour of vote edition ([1575b8c](https://framagit.org/pollaris/pollaris/-/commit/1575b8c))
+- Remove useless `cascade_validation` options ([7f19a10](https://framagit.org/pollaris/pollaris/-/commit/7f19a10))
+- Remove unused configuration ([b2f34a0](https://framagit.org/pollaris/pollaris/-/commit/b2f34a0))
+- Configure Poll password hasher in tests ([170b357](https://framagit.org/pollaris/pollaris/-/commit/170b357))
+- Fix CSS typo col--extended ([2aae81c](https://framagit.org/pollaris/pollaris/-/commit/2aae81c))
+- Remove inexistent `php-custom.ini` mount ([4e840e2](https://framagit.org/pollaris/pollaris/-/commit/4e840e2))
+- Remove duplicated `MAILER_DSN` in `.env` ([66101ba](https://framagit.org/pollaris/pollaris/-/commit/66101ba))
+
+## 2026-05-27 - 1.2.2
+
+### Security
+
+This version updates the dependencies, in particular Symfony and Twig which both released a bunch of [critical security patches](https://symfony.com/blog/category/security-advisories).
+As far as I can tell, there are no exploitable critical vulnerabilities within Pollaris.
+**However, you are encouraged to update Pollaris to ensure you are fully protected.**
+
+### Bug fixes
+
+- Fix error 500 when Galician is used ([a3b7e86](https://framagit.org/pollaris/pollaris/-/commit/a3b7e86))
+
+### Maintenance
+
+- Add official support for PHP 8.5 ([2eb6d8f](https://framagit.org/pollaris/pollaris/-/commit/2eb6d8f))
+- Update the dependencies ([5f51cae](https://framagit.org/pollaris/pollaris/-/commit/5f51cae), [8c2619b](https://framagit.org/pollaris/pollaris/-/commit/8c2619b))
+
+### Translations
+
+- Update Czech ([2085ec8](https://framagit.org/pollaris/pollaris/-/commit/2085ec8))
+- Update Hungarian ([fe440b7](https://framagit.org/pollaris/pollaris/-/commit/fe440b7), [b6b0fd1](https://framagit.org/pollaris/pollaris/-/commit/b6b0fd1), [4d5661f](https://framagit.org/pollaris/pollaris/-/commit/4d5661f))
+
+## 2026-04-25 - 1.2.1
+
+### Migration notes
+
+Note that [instructions to update Pollaris](/docs/administrators/install.md) have been updated to take care of an issue with the Symfony cache while running `composer install`.
+
+### Translations
+
+- Update and enable the Spanish translation ([55dba47](https://framagit.org/pollaris/pollaris/-/commit/55dba47), [c984d6f](https://framagit.org/pollaris/pollaris/-/commit/c984d6f))
+
+### Documentation
+
+- Update upgrade documentation ([b7251d8](https://framagit.org/pollaris/pollaris/-/commit/b7251d8))
+
+## 2026-04-22 - 1.2.0
 
 ### Migration notes
 
