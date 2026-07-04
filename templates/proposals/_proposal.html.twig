@@ -64,7 +64,7 @@
                 {% endif %}
 
                 {% if countYes > 0 %}
-                    <ul class="col--extended list--nostyle">
+                    <ul class="col--extend list--nostyle">
                         {% for answer in answersByValues['yes'] %}
                             <li class="vote vote--yes{% if myVote and answer.vote.id == myVote.id %} vote--current{% endif %}">
                                 {{ include('_wikimedia_user_link.html.twig', { username: answer.vote.authorName }) }}
@@ -84,7 +84,7 @@
                 </span>
 
                 {% if countMaybe > 0 %}
-                    <ul class="col--extended list--nostyle">
+                    <ul class="col--extend list--nostyle">
                         {% for answer in answersByValues['maybe'] %}
                             <li class="vote vote--maybe{% if myVote and answer.vote.id == myVote.id %} vote--current{% endif %}">
                                 {{ include('_wikimedia_user_link.html.twig', { username: answer.vote.authorName }) }}
@@ -104,7 +104,7 @@
                 </span>
 
                 {% if countNo > 0 %}
-                    <ul class="col--extended list--nostyle">
+                    <ul class="col--extend list--nostyle">
                         {% for answer in answersByValues['no'] %}
                             <li class="vote vote--no{% if myVote and answer.vote.id == myVote.id %} vote--current{% endif %}">
                                 {{ include('_wikimedia_user_link.html.twig', { username: answer.vote.authorName }) }}
