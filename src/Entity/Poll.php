@@ -65,7 +65,7 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
 
     #[ORM\Column(length: 20, unique: true, nullable: true)]
     #[Assert\Length(
-        max: self::MAX_TITLE_LENGTH,
+        max: self::MAX_SLUG_LENGTH,
         maxMessage: new TranslatableMessage('poll.slug.max_length', domain: 'validators'),
     )]
     #[Assert\Regex(
