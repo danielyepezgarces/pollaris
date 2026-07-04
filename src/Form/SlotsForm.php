@@ -86,7 +86,6 @@ class SlotsForm extends AbstractType
                 'class' => 'form--standard',
             ],
             'data_class' => Entity\Date::class,
-            'cascade_validation' => true,
         ]);
     }
 }
