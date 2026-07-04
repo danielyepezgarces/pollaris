@@ -7,8 +7,8 @@ comment.author_name.max_length: Geben Sie einen Namen mit weniger als {limit}
 comment.author_name.required: Geben Sie einen Namen ein.
 comment.content.required: Geben Sie eine Nachricht ein.
 date.value.required: Geben Sie ein Datum ein.
-poll.author_email.invalid: Geben Sie eine gültige E-Mail-Adresse ein.
-poll.author_email.required: Geben Sie eine E-Mail-Adresse ein.
+email.invalid: Geben Sie eine gültige E-Mail-Adresse ein.
+email.required: Geben Sie eine E-Mail-Adresse ein.
 poll.author_name.max_length: Geben Sie einen Namen mit weniger als {limit} 
   Zeichen ein.
 poll.dates.required: Wählen Sie mindestens ein Datum aus.

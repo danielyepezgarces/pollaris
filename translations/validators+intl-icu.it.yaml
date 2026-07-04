@@ -6,8 +6,8 @@ comment.author_name.max_length: Inserisci un nome con meno di {limit} caratteri.
 comment.author_name.required: Inserisci un nome.
 comment.content.required: Inserisci un messaggio.
 date.value.required: Inserisci una data.
-poll.author_email.invalid: Inserisci un indirizzo email valido.
-poll.author_email.required: Inserisci un indirizzo email.
+email.invalid: Inserisci un indirizzo email valido.
+email.required: Inserisci un indirizzo email.
 poll.author_name.max_length: Inserisci un nome con meno di {limit} caratteri.
 poll.dates.required: Seleziona almeno una data.
 poll.edit_vote_mode.invalid: Seleziona dall'elenco una modalità di modifica dei 
