@@ -51,6 +51,33 @@ class VotesControllerTest extends WebTestCase
         $this->assertSelectorTextContains('h1', 'My poll');
     }
 
+    public function testGetEditWorksIfLimitedToItsOwnVoteButNotIdNotInSession(): void
+    {
+        // Why do we let users access the vote if the edition is limited and
+        // the vote id is not in session? Said otherwise, why don't we call
+        // `PollSecurity::canEditVote($vote)`?
+        // This is mainly because the vote link is stored in the local storage:
+        // the user must keep the access to its vote accross sessions. The
+        // behaviour would be very confusing otherwise.
+        // We consider it is safe enough as ids are already hard to guess
+        // (while they don't leak), and that votes have a low security value
+        // (Pollaris shouldn't be used for polls with a strong integrity
+        // requirement!)
+        $client = static::createClient();
+        $poll = Factory\PollFactory::new([
+            'title' => 'My poll',
+            'editVoteMode' => 'own',
+        ])->completed()->create();
+        $vote = Factory\VoteFactory::createOne([
+            'poll' => $poll,
+        ]);
+
+        $client->request(Request::METHOD_GET, "/polls/{$poll->getSlug()}/votes/{$vote->getId()}/edit");
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', 'My poll');
+    }
+
     public function testGetEditRedirectsToPollIfPollIsClosed(): void
     {
         $client = static::createClient();
