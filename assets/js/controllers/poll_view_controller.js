@@ -127,7 +127,7 @@ export default class extends Controller {
         if (theadLineWidth < 650 && mainFlowWidth >= 650) {
             document.documentElement.style.setProperty('--poll-width', `650px`);
         } else {
-            document.documentElement.style.setProperty('--poll-width', `calc(${pollWidth}px`);
+            document.documentElement.style.setProperty('--poll-width', `${pollWidth}px`);
         }
     }
 }
