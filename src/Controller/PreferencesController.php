@@ -8,20 +8,21 @@ namespace App\Controller;
 
 use App\Form;
 use App\Utils;
+use App\Service;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PreferencesController extends BaseController
 {
+    public function __construct(
+        private Service\Referrer $referrerService,
+    ) {
+    }
+
     #[Route('/preferences', name: 'edit preferences')]
     public function edit(Request $request): Response
     {
-        $referer = $request->headers->get('Referer');
-        if ($referer === null) {
-            $referer = '/';
-        }
-
         $form = $this->createNamedForm('preferences', Form\PreferencesForm::class, [
             'locale' => $request->getLocale(),
         ]);
@@ -33,7 +34,8 @@ class PreferencesController extends BaseController
             $session = $request->getSession();
             $session->set('_locale', $locale);
 
-            return $this->redirect($referer);
+            $referrer = $this->referrerService->get();
+            return $this->redirect($referrer);
         }
 
         return $this->render('preferences/edit.html.twig', [
