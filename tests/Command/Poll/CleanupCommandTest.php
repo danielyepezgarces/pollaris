@@ -97,6 +97,28 @@ class CleanupCommandTest extends KernelTestCase
         );
     }
 
+    public function testWithAssociatedData(): void
+    {
+        $expired = Factory\PollFactory::new()
+            ->completed()
+            ->create([
+                'closedAt' => new \DateTimeImmutable('-7 months')
+            ]);
+        Factory\CommentFactory::createOne([
+            'poll' => $expired,
+        ]);
+        Factory\VoteFactory::createOne([
+            'poll' => $expired,
+        ]);
+
+        $this->assertSame(1, Factory\PollFactory::count());
+
+        $tester = self::executeCommand('app:poll:cleanup');
+
+        $this->assertSame(Command::SUCCESS, $tester->getStatusCode(), $tester->getDisplay());
+        Factory\PollFactory::assert()->count(0);
+    }
+
     public function testDryRunDoesNotDeleteExpiredPolls(): void
     {
         $expiredCompleted = Factory\PollFactory::new()
