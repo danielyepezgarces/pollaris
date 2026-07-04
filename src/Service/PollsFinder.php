@@ -32,22 +32,22 @@ class PollsFinder
     ) {
     }
 
-    public function sendEmailLinks(string $email): void
+    public function sendEmailLinks(string $to): void
     {
-        $polls = $this->pollRepository->findBy(['authorEmail' => $email]);
+        $polls = $this->pollRepository->findBy(['authorEmail' => $to]);
 
         if (!$polls) {
             return;
         }
 
-        $to = new Address($email);
+        $toAddress = new Address($to);
         $locale = $polls[0]->getLocale();
 
         $subject = "[{$this->appName}] ";
         $subject .= $this->translator->trans('emails.polls_list.subject', locale: $locale);
 
         $email = (new TemplatedEmail())
-            ->to($to)
+            ->to($toAddress)
             ->subject($subject)
             ->textTemplate('emails/polls_list.txt.twig')
             ->locale($locale)
