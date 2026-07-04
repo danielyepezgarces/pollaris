@@ -14,11 +14,16 @@
 
 namespace App\Service;
 
-use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 class PollPassword
 {
+    public function __construct(
+        private PasswordHasherFactoryInterface $passwordHasherFactory,
+    ) {
+    }
+
     public function hash(
         #[\SensitiveParameter]
         string $plainPassword
@@ -36,9 +41,6 @@ class PollPassword
 
     private function getPasswordHasher(): PasswordHasherInterface
     {
-        $passwordHasherFactory = new PasswordHasherFactory([
-            'common' => ['algorithm' => 'auto'],
-        ]);
-        return $passwordHasherFactory->getPasswordHasher('common');
+        return $this->passwordHasherFactory->getPasswordHasher('common');
     }
 }
