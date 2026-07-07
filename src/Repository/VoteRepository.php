@@ -103,4 +103,24 @@ class VoteRepository extends BaseRepository
 
         return $votes;
     }
+
+    /**
+     * Count unique voters (distinct logged-in owners + all anonymous votes).
+     */
+    public function countUniqueVoters(): int
+    {
+        $ownersCount = $this->createQueryBuilder('v')
+            ->select('COUNT(DISTINCT v.owner)')
+            ->where('v.owner IS NOT NULL')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $anonCount = $this->createQueryBuilder('v')
+            ->select('COUNT(v.id)')
+            ->where('v.owner IS NULL')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return (int)$ownersCount + (int)$anonCount;
+    }
 }

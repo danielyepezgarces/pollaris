@@ -123,6 +123,7 @@ home.title: 'Coordina eventos y toma decisiones con tu comunidad Wikimedia.'
 home.welcome: 'Bienvenido, {name}'
 home.stats.polls: '{count, plural, one {encuesta creada} other {encuestas creadas}}'
 home.stats.votes: '{count, plural, one {voto registrado} other {votos registrados}}'
+home.stats.participants: '{count, plural, one {participante único} other {participantes únicos}}'
 home.stats.comments: '{count, plural, one {comentario publicado} other {comentarios publicados}}'
 home.intro: 'Usa esta herramienta de votación para organizar editatones, reuniones, campañas y consultas comunitarias de forma rápida, sencilla y abierta.'
 home.create_poll: Crear una nueva consulta

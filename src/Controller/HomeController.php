@@ -41,16 +41,19 @@ class HomeController extends BaseController
         try {
             $pollsCount = $this->pollRepository->count([]);
             $votesCount = $this->voteRepository->count([]);
+            $votersCount = $this->voteRepository->countUniqueVoters();
             $commentsCount = $this->commentRepository->count([]);
         } catch (\Exception) {
             $pollsCount = 0;
             $votesCount = 0;
+            $votersCount = 0;
             $commentsCount = 0;
         }
 
         return $this->render($template, [
             'pollsCount' => $pollsCount,
             'votesCount' => $votesCount,
+            'votersCount' => $votersCount,
             'commentsCount' => $commentsCount,
         ]);
     }

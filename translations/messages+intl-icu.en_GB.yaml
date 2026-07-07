@@ -158,6 +158,7 @@ home.title: 'Coordinate events and make decisions with your Wikimedia community.
 home.welcome: 'Welcome, {name}'
 home.stats.polls: '{count, plural, one {poll created} other {polls created}}'
 home.stats.votes: '{count, plural, one {vote cast} other {votes cast}}'
+home.stats.participants: '{count, plural, one {unique participant} other {unique participants}}'
 home.stats.comments: '{count, plural, one {comment posted} other {comments posted}}'
 layout.header.my: 'My polls and votes'
 layout.header.public_polls: 'Open public polls'

@@ -124,6 +124,7 @@
     "home.welcome": "Bienvenido, $1",
     "home.stats.polls": "{{PLURAL:$1|encuesta creada|encuestas creadas}}",
     "home.stats.votes": "{{PLURAL:$1|voto registrado|votos registrados}}",
+    "home.stats.participants": "{{PLURAL:$1|participante único|participantes únicos}}",
     "home.stats.comments": "{{PLURAL:$1|comentario publicado|comentarios publicados}}",
     "home.intro": "Usa esta herramienta de votación para organizar editatones, reuniones, campañas y consultas comunitarias de forma rápida, sencilla y abierta.",
     "home.create_poll": "Crear una nueva consulta",

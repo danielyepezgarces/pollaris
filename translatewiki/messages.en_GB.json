@@ -159,6 +159,7 @@
     "home.welcome": "Welcome, $1",
     "home.stats.polls": "{{PLURAL:$1|poll created|polls created}}",
     "home.stats.votes": "{{PLURAL:$1|vote cast|votes cast}}",
+    "home.stats.participants": "{{PLURAL:$1|unique participant|unique participants}}",
     "home.stats.comments": "{{PLURAL:$1|comment posted|comments posted}}",
     "layout.header.my": "My polls and votes",
     "layout.header.public_polls": "Open public polls",
