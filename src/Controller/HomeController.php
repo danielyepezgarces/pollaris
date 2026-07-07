@@ -52,10 +52,31 @@ class HomeController extends BaseController
 
         return $this->render($template, [
             'pollsCount' => $pollsCount,
+            'pollsCountFormatted' => $this->formatNumberShort($pollsCount),
             'votesCount' => $votesCount,
+            'votesCountFormatted' => $this->formatNumberShort($votesCount),
             'votersCount' => $votersCount,
+            'votersCountFormatted' => $this->formatNumberShort($votersCount),
             'commentsCount' => $commentsCount,
+            'commentsCountFormatted' => $this->formatNumberShort($commentsCount),
         ]);
+    }
+
+    private function formatNumberShort(int $num): string
+    {
+        if ($num < 10000) {
+            return (string)$num;
+        }
+
+        if ($num < 1000000) {
+            $thousands = $num / 1000;
+            $formatted = round($thousands, 1);
+            return $formatted . 'K';
+        }
+
+        $millions = $num / 1000000;
+        $formatted = round($millions, 1);
+        return $formatted . 'M';
     }
 
     #[Route('/polls/public', name: 'public polls')]
