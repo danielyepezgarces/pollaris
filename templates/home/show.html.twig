@@ -75,22 +75,22 @@
             </div>
         </div>
 
-        <div class="cols cols--center cols--gap home-stats" style="display: flex; justify-content: center; gap: 45px; margin-top: 30px; margin-bottom: 30px; flex-wrap: wrap;">
-            <div class="stat-item" style="text-align: center; min-width: 120px;">
-                <span class="stat-number" style="display: block; font-size: 2.2em; font-weight: bold; color: var(--color-primary, #2d6b9e); line-height: 1.2;">{{ pollsCountFormatted }}</span>
-                <span class="stat-label text--secondary" style="font-size: 0.95em;">{{ 'home.stats.polls' | trans({ count: pollsCount }) }}</span>
+        <div class="home-stats">
+            <div class="stat-item">
+                <span class="stat-number">{{ pollsCountFormatted }}</span>
+                <span class="stat-label text--secondary">{{ 'home.stats.polls' | trans({ count: pollsCount }) }}</span>
             </div>
-            <div class="stat-item" style="text-align: center; min-width: 120px;">
-                <span class="stat-number" style="display: block; font-size: 2.2em; font-weight: bold; color: var(--color-primary, #2d6b9e); line-height: 1.2;">{{ votesCountFormatted }}</span>
-                <span class="stat-label text--secondary" style="font-size: 0.95em;">{{ 'home.stats.votes' | trans({ count: votesCount }) }}</span>
+            <div class="stat-item">
+                <span class="stat-number">{{ votesCountFormatted }}</span>
+                <span class="stat-label text--secondary">{{ 'home.stats.votes' | trans({ count: votesCount }) }}</span>
             </div>
-            <div class="stat-item" style="text-align: center; min-width: 120px;">
-                <span class="stat-number" style="display: block; font-size: 2.2em; font-weight: bold; color: var(--color-primary, #2d6b9e); line-height: 1.2;">{{ votersCountFormatted }}</span>
-                <span class="stat-label text--secondary" style="font-size: 0.95em;">{{ 'home.stats.participants' | trans({ count: votersCount }) }}</span>
+            <div class="stat-item">
+                <span class="stat-number">{{ votersCountFormatted }}</span>
+                <span class="stat-label text--secondary">{{ 'home.stats.participants' | trans({ count: votersCount }) }}</span>
             </div>
-            <div class="stat-item" style="text-align: center; min-width: 120px;">
-                <span class="stat-number" style="display: block; font-size: 2.2em; font-weight: bold; color: var(--color-primary, #2d6b9e); line-height: 1.2;">{{ commentsCountFormatted }}</span>
-                <span class="stat-label text--secondary" style="font-size: 0.95em;">{{ 'home.stats.comments' | trans({ count: commentsCount }) }}</span>
+            <div class="stat-item">
+                <span class="stat-number">{{ commentsCountFormatted }}</span>
+                <span class="stat-label text--secondary">{{ 'home.stats.comments' | trans({ count: commentsCount }) }}</span>
             </div>
         </div>
 
