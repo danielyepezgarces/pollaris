@@ -27,6 +27,8 @@ class HomeController extends BaseController
     public function __construct(
         private readonly Twig\Environment $twig,
         private readonly Repository\PollRepository $pollRepository,
+        private readonly Repository\VoteRepository $voteRepository,
+        private readonly Repository\CommentRepository $commentRepository,
     ) {
     }
 
@@ -34,11 +36,23 @@ class HomeController extends BaseController
     public function show(): Response
     {
         $twigLoader = $this->twig->getLoader();
-        if ($twigLoader->exists('home/custom.html.twig')) {
-            return $this->render('home/custom.html.twig');
-        } else {
-            return $this->render('home/show.html.twig');
+        $template = $twigLoader->exists('home/custom.html.twig') ? 'home/custom.html.twig' : 'home/show.html.twig';
+
+        try {
+            $pollsCount = $this->pollRepository->count([]);
+            $votesCount = $this->voteRepository->count([]);
+            $commentsCount = $this->commentRepository->count([]);
+        } catch (\Exception) {
+            $pollsCount = 0;
+            $votesCount = 0;
+            $commentsCount = 0;
         }
+
+        return $this->render($template, [
+            'pollsCount' => $pollsCount,
+            'votesCount' => $votesCount,
+            'commentsCount' => $commentsCount,
+        ]);
     }
 
     #[Route('/polls/public', name: 'public polls')]
