@@ -101,18 +101,12 @@ hr {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: center;
-    padding: 1.25rem 0.75rem;
-    background: var(--color-grey2);
-    border-radius: var(--border-radius-medium, 8px);
-    border: 1px solid var(--color-grey4);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease;
-}
-
-.stat-item:hover {
-    transform: translateY(-2px);
+    padding: 0.75rem 0.25rem;
+    background: none;
+    border: none;
+    box-shadow: none;
 }
 
 .stat-number {
