@@ -1,6 +1,6 @@
 # Pollaris
 
-**Pollaris is a polling tool to plan, organise and make decisions quickly, easily and without registration.**
+**Pollaris is a polling tool to plan, organise and make decisions quickly and easily. While creating a poll requires logging in with a Wikimedia account, participating in polls is open and does not require a login by default (though authors can optionally restrict voting to authenticated Wikimedia accounts).**
 
 ![Screenshot of a poll view in Pollaris.](public/screenshot.webp)
 

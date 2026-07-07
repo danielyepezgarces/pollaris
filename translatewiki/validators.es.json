@@ -2,7 +2,7 @@
     "Error": "Error",
     "The CSRF token is invalid. Please try to resubmit the form.": "Se ha producido un error, por favor, envíe el formulario de nuevo (token CSRF no válido).",
     "answer.value.invalid": "Seleccione una opción de la lista.",
-    "comment.author_name.max_length": "Introduzca un nombre de menos de {limit} caracteres.",
+    "comment.author_name.max_length": "Introduzca un nombre de menos de $1 caracteres.",
     "poll.timezone_mode.invalid": "Seleccione una zona horaria válida.",
     "poll.wikimedia_edits_project.invalid": "Ingresa un nombre válido de base de datos de proyecto Wikimedia, como eswiki, commonswiki o wikidatawiki.",
     "vote.owner.already_voted": "Ya has votado en esta encuesta."
