@@ -8,7 +8,7 @@
     "build:icons": "svg-sprite --config .svg-sprite.json assets/icons/*.svg"
   },
   "devDependencies": {
-    "esbuild": "0.27.4",
+    "esbuild": "^0.28.1",
     "svg-sprite": "^2.0.4"
   },
   "dependencies": {
