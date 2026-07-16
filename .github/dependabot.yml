@@ -4,7 +4,6 @@
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
 version: 2
-
 updates:
   - package-ecosystem: "composer"
     directory: "/"
@@ -13,3 +12,8 @@ updates:
       day: "sunday"
       time: "00:00"
       timezone: "America/Bogota"
+    groups:
+      composer-dependencies:
+        patterns:
+          - "*"
+
