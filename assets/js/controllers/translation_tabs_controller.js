@@ -9,7 +9,53 @@ export default class extends Controller {
 
     connect() {
         this.activeLocale = 'default';
+        this.syncLocales();
         this.initializeUI();
+    }
+
+    syncLocales() {
+        const activeLocales = this.getActiveLocales();
+        activeLocales.forEach(locale => {
+            this.ensureLocaleInputs(locale);
+        });
+    }
+
+    ensureLocaleInputs(locale) {
+        if (locale === 'default') return;
+
+        // 1. Asegurar que exista el título para este idioma
+        const titlesController = this.application.getControllerForElementAndIdentifier(this.titlesContainerTarget, 'collection');
+        if (titlesController) {
+            const hasTitle = Array.from(this.titlesContainerTarget.querySelectorAll('[data-item="element"] select'))
+                .some(select => select.value === locale);
+            
+            if (!hasTitle) {
+                titlesController.addElement();
+                const elements = this.titlesContainerTarget.querySelectorAll('[data-item="element"]');
+                const newElement = elements[elements.length - 1];
+                if (newElement) {
+                    const select = newElement.querySelector('select');
+                    if (select) select.value = locale;
+                }
+            }
+        }
+
+        // 2. Asegurar que exista la descripción para este idioma
+        const descController = this.application.getControllerForElementAndIdentifier(this.descriptionsContainerTarget, 'collection');
+        if (descController) {
+            const hasDesc = Array.from(this.descriptionsContainerTarget.querySelectorAll('[data-item="element"] select'))
+                .some(select => select.value === locale);
+            
+            if (!hasDesc) {
+                descController.addElement();
+                const elements = this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]');
+                const newElement = elements[elements.length - 1];
+                if (newElement) {
+                    const select = newElement.querySelector('select');
+                    if (select) select.value = locale;
+                }
+            }
+        }
     }
 
     initializeUI() {
@@ -42,7 +88,7 @@ export default class extends Controller {
             elements.forEach(el => {
                 const select = el.querySelector('select');
                 if (select) {
-                    const parentDiv = select.closest('.flow--small > div, .flow > div') || select.parentElement;
+                    const parentDiv = select.closest('div');
                     if (parentDiv) parentDiv.style.display = 'none';
                 }
             });
@@ -115,6 +161,10 @@ export default class extends Controller {
     }
 
     switchLanguage(locale) {
+        if (locale !== 'default') {
+            this.ensureLocaleInputs(locale);
+        }
+
         this.activeLocale = locale;
 
         // 1. Alternar botones de pestañas
@@ -132,8 +182,8 @@ export default class extends Controller {
         });
 
         // 2. Mostrar/ocultar inputs principales (default)
-        const defaultTitle = this.element.querySelector('#poll_title').closest('.flow--small > div, .flow > div') || this.element.querySelector('#poll_title').parentElement;
-        const defaultDesc = this.element.querySelector('#poll_description').closest('.flow--small > div, .flow > div') || this.element.querySelector('#poll_description').parentElement;
+        const defaultTitle = this.element.querySelector('#poll_title')?.closest('div');
+        const defaultDesc = this.element.querySelector('#poll_description')?.closest('div');
         
         if (locale === 'default') {
             if (defaultTitle) defaultTitle.style.display = '';
@@ -208,28 +258,29 @@ export default class extends Controller {
             return;
         }
 
-        // 1. Agregar a localizedTitles
-        const titlesController = this.element.querySelector('[data-controller="collection"]').__stimulusController;
+        // 1. Agregar a localizedTitles usando la API oficial de Stimulus
+        const titlesController = this.application.getControllerForElementAndIdentifier(this.titlesContainerTarget, 'collection');
         if (titlesController) {
             titlesController.addElement();
             // Buscar el último elemento añadido y asignarle el locale
             const elements = this.titlesContainerTarget.querySelectorAll('[data-item="element"]');
             const newElement = elements[elements.length - 1];
-            const select = newElement.querySelector('select');
-            if (select) {
-                select.value = locale;
+            if (newElement) {
+                const select = newElement.querySelector('select');
+                if (select) {
+                    select.value = locale;
+                }
             }
         }
 
-        // 2. Agregar a localizedDescriptions
-        const descBlock = this.element.querySelectorAll('[data-controller="collection"]')[1];
-        if (descBlock) {
-            const descController = descBlock.__stimulusController;
-            if (descController) {
-                descController.addElement();
-                // Buscar el último elemento añadido y asignarle el locale
-                const elements = this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]');
-                const newElement = elements[elements.length - 1];
+        // 2. Agregar a localizedDescriptions usando la API oficial de Stimulus
+        const descController = this.application.getControllerForElementAndIdentifier(this.descriptionsContainerTarget, 'collection');
+        if (descController) {
+            descController.addElement();
+            // Buscar el último elemento añadido y asignarle el locale
+            const elements = this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]');
+            const newElement = elements[elements.length - 1];
+            if (newElement) {
                 const select = newElement.querySelector('select');
                 if (select) {
                     select.value = locale;
