@@ -16,25 +16,24 @@ final class Version20260703154227AddOnDeleteCascadeToCommentsPollId extends Abst
 
     public function up(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE comment DROP CONSTRAINT fk_9474526c3c947c0f');
+        $this->addSql('ALTER TABLE comment DROP FOREIGN KEY FK_9474526C3C947C0F');
         $this->addSql(<<<'SQL'
             ALTER TABLE comment
             ADD CONSTRAINT FK_9474526C3C947C0F
             FOREIGN KEY (poll_id)
             REFERENCES poll (id)
-            ON DELETE CASCADE NOT DEFERRABLE
+            ON DELETE CASCADE
         SQL);
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE comment DROP CONSTRAINT FK_9474526C3C947C0F');
+        $this->addSql('ALTER TABLE comment DROP FOREIGN KEY FK_9474526C3C947C0F');
         $this->addSql(<<<'SQL'
             ALTER TABLE comment
-            ADD CONSTRAINT fk_9474526c3c947c0f
+            ADD CONSTRAINT FK_9474526C3C947C0F
             FOREIGN KEY (poll_id)
             REFERENCES poll (id)
-            NOT DEFERRABLE INITIALLY IMMEDIATE
         SQL);
     }
 }
