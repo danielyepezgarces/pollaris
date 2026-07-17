@@ -141,7 +141,13 @@
 
                 <div data-translation-tabs-target="addButtonContainer" style="margin-top: 1rem; margin-bottom: 1.5rem;"></div>
 
-                {{ form_row(form.duration) }}
+                <div data-controller="duration-picker">
+                    {{ form_row(form.duration, {
+                        attr: {
+                            'data-duration-picker-target': 'minutesInput'
+                        }
+                    }) }}
+                </div>
                 <div class="flow">
                     <p class="text--bold">{{ 'forms.poll_form.cohosts.label' | trans }}</p>
                     <p class="text--secondary text--small">{{ 'forms.poll_form.cohosts.help' | trans }}</p>
