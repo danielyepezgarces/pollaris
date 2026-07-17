@@ -193,7 +193,7 @@ export default class extends Controller {
             if (defaultDesc) defaultDesc.style.display = 'none';
         }
 
-        // 3. Mostrar/ocultar inputs localizados
+        // 3. Mostrar/ocultar inputs localizados y formatear sus etiquetas de forma dinámica
         const allItems = [
             ...this.titlesContainerTarget.querySelectorAll('[data-item="element"]'),
             ...this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]')
@@ -202,6 +202,18 @@ export default class extends Controller {
             const select = item.querySelector('select');
             if (select && select.value === locale) {
                 item.style.display = '';
+
+                // Formatear etiquetas de forma hermosa e integrada
+                const label = item.querySelector('label');
+                if (label) {
+                    const languageName = this.supportedLocalesValue[locale] || locale.toUpperCase();
+                    const labelFor = label.getAttribute('for') || '';
+                    if (labelFor.includes('localizedTitles')) {
+                        label.innerHTML = `Nombre de tu consulta (${languageName}) <span class="label__details">(opcional, máx. 200 caracteres)</span>`;
+                    } else if (labelFor.includes('localizedDescriptions')) {
+                        label.innerHTML = `Descripción (${languageName}) <span class="label__details">(opcional)</span>`;
+                    }
+                }
             } else {
                 item.style.display = 'none';
             }
