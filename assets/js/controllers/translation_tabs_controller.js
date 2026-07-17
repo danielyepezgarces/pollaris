@@ -8,108 +8,132 @@ export default class extends Controller {
     };
 
     connect() {
-        this.activeLocale = 'default';
-        this.syncLocales();
-        this.initializeUI();
+        try {
+            this.activeLocale = 'default';
+            this.syncLocales();
+            this.initializeUI();
+        } catch (e) {
+            console.error('[TranslationTabs] Error al conectar:', e);
+        }
     }
 
     syncLocales() {
-        const activeLocales = this.getActiveLocales();
-        activeLocales.forEach(locale => {
-            this.ensureLocaleInputs(locale);
-        });
+        try {
+            const activeLocales = this.getActiveLocales();
+            activeLocales.forEach(locale => {
+                this.ensureLocaleInputs(locale);
+            });
+        } catch (e) {
+            console.error('[TranslationTabs] Error en syncLocales:', e);
+        }
     }
 
     ensureLocaleInputs(locale) {
         if (locale === 'default') return;
 
-        // 1. Asegurar que exista el título para este idioma
-        const titlesController = this.application.getControllerForElementAndIdentifier(this.titlesContainerTarget, 'collection');
-        if (titlesController) {
-            const hasTitle = Array.from(this.titlesContainerTarget.querySelectorAll('[data-item="element"] select'))
-                .some(select => select.value === locale);
-            
-            if (!hasTitle) {
-                titlesController.addElement();
-                const elements = this.titlesContainerTarget.querySelectorAll('[data-item="element"]');
-                const newElement = elements[elements.length - 1];
-                if (newElement) {
-                    const select = newElement.querySelector('select');
-                    if (select) select.value = locale;
+        try {
+            // 1. Asegurar que exista el título para este idioma
+            const titlesController = this.hasTitlesContainerTarget ? this.application.getControllerForElementAndIdentifier(this.titlesContainerTarget, 'collection') : null;
+            if (titlesController) {
+                const hasTitle = Array.from(this.titlesContainerTarget.querySelectorAll('[data-item="element"] select'))
+                    .some(select => select.value === locale);
+                
+                if (!hasTitle) {
+                    titlesController.addElement();
+                    const elements = this.titlesContainerTarget.querySelectorAll('[data-item="element"]');
+                    const newElement = elements[elements.length - 1];
+                    if (newElement) {
+                        const select = newElement.querySelector('select');
+                        if (select) select.value = locale;
+                    }
                 }
             }
-        }
 
-        // 2. Asegurar que exista la descripción para este idioma
-        const descController = this.application.getControllerForElementAndIdentifier(this.descriptionsContainerTarget, 'collection');
-        if (descController) {
-            const hasDesc = Array.from(this.descriptionsContainerTarget.querySelectorAll('[data-item="element"] select'))
-                .some(select => select.value === locale);
-            
-            if (!hasDesc) {
-                descController.addElement();
-                const elements = this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]');
-                const newElement = elements[elements.length - 1];
-                if (newElement) {
-                    const select = newElement.querySelector('select');
-                    if (select) select.value = locale;
+            // 2. Asegurar que exista la descripción para este idioma
+            const descController = this.hasDescriptionsContainerTarget ? this.application.getControllerForElementAndIdentifier(this.descriptionsContainerTarget, 'collection') : null;
+            if (descController) {
+                const hasDesc = Array.from(this.descriptionsContainerTarget.querySelectorAll('[data-item="element"] select'))
+                    .some(select => select.value === locale);
+                
+                if (!hasDesc) {
+                    descController.addElement();
+                    const elements = this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]');
+                    const newElement = elements[elements.length - 1];
+                    if (newElement) {
+                        const select = newElement.querySelector('select');
+                        if (select) select.value = locale;
+                    }
                 }
             }
+        } catch (e) {
+            console.error('[TranslationTabs] Error en ensureLocaleInputs:', e);
         }
     }
 
     initializeUI() {
-        // 1. Crear el contenedor de pestañas
-        this.tabsElement = document.createElement('div');
-        this.tabsElement.className = 'cols cols--gap-small cols--always margin-bottom';
-        this.tabsElement.style.borderBottom = '1px solid var(--border-color, #ccc)';
-        this.tabsElement.style.paddingBottom = '0.5rem';
-        this.tabsElement.style.marginBottom = '1rem';
-        this.tabsContainerTarget.appendChild(this.tabsElement);
+        try {
+            // 1. Crear el contenedor de pestañas
+            this.tabsElement = document.createElement('div');
+            this.tabsElement.className = 'cols cols--gap-small cols--always margin-bottom';
+            this.tabsElement.style.borderBottom = '1px solid var(--border-color, #ccc)';
+            this.tabsElement.style.paddingBottom = '0.5rem';
+            this.tabsElement.style.marginBottom = '1rem';
+            this.tabsContainerTarget.appendChild(this.tabsElement);
 
-        // 2. Ocultar los selectores nativos gigantes de idioma en los elementos hijos
-        this.hideNativeLocaleSelectors();
+            // 2. Ocultar los selectores nativos gigantes de idioma en los elementos hijos
+            this.hideNativeLocaleSelectors();
 
-        // 3. Crear el menú de agregar idioma
-        this.buildAddLanguageSelector();
+            // 3. Crear el menú de agregar idioma
+            this.buildAddLanguageSelector();
 
-        // 4. Renderizar las pestañas iniciales
-        this.renderTabs();
+            // 4. Renderizar las pestañas iniciales
+            this.renderTabs();
 
-        // 5. Aplicar visibilidad inicial
-        this.switchLanguage('default');
+            // 5. Aplicar visibilidad inicial
+            this.switchLanguage('default');
+        } catch (e) {
+            console.error('[TranslationTabs] Error en initializeUI:', e);
+        }
     }
 
     hideNativeLocaleSelectors() {
-        const containers = [];
-        if (this.hasTitlesContainerTarget) containers.push(this.titlesContainerTarget);
-        if (this.hasDescriptionsContainerTarget) containers.push(this.descriptionsContainerTarget);
+        try {
+            const containers = [];
+            if (this.hasTitlesContainerTarget) containers.push(this.titlesContainerTarget);
+            if (this.hasDescriptionsContainerTarget) containers.push(this.descriptionsContainerTarget);
 
-        containers.forEach(container => {
-            if (!container) return;
-            const elements = container.querySelectorAll('[data-item="element"]');
-            elements.forEach(el => {
-                const select = el.querySelector('select');
-                if (select) {
-                    const parentDiv = select.closest('div');
-                    if (parentDiv) parentDiv.style.display = 'none';
-                }
+            containers.forEach(container => {
+                if (!container) return;
+                const elements = container.querySelectorAll('[data-item="element"]');
+                elements.forEach(el => {
+                    const select = el.querySelector('select');
+                    if (select) {
+                        const parentDiv = select.closest('div');
+                        if (parentDiv) parentDiv.style.display = 'none';
+                    }
+                });
             });
-        });
+        } catch (e) {
+            console.error('[TranslationTabs] Error en hideNativeLocaleSelectors:', e);
+        }
     }
 
     renderTabs() {
-        this.tabsElement.innerHTML = '';
+        try {
+            this.tabsElement.innerHTML = '';
 
-        // Pestaña por defecto (Principal)
-        this.addTabButton('default', 'Principal (Defecto)');
+            // Pestaña por defecto (Principal)
+            this.addTabButton('default', 'Principal (Defecto)');
 
-        // Encontrar todos los idiomas ya añadidos en las colecciones
-        const activeLocales = this.getActiveLocales();
-        activeLocales.forEach(locale => {
-            const label = this.supportedLocalesValue[locale] || locale.toUpperCase();
-            this.addTabButton(locale, label, true);
-        });
+            // Encontrar todos los idiomas ya añadidos en las colecciones
+            const activeLocales = this.getActiveLocales();
+            activeLocales.forEach(locale => {
+                const label = this.supportedLocalesValue[locale] || locale.toUpperCase();
+                this.addTabButton(locale, label, true);
+            });
+        } catch (e) {
+            console.error('[TranslationTabs] Error en renderTabs:', e);
+        }
     }
 
     addTabButton(locale, label, canDelete = false) {
@@ -149,83 +173,92 @@ export default class extends Controller {
     }
 
     getActiveLocales() {
-        const locales = new Set();
-        const containers = [];
-        if (this.hasTitlesContainerTarget) containers.push(this.titlesContainerTarget);
-        if (this.hasDescriptionsContainerTarget) containers.push(this.descriptionsContainerTarget);
+        try {
+            const locales = new Set();
+            const containers = [];
+            if (this.hasTitlesContainerTarget) containers.push(this.titlesContainerTarget);
+            if (this.hasDescriptionsContainerTarget) containers.push(this.descriptionsContainerTarget);
 
-        containers.forEach(container => {
-            if (!container) return;
-            const selects = container.querySelectorAll('[data-item="element"] select');
-            selects.forEach(select => {
-                if (select.value) {
-                    locales.add(select.value);
-                }
+            containers.forEach(container => {
+                if (!container) return;
+                const selects = container.querySelectorAll('[data-item="element"] select');
+                selects.forEach(select => {
+                    if (select.value) {
+                        locales.add(select.value);
+                    }
+                });
             });
-        });
-        return Array.from(locales);
+            return Array.from(locales);
+        } catch (e) {
+            console.error('[TranslationTabs] Error en getActiveLocales:', e);
+            return [];
+        }
     }
 
     switchLanguage(locale) {
-        if (locale !== 'default') {
-            this.ensureLocaleInputs(locale);
-        }
-
-        this.activeLocale = locale;
-
-        // 1. Alternar botones de pestañas
-        const buttons = this.tabsElement.querySelectorAll('button');
-        buttons.forEach(btn => {
-            if (btn.textContent.includes('Principal') && locale === 'default') {
-                btn.className = 'button button--smaller button--primary';
-            } else if (!btn.textContent.includes('Principal') && btn.textContent === (this.supportedLocalesValue[locale] || locale.toUpperCase())) {
-                btn.className = 'button button--smaller button--primary';
-            } else {
-                if (!btn.classList.contains('button--danger')) {
-                    btn.className = 'button button--smaller button--secondary';
-                }
+        try {
+            if (locale !== 'default') {
+                this.ensureLocaleInputs(locale);
             }
-        });
 
-        // 2. Mostrar/ocultar inputs principales (default)
-        const defaultTitle = this.element.querySelector('#poll_title')?.closest('div');
-        const defaultDesc = this.element.querySelector('#poll_description')?.closest('div');
-        
-        if (locale === 'default') {
-            if (defaultTitle) defaultTitle.style.display = '';
-            if (defaultDesc) defaultDesc.style.display = '';
-        } else {
-            if (defaultTitle) defaultTitle.style.display = 'none';
-            if (defaultDesc) defaultDesc.style.display = 'none';
-        }
+            this.activeLocale = locale;
 
-        // 3. Mostrar/ocultar inputs localizados y formatear sus etiquetas de forma dinámica
-        const titles = this.hasTitlesContainerTarget ? Array.from(this.titlesContainerTarget.querySelectorAll('[data-item="element"]')) : [];
-        const descs = this.hasDescriptionsContainerTarget ? Array.from(this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]')) : [];
-        const allItems = [...titles, ...descs];
-
-        allItems.forEach(item => {
-            const select = item.querySelector('select');
-            if (select && select.value === locale) {
-                item.style.display = '';
-
-                // Formatear etiquetas de forma hermosa e integrada
-                const label = item.querySelector('label');
-                if (label) {
-                    const languageName = this.supportedLocalesValue[locale] || locale.toUpperCase();
-                    const labelFor = label.getAttribute('for') || '';
-                    if (labelFor.includes('localizedTitles')) {
-                        label.innerHTML = `Nombre de tu consulta (${languageName}) <span class="label__details">(opcional, máx. 200 caracteres)</span>`;
-                    } else if (labelFor.includes('localizedDescriptions')) {
-                        label.innerHTML = `Descripción (${languageName}) <span class="label__details">(opcional)</span>`;
+            // 1. Alternar botones de pestañas
+            const buttons = this.tabsElement.querySelectorAll('button');
+            buttons.forEach(btn => {
+                if (btn.textContent.includes('Principal') && locale === 'default') {
+                    btn.className = 'button button--smaller button--primary';
+                } else if (!btn.textContent.includes('Principal') && btn.textContent === (this.supportedLocalesValue[locale] || locale.toUpperCase())) {
+                    btn.className = 'button button--smaller button--primary';
+                } else {
+                    if (!btn.classList.contains('button--danger')) {
+                        btn.className = 'button button--smaller button--secondary';
                     }
                 }
-            } else {
-                item.style.display = 'none';
-            }
-        });
+            });
 
-        this.hideNativeLocaleSelectors();
+            // 2. Mostrar/ocultar inputs principales (default)
+            const defaultTitle = this.element.querySelector('#poll_title')?.closest('div');
+            const defaultDesc = this.element.querySelector('#poll_description')?.closest('div');
+            
+            if (locale === 'default') {
+                if (defaultTitle) defaultTitle.style.display = '';
+                if (defaultDesc) defaultDesc.style.display = '';
+            } else {
+                if (defaultTitle) defaultTitle.style.display = 'none';
+                if (defaultDesc) defaultDesc.style.display = 'none';
+            }
+
+            // 3. Mostrar/ocultar inputs localizados y formatear sus etiquetas de forma dinámica
+            const titles = this.hasTitlesContainerTarget ? Array.from(this.titlesContainerTarget.querySelectorAll('[data-item="element"]')) : [];
+            const descs = this.hasDescriptionsContainerTarget ? Array.from(this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]')) : [];
+            const allItems = [...titles, ...descs];
+
+            allItems.forEach(item => {
+                const select = item.querySelector('select');
+                if (select && select.value === locale) {
+                    item.style.display = '';
+
+                    // Formatear etiquetas de forma hermosa e integrada
+                    const label = item.querySelector('label');
+                    if (label) {
+                        const languageName = this.supportedLocalesValue[locale] || locale.toUpperCase();
+                        const labelFor = label.getAttribute('for') || '';
+                        if (labelFor.includes('localizedTitles')) {
+                            label.innerHTML = `Nombre de tu consulta (${languageName}) <span class="label__details">(opcional, máx. 200 caracteres)</span>`;
+                        } else if (labelFor.includes('localizedDescriptions')) {
+                            label.innerHTML = `Descripción (${languageName}) <span class="label__details">(opcional)</span>`;
+                        }
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            this.hideNativeLocaleSelectors();
+        } catch (e) {
+            console.error('[TranslationTabs] Error en switchLanguage:', e);
+        }
     }
 
     buildAddLanguageSelector() {
