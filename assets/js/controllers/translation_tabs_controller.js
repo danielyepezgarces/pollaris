@@ -81,7 +81,10 @@ export default class extends Controller {
     }
 
     hideNativeLocaleSelectors() {
-        const containers = [this.titlesContainerTarget, this.descriptionsContainerTarget];
+        const containers = [];
+        if (this.hasTitlesContainerTarget) containers.push(this.titlesContainerTarget);
+        if (this.hasDescriptionsContainerTarget) containers.push(this.descriptionsContainerTarget);
+
         containers.forEach(container => {
             if (!container) return;
             const elements = container.querySelectorAll('[data-item="element"]');
@@ -147,7 +150,10 @@ export default class extends Controller {
 
     getActiveLocales() {
         const locales = new Set();
-        const containers = [this.titlesContainerTarget, this.descriptionsContainerTarget];
+        const containers = [];
+        if (this.hasTitlesContainerTarget) containers.push(this.titlesContainerTarget);
+        if (this.hasDescriptionsContainerTarget) containers.push(this.descriptionsContainerTarget);
+
         containers.forEach(container => {
             if (!container) return;
             const selects = container.querySelectorAll('[data-item="element"] select');
@@ -194,10 +200,10 @@ export default class extends Controller {
         }
 
         // 3. Mostrar/ocultar inputs localizados y formatear sus etiquetas de forma dinámica
-        const allItems = [
-            ...this.titlesContainerTarget.querySelectorAll('[data-item="element"]'),
-            ...this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]')
-        ];
+        const titles = this.hasTitlesContainerTarget ? Array.from(this.titlesContainerTarget.querySelectorAll('[data-item="element"]')) : [];
+        const descs = this.hasDescriptionsContainerTarget ? Array.from(this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]')) : [];
+        const allItems = [...titles, ...descs];
+
         allItems.forEach(item => {
             const select = item.querySelector('select');
             if (select && select.value === locale) {
@@ -271,7 +277,7 @@ export default class extends Controller {
         }
 
         // 1. Agregar a localizedTitles usando la API oficial de Stimulus
-        const titlesController = this.application.getControllerForElementAndIdentifier(this.titlesContainerTarget, 'collection');
+        const titlesController = this.hasTitlesContainerTarget ? this.application.getControllerForElementAndIdentifier(this.titlesContainerTarget, 'collection') : null;
         if (titlesController) {
             titlesController.addElement();
             // Buscar el último elemento añadido y asignarle el locale
@@ -286,7 +292,7 @@ export default class extends Controller {
         }
 
         // 2. Agregar a localizedDescriptions usando la API oficial de Stimulus
-        const descController = this.application.getControllerForElementAndIdentifier(this.descriptionsContainerTarget, 'collection');
+        const descController = this.hasDescriptionsContainerTarget ? this.application.getControllerForElementAndIdentifier(this.descriptionsContainerTarget, 'collection') : null;
         if (descController) {
             descController.addElement();
             // Buscar el último elemento añadido y asignarle el locale
@@ -306,24 +312,28 @@ export default class extends Controller {
 
     removeLanguage(locale) {
         // Eliminar elementos de títulos
-        const titleItems = this.titlesContainerTarget.querySelectorAll('[data-item="element"]');
-        titleItems.forEach(item => {
-            const select = item.querySelector('select');
-            if (select && select.value === locale) {
-                const btn = item.querySelector('button[data-action="collection#removeElement"]');
-                if (btn) btn.click();
-            }
-        });
+        if (this.hasTitlesContainerTarget) {
+            const titleItems = this.titlesContainerTarget.querySelectorAll('[data-item="element"]');
+            titleItems.forEach(item => {
+                const select = item.querySelector('select');
+                if (select && select.value === locale) {
+                    const btn = item.querySelector('button[data-action="collection#removeElement"]');
+                    if (btn) btn.click();
+                }
+            });
+        }
 
         // Eliminar elementos de descripciones
-        const descItems = this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]');
-        descItems.forEach(item => {
-            const select = item.querySelector('select');
-            if (select && select.value === locale) {
-                const btn = item.querySelector('button[data-action="collection#removeElement"]');
-                if (btn) btn.click();
-            }
-        });
+        if (this.hasDescriptionsContainerTarget) {
+            const descItems = this.descriptionsContainerTarget.querySelectorAll('[data-item="element"]');
+            descItems.forEach(item => {
+                const select = item.querySelector('select');
+                if (select && select.value === locale) {
+                    const btn = item.querySelector('button[data-action="collection#removeElement"]');
+                    if (btn) btn.click();
+                }
+            });
+        }
 
         this.renderTabs();
         this.switchLanguage('default');

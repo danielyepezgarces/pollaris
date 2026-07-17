@@ -71,7 +71,10 @@ class LocalizedDescriptionItemType extends AbstractType
                 'trim' => true,
                 'empty_data' => '',
                 'label' => new TranslatableMessage('forms.localized_description_item.text.label'),
-                'attr' => ['rows' => 4],
+                'attr' => [
+                    'rows' => 4,
+                    'autocomplete' => 'off',
+                ],
             ]);
     }
 
