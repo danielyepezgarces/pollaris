@@ -193,6 +193,18 @@
                 {{ 'polls.summary.delete_poll' | trans }}
             </button>
         </div>
+
+        <div class="cols cols--center cols--gap" style="margin-top: 0.75rem;">
+            <a class="button button--menuitem col--size6" href="{{ path('edit poll titles', { id: poll.id, token: poll.adminToken }) }}">
+                {{ icon('language') }}
+                Traducir títulos
+            </a>
+
+            <a class="button button--menuitem col--size6" href="{{ path('edit poll descriptions', { id: poll.id, token: poll.adminToken }) }}">
+                {{ icon('language') }}
+                Traducir descripciones
+            </a>
+        </div>
     </div>
 </div>
 

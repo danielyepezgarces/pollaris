@@ -36,97 +36,9 @@
 
             <div class="panel panel--primary panel--rounded flow flow--large">
                 {{ form_row(form.title) }}
-                
-                <div class="flow">
-                    <p class="text--bold">{{ 'forms.poll_form.localized_titles.label' | trans }}</p>
-                    <p class="text--secondary text--small">{{ 'forms.poll_form.localized_titles.help' | trans }}</p>
-                    <div 
-                        data-controller="collection" 
-                        data-collection-index-value="{{ form.localizedTitles | length > 0 ? form.localizedTitles | last.vars.name + 1 : 0 }}"
-                    >
-                        <div data-collection-target="container" class="flow">
-                            {% for item in form.localizedTitles %}
-                                <div class="flow flow--small" data-item="element" style="border-bottom: 1px solid var(--border-color, #eee); padding-bottom: 1rem; margin-bottom: 1rem;">
-                                    {{ form_row(item.locale, { attr: { 'data-controller': 'searchable-select', 'data-searchable-select-placeholder-value': 'Buscar idioma...' } }) }}
-                                    {{ form_row(item.text) }}
-                                    <button type="button" class="button--menuitem" data-action="collection#removeElement">
-                                        {{ icon('trash') }}
-                                        {{ 'forms.poll_form.localized_titles.remove' | trans }}
-                                    </button>
-                                </div>
-                            {% endfor %}
-                        </div>
-
-                        <template data-collection-target="prototype">
-                            <div class="flow flow--small" data-item="element" style="border-bottom: 1px solid var(--border-color, #eee); padding-bottom: 1rem; margin-bottom: 1rem;">
-                                {{ form_row(form.localizedTitles.vars.prototype.locale, { attr: { 'data-controller': 'searchable-select', 'data-searchable-select-placeholder-value': 'Buscar idioma...' } }) }}
-                                {{ form_row(form.localizedTitles.vars.prototype.text) }}
-                                <button type="button" class="button--menuitem" data-action="collection#removeElement">
-                                    {{ icon('trash') }}
-                                    {{ 'forms.poll_form.localized_titles.remove' | trans }}
-                                </button>
-                            </div>
-                        </template>
-
-                        <button type="button" class="button--block button--small" data-action="collection#addElement">
-                            {{ icon('plus') }}
-                            {{ 'forms.poll_form.localized_titles.add' | trans }}
-                        </button>
-                    </div>
-                </div>
                 {% do form.localizedTitles.setRendered() %}
 
                 {{ form_row(form.description) }}
-
-                <div class="flow">
-                    <p class="text--bold">{{ 'forms.poll_form.localized_descriptions.label' | trans }}</p>
-                    <p class="text--secondary text--small">{{ 'forms.poll_form.localized_descriptions.help' | trans }}</p>
-                    <div
-                        data-controller="collection"
-                        data-collection-index-value="{{ form.localizedDescriptions | length > 0 ? form.localizedDescriptions | last.vars.name + 1 : 0 }}"
-                    >
-                        <div data-collection-target="container" class="flow">
-                            {% for item in form.localizedDescriptions %}
-                                <div class="flow flow--small" data-item="element" style="border-bottom: 1px solid var(--border-color, #eee); padding-bottom: 1rem; margin-bottom: 1rem;">
-                                    {{ form_row(item.locale, { attr: { 'data-controller': 'searchable-select', 'data-searchable-select-placeholder-value': 'Buscar idioma...' } }) }}
-                                    {{ form_row(item.text) }}
-                                    <button
-                                        type="button"
-                                        class="button--menuitem"
-                                        data-action="collection#removeElement"
-                                    >
-                                        {{ icon('trash') }}
-                                        {{ 'forms.poll_form.localized_descriptions.remove' | trans }}
-                                    </button>
-                                </div>
-                            {% endfor %}
-                        </div>
-
-                        <template data-collection-target="prototype">
-                            <div class="flow flow--small" data-item="element" style="border-bottom: 1px solid var(--border-color, #eee); padding-bottom: 1rem; margin-bottom: 1rem;">
-                                {{ form_row(form.localizedDescriptions.vars.prototype.locale, { attr: { 'data-controller': 'searchable-select', 'data-searchable-select-placeholder-value': 'Buscar idioma...' } }) }}
-                                {{ form_row(form.localizedDescriptions.vars.prototype.text) }}
-                                <button
-                                    type="button"
-                                    class="button--menuitem"
-                                    data-action="collection#removeElement"
-                                >
-                                    {{ icon('trash') }}
-                                    {{ 'forms.poll_form.localized_descriptions.remove' | trans }}
-                                </button>
-                            </div>
-                        </template>
-
-                        <button
-                            type="button"
-                            class="button--block button--small"
-                            data-action="collection#addElement"
-                        >
-                            {{ icon('plus') }}
-                            {{ 'forms.poll_form.localized_descriptions.add' | trans }}
-                        </button>
-                    </div>
-                </div>
                 {% do form.localizedDescriptions.setRendered() %}
 
                 <div data-controller="duration-picker">

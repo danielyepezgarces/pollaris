@@ -371,6 +371,66 @@ class PollsController extends BaseController
         ]);
     }
 
+    #[Route('/polls/{id:poll}/{token}/edits/titles', name: 'edit poll titles')]
+    public function editTitles(Entity\Poll $poll, string $token, Request $request): Response
+    {
+        if ($poll->getAdminToken() !== $token) {
+            throw $this->createNotFoundException('The admin token doesn’t match.');
+        }
+
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
+
+        $form = $this->createNamedForm('poll_titles', Form\PollTitlesForm::class, $poll);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $poll = $form->getData();
+            $this->pollRepository->save($poll);
+
+            return $this->redirectToRoute('poll admin', [
+                'id' => $poll->getId(),
+                'token' => $poll->getAdminToken(),
+            ]);
+        }
+
+        return $this->render('polls/edit_titles.html.twig', [
+            'poll' => $poll,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/polls/{id:poll}/{token}/edits/descriptions', name: 'edit poll descriptions')]
+    public function editDescriptions(Entity\Poll $poll, string $token, Request $request): Response
+    {
+        if ($poll->getAdminToken() !== $token) {
+            throw $this->createNotFoundException('The admin token doesn’t match.');
+        }
+
+        if ($response = $this->denyUnlessPollAdmin($poll)) {
+            return $response;
+        }
+
+        $form = $this->createNamedForm('poll_descriptions', Form\PollDescriptionsForm::class, $poll);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $poll = $form->getData();
+            $this->pollRepository->save($poll);
+
+            return $this->redirectToRoute('poll admin', [
+                'id' => $poll->getId(),
+                'token' => $poll->getAdminToken(),
+            ]);
+        }
+
+        return $this->render('polls/edit_descriptions.html.twig', [
+            'poll' => $poll,
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/polls/{id:poll}/{token}/settings', name: 'edit poll settings')]
     public function settings(Entity\Poll $poll, string $token, Request $request): Response
     {

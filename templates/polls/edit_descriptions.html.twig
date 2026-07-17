@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestionar traducciones de la descripción{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+        <div class="flow">
+            <h1>Gestionar traducciones de la descripción</h1>
+            <p class="text--secondary">
+                Añade o modifica las descripciones de la encuesta en otros idiomas para que los usuarios las vean localizadas.
+            </p>
+        </div>
+
+        {% if poll.description %}
+            <div class="panel panel--secondary panel--rounded flow flow--small" style="padding: 1rem; margin-bottom: 1.5rem;">
+                <p class="text--bold" style="margin-bottom: 0.25rem;">Descripción principal (Defecto):</p>
+                <div class="flow flow--small" style="font-style: italic;">
+                    {{ poll.description | wiki_or_markdown }}
+                </div>
+            </div>
+        {% endif %}
+
+        {{ form_start(form, { attr: { 'class': 'form--standard' } }) }}
+            {{ form_errors(form) }}
+
+            <div class="panel panel--primary panel--rounded flow flow--large">
+                <div class="flow">
+                    <div 
+                        data-controller="collection" 
+                        data-collection-index-value="{{ form.localizedDescriptions | length > 0 ? form.localizedDescriptions | last.vars.name + 1 : 0 }}"
+                    >
+                        <div data-collection-target="container" class="flow">
+                            {% for item in form.localizedDescriptions %}
+                                <div class="flow flow--small" data-item="element" style="border-bottom: 1px solid var(--border-color, #eee); padding-bottom: 1rem; margin-bottom: 1rem;">
+                                    {{ form_row(item.locale, { attr: { 'data-controller': 'searchable-select', 'data-searchable-select-placeholder-value': 'Buscar idioma...' } }) }}
+                                    {{ form_row(item.text) }}
+                                    <button type="button" class="button--menuitem" data-action="collection#removeElement">
+                                        {{ icon('trash') }}
+                                        {{ 'forms.poll_form.localized_descriptions.remove' | trans }}
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <template data-collection-target="prototype">
+                            <div class="flow flow--small" data-item="element" style="border-bottom: 1px solid var(--border-color, #eee); padding-bottom: 1rem; margin-bottom: 1rem;">
+                                {{ form_row(form.localizedDescriptions.vars.prototype.locale, { attr: { 'data-controller': 'searchable-select', 'data-searchable-select-placeholder-value': 'Buscar idioma...' } }) }}
+                                {{ form_row(form.localizedDescriptions.vars.prototype.text) }}
+                                <button type="button" class="button--menuitem" data-action="collection#removeElement">
+                                    {{ icon('trash') }}
+                                    {{ 'forms.poll_form.localized_descriptions.remove' | trans }}
+                                </button>
+                            </div>
+                        </template>
+
+                        <button type="button" class="button--block button--small" data-action="collection#addElement">
+                            {{ icon('plus') }}
+                            {{ 'forms.poll_form.localized_descriptions.add' | trans }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cols cols--center cols--gap" style="margin-top: 1.5rem;">
+                <button type="submit" class="button button--primary col--size6">
+                    {{ icon('check') }} Guardar cambios
+                </button>
+                <a class="button button--secondary col--size6" href="{{ path('poll admin', { id: poll.id, token: poll.adminToken }) }}">
+                    {{ icon('xmark') }} Cancelar
+                </a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
