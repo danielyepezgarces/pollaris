@@ -34,11 +34,23 @@
         }) }}
             {{ form_errors(form) }}
 
-            <div class="panel panel--primary panel--rounded flow flow--large">
+            {% set supportedLocales = constant('App\\Form\\LocalizedDescriptionItemType::SUPPORTED_LOCALES') %}
+            <div 
+                class="panel panel--primary panel--rounded flow flow--large"
+                data-controller="translation-tabs"
+                data-translation-tabs-supported-locales-value="{{ supportedLocales | json_encode }}"
+            >
+                <div data-translation-tabs-target="tabsContainer"></div>
+
                 {{ form_row(form.title) }}
-                <div class="flow" data-controller="collection" data-collection-index-value="{{ form.localizedTitles | length > 0 ? form.localizedTitles | last.vars.name + 1 : 0 }}">
-                    <p class="text--bold">{{ 'forms.poll_form.localized_titles.label' | trans }}</p>
-                    <p class="text--secondary text--small">{{ 'forms.poll_form.localized_titles.help' | trans }}</p>
+                <div 
+                    class="flow" 
+                    data-translation-tabs-target="titlesContainer"
+                    data-controller="collection" 
+                    data-collection-index-value="{{ form.localizedTitles | length > 0 ? form.localizedTitles | last.vars.name + 1 : 0 }}"
+                >
+                    <p class="text--bold" style="display: none;">{{ 'forms.poll_form.localized_titles.label' | trans }}</p>
+                    <p class="text--secondary text--small" style="display: none;">{{ 'forms.poll_form.localized_titles.help' | trans }}</p>
 
                     <div data-collection-target="container" class="flow">
                         {% for item in form.localizedTitles %}
@@ -64,7 +76,7 @@
                         </div>
                     </template>
 
-                    <button type="button" class="button--block button--small" data-action="collection#addElement">
+                    <button type="button" class="button--block button--small" data-action="collection#addElement" style="display: none;">
                         {{ icon('plus') }}
                         {{ 'forms.poll_form.localized_titles.add' | trans }}
                     </button>
@@ -123,11 +135,12 @@
 
                     <div
                         class="flow"
+                        data-translation-tabs-target="descriptionsContainer"
                         data-controller="collection"
                         data-collection-index-value="{{ form.localizedDescriptions | length > 0 ? form.localizedDescriptions | last.vars.name + 1 : 0 }}"
                     >
-                        <p class="text--bold">{{ 'forms.poll_form.localized_descriptions.label' | trans }}</p>
-                        <p class="text--secondary text--small">{{ 'forms.poll_form.localized_descriptions.help' | trans }}</p>
+                        <p class="text--bold" style="display: none;">{{ 'forms.poll_form.localized_descriptions.label' | trans }}</p>
+                        <p class="text--secondary text--small" style="display: none;">{{ 'forms.poll_form.localized_descriptions.help' | trans }}</p>
 
                         <div data-collection-target="container" class="flow">
                             {% for item in form.localizedDescriptions %}
@@ -165,11 +178,15 @@
                             type="button"
                             class="button--block button--small"
                             data-action="collection#addElement"
+                            style="display: none;"
                         >
                             {{ icon('plus') }}
                             {{ 'forms.poll_form.localized_descriptions.add' | trans }}
                         </button>
                     </div>
+                    {% do form.localizedDescriptions.setRendered() %}
+
+                    <div data-translation-tabs-target="addButtonContainer" style="margin-top: 1rem; margin-bottom: 1.5rem;"></div>
 
                 {{ form_row(form.closedAt) }}
                 {{ form_row(form.timezoneMode) }}

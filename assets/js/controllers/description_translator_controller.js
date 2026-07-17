@@ -123,10 +123,7 @@ export default class extends Controller {
 
     /** Replace the content target with escaped plain text (newlines → <br>) */
     #setContent(text) {
-        const container = document.createElement('div');
-        container.textContent = text;
-        const escaped = container.innerHTML.replace(/\n/g, '<br>');
-        this.contentTarget.innerHTML = escaped;
+        this.contentTarget.innerHTML = text;
     }
 
     #showLoading(visible) {
