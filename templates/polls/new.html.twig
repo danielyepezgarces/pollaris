@@ -83,6 +83,64 @@
                 </div>
                 {% do form.localizedTitles.setRendered() %}
                 {{ form_row(form.description) }}
+
+                <div
+                    class="flow"
+                    data-translation-tabs-target="descriptionsContainer"
+                    data-controller="collection"
+                    data-collection-index-value="{{ form.localizedDescriptions | length > 0 ? form.localizedDescriptions | last.vars.name + 1 : 0 }}"
+                >
+                    <p class="text--bold" style="display: none;">{{ 'forms.poll_form.localized_descriptions.label' | trans }}</p>
+                    <p class="text--secondary text--small" style="display: none;">{{ 'forms.poll_form.localized_descriptions.help' | trans }}</p>
+
+                    <div data-collection-target="container" class="flow">
+                        {% for item in form.localizedDescriptions %}
+                            <div class="flow flow--small" data-item="element">
+                                {{ form_row(item.locale) }}
+                                {{ form_row(item.text) }}
+                                <button
+                                    type="button"
+                                    class="button--menuitem"
+                                    data-action="collection#removeElement"
+                                    style="display: none;"
+                                >
+                                    {{ icon('trash') }}
+                                    {{ 'forms.poll_form.localized_descriptions.remove' | trans }}
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <template data-collection-target="prototype">
+                        <div class="flow flow--small" data-item="element">
+                            {{ form_row(form.localizedDescriptions.vars.prototype.locale) }}
+                            {{ form_row(form.localizedDescriptions.vars.prototype.text) }}
+                            <button
+                                type="button"
+                                class="button--menuitem"
+                                data-action="collection#removeElement"
+                                style="display: none;"
+                            >
+                                {{ icon('trash') }}
+                                {{ 'forms.poll_form.localized_descriptions.remove' | trans }}
+                            </button>
+                        </div>
+                    </template>
+
+                    <button
+                        type="button"
+                        class="button--block button--small"
+                        data-action="collection#addElement"
+                        style="display: none;"
+                    >
+                        {{ icon('plus') }}
+                        {{ 'forms.poll_form.localized_descriptions.add' | trans }}
+                    </button>
+                </div>
+                {% do form.localizedDescriptions.setRendered() %}
+
+                <div data-translation-tabs-target="addButtonContainer" style="margin-top: 1rem; margin-bottom: 1.5rem;"></div>
+
                 {{ form_row(form.duration) }}
                 <div class="flow">
                     <p class="text--bold">{{ 'forms.poll_form.cohosts.label' | trans }}</p>
@@ -132,63 +190,6 @@
                     </div>
                 </div>
                 {% do form.cohosts.setRendered() %}
-
-                    <div
-                        class="flow"
-                        data-translation-tabs-target="descriptionsContainer"
-                        data-controller="collection"
-                        data-collection-index-value="{{ form.localizedDescriptions | length > 0 ? form.localizedDescriptions | last.vars.name + 1 : 0 }}"
-                    >
-                        <p class="text--bold" style="display: none;">{{ 'forms.poll_form.localized_descriptions.label' | trans }}</p>
-                        <p class="text--secondary text--small" style="display: none;">{{ 'forms.poll_form.localized_descriptions.help' | trans }}</p>
-
-                        <div data-collection-target="container" class="flow">
-                            {% for item in form.localizedDescriptions %}
-                                <div class="flow flow--small" data-item="element">
-                                    {{ form_row(item.locale) }}
-                                    {{ form_row(item.text) }}
-                                    <button
-                                        type="button"
-                                        class="button--menuitem"
-                                        data-action="collection#removeElement"
-                                        style="display: none;"
-                                    >
-                                        {{ icon('trash') }}
-                                        {{ 'forms.poll_form.localized_descriptions.remove' | trans }}
-                                    </button>
-                                </div>
-                            {% endfor %}
-                        </div>
-
-                        <template data-collection-target="prototype">
-                            <div class="flow flow--small" data-item="element">
-                                {{ form_row(form.localizedDescriptions.vars.prototype.locale) }}
-                                {{ form_row(form.localizedDescriptions.vars.prototype.text) }}
-                                <button
-                                    type="button"
-                                    class="button--menuitem"
-                                    data-action="collection#removeElement"
-                                    style="display: none;"
-                                >
-                                    {{ icon('trash') }}
-                                    {{ 'forms.poll_form.localized_descriptions.remove' | trans }}
-                                </button>
-                            </div>
-                        </template>
-
-                        <button
-                            type="button"
-                            class="button--block button--small"
-                            data-action="collection#addElement"
-                            style="display: none;"
-                        >
-                            {{ icon('plus') }}
-                            {{ 'forms.poll_form.localized_descriptions.add' | trans }}
-                        </button>
-                    </div>
-                    {% do form.localizedDescriptions.setRendered() %}
-
-                    <div data-translation-tabs-target="addButtonContainer" style="margin-top: 1rem; margin-bottom: 1.5rem;"></div>
 
                 {{ form_row(form.closedAt) }}
                 {{ form_row(form.timezoneMode) }}
