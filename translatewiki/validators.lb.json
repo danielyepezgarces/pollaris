@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Volvox"
+		]
+	},
+	"Error": "Feeler",
+	"comment.author_name.max_length": "Gitt en Numm mat manner wéi $1 Zeechen an.",
+	"comment.author_name.required": "Gitt en Numm an.",
+	"comment.content.required": "Gitt e Message an.",
+	"date.value.required": "Gitt en Datum an.",
+	"poll.author_email.invalid": "Gitt eng gülteg E-Mail-Adress an.",
+	"poll.author_email.required": "Gitt eng E-Mail-Adress an.",
+	"poll.author_name.max_length": "Gitt en Numm mat manner wéi $1 Zeechen an.",
+	"poll.dates.required": "Wielt op d'mannst een Datum.",
+	"poll.password.incorrect": "D'Passwuert ass falsch.",
+	"poll.timezone_mode.invalid": "Wielt eng Zäitzon aus der Lëscht.",
+	"poll.slug.max_length": "Gitt e Link mat manner wéi $1 Zeechen an.",
+	"poll.slug.required": "Gitt e Link an.",
+	"poll.title.max_length": "Gitt en Titel mat manner wéi $1 Zeechen an.",
+	"poll.title.required": "Gitt en Titel an.",
+	"user.author_name.already_used": "Gitt en aneren Numm an, deen heite gëtt scho benotzt.",
+	"user.username.already_used": "Gitt en anere Benotzernumm an, deen heite gëtt scho benotzt.",
+	"user.username.max_length": "Gitt e Benotzernumm mat manner wéi $1 Zeechen an.",
+	"user.username.required": "Gitt e Benotzernumm an.",
+	"vote.author_name.max_length": "Gitt en Numm mat manner wéi $1 Zeechen an.",
+	"vote.author_name.required": "Gitt en Numm an."
+}
