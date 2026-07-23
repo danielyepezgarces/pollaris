@@ -342,7 +342,7 @@ class PollsController extends BaseController
     #[Route('/polls/{id:poll}/{token}/edit', name: 'edit poll')]
     public function edit(Entity\Poll $poll, string $token, Request $request): Response
     {
-        if ($poll->getAdminToken() !== $token) {
+        if (!$this->pollSecurity->verifyAdminToken($poll, $token)) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
@@ -374,7 +374,7 @@ class PollsController extends BaseController
     #[Route('/polls/{id:poll}/{token}/settings', name: 'edit poll settings')]
     public function settings(Entity\Poll $poll, string $token, Request $request): Response
     {
-        if ($poll->getAdminToken() !== $token) {
+        if (!$this->pollSecurity->verifyAdminToken($poll, $token)) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
@@ -412,7 +412,7 @@ class PollsController extends BaseController
     #[Route('/polls/{id:poll}/{token}/proposals', name: 'edit poll proposals')]
     public function proposals(Entity\Poll $poll, string $token, Request $request): Response
     {
-        if ($poll->getAdminToken() !== $token) {
+        if (!$this->pollSecurity->verifyAdminToken($poll, $token)) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
@@ -454,7 +454,7 @@ class PollsController extends BaseController
     #[Route('/polls/{id:poll}/{token}/dates', name: 'edit poll dates')]
     public function dates(Entity\Poll $poll, string $token, Request $request): Response
     {
-        if ($poll->getAdminToken() !== $token) {
+        if (!$this->pollSecurity->verifyAdminToken($poll, $token)) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
@@ -496,7 +496,7 @@ class PollsController extends BaseController
     #[Route('/polls/{id:poll}/{token}/slots', name: 'edit poll slots')]
     public function slots(Entity\Poll $poll, string $token, Request $request): Response
     {
-        if ($poll->getAdminToken() !== $token) {
+        if (!$this->pollSecurity->verifyAdminToken($poll, $token)) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
@@ -538,7 +538,7 @@ class PollsController extends BaseController
     #[Route('/polls/{id:poll}/{token}/summary', name: 'poll summary')]
     public function summary(Entity\Poll $poll, string $token, Request $request): Response
     {
-        if ($poll->getAdminToken() !== $token) {
+        if (!$this->pollSecurity->verifyAdminToken($poll, $token)) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
@@ -589,7 +589,7 @@ class PollsController extends BaseController
     #[Route('/polls/{id:poll}/{token}/complete', name: 'poll complete')]
     public function complete(Entity\Poll $poll, string $token): Response
     {
-        if ($poll->getAdminToken() !== $token) {
+        if (!$this->pollSecurity->verifyAdminToken($poll, $token)) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
         if ($response = $this->denyUnlessPollAdmin($poll)) {
@@ -610,7 +610,7 @@ class PollsController extends BaseController
     #[Route('/polls/{id:poll}/{token}/admin', name: 'poll admin')]
     public function admin(Entity\Poll $poll, string $token, Request $request): Response
     {
-        if ($poll->getAdminToken() !== $token) {
+        if (!$this->pollSecurity->verifyAdminToken($poll, $token)) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 
@@ -636,7 +636,7 @@ class PollsController extends BaseController
     #[Route('/polls/{id:poll}/{token}/deletion', name: 'delete poll')]
     public function deletion(Entity\Poll $poll, string $token, Request $request): Response
     {
-        if ($poll->getAdminToken() !== $token) {
+        if (!$this->pollSecurity->verifyAdminToken($poll, $token)) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 

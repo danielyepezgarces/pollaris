@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use App\Entity;
 use App\Repository;
+use App\Security;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,7 @@ class CommentsController extends BaseController
 {
     public function __construct(
         private readonly Repository\CommentRepository $commentRepository,
+        private readonly Security\PollSecurity $pollSecurity,
     ) {
     }
 
@@ -41,7 +43,7 @@ class CommentsController extends BaseController
         string $token,
         Request $request,
     ): Response {
-        if ($poll->getAdminToken() !== $token) {
+        if (!$this->pollSecurity->verifyAdminToken($poll, $token)) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 

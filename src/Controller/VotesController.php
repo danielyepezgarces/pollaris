@@ -111,7 +111,7 @@ class VotesController extends BaseController
         string $token,
         Request $request,
     ): Response {
-        if ($poll->getAdminToken() !== $token) {
+        if (!$this->pollSecurity->verifyAdminToken($poll, $token)) {
             throw $this->createNotFoundException('The admin token doesn’t match.');
         }
 

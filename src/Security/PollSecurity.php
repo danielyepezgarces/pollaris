@@ -71,6 +71,17 @@ class PollSecurity
         return false;
     }
 
+    public function verifyAdminToken(Entity\Poll $poll, string $token): bool
+    {
+        $adminToken = $poll->getAdminToken();
+
+        if ($adminToken === null) {
+            return false;
+        }
+
+        return hash_equals($adminToken, $token);
+    }
+
     public function isAuthenticated(Entity\Poll $poll): bool
     {
         if (!$poll->isFullPasswordProtected()) {
