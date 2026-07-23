@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"شاه زمان پټان"
+		]
+	},
+	"Error": "تېروتنه",
+	"comment.author_name.required": "يو نوم ولیکئ.",
+	"comment.content.required": "يو پيغام وليکئ:",
+	"date.value.required": "يوه نېټه وليکئ.",
+	"poll.author_email.invalid": "يوه باوري برېښليک پته دننه کړئ.",
+	"poll.slug.required": "يو تړونی دننه کړئ",
+	"poll.title.required": "يو سرليک دننه کړئ.",
+	"user.username.required": "يو کارن‌نومدننه کړئ.",
+	"vote.author_name.required": "يو نوم دننه کړئ."
+}
