@@ -1,6 +1,8 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Koko1998"
+		]
 	},
 	"Error": "Hiba",
 	"The CSRF token is invalid. Please try to resubmit the form.": "Hiba történt, kérjük, küldje el újra az űrlapot (érvénytelen CSRF token).",

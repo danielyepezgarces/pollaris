@@ -1,7 +1,10 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Koko1998"
+		]
 	},
+	"forms.poll_cohost_type.user.label": "Felhasználó",
 	"admin.polls.admin_link": "Admin hivatkozás",
 	"admin.polls.author": "Szerző",
 	"admin.polls.created_at": "Létrehozva",
@@ -45,7 +48,7 @@
 	"forms.comment_form.submit": "Hozzászólás",
 	"forms.complete": "Véglegesít",
 	"forms.confirm": "Megerősít",
-	"forms.date_type.label.label_pattern": "Dátum __szám__",
+	"forms.date_type.label.label_pattern": "Dátum $1",
 	"forms.error": "Hiba",
 	"forms.labels.max_length": "(max. $1 karakter)",
 	"forms.labels.optional": "(opcionális)",
@@ -92,11 +95,11 @@
 	"forms.preferences.color_scheme.light": "Világos",
 	"forms.preferences.locale.label": "Nyelv",
 	"forms.previous": "Előző",
-	"forms.proposal_type.label.label_pattern": "Javaslat __szám__",
+	"forms.proposal_type.label.label_pattern": "Javaslat $1",
 	"forms.search_polls_form.email.help": "Elküldjük Önnek az Ön által létrehozott szavazások hivatkozásait.",
 	"forms.search_polls_form.email.label": "Az Ön e-mail címe",
 	"forms.search_polls_form.submit": "Küldés",
-	"forms.slot_type.label.label_pattern": "Idősáv",
+	"forms.slot_type.label.label_pattern": "Idősáv $1",
 	"forms.slots_form.day": "Nap",
 	"forms.vote_form.author_name.label": "Az Ön neve",
 	"forms.vote_form.leave_confirmation": "Még nem erősítette meg a szavazatát. Ha folytatja, a bevitt adatok elvesznek. Biztosan folytatja?",
