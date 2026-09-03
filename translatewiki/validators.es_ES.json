@@ -1,0 +1,40 @@
+{
+	"@metadata": {
+		"authors": [
+			"JorgeElias2302"
+		]
+	},
+	"Error": "Error",
+	"The CSRF token is invalid. Please try to resubmit the form.": "Ocurrió un error, por favor envíe el formulario de nuevo (token CSRF inválido).",
+	"answer.value.invalid": "Selecciona una opción de la lista.",
+	"comment.author_name.max_length": "Introduzca un nombre de menos de $1 caracteres.",
+	"comment.author_name.required": "Introduzca un nombre.",
+	"comment.content.required": "Introduzca un mensaje.",
+	"date.value.required": "Introduzca una fecha.",
+	"poll.author_email.invalid": "Introduzca una dirección de correo válida.",
+	"poll.author_email.required": "Introduzca una dirección de correo.",
+	"poll.author_name.max_length": "Introduzca un nombre de menos de $1 caracteres.",
+	"poll.dates.required": "Selecciona al menos una fecha.",
+	"poll.edit_vote_mode.invalid": "Selecciona un modo de edición de votos de la lista.",
+	"poll.password.incorrect": "La contraseña está incorrecta.",
+	"poll.password.required": "Se requiere la contraseña.",
+	"poll.timezone_mode.invalid": "Selecciona una zona horaria de la lista.",
+	"poll.wikimedia_edits_project.invalid": "Introduzca un nombre de base de datos de proyecto Wikimedia válido, como eswiki, commonswiki o wikidatawiki.",
+	"poll.slug.already_used": "Este enlace ya está en uso. Por favor, introduzca uno nuevo.",
+	"poll.slug.max_length": "Introduzca un enlace de menos de $1 caracteres.",
+	"poll.slug.pattern": "Introduzca un enlace utilizando únicamemte caracteres de la A a la Z, números, guiones o guiones bajos.",
+	"poll.slug.required": "Introduzca un enlace.",
+	"poll.title.max_length": "Introduzca un título de menos de $1 caracteres.",
+	"poll.title.required": "Introduzca un título.",
+	"poll.type.invalid": "Selecciona un tipo de la lista.",
+	"proposal.label.max_length": "Introduzca una propuesta de menos de $1 caracteres.",
+	"proposal.label.required": "Introduzca una propuesta.",
+	"user.author_name.already_used": "Introduzca un nombre diferente, este ya está en uso.",
+	"user.username.already_used": "Introduzca un nombre de usuario diferente, este ya está en uso.",
+	"user.username.max_length": "Introduzca un nombre de usuario de menos de $1 caracteres.",
+	"user.username.required": "Introduzca un nombre de usuario.",
+	"vote.author_name.max_length": "Introduzca un nombre de menos de $1 caracteres.",
+	"vote.author_name.required": "Introduzca un nombre.",
+	"vote.max_votes.limited": "Ya hay $1 voto(s) para esta propuesta, no puedes votar para eso.",
+	"vote.owner.already_voted": "Ya has votado en esta encuesta."
+}

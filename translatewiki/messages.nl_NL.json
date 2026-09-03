@@ -51,7 +51,7 @@
 	"emails.polls_list.here_is_the_list": "Hier is de lijst van de peilingen die u beheert op $1:",
 	"emails.polls_list.subject": "Lijst van uw peilingen",
 	"emails.share.body": "Hallo,\n\nEr is een peiling beschikbaar om uw terugkoppeling te verzamelen.\nDeelname is mogelijk via de volgende koppeling: $1\n\nAlvast bedankt.\n\nMet vriendelijke groet,",
-	"emails.share.subject": "Feedback gevraagd voor de peiling: $1",
+	"emails.share.subject": "Terugkoppeling gevraagd voor de peiling: $1",
 	"errors.404.description": "De gevraagde pagina kon niet worden gevonden. Controleer of de url correct is gespeld.",
 	"errors.404.title": "Pagina niet gevonden!",
 	"errors.back_home": "Terug naar de startpagina",
