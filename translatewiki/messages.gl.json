@@ -243,7 +243,7 @@
 	"polls.show.closing_soon_minutes": "{{PLURAL:$1|0=Atención! A enquisa pecha en menos dun minuto.|Atención! A enquisa pecha nun minuto.|Atención! A enquisa pecha en $1 minutos.}}",
 	"polls.show.duration": "Duración: $1 minutos",
 	"polls.public.description": "Browse public polls that are currently open.",
-	"polls.public.meta": "Created by $1",
+	"polls.public.meta": "Creado por $1",
 	"polls.public.no_closing_date": "no closing date",
 	"polls.public.none": "There are no public polls open right now.",
 	"polls.public.open": "Open poll",
