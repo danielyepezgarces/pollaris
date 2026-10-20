@@ -1,0 +1,40 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wizzard"
+		]
+	},
+	"Error": "Chyba",
+	"The CSRF token is invalid. Please try to resubmit the form.": "Došlo k chybe, odošlite prosím formulár znova (neplatný token CSRF).",
+	"answer.value.invalid": "Vyberte voľbu zo zoznamu.",
+	"comment.author_name.max_length": "Zadajte meno kratšie ako $1 znakov.",
+	"comment.author_name.required": "Zadajte meno.",
+	"comment.content.required": "Zadajte správu.",
+	"date.value.required": "Zadajte dátum.",
+	"poll.author_email.invalid": "Zadajte platnú e-mailovú adresu.",
+	"poll.author_email.required": "Zadajte e-mailovú adresu.",
+	"poll.author_name.max_length": "Zadajte meno kratšie ako $1 znakov.",
+	"poll.dates.required": "Vyberte aspoň jeden dátum.",
+	"poll.edit_vote_mode.invalid": "Vyberte režim úpravy hlasovania zo zoznamu.",
+	"poll.password.incorrect": "Heslo je nesprávne.",
+	"poll.password.required": "Heslo je povinné.",
+	"poll.timezone_mode.invalid": "Vyberte časové pásmo zo zoznamu.",
+	"poll.wikimedia_edits_project.invalid": "Zadajte platný názov databázy projektu Wikimedia, napríklad eswiki, commonswiki alebo wikidatawiki.",
+	"poll.slug.already_used": "Tento odkaz sa už používa. Zadajte prosím nový.",
+	"poll.slug.max_length": "Zadajte odkaz kratší ako $1 znakov.",
+	"poll.slug.pattern": "Zadajte odkaz obsahujúci iba znaky A až Z, čísla, spojovníky alebo podčiarkovníky.",
+	"poll.slug.required": "Zadajte odkaz.",
+	"poll.title.max_length": "Zadajte názov kratší ako $1 znakov.",
+	"poll.title.required": "Zadajte názov.",
+	"poll.type.invalid": "Vyberte typ zo zoznamu.",
+	"proposal.label.max_length": "Zadajte návrh kratší ako $1 znakov.",
+	"proposal.label.required": "Zadajte návrh.",
+	"user.author_name.already_used": "Zadajte iné meno, toto sa už používa.",
+	"user.username.already_used": "Zadajte iné používateľské meno, toto sa už používa.",
+	"user.username.max_length": "Zadajte používateľské meno kratšie ako $1 znakov.",
+	"user.username.required": "Zadajte používateľské meno.",
+	"vote.author_name.max_length": "Zadajte meno kratšie ako $1 znakov.",
+	"vote.author_name.required": "Zadajte meno.",
+	"vote.max_votes.limited": "Za tento návrh už bolo odovzdaných $1 hlasov, nemôžete zaň hlasovať.",
+	"vote.owner.already_voted": "V tejto ankete ste už hlasovali."
+}

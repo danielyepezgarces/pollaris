@@ -29,4 +29,36 @@ class MarkdownExtension
     {
         return $this->converter->text($text);
     }
+
+    #[AsTwigFilter('wiki_or_markdown', isSafe: ['all'])]
+    public function wikiOrMarkdown(?string $text): string
+    {
+        if (null === $text || '' === $text) {
+            return '';
+        }
+
+        // 1. Obtener HTML seguro del parseador Markdown (escapa scripts y HTML inseguro)
+        $html = $this->converter->text($text);
+
+        // 2. Parsear enlaces Wikitext con etiqueta: [[WikiPage|Label]]
+        $html = preg_replace_callback('/\[\[([^|\]]+)\|([^\]]+)\]\]/', function($matches) {
+            $url = 'https://meta.wikimedia.org/wiki/' . str_replace(' ', '_', trim($matches[1]));
+            return sprintf('<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>', htmlspecialchars($url, ENT_QUOTES, 'UTF-8'), htmlspecialchars(trim($matches[2]), ENT_QUOTES, 'UTF-8'));
+        }, $html);
+
+        // 3. Parsear enlaces Wikitext simples: [[WikiPage]]
+        $html = preg_replace_callback('/\[\[([^|\]]+)\]\]/', function($matches) {
+            $page = trim($matches[1]);
+            $url = 'https://meta.wikimedia.org/wiki/' . str_replace(' ', '_', $page);
+            return sprintf('<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>', htmlspecialchars($url, ENT_QUOTES, 'UTF-8'), htmlspecialchars($page, ENT_QUOTES, 'UTF-8'));
+        }, $html);
+
+        // 4. Negritas de Wikitext: '''texto'''
+        $html = preg_replace("/'''(.*?)'''/", '<strong>$1</strong>', $html);
+
+        // 5. Itálicas de Wikitext: ''texto''
+        $html = preg_replace("/''(.*?)''/", '<em>$1</em>', $html);
+
+        return $html;
+    }
 }

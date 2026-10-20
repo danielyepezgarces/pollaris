@@ -121,13 +121,17 @@
                 {% endif %}
 
                 {% if poll.description or poll.localizedDescriptions %}
+                    {% set parsedDescriptions = [] %}
+                    {% for desc in poll.localizedDescriptions %}
+                        {% set parsedDescriptions = parsedDescriptions | merge([{ locale: desc.locale, text: desc.text | wiki_or_markdown }]) %}
+                    {% endfor %}
                     <div
                         class="flow flow--small"
                         data-controller="description-translator"
-                        data-description-translator-descriptions-value="{{ poll.localizedDescriptions | json_encode }}"
+                        data-description-translator-descriptions-value="{{ parsedDescriptions | json_encode }}"
                     >
                         <div data-description-translator-target="content">
-                            {% if poll.description %}{{ poll.description | markdown }}{% endif %}
+                            {% if poll.description %}{{ poll.description | wiki_or_markdown }}{% endif %}
                         </div>
                         {% if poll.localizedDescriptions %}
                             <p

@@ -55,6 +55,7 @@ class PollForm extends AbstractType
             'label' => new TranslatableMessage('forms.poll_form.title.label'),
             'attr' => [
                 'maxlength' => Entity\Poll::MAX_TITLE_LENGTH,
+                'autocomplete' => 'off',
             ],
         ]);
 
@@ -76,6 +77,7 @@ class PollForm extends AbstractType
             'help' => new TranslatableMessage('forms.poll_form.description.help'),
             'attr' => [
                 'rows' => 5,
+                'autocomplete' => 'off',
             ],
         ]);
 

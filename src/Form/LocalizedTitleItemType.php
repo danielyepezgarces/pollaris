@@ -38,6 +38,7 @@ class LocalizedTitleItemType extends AbstractType
                 'label' => new TranslatableMessage('forms.localized_title_item.text.label'),
                 'attr' => [
                     'maxlength' => Entity\Poll::MAX_TITLE_LENGTH,
+                    'autocomplete' => 'off',
                 ],
             ]);
     }

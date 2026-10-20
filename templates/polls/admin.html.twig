@@ -46,8 +46,9 @@
                             <li class="panel panel--white panel--rounded cols cols--center cols--always cols--gap-small">
                                 <span class="col--extend text--overflow">
                                     {% set createdAt = '<time datetime="' ~ (vote.createdAt | dateIso) ~ '" data-controller="relative-time">' ~ (vote.createdAt | dateTrans) ~ '</time>' %}
-                                    {{ 'polls.admin.have_voted' | trans({ voter: include('_wikimedia_user_link.html.twig', { username: vote.authorName }), date: createdAt }) | raw }}
+                                    {{ ('polls.admin.have_voted' | trans({ voter: include('_wikimedia_user_link.html.twig', { username: vote.authorName | escape }), date: createdAt })) | raw }}
                                 </span>
+
 
                                 {% if not poll.isClosed and canEditVote(vote) %}
                                     <a class="button button--smaller" href="{{ path('edit vote', { slug: poll.slug, id: vote.id, _fragment: 'poll' }) }}">
@@ -92,7 +93,7 @@
                                         {{ include('_wikimedia_user_link.html.twig', { username: comment.authorName }) }}
                                     </span>
 
-                                    <time class="text--small" datetime="{{ comment.createdAt | dateIso }}" data-controller="relative-time">
+                                    <time class="text--small" datetime="{{ comment.createdAt | dateIso }}">
                                         {{ comment.createdAt | dateTrans }}
                                     </time>
                                 </header>

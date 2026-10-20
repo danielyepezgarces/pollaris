@@ -1,0 +1,40 @@
+{
+	"@metadata": {
+		"authors": [
+			"Siebrand"
+		]
+	},
+	"Error": "Fout",
+	"The CSRF token is invalid. Please try to resubmit the form.": "Er is een fout opgetreden, dien het formulier opnieuw in (onjuist CSRF-token).",
+	"answer.value.invalid": "Selecteer een keuze uit de lijst.",
+	"comment.author_name.max_length": "Voer een naam in van minder dan $1 tekens.",
+	"comment.author_name.required": "Voer een naam in.",
+	"comment.content.required": "Voer een bericht in.",
+	"date.value.required": "Voer een datum in.",
+	"poll.author_email.invalid": "Voer een geldig e-mailadres in.",
+	"poll.author_email.required": "Voer een e-mailadres in.",
+	"poll.author_name.max_length": "Voer een naam in van minder dan $1 tekens.",
+	"poll.dates.required": "Selecteer ten minste één datum.",
+	"poll.edit_vote_mode.invalid": "Selecteer een stembewerkingsmodus uit de lijst.",
+	"poll.password.incorrect": "Het wachtwoord is incorrect.",
+	"poll.password.required": "Het wachtwoord is vereist.",
+	"poll.timezone_mode.invalid": "Selecteer een tijdzone uit de lijst.",
+	"poll.wikimedia_edits_project.invalid": "Voer een juiste Wikimedia-projectdatabasenaam in, zoals eswiki, commonswiki of wikidatawiki.",
+	"poll.slug.already_used": "Deze koppeling is al in gebruik. Voer een nieuwe in.",
+	"poll.slug.max_length": "Voer een koppeling in van minder dan $1 tekens.",
+	"poll.slug.pattern": "Voer een koppeling in met alleen tekens van A tot Z, cijfers, koppeltekens of underscores.",
+	"poll.slug.required": "Voer een koppeling in.",
+	"poll.title.max_length": "Voer een titel in van minder dan $1 tekens.",
+	"poll.title.required": "Voer een titel in.",
+	"poll.type.invalid": "Selecteer een type uit de lijst.",
+	"proposal.label.max_length": "Voer een voorstel in van minder dan $1 tekens.",
+	"proposal.label.required": "Voer een voorstel in.",
+	"user.author_name.already_used": "Voer een andere naam in, deze is al in gebruik.",
+	"user.username.already_used": "Voer een andere gebruikersnaam in, deze is al in gebruik.",
+	"user.username.max_length": "Voer een gebruikersnaam in van minder dan $1 tekens.",
+	"user.username.required": "Voer een gebruikersnaam in.",
+	"vote.author_name.max_length": "Voer een naam in van minder dan $1 tekens.",
+	"vote.author_name.required": "Voer een naam in.",
+	"vote.max_votes.limited": "Er zijn al $1 stem(men) uitgebracht op dit voorstel, u kunt er niet op stemmen.",
+	"vote.owner.already_voted": "U hebt al gestemd in deze peiling."
+}

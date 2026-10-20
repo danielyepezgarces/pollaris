@@ -7,8 +7,7 @@ comment.author_name.max_length: Introduzca un nombre de menos de {limit}
 comment.author_name.required: Introduzca un nombre.
 comment.content.required: Introduzca un mensaje.
 date.value.required: Introduzca una fecha.
-email.invalid: Introduzca una dirección de correo electrónico 
-  válida.
+email.invalid: Introduzca una dirección de correo electrónico válida.
 email.required: Introduzca una dirección de correo electrónico.
 poll.author_name.max_length: Introduzca un nombre de menos de {limit} 
   caracteres.
@@ -22,9 +21,11 @@ poll.slug.max_length: Introduzca un enlace de menos de {limit} caracteres.
 poll.slug.pattern: Introduzca un enlace utilizando solo caracteres de la A a la 
   Z, números, guiones o guiones bajos.
 poll.slug.required: Introduzca un enlace.
+poll.timezone_mode.invalid: Seleccione una zona horaria válida.
 poll.title.max_length: Introduzca un título de caracteres de menos de {limit}.
 poll.title.required: Introduzca un título.
 poll.type.invalid: Seleccione un tipo de la lista.
+poll.wikimedia_edits_project.invalid: 'Ingresa un nombre válido de base de datos de proyecto Wikimedia, como eswiki, commonswiki o wikidatawiki.'
 proposal.label.max_length: Introduzca una propuesta de menos de {limit} 
   caracteres.
 proposal.label.required: Introduzca una propuesta.
@@ -40,6 +41,4 @@ vote.author_name.max_length: Introduzca un nombre de menos de {limit}
 vote.author_name.required: Introduzca un nombre.
 vote.max_votes.limited: Ya ha habido {max} voto(s) para esta propuesta, no se 
   puede votar más.
-poll.timezone_mode.invalid: Seleccione una zona horaria válida.
-poll.wikimedia_edits_project.invalid: 'Ingresa un nombre válido de base de datos de proyecto Wikimedia, como eswiki, commonswiki o wikidatawiki.'
 vote.owner.already_voted: Ya has votado en esta encuesta.
