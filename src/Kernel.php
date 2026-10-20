@@ -25,7 +25,18 @@ class Kernel extends BaseKernel
     {
         parent::boot();
 
-        $timezone = $this->getContainer()->getParameter('app.timezone');
+        $timezone = null;
+        if ($this->getContainer()->hasParameter('app.timezone')) {
+            try {
+                $timezone = $this->getContainer()->getParameter('app.timezone');
+            } catch (\Exception) {
+                $timezone = null;
+            }
+        }
+
+        if ($timezone === null && isset($_ENV['APP_TIMEZONE']) && $_ENV['APP_TIMEZONE'] !== '') {
+            $timezone = $_ENV['APP_TIMEZONE'];
+        }
 
         if (is_string($timezone) && $timezone !== '') {
             date_default_timezone_set($timezone);
