@@ -139,11 +139,23 @@ class LoginController extends BaseController
         $user = $this->userRepository->findOneByWikimediaId($wikimediaId);
 
         if (!$user) {
-            $user = new Entity\User();
+            $existingByUsername = $this->userRepository->findOneByUsername($wikimediaUsername);
+            if ($existingByUsername && $existingByUsername->getWikimediaId() === null) {
+                $user = $existingByUsername;
+                $user->setWikimediaId($wikimediaId);
+            } else {
+                $user = new Entity\User();
+                $user->setWikimediaId($wikimediaId);
+                $user->setUsername($this->buildAvailableUsername($wikimediaUsername));
+                $user->setRoles(['ROLE_USER']);
+                $user->setPassword(Utils\Random::hex(64));
+            }
+        } else {
+            // Keep wikimediaId synchronized and handle Global Rename from Wikimedia
             $user->setWikimediaId($wikimediaId);
-            $user->setUsername($this->buildAvailableUsername($wikimediaUsername));
-            $user->setRoles(['ROLE_USER']);
-            $user->setPassword(Utils\Random::hex(64));
+            if ($user->getUsername() !== $wikimediaUsername) {
+                $user->setUsername($this->buildAvailableUsername($wikimediaUsername, $user));
+            }
         }
 
         $realName = trim((string) ($profile['realname'] ?? ''));
@@ -157,11 +169,12 @@ class LoginController extends BaseController
         return $user;
     }
 
-    private function buildAvailableUsername(string $preferredUsername): string
+    private function buildAvailableUsername(string $preferredUsername, ?Entity\User $currentUser = null): string
     {
         $baseUsername = mb_substr($preferredUsername, 0, Entity\User::MAX_USERNAME_LENGTH);
 
-        if ($this->userRepository->findOneByUsername($baseUsername) === null) {
+        $existing = $this->userRepository->findOneByUsername($baseUsername);
+        if ($existing === null || ($currentUser !== null && $existing->getId() === $currentUser->getId())) {
             return $baseUsername;
         }
 
@@ -175,7 +188,8 @@ class LoginController extends BaseController
                 Entity\User::MAX_USERNAME_LENGTH - mb_strlen($suffixText),
             ) . $suffixText;
             ++$suffix;
-        } while ($this->userRepository->findOneByUsername($candidate) !== null);
+            $existing = $this->userRepository->findOneByUsername($candidate);
+        } while ($existing !== null && ($currentUser === null || $existing->getId() !== $currentUser->getId()));
 
         return $candidate;
     }

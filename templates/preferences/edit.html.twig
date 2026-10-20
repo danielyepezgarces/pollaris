@@ -17,6 +17,34 @@
 {% block title %}{{ 'preferences.edit.title' | trans }}{% endblock %}
 
 {% block body %}
+    {% if app.user %}
+        <fieldset class="panel panel--rounded flow flow--small" style="margin-bottom: 1.5rem;">
+            <legend class="text--bold">{{ 'preferences.user_info.title' | trans }}</legend>
+
+            <div class="flow flow--tiny">
+                <span class="text--secondary text--small">{{ 'preferences.user_info.username' | trans }}</span>
+                <div class="text--bold">
+                    {{ include('_wikimedia_user_link.html.twig', { username: app.user.username }) }}
+                </div>
+            </div>
+
+            <div class="flow flow--tiny">
+                <span class="text--secondary text--small">{{ 'preferences.user_info.email' | trans }}</span>
+                <div>
+                    {% if app.user.email %}
+                        <code>{{ app.user.email }}</code>
+                    {% else %}
+                        <span class="text--secondary"><em>{{ 'preferences.user_info.no_email' | trans }}</em></span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <p class="text--secondary text--smaller" style="margin-top: 0.5rem; margin-bottom: 0;">
+                {{ 'preferences.user_info.help' | trans }}
+            </p>
+        </fieldset>
+    {% endif %}
+
     {{ form_start(form, { action: path('edit preferences') }) }}
         {{ form_errors(form) }}
 

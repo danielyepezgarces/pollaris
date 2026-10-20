@@ -141,12 +141,13 @@ class LoginControllerTest extends WebTestCase
         $this->assertNull($user);
     }
 
-    public function testWikimediaLoginDoesNotRenameExistingUser(): void
+    public function testWikimediaLoginRenamesExistingUserOnGlobalRename(): void
     {
         $client = static::createClient();
         $user = Factory\UserFactory::createOne([
             'username' => 'existing-name',
             'wikimediaId' => 'wikimedia-123',
+            'email' => 'old@example.org',
         ]);
 
         $wikimediaOAuth = $this->createMock(Service\WikimediaOAuth::class);
@@ -155,8 +156,8 @@ class LoginControllerTest extends WebTestCase
         $wikimediaOAuth->method('fetchProfile')->willReturn([
             'sub' => 'wikimedia-123',
             'username' => 'new-wikimedia-name',
-            'realname' => '',
-            'email' => '',
+            'realname' => 'Updated Real Name',
+            'email' => 'new@example.org',
         ]);
         static::getContainer()->set(Service\WikimediaOAuth::class, $wikimediaOAuth);
 
@@ -170,7 +171,10 @@ class LoginControllerTest extends WebTestCase
         $userRepository = static::getContainer()->get(Repository\UserRepository::class);
         $reloadedUser = $userRepository->find($user->getId());
         $this->assertNotNull($reloadedUser);
-        $this->assertSame('existing-name', $reloadedUser->getUsername());
+        $this->assertSame('new-wikimedia-name', $reloadedUser->getUsername());
+        $this->assertSame('new@example.org', $reloadedUser->getEmail());
+        $this->assertSame('Updated Real Name', $reloadedUser->getRealName());
+        $this->assertSame('wikimedia-123', $reloadedUser->getWikimediaId());
     }
 
     protected function getLoggedUser(): ?Entity\User

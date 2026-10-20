@@ -110,8 +110,13 @@
                     {% if form.authorEmail.vars.disabled %}
                         <div class="flow flow--small">
                             <label for="{{ form.authorEmail.vars.id }}">{{ form.authorEmail.vars.label | trans }}</label>
-                            {{ form_widget(form.authorEmail, { attr: { placeholder: 'forms.poll_form.author_email.coming_soon' | trans } }) }}
-                            <p class="text--secondary text--small">{{ 'forms.poll_form.author_email.help' | trans }}</p>
+                            {% if form.authorEmail.vars.value is not empty %}
+                                {{ form_widget(form.authorEmail, { attr: { readonly: 'readonly' } }) }}
+                                <p class="text--secondary text--small">{{ 'forms.poll_form.author_email.wikimedia_help' | trans }}</p>
+                            {% else %}
+                                {{ form_widget(form.authorEmail, { attr: { placeholder: 'forms.poll_form.author_email.no_email' | trans, readonly: 'readonly' } }) }}
+                                <p class="text--secondary text--small">{{ 'forms.poll_form.author_email.no_email_help' | trans }}</p>
+                            {% endif %}
                         </div>
                         {% do form.authorEmail.setRendered() %}
                     {% else %}
