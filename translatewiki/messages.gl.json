@@ -166,6 +166,8 @@
 	"home.stats.votes": "{{PLURAL:$1|voto emitido|votos emitidos}}",
 	"home.stats.participants": "{{PLURAL:$1|participante único|participantes únicos}}",
 	"home.stats.comments": "{{PLURAL:$1|comentario publicado|comentarios publicados}}",
+	"maintenance.read_only_banner": "⚠️ O modo de mantemento de lectura só está activo. A creación de enquisas, as votacións e os comentarios están desactivados temporalmente.",
+	"maintenance.read_only_error": "O sitio está temporalmente en modo de mantemento de lectura só. As operacións de escritura están desactivadas.",
 	"layout.header.my": "As miñas enquisas e votos",
 	"layout.header.public_polls": "Open public polls",
 	"layout.header.preferences": "Preferencias",
@@ -364,5 +366,13 @@
 	"polls.show.already_voted": "Xa votaches nesta enquisa.",
 	"my.index.login_required": "Debes iniciar sesión para ver as túas enquisas e votos.",
 	"layout.login": "Iniciar sesión",
-	"home.credits": "Baseado en <a href=\"https://framagit.org/pollaris/pollaris\" style=\"text-decoration: none;\">Pollaris</a> (AGPL 3) · Modificado por <a href=\"https://github.com/danielyepezgarces\" style=\"text-decoration: none;\">Daniel Yepez Garces</a> · <a href=\"https://github.com/danielyepezgarces/pollaris\" style=\"text-decoration: none;\">Código fonte</a>"
+	"home.credits": "Baseado en <a href=\"https://framagit.org/pollaris/pollaris\" style=\"text-decoration: none;\">Pollaris</a> (AGPL 3) · Modificado por <a href=\"https://github.com/danielyepezgarces\" style=\"text-decoration: none;\">Daniel Yepez Garces</a> · <a href=\"https://github.com/danielyepezgarces/pollaris\" style=\"text-decoration: none;\">Código fonte</a>",
+	"preferences.user_info.title": "Conta da Wikimedia",
+	"preferences.user_info.username": "Nome de usuario",
+	"preferences.user_info.email": "Correo electrónico asociado",
+	"preferences.user_info.no_email": "Non hai correo electrónico rexistrado na Wikimedia",
+	"preferences.user_info.help": "Esta información está ligada á túa conta da Wikimedia. Se cambias o nome de usuario (globalmente) ou o correo electrónico nas túas preferencias da Wikimedia, actualizarase automaticamente aquí no teu seguinte inicio de sesión.",
+	"forms.poll_form.author_email.no_email": "Non hai correo electrónico asociado á túa conta da Wikimedia",
+	"forms.poll_form.author_email.wikimedia_help": "Enviaranse notificacións ao correo electrónico asociado á túa conta da Wikimedia. Podes configuralo ou cambialo nas túas preferencias da Wikimedia.",
+	"forms.poll_form.author_email.no_email_help": "Para recibires notificacións de enquisas, engade un correo electrónico nas túas preferencias da Wikimedia e inicia sesión de novo."
 }

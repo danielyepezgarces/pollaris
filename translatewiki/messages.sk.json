@@ -166,6 +166,8 @@
 	"home.stats.votes": "{{PLURAL:$1|odovzdaný hlas|odovzdané hlasy|odovzdaných hlasov}}",
 	"home.stats.participants": "{{PLURAL:$1|jedinečný účastník|jedineční účastníci|jedinečných účastníkov}}",
 	"home.stats.comments": "{{PLURAL:$1|pridaný komentár|pridané komentáre|pridaných komentárov}}",
+	"maintenance.read_only_banner": "⚠️ Je aktívny údržbový režim iba na čítanie. Vytváranie ankiet, hlasovanie a komentovanie sú dočasne vypnuté.",
+	"maintenance.read_only_error": "Stránka je dočasne v údržbovom režime iba na čítanie. Operácie zápisu sú vypnuté.",
 	"layout.header.my": "Moje ankety a hlasy",
 	"layout.header.public_polls": "Otvorené verejné ankety",
 	"layout.header.preferences": "Predvoľby",
@@ -364,5 +366,13 @@
 	"polls.show.already_voted": "V tejto ankete ste už hlasovali.",
 	"my.index.login_required": "Na zobrazenie svojich ankiet a hlasov sa musíte prihlásiť.",
 	"layout.login": "Prihlásiť sa",
-	"home.credits": "Založené na <a href=\"https://framagit.org/pollaris/pollaris\" style=\"text-decoration: none;\">Pollaris</a> (AGPL 3) · Upravil <a href=\"https://github.com/danielyepezgarces\" style=\"text-decoration: none;\">Daniel Yepez Garces</a> · <a href=\"https://github.com/danielyepezgarces/pollaris\" style=\"text-decoration: none;\">Zdrojový kód</a>"
+	"home.credits": "Založené na <a href=\"https://framagit.org/pollaris/pollaris\" style=\"text-decoration: none;\">Pollaris</a> (AGPL 3) · Upravil <a href=\"https://github.com/danielyepezgarces\" style=\"text-decoration: none;\">Daniel Yepez Garces</a> · <a href=\"https://github.com/danielyepezgarces/pollaris\" style=\"text-decoration: none;\">Zdrojový kód</a>",
+	"preferences.user_info.title": "Účet Wikimedia",
+	"preferences.user_info.username": "Používateľské meno",
+	"preferences.user_info.email": "Priradený e-mail",
+	"preferences.user_info.no_email": "Vo Wikimedii nie je zaregistrovaný žiadny e-mail",
+	"preferences.user_info.help": "Tieto údaje sú prepojené s vaším účtom Wikimedia. Ak si v nastaveniach Wikimedie zmeníte používateľské meno (globálne premenovanie) alebo e-mail, tu sa pri ďalšom prihlásení automaticky aktualizujú.",
+	"forms.poll_form.author_email.no_email": "K vášmu účtu Wikimedia nie je priradený žiadny e-mail",
+	"forms.poll_form.author_email.wikimedia_help": "Upozornenia sa budú posielať na e-mail priradený k vášmu účtu Wikimedia. Nastaviť alebo zmeniť ho môžete v nastaveniach Wikimedie.",
+	"forms.poll_form.author_email.no_email_help": "Ak chcete dostávať upozornenia na ankety, pridajte si e-mail v nastaveniach Wikimedie a znova sa prihláste."
 }

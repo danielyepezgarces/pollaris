@@ -96,5 +96,7 @@
 	"polls.votes.no.count": "$1 Nee",
 	"polls.votes.yes": "Jo",
 	"polls.votes.yes.count": "$1 Jo",
-	"preferences.edit.title": "Är Astellungen"
+	"preferences.edit.title": "Är Astellungen",
+	"preferences.user_info.title": "Wikimedia-Kont",
+	"preferences.user_info.username": "Benotzernumm"
 }
