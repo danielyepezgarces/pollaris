@@ -160,6 +160,25 @@ class PollSettingsForm extends AbstractType
             'required' => false,
         ]);
 
+        $userCommunities = $options['user_communities'] ?? [];
+        if (!empty($userCommunities)) {
+            $builder->add('community', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, [
+                'class' => Entity\Community::class,
+                'choices' => $userCommunities,
+                'choice_label' => 'name',
+                'required' => false,
+                'placeholder' => new TranslatableMessage('forms.poll_form.community.none'),
+                'label' => new TranslatableMessage('forms.poll_form.community.label'),
+                'help' => new TranslatableMessage('forms.poll_form.community.help'),
+            ]);
+
+            $builder->add('communityOnlyVote', Type\CheckboxType::class, [
+                'required' => false,
+                'label' => new TranslatableMessage('forms.poll_form.community_only_vote.label'),
+                'help' => new TranslatableMessage('forms.poll_form.community_only_vote.help'),
+            ]);
+        }
+
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             $form = $event->getForm();
             $poll = $event->getData();
@@ -240,7 +259,10 @@ class PollSettingsForm extends AbstractType
                 'class' => 'form--standard',
             ],
             'data_class' => Entity\Poll::class,
+            'user_communities' => [],
         ]);
+
+        $resolver->setAllowedTypes('user_communities', 'array');
     }
 
     private function normalizeWikimediaProjectInput(?string $project): ?string

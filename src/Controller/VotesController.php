@@ -63,6 +63,15 @@ class VotesController extends BaseController
             ]);
         }
 
+        if ($poll->isCommunityOnlyVote() && $poll->getCommunity()) {
+            if (!$currentUser instanceof Entity\User || !$poll->getCommunity()->isMember($currentUser)) {
+                $this->addFlash('danger', 'polls.show.community_requirements.not_member');
+                return $this->redirectToRoute('poll', [
+                    'slug' => $poll->getSlug(),
+                ]);
+            }
+        }
+
         if ($currentUser instanceof Entity\User) {
             $vote->setAuthorName($currentUser->getUserIdentifier());
             $vote->setOwner($currentUser);

@@ -132,8 +132,8 @@
         <div class="flow flow--small">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <h2>📊 {{ 'community.polls.title' | trans }}</h2>
-                {% if isAdmin %}
-                    <a href="{{ path('new poll') }}" class="button button--small button--primary">
+                {% if isAdmin or (currentMembership and currentMembership.status == 'active') %}
+                    <a href="{{ path('new poll', { community: community.slug }) }}" class="button button--small button--primary">
                         + {{ 'community.polls.create_button' | trans }}
                     </a>
                 {% endif %}

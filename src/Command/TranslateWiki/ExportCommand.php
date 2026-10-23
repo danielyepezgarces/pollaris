@@ -9,6 +9,7 @@ namespace App\Command\TranslateWiki;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -27,11 +28,17 @@ class ExportCommand extends Command
         parent::__construct();
     }
 
+    protected function configure(): void
+    {
+        $this->addOption('locale', null, InputOption::VALUE_OPTIONAL, 'Specific locale to export (e.g. en_GB)');
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         $translationsDir = $this->projectDir . '/translations';
         $exportDir = $this->projectDir . '/translatewiki';
+        $targetLocale = $input->getOption('locale');
 
         if (!is_dir($exportDir)) {
             mkdir($exportDir, 0777, true);
@@ -48,6 +55,10 @@ class ExportCommand extends Command
 
             $domain = $matches[1];
             $locale = $matches[2];
+
+            if ($targetLocale && $locale !== $targetLocale) {
+                continue;
+            }
 
             $yamlContent = Yaml::parseFile($file);
             

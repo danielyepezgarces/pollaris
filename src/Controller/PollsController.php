@@ -83,6 +83,15 @@ class PollsController extends BaseController
         $userCommunities = [];
         if ($currentUser instanceof Entity\User) {
             $userCommunities = $this->communityRepository->findForUser($currentUser);
+            $communityParam = $request->query->get('community');
+            if ($communityParam && !empty($userCommunities)) {
+                foreach ($userCommunities as $c) {
+                    if ((string) $c->getId() === (string) $communityParam || $c->getSlug() === $communityParam) {
+                        $poll->setCommunity($c);
+                        break;
+                    }
+                }
+            }
         }
 
         $form = $this->createNamedForm('poll', Form\PollForm::class, $poll, [
@@ -470,7 +479,18 @@ class PollsController extends BaseController
             return $this->redirect($flow->getPreviousStepUrl('summary'));
         }
 
-        $form = $this->createNamedForm('poll_settings', Form\PollSettingsForm::class, $poll);
+        $userCommunities = [];
+        $currentUser = $this->getUser();
+        if ($currentUser instanceof Entity\User) {
+            $userCommunities = $this->communityRepository->findForUser($currentUser);
+        }
+        if ($poll->getCommunity() && !in_array($poll->getCommunity(), $userCommunities, true)) {
+            $userCommunities[] = $poll->getCommunity();
+        }
+
+        $form = $this->createNamedForm('poll_settings', Form\PollSettingsForm::class, $poll, [
+            'user_communities' => $userCommunities,
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

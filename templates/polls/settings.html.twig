@@ -101,6 +101,17 @@
                 {{ form_row(form.notifyOnComments) }}
             </div>
 
+            {% if form.community is defined %}
+                <div class="panel panel--rounded panel--primary flow">
+                    <h2 class="text--primary">
+                        {{ 'forms.poll_form.community.fieldset' | trans }}
+                    </h2>
+
+                    {{ form_row(form.community) }}
+                    {{ form_row(form.communityOnlyVote) }}
+                </div>
+            {% endif %}
+
             {{ include('polls/_flow_actions.html.twig', { step: 'summary' }) }}
         {{ form_end(form) }}
     </div>

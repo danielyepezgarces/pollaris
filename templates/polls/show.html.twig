@@ -409,15 +409,35 @@
 
 
 
+                {% if voteForm is null and not poll.isClosed and not app.user and myVote is null %}
+                    <div class="panel panel--primary panel--rounded panel--border text--primary no-print flow flow--small text--center" style="margin-bottom: 1.5rem;">
+                        {% if poll.communityOnlyVote and poll.community %}
+                            <p class="text--bold">🔒 {{ 'polls.show.community_restricted_login_required' | trans({ community: poll.community.name }) }}</p>
+                        {% else %}
+                            <p class="text--bold">{{ 'polls.show.login_required_to_vote' | trans }}</p>
+                        {% endif %}
+                        <p>
+                            <a class="button button--primary button--small" href="{{ path('login', { returnto: path('poll', { slug: poll.slug }) }) }}">
+                                {{ 'layout.login' | trans }}
+                            </a>
+                        </p>
+                    </div>
+                {% endif %}
+
                 {% if voteForm is null and not poll.isClosed and app.user and voteEligibilityErrors is not empty %}
-                    <div class="panel panel--primary panel--rounded panel--border text--primary no-print flow flow--small">
+                    <div class="panel panel--primary panel--rounded panel--border text--primary no-print flow flow--small" style="margin-bottom: 1.5rem;">
                         <p class="text--bold">
-                            {{ 'polls.show.wikimedia_requirements.title' | trans }}
+                            {{ 'polls.show.voting_requirements.title' | trans }}
                         </p>
 
                         <ul>
                             {% for error in voteEligibilityErrors %}
-                                <li>{{ error | trans }}</li>
+                                <li>
+                                    {{ error | trans }}
+                                    {% if error == 'polls.show.community_requirements.not_member' and poll.community %}
+                                        — <a href="{{ path('community_show', { slug: poll.community.slug }) }}">{{ 'polls.show.community_requirements.view_community' | trans }}</a>
+                                    {% endif %}
+                                </li>
                             {% endfor %}
                         </ul>
                     </div>

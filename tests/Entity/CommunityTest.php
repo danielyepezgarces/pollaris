@@ -75,5 +75,19 @@ class CommunityTest extends TestCase
 
         $this->assertSame($community, $poll->getCommunity());
         $this->assertTrue($poll->isCommunityOnlyVote());
+
+        // Test non-member user eligibility check
+        $outsider = new User();
+        $outsider->setUsername('OutsiderUser');
+        $this->assertFalse($community->isMember($outsider));
+
+        // Test member user eligibility check
+        $memberUser = new User();
+        $memberUser->setUsername('MemberUser');
+        $member = new CommunityMember();
+        $member->setUser($memberUser);
+        $member->setStatus(CommunityMember::STATUS_ACTIVE);
+        $community->addMember($member);
+        $this->assertTrue($community->isMember($memberUser));
     }
 }

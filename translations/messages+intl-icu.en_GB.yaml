@@ -482,3 +482,6 @@ community.opt_out.view_poll: 'View poll'
 community.opt_out.view_community: 'View community'
 polls.show.community_label: Community
 polls.show.community_requirements.not_member: 'Voting in this poll is restricted to active members of the associated community.'
+polls.show.voting_requirements.title: 'Voting requirements:'
+polls.show.community_requirements.view_community: 'View community'
+polls.show.community_restricted_login_required: 'Voting in this poll is restricted to active members of the “{community}” community. Please log in to vote.'
