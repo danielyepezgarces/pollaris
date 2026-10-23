@@ -3,6 +3,37 @@
 {% block title %}{{ 'credits.title' | trans }}{% endblock %}
 
 {% block body %}
+    <style>
+        .credits-badge {
+            display: inline-block;
+            padding: 0.2rem 0.55rem;
+            font-size: 0.8rem;
+            line-height: 1.3;
+            border-radius: var(--border-radius-small, 4px);
+            background-color: var(--color-primary3);
+            color: var(--color-primary12);
+            border: 1px solid var(--color-primary6);
+            font-weight: 500;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .credits-badge:hover {
+            background-color: var(--color-primary4);
+            border-color: var(--color-primary7);
+        }
+
+        [data-color-scheme="dark"] .credits-badge {
+            background-color: var(--color-primary4);
+            color: var(--color-primary12);
+            border-color: var(--color-primary6);
+        }
+
+        [data-color-scheme="dark"] .credits-badge:hover {
+            background-color: var(--color-primary5);
+            border-color: var(--color-primary7);
+        }
+    </style>
+
     <div class="wrapper wrapper--center flow flow--larger" style="max-width: 900px; padding: 2rem 1rem;">
         <div class="flow flow--tiny text--center">
             <h1 style="margin: 0; font-size: 2.2rem;">{{ icon('globe') }} {{ 'credits.title' | trans }}</h1>
@@ -12,14 +43,14 @@
         </div>
 
         {# Translation Stats & CTA Banner #}
-        <div class="panel panel--primary panel--rounded flow flow--small" style="padding: 1.5rem; text-align: center; background: var(--color-background-alt, rgba(0, 0, 0, 0.03)); border: 1px solid var(--color-border, #ddd);">
+        <div class="panel panel--primary panel--rounded flow flow--small" style="padding: 1.5rem; text-align: center; border: 1px solid var(--color-primary6);">
             <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
                 <div>
-                    <span style="display: block; font-size: 2rem; font-weight: bold; color: var(--color-primary);">{{ stats.translatorsCount }}</span>
+                    <span style="display: block; font-size: 2rem; font-weight: bold; color: var(--color-primary11);">{{ stats.translatorsCount }}</span>
                     <span class="text--secondary text--small">{{ 'credits.stats.translators' | trans }}</span>
                 </div>
                 <div>
-                    <span style="display: block; font-size: 2rem; font-weight: bold; color: var(--color-primary);">{{ stats.languagesCount }}</span>
+                    <span style="display: block; font-size: 2rem; font-weight: bold; color: var(--color-primary11);">{{ stats.languagesCount }}</span>
                     <span class="text--secondary text--small">{{ 'credits.stats.languages' | trans }}</span>
                 </div>
             </div>
@@ -42,7 +73,7 @@
 
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem;">
                 {% for translator in translators %}
-                    <div class="panel panel--rounded flow flow--tiny" style="padding: 1rem; border: 1px solid var(--color-border, #e0e0e0); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="panel panel--rounded flow flow--tiny" style="padding: 1rem; border: 1px solid var(--color-grey6); display: flex; flex-direction: column; justify-content: space-between;">
                         <div>
                             <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
                                 {{ icon('user') }}
@@ -53,7 +84,7 @@
                             </div>
                             <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
                                 {% for lang in translator.languages %}
-                                    <span style="display: inline-block; padding: 0.15rem 0.5rem; font-size: 0.78rem; border-radius: 4px; background: var(--color-primary-subtle, #e8f0fe); color: var(--color-primary, #1967d2); font-weight: 500;">
+                                    <span class="credits-badge">
                                         {{ lang.name }}
                                     </span>
                                 {% endfor %}
@@ -65,7 +96,7 @@
         </div>
 
         {# Project Credits & Software Acknowledgements #}
-        <div class="panel panel--rounded flow flow--small" style="padding: 1.5rem; margin-top: 2rem; border-top: 2px solid var(--color-border, #eee);">
+        <div class="panel panel--rounded flow flow--small" style="padding: 1.5rem; margin-top: 2rem; border: 1px solid var(--color-grey6);">
             <h3 style="margin-top: 0;">{{ 'credits.project_heading' | trans }}</h3>
             <ul style="line-height: 1.6; margin: 0; padding-left: 1.25rem;">
                 <li>
