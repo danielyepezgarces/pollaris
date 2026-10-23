@@ -99,6 +99,14 @@
 
                 {{ form_row(form.closedAt) }}
                 {{ form_row(form.timezoneMode) }}
+
+                {% if form.community is defined %}
+                    <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem;">
+                        <legend class="text--bold">{{ 'forms.poll_form.community.fieldset' | trans }}</legend>
+                        {{ form_row(form.community) }}
+                        {{ form_row(form.communityOnlyVote) }}
+                    </fieldset>
+                {% endif %}
             </div>
 
             <fieldset class="panel panel--primary panel--rounded">

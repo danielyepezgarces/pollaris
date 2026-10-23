@@ -120,6 +120,18 @@
                     </h1>
                 {% endif %}
 
+                {% if poll.community %}
+                    <p class="text--secondary text--small" style="margin-top: -0.5rem;">
+                        👥 {{ 'polls.show.community_label' | trans }}:
+                        <a href="{{ path('community_show', { slug: poll.community.slug }) }}" class="text--bold" style="text-decoration: none;">
+                            {{ poll.community.name }}
+                        </a>
+                        {% if poll.communityOnlyVote %}
+                            · <span class="text--bold">🔒 {{ 'community.polls.members_only_badge' | trans }}</span>
+                        {% endif %}
+                    </p>
+                {% endif %}
+
                 {% if poll.description or poll.localizedDescriptions %}
                     {% set parsedDescriptions = [] %}
                     {% for desc in poll.localizedDescriptions %}
@@ -405,7 +417,7 @@
 
                         <ul>
                             {% for error in voteEligibilityErrors %}
-                                <li>{{ error }}</li>
+                                <li>{{ error | trans }}</li>
                             {% endfor %}
                         </ul>
                     </div>

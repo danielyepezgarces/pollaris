@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'community.index.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--center flow flow--larger">
+        <div class="flow" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h1>{{ 'community.index.title' | trans }}</h1>
+                <p class="text--secondary">
+                    {{ 'community.index.description' | trans }}
+                </p>
+            </div>
+            {% if app.user %}
+                <div>
+                    <a href="{{ path('community_new') }}" class="button button--primary">
+                        + {{ 'community.index.create_button' | trans }}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if app.user and myCommunities|length > 0 %}
+            <div class="flow flow--small">
+                <h2>{{ 'community.index.my_communities' | trans }}</h2>
+                <ul class="list--nostyle flow">
+                    {% for comm in myCommunities %}
+                        <li class="panel panel--primary panel--rounded flow flow--tiny" style="padding: 1.25rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                                <div>
+                                    <h3 style="margin: 0;">
+                                        <a href="{{ path('community_show', { slug: comm.slug }) }}" style="text-decoration: none;">
+                                            {{ comm.name }}
+                                        </a>
+                                    </h3>
+                                    {% if comm.description %}
+                                        <p class="text--secondary text--small" style="margin: 0.25rem 0 0;">
+                                            {{ comm.description|slice(0, 150) }}
+                                        </p>
+                                    {% endif %}
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                    <span class="text--secondary text--small">
+                                        {{ comm.members|length }} {{ 'community.members_count' | trans }}
+                                    </span>
+                                    <a href="{{ path('community_show', { slug: comm.slug }) }}" class="button button--small">
+                                        {{ 'community.view' | trans }}
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="flow flow--small">
+            <h2>{{ 'community.index.all_communities' | trans }}</h2>
+            {% if allCommunities|length > 0 %}
+                <ul class="list--nostyle flow">
+                    {% for comm in allCommunities %}
+                        <li class="panel panel--rounded flow flow--tiny" style="padding: 1.25rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                                <div>
+                                    <h3 style="margin: 0;">
+                                        <a href="{{ path('community_show', { slug: comm.slug }) }}" style="text-decoration: none;">
+                                            {{ comm.name }}
+                                        </a>
+                                    </h3>
+                                    {% if comm.description %}
+                                        <p class="text--secondary text--small" style="margin: 0.25rem 0 0;">
+                                            {{ comm.description|slice(0, 150) }}
+                                        </p>
+                                    {% endif %}
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                    <span class="text--secondary text--small">
+                                        {{ comm.members|length }} {{ 'community.members_count' | trans }}
+                                    </span>
+                                    <a href="{{ path('community_show', { slug: comm.slug }) }}" class="button button--small">
+                                        {{ 'community.view' | trans }}
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text--secondary">
+                    {{ 'community.index.none' | trans }}
+                </p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

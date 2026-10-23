@@ -1,0 +1,256 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ community.name }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--center flow flow--larger">
+        {# Header & Meta #}
+        <div class="panel panel--primary panel--rounded flow flow--small" style="padding: 1.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                <div class="flow flow--tiny">
+                    <h1 style="margin: 0;">{{ community.name }}</h1>
+                    {% if community.description %}
+                        <p class="text--secondary" style="margin: 0.5rem 0 0; font-size: 1.1em;">
+                            {{ community.description|nl2br }}
+                        </p>
+                    {% endif %}
+                    <div class="text--secondary text--small" style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                        <span>👤 {{ 'community.owner' | trans }}: <strong>{{ community.owner.username }}</strong></span>
+                        <span>👥 {{ activeMembers|length }} {{ 'community.members_count' | trans }}</span>
+                        <span>
+                            {% if community.joinPolicy == 'open' %}
+                                🟢 {{ 'community.join_policy.open' | trans }}
+                            {% else %}
+                                🔒 {{ 'community.join_policy.approval' | trans }}
+                            {% endif %}
+                        </span>
+                        {% if community.telegramEnabled %}
+                            <span>💬 {{ 'community.telegram_active' | trans }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+                    {% if isAdmin %}
+                        <a href="{{ path('community_settings', { slug: community.slug }) }}" class="button button--secondary">
+                            ⚙️ {{ 'community.settings.button' | trans }}
+                        </a>
+                    {% endif %}
+
+                    {% if app.user %}
+                        {% if not currentMembership %}
+                            <form method="post" action="{{ path('community_join', { slug: community.slug }) }}">
+                                <input type="hidden" name="token" value="{{ inviteToken }}">
+                                <button type="submit" class="button button--primary">
+                                    {{ 'community.join_button' | trans }}
+                                </button>
+                            </form>
+                        {% elseif currentMembership.status == 'pending' %}
+                            <span class="panel panel--rounded text--small" style="padding: 0.5rem 1rem; background: var(--color-warning-subtle, #fff3cd); border: 1px solid var(--color-warning, #ffeeba);">
+                                ⏳ {{ 'community.membership.pending' | trans }}
+                            </span>
+                        {% elseif currentMembership.status == 'active' and community.owner != app.user %}
+                            <form method="post" action="{{ path('community_leave', { slug: community.slug }) }}" onsubmit="return confirm('{{ 'community.leave_confirm' | trans }}');">
+                                <button type="submit" class="button button--danger button--small">
+                                    {{ 'community.leave_button' | trans }}
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <a href="{{ path('login') }}" class="button button--secondary">
+                            {{ 'community.login_to_join' | trans }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Invite Link for Admins / Open policy #}
+            {% if isAdmin or (community.joinPolicy == 'open' and currentMembership and currentMembership.status == 'active') %}
+                <div class="panel panel--rounded flow flow--tiny" style="margin-top: 1rem; padding: 0.75rem 1rem; background: var(--color-neutral-subtle, #f8f9fa); border: 1px solid var(--color-neutral-border, #dee2e6);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                        <div class="text--small">
+                            <strong>{{ 'community.invite_link.label' | trans }}:</strong>
+                            <code style="word-break: break-all;">{{ url('community_show', { slug: community.slug, token: community.inviteToken }) }}</code>
+                        </div>
+                        {% if isAdmin %}
+                            <form method="post" action="{{ path('community_regenerate_token', { slug: community.slug }) }}" onsubmit="return confirm('{{ 'community.invite_link.regenerate_confirm' | trans }}');">
+                                <button type="submit" class="button button--small button--secondary">
+                                    🔄 {{ 'community.invite_link.regenerate' | trans }}
+                                </button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        {# Pending Members Approval Section (for Admins) #}
+        {% if isAdmin and pendingMembers|length > 0 %}
+            <div class="panel panel--rounded flow flow--small" style="padding: 1.5rem; border-left: 4px solid var(--color-warning, #ffc107);">
+                <h2>⚠️ {{ 'community.pending_requests.title' | trans }} ({{ pendingMembers|length }})</h2>
+                <div style="overflow-x: auto;">
+                    <table class="table" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>{{ 'community.members.username' | trans }}</th>
+                                <th>{{ 'community.members.requested_at' | trans }}</th>
+                                <th class="text--right">{{ 'community.members.actions' | trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for member in pendingMembers %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ member.user.username }}</strong>
+                                    </td>
+                                    <td class="text--secondary text--small">
+                                        {{ member.createdAt ? member.createdAt|date('Y-m-d H:i') : '' }}
+                                    </td>
+                                    <td class="text--right">
+                                        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+                                            <form method="post" action="{{ path('community_approve_member', { slug: community.slug, id: member.id }) }}">
+                                                <button type="submit" class="button button--small button--primary">
+                                                    ✓ {{ 'community.members.approve' | trans }}
+                                                </button>
+                                            </form>
+                                            <form method="post" action="{{ path('community_remove_member', { slug: community.slug, id: member.id }) }}">
+                                                <button type="submit" class="button button--small button--danger">
+                                                    ✕ {{ 'community.members.reject' | trans }}
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        {# Community Polls Section #}
+        <div class="flow flow--small">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>📊 {{ 'community.polls.title' | trans }}</h2>
+                {% if isAdmin %}
+                    <a href="{{ path('new poll') }}" class="button button--small button--primary">
+                        + {{ 'community.polls.create_button' | trans }}
+                    </a>
+                {% endif %}
+            </div>
+
+            {% if community.polls|length > 0 %}
+                <ul class="list--nostyle flow">
+                    {% for poll in community.polls %}
+                        <li class="panel panel--rounded flow flow--tiny" style="padding: 1.25rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                                <div>
+                                    <h3 style="margin: 0;">
+                                        <a href="{{ path('poll', { slug: poll.slug ?: poll.id }) }}" style="text-decoration: none;">
+                                            {{ poll.title }}
+                                        </a>
+                                    </h3>
+                                    <p class="text--secondary text--small" style="margin: 0.25rem 0 0;">
+                                        {% if poll.closed %}
+                                            <span class="text--danger">🔴 {{ 'polls.summary.is_closed' | trans }}</span>
+                                        {% else %}
+                                            <span class="text--success">🟢 {{ 'polls.public.open_until' | trans({ date: poll.closedAt ? poll.closedAt|date('Y-m-d') : '' }) }}</span>
+                                        {% endif %}
+                                        · {{ poll.votes|length }} {{ 'polls.summary.proposals.title' | trans }}
+                                        {% if poll.communityOnlyVote %}
+                                            · <span class="text--bold">🔒 {{ 'community.polls.members_only_badge' | trans }}</span>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <div>
+                                    <a href="{{ path('poll', { slug: poll.slug ?: poll.id }) }}" class="button button--small">
+                                        {{ 'polls.show.poll' | trans }}
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text--secondary">
+                    {{ 'community.polls.none' | trans }}
+                </p>
+            {% endif %}
+        </div>
+
+        {# Members List & Add Member Section #}
+        <div class="flow flow--small">
+            <h2>👥 {{ 'community.members.title' | trans }} ({{ activeMembers|length }})</h2>
+
+            {% if isAdmin and addMemberForm %}
+                <div class="panel panel--rounded flow flow--tiny" style="padding: 1rem 1.25rem; background: var(--color-neutral-subtle, #f8f9fa);">
+                    <h3 style="margin: 0;">{{ 'community.members.add_manual.title' | trans }}</h3>
+                    <p class="text--secondary text--small" style="margin: 0;">
+                        {{ 'community.members.add_manual.help' | trans }}
+                    </p>
+                    {{ form_start(addMemberForm, { action: path('community_add_member', { slug: community.slug }) }) }}
+                        <div style="display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; margin-top: 0.5rem;">
+                            <div style="flex: 1; min-width: 200px;">
+                                {{ form_row(addMemberForm.username) }}
+                            </div>
+                            <div style="min-width: 150px;">
+                                {{ form_row(addMemberForm.role) }}
+                            </div>
+                            <div>
+                                {{ form_widget(addMemberForm.submit, { attr: { class: 'button button--primary' } }) }}
+                            </div>
+                        </div>
+                    {{ form_end(addMemberForm) }}
+                </div>
+            {% endif %}
+
+            <div style="overflow-x: auto;">
+                <table class="table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>{{ 'community.members.username' | trans }}</th>
+                            <th>{{ 'community.members.role' | trans }}</th>
+                            <th>{{ 'community.members.joined_at' | trans }}</th>
+                            {% if isAdmin %}
+                                <th class="text--right">{{ 'community.members.actions' | trans }}</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in activeMembers %}
+                            <tr>
+                                <td>
+                                    <strong>{{ member.user.username }}</strong>
+                                    {% if member.user == community.owner %}
+                                        <span class="text--secondary text--small">({{ 'community.owner' | trans }})</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if member.role == 'admin' %}
+                                        <span class="text--bold">⭐ {{ 'community.members.role_admin' | trans }}</span>
+                                    {% else %}
+                                        <span>{{ 'community.members.role_member' | trans }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text--secondary text--small">
+                                    {{ member.createdAt ? member.createdAt|date('Y-m-d') : '' }}
+                                </td>
+                                {% if isAdmin %}
+                                    <td class="text--right">
+                                        {% if member.user != community.owner %}
+                                            <form method="post" action="{{ path('community_remove_member', { slug: community.slug, id: member.id }) }}" onsubmit="return confirm('{{ 'community.members.remove_confirm' | trans({ username: member.user.username }) }}');" style="display: inline;">
+                                                <button type="submit" class="button button--small button--danger">
+                                                    {{ 'community.members.remove' | trans }}
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

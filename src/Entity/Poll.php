@@ -235,6 +235,16 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     #[ORM\Column(options: ['default' => false])]
     private bool $voteNoByDefault = false;
 
+    #[ORM\ManyToOne(targetEntity: Community::class, inversedBy: 'polls')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?Community $community = null;
+
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
+    private bool $communityOnlyVote = false;
+
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $remindedAt = null;
+
     public function __construct()
     {
         $this->type = self::DEFAULT_TYPE;
@@ -1002,6 +1012,42 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     public function setVoteNoByDefault(bool $voteNoByDefault): static
     {
         $this->voteNoByDefault = $voteNoByDefault;
+
+        return $this;
+    }
+
+    public function getCommunity(): ?Community
+    {
+        return $this->community;
+    }
+
+    public function setCommunity(?Community $community): static
+    {
+        $this->community = $community;
+
+        return $this;
+    }
+
+    public function isCommunityOnlyVote(): bool
+    {
+        return $this->communityOnlyVote;
+    }
+
+    public function setCommunityOnlyVote(bool $communityOnlyVote): static
+    {
+        $this->communityOnlyVote = $communityOnlyVote;
+
+        return $this;
+    }
+
+    public function getRemindedAt(): ?\DateTimeImmutable
+    {
+        return $this->remindedAt;
+    }
+
+    public function setRemindedAt(?\DateTimeImmutable $remindedAt): static
+    {
+        $this->remindedAt = $remindedAt;
 
         return $this;
     }

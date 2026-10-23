@@ -1,0 +1,12 @@
+{{ 'emails.hello' | trans({ name: user.username }) }}
+
+{{ 'community.emails.reminder.body' | trans({ community_name: community.name, poll_name: poll.title }) }}
+
+{{ pollUrl }}
+
+---
+{{ 'community.emails.opt_out.info' | trans }}
+- {{ 'community.emails.opt_out.poll' | trans }}:
+  {{ pollOptOutUrl }}
+- {{ 'community.emails.opt_out.community' | trans({ community_name: community.name }) }}:
+  {{ communityOptOutUrl }}

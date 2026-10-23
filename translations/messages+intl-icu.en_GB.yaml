@@ -378,3 +378,107 @@ preferences.user_info.help: 'This information is linked to your Wikimedia accoun
 forms.poll_form.author_email.no_email: 'No email associated with your Wikimedia account'
 forms.poll_form.author_email.wikimedia_help: 'Notifications will be sent to the email associated with your Wikimedia account. You can configure or change it in your Wikimedia preferences.'
 forms.poll_form.author_email.no_email_help: 'To receive poll notifications, please add an email in your Wikimedia preferences and log in again.'
+layout.header.communities: Communities
+forms.community_form.name.label: 'Community name'
+forms.community_form.name.help: 'The visible name of the community (e.g. Wikimedia Colombia)'
+forms.community_form.slug.label: 'Custom URL identifier (slug)'
+forms.community_form.slug.help: 'Used in the community address, e.g. /communities/my-group'
+forms.community_form.slug.pattern: 'The slug can only contain letters, numbers, hyphens and underscores'
+forms.community_form.description.label: Description
+forms.community_form.description.help: 'Brief description of the purpose of this community'
+forms.community_form.join_policy.label: 'Join policy'
+forms.community_form.join_policy.open: 'Open: anyone with the invite link joins automatically'
+forms.community_form.join_policy.approval: 'Approval required: new members must be approved by an administrator'
+forms.community_form.telegram_enabled.label: 'Enable Telegram bot notifications for this community'
+forms.community_form.telegram_enabled.help: 'When enabled, the bot will announce new polls and reminders in the Telegram group'
+forms.community_form.telegram_chat_id.label: 'Telegram Group Chat ID'
+forms.community_form.telegram_chat_id.help: 'Numeric ID of the Telegram group (e.g. -1001234567890)'
+forms.community_add_member_form.username.label: 'Wikimedia Username'
+forms.community_add_member_form.username.help: 'Enter the exact Wikimedia username of the person you want to add'
+forms.community_add_member_form.role.label: Role
+forms.community_add_member_form.role.member: Member
+forms.community_add_member_form.role.admin: Administrator
+forms.community_add_member_form.submit: 'Add member'
+forms.poll_form.community.label: Community
+forms.poll_form.community.none: 'None (Independent poll)'
+forms.poll_form.community.help: 'Optionally link this poll to one of your communities to notify its members'
+forms.poll_form.community.fieldset: 'Community Options'
+forms.poll_form.community_only_vote.label: 'Restrict voting to active community members only'
+forms.poll_form.community_only_vote.help: 'If enabled, only members of this community will be allowed to cast a vote'
+community.index.title: Communities
+community.index.description: 'Collaborative groups, chapters, and working teams with shared polls and reminders.'
+community.index.create_button: 'Create a community'
+community.index.my_communities: 'My communities'
+community.index.all_communities: 'All communities'
+community.index.none: 'No communities created yet. Be the first to create one!'
+community.members_count: members
+community.view: View
+community.new.title: 'Create a Community'
+community.new.description: 'Create a group to organize polls, notify members and send automatic reminders.'
+community.settings.title: 'Community Settings'
+community.settings.button: Settings
+community.settings.join_policy.title: 'Membership & Joining Policy'
+community.settings.telegram.title: 'Telegram Group Integration'
+community.settings.telegram.help_intro: 'Add our Telegram bot to your group and enter your group Chat ID to receive instant alerts and voting reminders.'
+community.back_to: 'Back to {name}'
+community.owner: Owner
+community.telegram_active: 'Telegram connected'
+community.join_policy.open: 'Open join'
+community.join_policy.approval: 'Approval required'
+community.join_button: 'Join Community'
+community.leave_button: 'Leave Community'
+community.leave_confirm: 'Are you sure you want to leave this community?'
+community.login_to_join: 'Log in to join'
+community.membership.pending: 'Membership pending approval'
+community.invite_link.label: 'Invite link'
+community.invite_link.regenerate: 'Regenerate link'
+community.invite_link.regenerate_confirm: 'Regenerating the link will invalidate previous invite links. Proceed?'
+community.pending_requests.title: 'Pending Join Requests'
+community.polls.title: 'Community Polls'
+community.polls.create_button: 'New poll for this community'
+community.polls.none: 'No polls created for this community yet.'
+community.polls.members_only_badge: 'Community members only'
+community.members.title: Members
+community.members.username: User
+community.members.role: Role
+community.members.role_admin: Admin
+community.members.role_member: Member
+community.members.joined_at: 'Joined on'
+community.members.requested_at: 'Requested on'
+community.members.actions: Actions
+community.members.approve: Approve
+community.members.reject: Reject
+community.members.remove: Remove
+community.members.remove_confirm: 'Are you sure you want to remove {username} from this community?'
+community.members.add_manual.title: 'Add a member manually'
+community.members.add_manual.help: 'Add an existing user directly by their Wikimedia username.'
+community.flash.created: 'Community created successfully!'
+community.flash.settings_updated: 'Community settings updated!'
+community.flash.token_regenerated: 'Invite link regenerated!'
+community.flash.already_member: 'You are already a member of this community.'
+community.flash.invalid_token: 'Invalid or expired invite link.'
+community.flash.joined_success: 'Welcome! You have joined the community.'
+community.flash.join_pending: 'Your request to join has been submitted and is pending administrator approval.'
+community.flash.user_not_found: 'User “{username}” not found. The user must have logged into Pollaris at least once.'
+community.flash.member_added: 'User “{username}” has been added to the community.'
+community.flash.member_approved: 'Member request approved.'
+community.flash.member_removed: 'Member removed from the community.'
+community.flash.cannot_remove_owner: 'The community owner cannot be removed.'
+community.flash.owner_cannot_leave: 'The community owner cannot leave the community.'
+community.flash.left_success: 'You have left the community.'
+community.slug.already_used: 'This slug is already used by another community.'
+community.notifications.vote_now: 'Vote now'
+community.notifications.reminder_title: 'Poll closing reminder'
+community.notifications.closing_soon: 'Closing in less than 24 hours!'
+community.emails.new_poll.body: 'A new poll “{poll_name}” has been published in the “{community_name}” community. You can vote at the following link:'
+community.emails.reminder.body: 'Reminder: The poll “{poll_name}” in the “{community_name}” community is closing soon! If you have not voted yet, please cast your vote at:'
+community.emails.opt_out.info: 'Notification preferences:'
+community.emails.opt_out.poll: 'Do not remind me about this poll again'
+community.emails.opt_out.community: 'Unsubscribe from all email notifications for {community_name}'
+community.opt_out.success.title: 'Notification Preferences Updated'
+community.opt_out.success.poll_message: 'You have successfully opted out of further reminders for the poll “{poll_name}”.'
+community.opt_out.success.community_message: 'You will no longer receive email notifications for the “{community_name}” community.'
+community.opt_out.view_poll: 'View poll'
+community.opt_out.view_community: 'View community'
+polls.show.community_label: Community
+polls.show.community_requirements.not_member: 'Voting in this poll is restricted to active members of the associated community.'

@@ -35,6 +35,7 @@ class NotificationsSubscriber implements EventSubscriberInterface
     public function __construct(
         private MailerInterface $mailer,
         private TranslatorInterface $translator,
+        private \App\Service\CommunityNotificationService $communityNotificationService,
         #[Autowire('%app.name%')]
         private string $appName,
     ) {
@@ -66,6 +67,10 @@ class NotificationsSubscriber implements EventSubscriberInterface
             ]);
 
         $this->mailer->send($email);
+
+        if ($poll->getCommunity() !== null) {
+            $this->communityNotificationService->notifyNewPoll($poll);
+        }
     }
 
     public function notifyNewVote(VoteEvent $event): void

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'community.new.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--center flow flow--larger" style="max-width: 650px;">
+        <div class="flow">
+            <h1>{{ 'community.new.title' | trans }}</h1>
+            <p class="text--secondary">
+                {{ 'community.new.description' | trans }}
+            </p>
+        </div>
+
+        <div class="panel panel--rounded" style="padding: 1.5rem;">
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                <div class="flow">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.slug) }}
+                    {{ form_row(form.description) }}
+
+                    <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem;">
+                        <legend class="text--bold">{{ 'community.settings.join_policy.title' | trans }}</legend>
+                        {{ form_row(form.joinPolicy) }}
+                    </fieldset>
+
+                    <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem;">
+                        <legend class="text--bold">{{ 'community.settings.telegram.title' | trans }}</legend>
+                        <p class="text--secondary text--small">
+                            {{ 'community.settings.telegram.help_intro' | trans }}
+                        </p>
+                        {{ form_row(form.telegramEnabled) }}
+                        {{ form_row(form.telegramChatId) }}
+                    </fieldset>
+
+                    <div style="margin-top: 1.5rem; display: flex; gap: 1rem; align-items: center;">
+                        {{ form_widget(form.submit, { attr: { class: 'button button--primary' } }) }}
+                        <a href="{{ path('community_index') }}" class="button button--secondary">
+                            {{ 'forms.cancel' | trans }}
+                        </a>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

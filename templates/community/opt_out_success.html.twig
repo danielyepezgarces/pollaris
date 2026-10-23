@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'community.opt_out.success.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--center flow flow--larger" style="max-width: 600px; text-align: center; padding-top: 2rem;">
+        <div class="panel panel--rounded flow flow--small" style="padding: 2rem;">
+            <div style="font-size: 3rem;">🔕</div>
+            <h1>{{ 'community.opt_out.success.title' | trans }}</h1>
+
+            {% if type == 'poll' %}
+                <p class="text--secondary">
+                    {{ 'community.opt_out.success.poll_message' | trans({ poll_name: poll.title }) }}
+                </p>
+                <div style="margin-top: 1.5rem;">
+                    <a href="{{ path('poll', { slug: poll.slug ?: poll.id }) }}" class="button button--primary">
+                        {{ 'community.opt_out.view_poll' | trans }}
+                    </a>
+                </div>
+            {% else %}
+                <p class="text--secondary">
+                    {{ 'community.opt_out.success.community_message' | trans({ community_name: community.name }) }}
+                </p>
+                <div style="margin-top: 1.5rem;">
+                    <a href="{{ path('community_show', { slug: community.slug }) }}" class="button button--primary">
+                        {{ 'community.opt_out.view_community' | trans }}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

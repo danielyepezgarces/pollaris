@@ -40,6 +40,7 @@ class PollsController extends BaseController
         private readonly Service\WikimediaEligibilityChecker $wikimediaEligibilityChecker,
         private readonly TranslatorInterface $translator,
         private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly Repository\CommunityRepository $communityRepository,
     ) {
     }
 
@@ -79,8 +80,14 @@ class PollsController extends BaseController
 
         $flow = $this->pollFlowBuilder->build($poll);
 
+        $userCommunities = [];
+        if ($currentUser instanceof Entity\User) {
+            $userCommunities = $this->communityRepository->findForUser($currentUser);
+        }
+
         $form = $this->createNamedForm('poll', Form\PollForm::class, $poll, [
             'current_user' => $currentUser,
+            'user_communities' => $userCommunities,
         ]);
 
         $form->handleRequest($request);
@@ -235,9 +242,18 @@ class PollsController extends BaseController
 
         if (!$poll->isClosed()) {
             if ($currentUser instanceof Entity\User && $myVote === null) {
-                $voteEligibilityErrors = $this->wikimediaEligibilityChecker->getVoteEligibilityErrors(
-                    $poll,
-                    $currentUser,
+                if ($poll->isCommunityOnlyVote() && $poll->getCommunity()) {
+                    if (!$poll->getCommunity()->isMember($currentUser)) {
+                        $voteEligibilityErrors[] = 'polls.show.community_requirements.not_member';
+                    }
+                }
+
+                $voteEligibilityErrors = array_merge(
+                    $voteEligibilityErrors,
+                    $this->wikimediaEligibilityChecker->getVoteEligibilityErrors(
+                        $poll,
+                        $currentUser,
+                    )
                 );
 
                 if ($voteEligibilityErrors === []) {
@@ -351,8 +367,15 @@ class PollsController extends BaseController
         }
         $flow = $this->pollFlowBuilder->build($poll);
 
+        $editUser = $this->getUser();
+        $userCommunities = [];
+        if ($editUser instanceof Entity\User) {
+            $userCommunities = $this->communityRepository->findForUser($editUser);
+        }
+
         $form = $this->createNamedForm('poll', Form\PollForm::class, $poll, [
-            'current_user' => $this->getUser(),
+            'current_user' => $editUser,
+            'user_communities' => $userCommunities,
         ]);
 
         $form->handleRequest($request);

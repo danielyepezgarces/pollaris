@@ -151,6 +151,25 @@ class PollForm extends AbstractType
 
         $builder->add('authorEmail', Type\EmailType::class, $authorEmailOptions);
 
+        $userCommunities = $options['user_communities'] ?? [];
+        if (!empty($userCommunities)) {
+            $builder->add('community', \Symfony\Bridge\Doctrine\Form\Type\EntityType::class, [
+                'class' => Entity\Community::class,
+                'choices' => $userCommunities,
+                'choice_label' => 'name',
+                'required' => false,
+                'placeholder' => new TranslatableMessage('forms.poll_form.community.none'),
+                'label' => new TranslatableMessage('forms.poll_form.community.label'),
+                'help' => new TranslatableMessage('forms.poll_form.community.help'),
+            ]);
+
+            $builder->add('communityOnlyVote', Type\CheckboxType::class, [
+                'required' => false,
+                'label' => new TranslatableMessage('forms.poll_form.community_only_vote.label'),
+                'help' => new TranslatableMessage('forms.poll_form.community_only_vote.help'),
+            ]);
+        }
+
         $this->addTimezoneSubmitListener($builder);
     }
 
@@ -162,8 +181,10 @@ class PollForm extends AbstractType
             ],
             'data_class' => Entity\Poll::class,
             'current_user' => null,
+            'user_communities' => [],
         ]);
 
         $resolver->setAllowedTypes('current_user', ['null', Entity\User::class]);
+        $resolver->setAllowedTypes('user_communities', 'array');
     }
 }
