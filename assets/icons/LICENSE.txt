@@ -1,3 +1,10 @@
+Wikimedia Codex Icons (@wikimedia/codex-icons)
+Copyright 2022-2026 Wikimedia Foundation and contributors
+Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://doc.wikimedia.org/codex/latest/
+
+--------------------------------------------------------------------------------
+
 Fonticons, Inc. (https://fontawesome.com)
 
 --------------------------------------------------------------------------------
@@ -23,7 +30,14 @@ as SVG and JS file types.
 In the Font Awesome Free download, the SIL OFL license applies to all icons
 packaged as web and desktop font files.
 
-Copyright (c) 2022 Fonticons, Inc. (https://fontawesome.com)
+Copyright (c) 2022 Wikimedia Codex Icons (@wikimedia/codex-icons)
+Copyright 2022-2026 Wikimedia Foundation and contributors
+Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://doc.wikimedia.org/codex/latest/
+
+--------------------------------------------------------------------------------
+
+Fonticons, Inc. (https://fontawesome.com)
 with Reserved Font Name: "Font Awesome".
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
