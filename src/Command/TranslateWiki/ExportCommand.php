@@ -61,7 +61,7 @@ class ExportCommand extends Command
             }
             
             // Convert to JSON
-            $jsonContent = json_encode($convertedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+            $jsonContent = json_encode($convertedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
             $exportPath = $exportDir . '/' . $domain . '.' . $locale . '.json';
             file_put_contents($exportPath, $jsonContent);

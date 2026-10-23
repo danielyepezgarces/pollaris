@@ -1,3 +1,5 @@
+'@metadata':
+    authors: {  }
 admin.polls.admin_link: 'Ligacao de administracao'
 admin.polls.author: Autor
 admin.polls.created_at: 'Criado em'
@@ -9,8 +11,8 @@ admin.polls.search: Pesquisar
 admin.polls.title: 'Lista de sondagens'
 admin.title: Administracao
 answers.value.maybe: 'Se necessario'
-answers.value.no: 'Nao'
-answers.value.yes: 'Sim'
+answers.value.no: Nao
+answers.value.yes: Sim
 base.copied: Copiado!
 base.copy: Copiar
 base.default_title: 'Bem-vindo ao {appName}!'
@@ -30,7 +32,15 @@ emails.new_vote.subject: 'Novo voto numa sondagem: {poll_name}'
 emails.new_vote.voted: '{voter_name} acabou de votar na sondagem "{poll_name}".'
 emails.polls_list.here_is_the_list: 'Aqui esta a lista das sondagens que administra em {appName}:'
 emails.polls_list.subject: 'Lista das suas sondagens'
-emails.share.body: "Ola,\n\nEsta disponivel uma sondagem para recolher a sua opiniao.\nPode participar atraves da seguinte ligacao: {poll_url}\n\nObrigado antecipadamente.\n\nCumprimentos,"
+emails.share.body: |-
+    Ola,
+
+    Esta disponivel uma sondagem para recolher a sua opiniao.
+    Pode participar atraves da seguinte ligacao: {poll_url}
+
+    Obrigado antecipadamente.
+
+    Cumprimentos,
 emails.share.subject: 'Pedido de opiniao para a sondagem: {poll_name}'
 errors.404.description: 'A pagina pedida nao foi encontrada. Verifique se existe algum erro no URL.'
 errors.404.title: 'Pagina nao encontrada!'
@@ -40,8 +50,8 @@ errors.generic.sorry: 'Lamentamos o incomodo causado.'
 errors.generic.title: 'Ocorreu um erro!'
 forms.apply: Aplicar
 forms.cancel: Cancelar
-forms.localized_description_item.locale.label: 'Idioma'
-forms.localized_description_item.text.label: 'Descricao'
+forms.localized_description_item.locale.label: Idioma
+forms.localized_description_item.text.label: Descricao
 forms.poll_form.description.help: 'Descricao principal da sondagem (suporta Markdown). E exibida quando nao existe descricao localizada para o idioma do visitante.'
 forms.poll_form.localized_descriptions.add: 'Adicionar descricao traduzida'
 forms.poll_form.localized_descriptions.help: 'Adicione a descricao da sondagem em idiomas especificos. Os visitantes verao automaticamente a descricao no seu idioma, ou uma traducao em tempo real se o navegador suportar.'
@@ -58,7 +68,7 @@ forms.labels.max_length: '(max. {length} caracteres)'
 forms.labels.optional: (opcional)
 forms.labels.optional_and_max_length: '(opcional, max. {length} caracteres)'
 forms.login.password: Palavra-passe
-forms.login.username: Nome de utilizador
+forms.login.username: 'Nome de utilizador'
 forms.next: Seguinte
 forms.poll_authentication_form.password.label: Palavra-passe
 forms.poll_authentication_form.submit: Autenticar
@@ -120,12 +130,14 @@ home.free_software: 'Pollaris e software livre sob licenca AGPL 3.'
 home.free_software.custom: '{appName} usa Pollaris, software livre sob licenca AGPL 3.'
 home.intro: 'Use esta ferramenta de votação para organizar maratonas de edição, reuniões, campanhas e consultas comunitárias de forma rápida, simples e aberta.'
 home.my_polls_and_votes: 'As minhas sondagens e votos'
+home.public_polls: 'Open public polls'
 home.show.poll.deleted: 'A sua sondagem foi apagada com sucesso.'
 home.source_code: 'Aceder ao codigo-fonte.'
 home.title: 'Coordene eventos e tome decisões com a sua comunidade Wikimedia.'
 layout.header.my: 'As minhas sondagens e votos'
+layout.header.public_polls: 'Open public polls'
 layout.header.preferences: Preferencias
-layout.logout: Terminar sessao
+layout.logout: 'Terminar sessao'
 layout.modal.close: Fechar
 login.log_in: 'Iniciar sessao'
 login.title: 'Iniciar sessao na administracao'
@@ -192,6 +204,14 @@ polls.edit_vote_mode.own: 'Cada participante pode alterar o seu proprio voto'
 polls.new.title: 'Criacao de sondagem'
 polls.new.who_you_are: 'Quem e voce'
 polls.proposals.best: 'Opcao preferida'
+polls.public.closed_at: 'Closes on {date}'
+polls.public.description: 'Browse public polls that are currently open.'
+polls.public.meta: 'Created by {author}'
+polls.public.no_closing_date: 'no closing date'
+polls.public.none: 'There are no public polls open right now.'
+polls.public.open: 'Open poll'
+polls.public.open_until: 'Open until {date}'
+polls.public.title: 'Open public polls'
 polls.proposals.title: 'Escolher as propostas'
 polls.settings.notifications.title: Notificacoes
 polls.settings.options.title: 'Opcoes de voto'
@@ -228,7 +248,7 @@ polls.show.no_vote: 'De momento ainda nao foram registados votos, mas nao se pre
 polls.show.poll: Sondagem
 polls.show.print: Imprimir
 polls.show.results: Resultados
-polls.show.results.info: '{ countChoices, plural, one {A opcao preferida com <strong>{countYes} sim</strong> e:} other {As opcoes preferidas com <strong>{countYes} sim</strong> sao:} }'
+polls.show.results.info: '{countChoices, plural, one {A opcao preferida com <strong>{countYes} sim</strong> e:} other {As opcoes preferidas com <strong>{countYes} sim</strong> sao:}}'
 polls.show.results.results_graph: 'Grafico de resultados'
 polls.show.results.title: Resultados
 polls.show.share: Partilhar
@@ -267,7 +287,7 @@ polls.summary.settings.edit_vote_mode.no: 'Os participantes nao podem alterar o 
 polls.summary.settings.edit_vote_mode.own: 'Cada participante pode alterar o seu proprio voto.'
 polls.summary.settings.is_disable_maybe: 'Os participantes nao poderao votar "se necessario".'
 polls.summary.settings.is_vote_no_by_default: 'Sem resposta equivale a voto "nao".'
-polls.summary.settings.max_votes: 'Um maximo de { number, plural, one {1 participante} other {# participantes} } pode votar por proposta.'
+polls.summary.settings.max_votes: 'Um maximo de {number, plural, one {1 participante} other {# participantes}} pode votar por proposta.'
 polls.summary.settings.notify_on_comments.do: 'Receberei um email sempre que alguem comentar na sondagem.'
 polls.summary.settings.notify_on_comments.dont: 'Nao receberei email quando alguem comentar na sondagem.'
 polls.summary.settings.notify_on_votes.do: 'Receberei um email sempre que alguem votar na sondagem.'
@@ -289,23 +309,13 @@ polls.table.toolbar.show_more.title: 'Expandir a linha para mostrar todas as eti
 polls.votes.maybe: 'Se necessario'
 polls.votes.maybe.count: "{count}\_Se necessario"
 polls.votes.maybe.count_alt: '(+{count})'
-polls.votes.no: 'Nao'
+polls.votes.no: Nao
 polls.votes.no.count: "{count}\_Nao"
 polls.votes.sum: Soma
-polls.votes.yes: 'Sim'
+polls.votes.yes: Sim
 polls.votes.yes.count: "{count}\_Sim"
 polls.votes.yours: 'O seu voto'
 preferences.edit.title: 'As suas preferencias'
 polls.show.already_voted: 'Já votou nesta sondagem.'
 layout.login: 'Iniciar sessão'
 home.credits: 'Baseado em <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Modificado por <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Código fonte</a>'
-home.public_polls: 'Open public polls'
-layout.header.public_polls: 'Open public polls'
-polls.public.closed_at: 'Closes on {date}'
-polls.public.description: 'Browse public polls that are currently open.'
-polls.public.meta: 'Created by {author}'
-polls.public.no_closing_date: 'no closing date'
-polls.public.none: 'There are no public polls open right now.'
-polls.public.open: 'Open poll'
-polls.public.open_until: 'Open until {date}'
-polls.public.title: 'Open public polls'

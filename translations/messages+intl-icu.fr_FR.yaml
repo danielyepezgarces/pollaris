@@ -1,6 +1,22 @@
+'@metadata':
+    authors:
+        - Maxime2024
+        - Wladek92
+forms.poll_cohost_type.user.label: Utilisateur
+forms.poll_cohost_type.user.search: 'Rechercher un utilisateur'
+forms.poll_cohost_type.right.label: Droite
+forms.poll_cohost_type.right.edit: 'Modifier uniquement'
+forms.poll_cohost_type.right.full: 'Accès complet (peut supprimer)'
+forms.poll_form.cohosts.add: 'Ajouter un cogestionnaire'
+forms.poll_form.cohosts.remove: Supprimer
+forms.poll_form.cohosts.label: 'Cogestionnaires (co-auteurs)'
+forms.slot_type.start_time.label: 'Heure de début (facultatif)'
+forms.slot_type.end_time.label: 'Heure de fin (facultatif)'
+forms.poll_form.duration.unit: minutes
 admin.polls.admin_link: 'Lien admin'
 admin.polls.author: Auteur·ice
 admin.polls.created_at: 'Créé le'
+admin.polls.my_title: 'Mes sondages'
 admin.polls.none: 'La recherche n’a retourné aucun sondage.'
 admin.polls.not_completed: 'Sondage non finalisé'
 admin.polls.public_link: 'Lien public'
@@ -29,7 +45,15 @@ emails.new_vote.subject: "Nouveau vote sur un sondage\_: {poll_name}"
 emails.new_vote.voted: "{voter_name} vient de voter au sondage «\_{poll_name}\_»."
 emails.polls_list.here_is_the_list: "Voici la liste des sondages que vous administrez sur {appName}\_:"
 emails.polls_list.subject: 'Liste de vos sondages'
-emails.share.body: "Bonjour,\n\nUn sondage est disponible afin de recueillir votre avis.\nLa participation est possible via le lien suivant\_: {poll_url}\n\nMerci par avance.\n\nCordialement,"
+emails.share.body: |-
+    Bonjour,
+
+    Un sondage est disponible afin de recueillir votre avis.
+    La participation est possible via le lien suivant : {poll_url}
+
+    Merci par avance.
+
+    Cordialement,
 emails.share.subject: 'Participation demandée pour le sondage : {poll_name}'
 errors.404.description: 'La page demandée n’a pas été trouvée. Vérifiez qu’il n’y a pas de faute dans l’URL.'
 errors.404.title: "Page non trouvée\_!"
@@ -39,6 +63,15 @@ errors.generic.sorry: 'Désolé pour la gêne occasionnée.'
 errors.generic.title: "Une erreur est survenue\_!"
 forms.apply: Appliquer
 forms.cancel: Annuler
+forms.localized_description_item.locale.label: Langue
+forms.localized_description_item.text.label: Description
+forms.localized_title_item.locale.label: Langue
+forms.localized_title_item.text.label: Titre
+forms.poll_form.localized_descriptions.remove: 'Supprimer la traduction'
+forms.poll_form.localized_titles.add: 'Ajouter le titre traduit'
+forms.poll_form.localized_titles.help: 'Ajoutez le titre du sondage dans les langues souhaitées. Les visiteurs verront automatiquement le titre dans leur langue, ou une traduction instantanée si leur navigateur la prend en charge.'
+forms.poll_form.localized_titles.label: 'Titres dans les autres langues'
+forms.poll_form.localized_titles.remove: 'Supprimer la traduction'
 forms.comment_form.author_name.label: 'Votre nom'
 forms.comment_form.content.label: 'Votre message'
 forms.comment_form.submit: Poster
@@ -58,6 +91,8 @@ forms.poll_dates_form.add_date: 'Ajouter une date'
 forms.poll_dates_form.enter_manually: 'Saisir les dates au clavier'
 forms.poll_dates_form.remove_date: 'Retirer la date'
 forms.poll_dates_form.use_calendar: 'Sélectionner les dates depuis un calendrier'
+forms.poll_form.timezone_mode.server: 'Fuseau horaire du serveur ({timezone})'
+forms.poll_form.timezone_mode.browser: 'Mon fuseau horaire actuel'
 forms.poll_deletion_form.submit: 'Je veux supprimer ce sondage'
 forms.poll_form.author_email.help: 'Votre adresse ne sera pas partagée avec les participant·es du sondage. Elle servira uniquement à vous permettre de retrouver votre sondage si vous perdez son adresse et à vous avertir lors de nouveaux votes.'
 forms.poll_form.author_email.label: 'Votre adresse email'
@@ -108,10 +143,12 @@ home.free_software: 'Pollaris est un logiciel libre sous licence AGPL 3.'
 home.free_software.custom: '{appName} utilise Pollaris, un logiciel libre sous licence AGPL 3.'
 home.intro: 'Utilisez cet outil de sondage pour organiser des édit-a-thons, des réunions, des campagnes et des consultations communautaires rapidement, simplement et ouvertement.'
 home.my_polls_and_votes: 'Mes sondages et votes'
+home.public_polls: 'Open public polls'
 home.show.poll.deleted: 'Votre sondage a bien été supprimé.'
 home.source_code: 'Accéder au code source.'
 home.title: 'Coordonnez des événements et prenez des décisions avec votre communauté Wikimédia.'
 layout.header.my: 'Mes sondages et votes'
+layout.header.public_polls: 'Open public polls'
 layout.header.preferences: Préférences
 layout.logout: 'Se déconnecter'
 layout.modal.close: Fermer
@@ -172,6 +209,14 @@ polls.edit_vote_mode.own: 'Chaque participant·e peut modifier son propre vote'
 polls.new.title: 'Création de sondage'
 polls.new.who_you_are: 'Votre identité'
 polls.proposals.best: 'Choix préféré'
+polls.public.closed_at: 'Closes on {date}'
+polls.public.description: 'Browse public polls that are currently open.'
+polls.public.meta: 'Created by {author}'
+polls.public.no_closing_date: 'no closing date'
+polls.public.none: 'There are no public polls open right now.'
+polls.public.open: 'Open poll'
+polls.public.open_until: 'Open until {date}'
+polls.public.title: 'Open public polls'
 polls.proposals.title: 'Choisissez les propositions'
 polls.settings.notifications.title: Notifications
 polls.settings.options.title: 'Options des votes'
@@ -206,7 +251,7 @@ polls.show.no_vote: "Pour le moment aucun vote n’a été fait mais, pas de pan
 polls.show.poll: Sondage
 polls.show.print: Imprimer
 polls.show.results: Résultats
-polls.show.results.info: "{ countChoices, plural, one {Le choix préféré avec <strong>{countYes} oui</strong> est\_:} other {Les choix préférés avec <strong>{countYes} oui</strong> sont\_:} }"
+polls.show.results.info: "{countChoices, plural, one {Le choix préféré avec <strong>{countYes} oui</strong> est\_:} other {Les choix préférés avec <strong>{countYes} oui</strong> sont\_:}}"
 polls.show.results.results_graph: 'Graphique des résultats'
 polls.show.results.title: Résultats
 polls.show.share: Partager
@@ -241,7 +286,7 @@ polls.summary.settings.edit_vote_mode.no: 'Les participant·es ne peuvent pas mo
 polls.summary.settings.edit_vote_mode.own: 'Chaque participant·e peut modifier son propre vote.'
 polls.summary.settings.is_disable_maybe: "Les participant·es ne pourront pas voter «\_si besoin\_»."
 polls.summary.settings.is_vote_no_by_default: "L’absence de réponse équivaut à un vote «\_non\_»."
-polls.summary.settings.max_votes: '{ number, plural, one {1 participant·e maximum peut} other {# participant·es maximum peuvent} } voter par proposition.'
+polls.summary.settings.max_votes: '{number, plural, one {1 participant·e maximum peut} other {# participant·es maximum peuvent}} voter par proposition.'
 polls.summary.settings.notify_on_comments.do: 'Je recevrai un email à chaque commentaire sur le sondage.'
 polls.summary.settings.notify_on_comments.dont: 'Je ne recevrai pas d’email lors des commentaires sur le sondage.'
 polls.summary.settings.notify_on_votes.do: 'Je recevrai un email à chaque vote sur le sondage.'
@@ -272,13 +317,3 @@ preferences.edit.title: 'Vos préférences'
 polls.show.already_voted: 'Vous avez déjà voté dans ce sondage.'
 layout.login: 'Se connecter'
 home.credits: 'Basé sur <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Modifié par <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Code source</a>'
-home.public_polls: 'Open public polls'
-layout.header.public_polls: 'Open public polls'
-polls.public.closed_at: 'Closes on {date}'
-polls.public.description: 'Browse public polls that are currently open.'
-polls.public.meta: 'Created by {author}'
-polls.public.no_closing_date: 'no closing date'
-polls.public.none: 'There are no public polls open right now.'
-polls.public.open: 'Open poll'
-polls.public.open_until: 'Open until {date}'
-polls.public.title: 'Open public polls'

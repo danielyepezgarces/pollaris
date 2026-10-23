@@ -1,17 +1,17 @@
-forms.poll_cohost_type.user.label: 'User'
+forms.poll_cohost_type.user.label: User
 forms.poll_cohost_type.user.search: 'Search user'
-forms.poll_cohost_type.right.label: 'Right'
+forms.poll_cohost_type.right.label: Right
 forms.poll_cohost_type.right.edit: 'Edit only'
 forms.poll_cohost_type.right.full: 'Full access (can delete)'
 forms.poll_form.cohosts.add: 'Add cohost'
-forms.poll_form.cohosts.remove: 'Remove'
+forms.poll_form.cohosts.remove: Remove
 forms.poll_form.cohosts.label: 'Cohosts (co-authors)'
 forms.poll_form.cohosts.help: 'Select other users who will be able to edit the poll.'
 forms.slot_type.start_time.label: 'Start time (optional)'
 forms.slot_type.end_time.label: 'End time (optional)'
 forms.poll_form.duration.label: 'General duration for each option'
 forms.poll_form.duration.help: 'Duration in minutes that applies to all options if no start/end time is specified.'
-forms.poll_form.duration.unit: 'minutes'
+forms.poll_form.duration.unit: minutes
 admin.polls.admin_link: 'Admin link'
 admin.polls.author: Author
 admin.polls.created_at: 'Created at'
@@ -44,7 +44,15 @@ emails.new_vote.subject: 'New vote on a poll: {poll_name}'
 emails.new_vote.voted: '{voter_name} has just voted in the “{poll_name}” poll.'
 emails.polls_list.here_is_the_list: 'Here is the list of the polls you administrate on {appName}:'
 emails.polls_list.subject: 'List of your polls'
-emails.share.body: "Hello,\n\nA poll is available to gather your feedback.\nParticipation is possible via the following link: {poll_url}\n\nThank you in advance.\n\nKind regards,"
+emails.share.body: |-
+    Hello,
+
+    A poll is available to gather your feedback.
+    Participation is possible via the following link: {poll_url}
+
+    Thank you in advance.
+
+    Kind regards,
 emails.share.subject: 'Feedback requested for the poll: {poll_name}'
 errors.404.description: 'The requested page couldn’t be located. Checkout for any URL misspelling.'
 errors.404.title: 'Page not found!'
@@ -54,11 +62,11 @@ errors.generic.sorry: 'Sorry for any inconvenience caused.'
 errors.generic.title: 'An error has occured!'
 forms.apply: Apply
 forms.cancel: Cancel
-forms.localized_description_item.locale.label: 'Language'
-forms.localized_description_item.text.label: 'Description'
-forms.localized_title_item.locale.label: 'Language'
-forms.localized_title_item.text.label: 'Title'
-forms.poll_form.description.help: 'Main description of the poll (supports Markdown). Will be shown if no description is provided in the viewer''s language.'
+forms.localized_description_item.locale.label: Language
+forms.localized_description_item.text.label: Description
+forms.localized_title_item.locale.label: Language
+forms.localized_title_item.text.label: Title
+forms.poll_form.description.help: "Main description of the poll (supports Markdown). Will be shown if no description is provided in the viewer's language."
 forms.poll_form.localized_descriptions.add: 'Add translated description'
 forms.poll_form.localized_descriptions.help: 'Add the poll description in specific languages. Visitors will automatically see the description in their language, or a live translation if their browser supports it.'
 forms.poll_form.localized_descriptions.label: 'Descriptions in other languages'
@@ -160,6 +168,8 @@ home.stats.polls: '{count, plural, one {poll created} other {polls created}}'
 home.stats.votes: '{count, plural, one {vote cast} other {votes cast}}'
 home.stats.participants: '{count, plural, one {unique participant} other {unique participants}}'
 home.stats.comments: '{count, plural, one {comment posted} other {comments posted}}'
+maintenance.read_only_banner: '⚠️ Read-only maintenance mode is active. Creating polls, voting, and commenting are temporarily disabled.'
+maintenance.read_only_error: 'The site is temporarily in read-only maintenance mode. Write operations are disabled.'
 layout.header.my: 'My polls and votes'
 layout.header.public_polls: 'Open public polls'
 layout.header.preferences: Preferences
@@ -284,7 +294,7 @@ polls.show.no_vote: 'For the moment no votes have been cast, but don’t panic, 
 polls.show.poll: Poll
 polls.show.print: Print
 polls.show.results: Results
-polls.show.results.info: '{ countChoices, plural, one {The preferred choice with <strong>{countYes} yes</strong> is:} other {The preferred choices with <strong>{countYes} yes</strong> are:} }'
+polls.show.results.info: '{countChoices, plural, one {The preferred choice with <strong>{countYes} yes</strong> is:} other {The preferred choices with <strong>{countYes} yes</strong> are:}}'
 polls.show.results.results_graph: 'Results graph'
 polls.show.results.title: Results
 polls.show.share: Share
@@ -326,7 +336,7 @@ polls.summary.settings.edit_vote_mode.own: 'Each participant may change their ow
 polls.summary.settings.is_disable_maybe: 'The participants will not be able to vote “if needed”.'
 polls.summary.settings.is_publicly_listed: 'This poll will appear in the public directory.'
 polls.summary.settings.is_vote_no_by_default: 'No response is equivalent to a “no” vote.'
-polls.summary.settings.max_votes: 'A maximum of { number, plural, one {1 participant} other {# participants} } can vote per proposal.'
+polls.summary.settings.max_votes: 'A maximum of {number, plural, one {1 participant} other {# participants}} can vote per proposal.'
 polls.summary.settings.notify_on_comments.do: 'I will receive an email each time someone comments on the poll.'
 polls.summary.settings.notify_on_comments.dont: 'I will not receive an email when someone comments on the poll.'
 polls.summary.settings.notify_on_votes.do: 'I will receive an email each time someone votes in the poll.'
@@ -357,5 +367,14 @@ polls.votes.yours: 'Your vote'
 preferences.edit.title: 'Your preferences'
 polls.show.already_voted: 'You have already voted in this poll.'
 my.index.login_required: 'You need to log in to see your polls and votes.'
-layout.login: 'Login'
+layout.login: Login
 home.credits: 'Based on <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Modified by <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Source code</a>'
+home.translate: 'Help translate'
+preferences.user_info.title: 'Wikimedia Account'
+preferences.user_info.username: Username
+preferences.user_info.email: 'Associated email'
+preferences.user_info.no_email: 'No email registered in Wikimedia'
+preferences.user_info.help: 'This information is linked to your Wikimedia account. If you change your username (global rename) or email in your Wikimedia preferences, it will automatically update here on your next login.'
+forms.poll_form.author_email.no_email: 'No email associated with your Wikimedia account'
+forms.poll_form.author_email.wikimedia_help: 'Notifications will be sent to the email associated with your Wikimedia account. You can configure or change it in your Wikimedia preferences.'
+forms.poll_form.author_email.no_email_help: 'To receive poll notifications, please add an email in your Wikimedia preferences and log in again.'

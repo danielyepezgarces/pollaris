@@ -1,0 +1,220 @@
+'@metadata':
+    authors:
+        - Hedda
+forms.poll_cohost_type.user.label: Kullanıcı
+forms.poll_cohost_type.user.search: 'Kullanıcı ara'
+forms.poll_cohost_type.right.label: Sağ
+forms.poll_cohost_type.right.edit: 'Yalnızca düzenle'
+forms.poll_cohost_type.right.full: 'Tam erişim (iptal edilebilir)'
+forms.poll_form.cohosts.add: 'Ortak sunucu ekle'
+forms.poll_form.cohosts.remove: Kaldır
+forms.poll_form.cohosts.label: 'Ortak sunucular (ortak yazarlar)'
+forms.poll_form.cohosts.help: 'Anketi düzenleyebilecek diğer kullanıcıları seçin.'
+forms.slot_type.start_time.label: 'Başlangıç tarihi (isteğe bağlı)'
+forms.slot_type.end_time.label: 'Bitiş tarihi (isteğe bağlı)'
+forms.poll_form.duration.label: 'Her bir seçeneğin genel geçerlilik süresi'
+forms.poll_form.duration.help: 'Başlangıç/bitiş zamanı belirtilmediğinde tüm seçenekler için geçerli olan süre (dakika cinsinden).'
+forms.poll_form.duration.unit: dakika
+admin.polls.admin_link: 'Hizmetli bağlantısı'
+admin.polls.author: Yazar
+admin.polls.created_at: 'Oluşturulma tarihi'
+admin.polls.my_title: Anketlerim
+admin.polls.none: 'Arama sonucunda eşleşen anket bulunamadı.'
+admin.polls.not_completed: 'Anket tamamlanmadı.'
+admin.polls.public_link: 'Herkese açık bağlantı'
+admin.polls.search: Ara
+admin.polls.title: 'Anket listesi'
+admin.title: Yönetim
+answers.value.maybe: Gerekirse
+answers.value.no: Hayır
+answers.value.yes: Evet
+base.copied: Kopyalandı!
+base.copy: Kopyala
+base.default_title: '{appName} Sitesine Hoş Geldiniz!'
+base.download: İndir
+base.edit: Düzenle
+calendar.hints.dates_period: 'İpucu: <kbd>Shift</kbd> tuşunu basılı tutarak bir tarih aralığı seçebilirsiniz.'
+calendar.patterns.next_month: 'Gelecek ay (__date__)'
+calendar.patterns.previous_month: 'Önceki ay (__date__)'
+emails.hello: 'Merhaba {name},'
+emails.link_to_poll: 'Ankete şu bağlantıdan ulaşabilirsiniz: {url}'
+emails.new_comment.posted: '{commenter_name}, “{poll_name}” anketine az önce yorum yaptı.'
+emails.new_comment.subject: 'Ankete gelen yeni yorum: {poll_name}'
+emails.new_poll_admin.created: '“{poll_name}” anketini oluşturdunuz. Anketinizi istediğiniz zaman aşağıdaki bağlantıya tıklayarak düzenleyebilirsiniz:'
+emails.new_poll_admin.keep_it_secret: 'Bu bağlantıyı kimseyle paylaşmayın!'
+emails.new_poll_admin.subject: 'Yeni anket: {poll_name}'
+emails.new_vote.subject: 'Ankete yeni oy: {poll_name}'
+emails.new_vote.voted: '{voter_name}, “{poll_name}” anketinde az önce oy kullandı.'
+emails.polls_list.here_is_the_list: '{appName} üzerinde yönettiğiniz anketlerin listesi:'
+emails.polls_list.subject: 'Anketlerinizin listesi'
+emails.share.body: |-
+    Merhaba,
+
+    Görüşlerinizi almak üzere bir anket oluşturuldu.
+    Ankete aşağıdaki bağlantıdan katılabilirsiniz: {poll_url}
+
+    Katılımınız için şimdiden teşekkür ederiz.
+
+    Saygılarımızla,
+emails.share.subject: '{poll_name} anketi için görüşünüz bekleniyor'
+errors.404.description: 'İstenen sayfa bulunamadı. URL’de yazım hatası olup olmadığını kontrol edin.'
+errors.404.title: 'Sayfa bulunamadı!'
+errors.back_home: 'Anasayfaya dön'
+errors.generic.description: 'Lütfen hata oluştuğunda ne yaptığınızı yöneticinize bildirin. Sorun en kısa sürede giderilecektir.'
+errors.generic.sorry: 'Yaşanan aksaklık için özür dileriz.'
+errors.generic.title: 'Bir hata oluştu!'
+forms.apply: Uygula
+forms.cancel: İptal
+forms.localized_description_item.locale.label: Dil
+forms.localized_description_item.text.label: Açıklama
+forms.localized_title_item.locale.label: Dil
+forms.localized_title_item.text.label: Başlık
+forms.poll_form.description.help: 'Anketin ana açıklaması (Markdown kullanılabilir). Katılımcının dilinde bir açıklama bulunmuyorsa bu açıklama gösterilir.'
+forms.poll_form.localized_descriptions.add: 'Çevrilmiş açıklama ekle'
+forms.poll_form.localized_descriptions.help: 'Anket açıklamasını farklı dillerde ekleyin. Ziyaretçiler açıklamayı otomatik olarak kendi dillerinde, tarayıcıları destekliyorsa anlık çevirisiyle görür.'
+forms.poll_form.localized_descriptions.label: 'Diğer dillerdeki açıklamalar'
+forms.poll_form.localized_descriptions.remove: 'Çeviriyi kaldır'
+forms.poll_form.localized_titles.add: 'Çevrilmiş başlık ekle'
+forms.poll_form.localized_titles.help: 'Anket başlığını farklı dillerde ekleyin. Ziyaretçiler başlığı otomatik olarak kendi dillerinde, tarayıcıları destekliyorsa anlık çevirisiyle görür.'
+forms.poll_form.localized_titles.label: 'Diğer dillerdeki başlıklar'
+forms.poll_form.localized_titles.remove: 'Çeviriyi kaldır'
+forms.comment_form.author_name.label: Adınız
+forms.comment_form.content.label: Mesajınız
+forms.comment_form.submit: Gönderi
+forms.complete: Tamamlandı
+forms.confirm: Onayla
+forms.date_type.label.label_pattern: 'Tarih __number__'
+forms.error: Hata
+forms.labels.max_length: '(en fazla {length} karakter)'
+forms.labels.optional: '(isteğe bağlı)'
+forms.labels.optional_and_max_length: '(isteğe bağlı, en fazla {length} karakter)'
+forms.login.password: Parola
+forms.login.username: 'Kullanıcı adı'
+forms.next: Sonraki
+forms.poll_authentication_form.password.label: Parola
+forms.poll_authentication_form.submit: 'Kimlik doğrulama'
+forms.poll_dates_form.add_date: 'Tarih ekle'
+forms.poll_dates_form.enter_manually: 'Tarihleri elle gir'
+forms.poll_dates_form.remove_date: 'Tarihi kaldır'
+forms.poll_dates_form.use_calendar: 'Tarihleri takvimden seç'
+forms.poll_form.timezone_mode.label: 'Anketin saat dilimi'
+forms.poll_form.timezone_mode.help: 'Tarihler ve saat aralıkları seçilen saat dilimine göre değerlendirilir. Sunucunun saat dilimi: {timezone}.'
+forms.poll_form.timezone_mode.server: 'Sunucunun saat dilimi ({timezone})'
+forms.poll_form.timezone_mode.browser: 'Geçerli saat dilimim'
+forms.poll_deletion_form.submit: 'Bu anketi silmek istiyorum'
+forms.poll_form.author_email.help: 'Adresiniz diğer anket katılımcılarıyla paylaşılmaz. Yalnızca anket bağlantınızı kaybederseniz anketinizi bulabilmeniz ve yeni oylar verildiğinde size bildirim gönderilmesi için kullanılır.'
+forms.poll_form.author_email.label: 'E-posta adresiniz'
+forms.poll_form.author_email.coming_soon: Yakında
+forms.poll_form.author_name.label: Adınız
+forms.poll_form.author_name.label.wikimedia: 'Wikimedia kullanıcı adınız'
+forms.poll_form.author_name.label.edit: 'Anket sahibi'
+forms.poll_form.author_email.label.edit: 'Anket sahibinin e-postası'
+forms.poll_form.closed_at.help: 'Katılımcılar bu tarihe kadar oy kullanabilir.'
+forms.poll_form.closed_at.label: 'Anketin bitiş tarihi'
+forms.poll_form.description.label: Açıklama
+forms.poll_form.title.label: 'Anketinizin adı'
+forms.poll_proposals_form.add_proposal: 'Seçenek ekle'
+forms.poll_proposals_form.remove_proposal: 'Seçeneği kaldır'
+forms.poll_settings_form.are_results_public.label: 'Sonuçları tüm katılımcılar görebilir.'
+forms.poll_settings_form.is_publicly_listed.help: 'Tamamlanmış bu anketi herkese açık dizinde göster. Yalnızca sonuçları herkese açık anketler burada yer alabilir.'
+forms.poll_settings_form.is_publicly_listed.label: 'Bu anketi herkese açık dizinde listele'
+forms.poll_settings_form.disable_maybe.label: '“Gerekirse” oylarını devre dışı bırak'
+forms.poll_settings_form.max_votes.label: 'Seçenek başına en fazla “evet” oyu sayısı'
+forms.poll_settings_form.min_wikimedia_account_age_months.help: 'Yalnızca Wikimedia hesabı en az bu kadar eski olan kullanıcılar oy kullanabilir.'
+forms.poll_settings_form.min_wikimedia_account_age_months.label: 'Wikimedia hesabının asgari yaşı (ay)'
+forms.poll_settings_form.min_wikimedia_edits.require_both: 'Proje ve asgari değişiklik sayısı birlikte belirtilmelidir.'
+forms.poll_settings_form.min_wikimedia_edits_count.help: 'Yalnızca seçilen projede en az bu sayıda değişiklik yapmış kullanıcılar oy kullanabilir.'
+forms.poll_settings_form.min_wikimedia_edits_count.label: 'Bu Wikimedia projesindeki asgari değişiklik sayısı'
+forms.poll_settings_form.min_wikimedia_edits_project.help: 'Bir Wikimedia projesinin veritabanı adını girebilir veya URL’sini yapıştırabilirsiniz. Örneğin: trwiki, commonswiki, wikidatawiki veya  https://tr.wikipedia.org gibi.'
+forms.poll_settings_form.min_wikimedia_edits_project.label: 'Asgari değişiklik sayısı için Wikimedia projesinin veritabanı adı'
+forms.poll_settings_form.notify_on_comments.label: 'Her yorum için e-posta bildirimi al'
+forms.poll_settings_form.notify_on_votes.label: 'Her oy için e-posta bildirimi al'
+forms.poll_settings_form.password.label: Parola
+forms.poll_settings_form.password.leave_empty_to_keep: 'Mevcut parolayı korumak için boş bırakın.'
+forms.poll_settings_form.password.protect: 'Anketi parolayla koru'
+forms.poll_settings_form.password_for_votes_only.label: 'Sonuçlar parola gerektirmeden görüntülenebilir.'
+forms.poll_settings_form.repeat_password.label: 'Parolayı tekrarla'
+forms.poll_settings_form.slug.help: 'Anket bağlantısını değiştirmenin anketinizi herkes için daha kolay erişilebilir hâle getireceğini unutmayın. Anketinizi bir parolayla korumanız önerilir.'
+forms.poll_settings_form.slug.label: 'Anket bağlantısını girin'
+forms.poll_settings_form.vote_no_by_default.label: 'Yanıt verilmezse varsayılan olarak “hayır” oyu ver'
+forms.poll_slots_form.add_slot: 'Saat aralığı ekle'
+forms.poll_slots_form.remove_slot: 'Saat aralığını kaldır'
+forms.preferences.color_scheme.auto: Oto
+forms.preferences.color_scheme.dark: Koyu
+forms.preferences.color_scheme.label: 'Renk şeması'
+forms.preferences.color_scheme.light: Açık
+forms.preferences.locale.label: Dil
+forms.previous: Önceki
+forms.proposal_type.label.label_pattern: 'Teklif __number__'
+forms.search_polls_form.email.help: 'Oluşturduğunuz anketlerin bağlantılarını size göndereceğiz.'
+forms.search_polls_form.email.label: 'E-posta adresiniz'
+forms.search_polls_form.submit: Gönder
+forms.slot_type.label.label_pattern: 'Saat aralığı __number__'
+forms.slots_form.day: Gün
+forms.vote_form.author_name.label: Adınız
+forms.vote_form.leave_confirmation: 'Oyunuzu henüz onaylamadınız. Devam ederseniz yaptığınız seçimler kaybolacak. Devam etmek istediğinizden emin misiniz?'
+forms.vote_form.password.help: 'Bu ankette oy kullanmak için parola gereklidir.'
+forms.vote_form.password.label: Parola
+forms.vote_form.required_choice: 'Lütfen yukarıdaki seçeneklerden en az birini seçin.'
+forms.vote_form.submit.label: Oyla
+home.create_poll: 'Yeni bir anket oluştur'
+home.free_software: 'Pollaris, AGPL 3 lisansı kapsamında sunulan özgür bir yazılımdır.'
+home.free_software.custom: '{appName}, AGPL 3 lisansı kapsamında sunulan özgür bir yazılım olan Pollaris’i kullanmaktadır.'
+home.intro: 'Bu anket aracını kullanarak vikimaratonları, toplantıları, kampanyaları ve topluluk istişarelerini hızlı, kolay ve şeffaf bir şekilde düzenleyin.'
+home.my_polls_and_votes: 'Anketlerim ve oylarım'
+home.public_polls: 'Açık anketlere göz at'
+home.show.poll.deleted: 'Anketiniz başarıyla silindi.'
+home.source_code: 'Kaynak koduna erişin.'
+home.title: 'Wikimedia topluluğunuzla etkinlikleri koordine edin ve birlikte karar alın.'
+home.welcome: 'Hoş geldin {name}'
+home.stats.polls: '{count, plural, one {anket oluşturuldu} other {anket oluşturuldu}}'
+home.stats.votes: '{count, plural, one {oy kullanıldı} other {oy kullanıldı}}'
+home.stats.participants: '{count, plural, one {benzersiz katılımcı} other {benzersiz katılımcı}}'
+home.stats.comments: '{count, plural, one {yorum gönderildi} other {yorum gönderildi}}'
+layout.header.my: 'Anketlerim ve oylarım'
+layout.header.public_polls: 'Açık anketler'
+layout.header.preferences: Tercihler
+layout.logout: 'Oturumu kapat'
+layout.modal.close: Kapat
+login.log_in: 'Oturum aç'
+login.title: 'Yönetim paneline giriş yap'
+login.wikimedia.button: 'Wikimedia ile devam et'
+login.wikimedia.error.cancelled: 'Wikimedia oturum açma işlemi iptal edildi.'
+login.wikimedia.error.code: 'Wikimedia’dan yetkilendirme kodu alınamadı.'
+login.wikimedia.error.generic: 'Wikimedia ile oturum açamadık.'
+login.wikimedia.error.state: 'Wikimedia oturumunuzun süresi dolmuş veya oturum geçersiz.'
+login.wikimedia.help: 'Profil bilgilerinizi doldurmak ve oluşturduğunuz anketleri yönetmek için Wikimedia / Vikipedi hesabınızı kullanın.'
+login.wikimedia.not_configured: 'Wikimedia ile oturum açma henüz yapılandırılmamış.'
+login.wikimedia.title: 'Wikimedia ile oturum aç'
+my.index.admin_link: 'Yönetim bağlantısı'
+my.index.description: 'Tarayıcınızda kayıtlı tüm anketlerinizi ve oylarınızı burada bulabilirsiniz. Tarayıcınızı başkalarıyla paylaşıyorsanız gizliliğinizi korumak için bunları kaldırın.'
+my.index.poll_link: 'Anket bağlantısı'
+my.index.polls.confirm_removal: 'Bu tarayıcıdaki tüm anketleri kaldırmak üzeresiniz (anketler var olmaya devam edecektir). Devam etmek istediğinizden emin misiniz?'
+my.index.polls.empty_placeholder: 'Anket yok'
+my.index.polls.of_by: '__author__ tarafından oluşturulan __date__ anketi'
+my.index.polls.remove: 'Anketi kaldır'
+my.index.polls.title: Anketler
+my.index.remove_all: 'Hepsini kaldır'
+my.index.search.success: 'Anketlerinizin bağlantılarını içeren bir e-posta gönderdik. E-postayı göremiyorsanız lütfen spam klasörünüzü kontrol edin.'
+my.index.search.title: 'Anketlerimi e-postayla bul'
+my.index.title: 'Anketlerim ve oylarım'
+my.index.vote_link: 'Oy bağlantısı'
+my.index.votes.confirm_removal: 'Bu tarayıcıdaki tüm oyları kaldırmak üzeresiniz (oylar geçerliliğini koruyacaktır). Devam etmek istediğinizden emin misiniz?'
+my.index.votes.empty_placeholder: 'Oy yok'
+my.index.votes.meta: '__poll_author__ tarafından · __vote_date__ tarihinde oy verildi'
+my.index.votes.remove: 'Oyu kaldır'
+my.index.votes.title: Oylar
+notifications.close: Kapat
+pagination.next: 'Sonraki sayfa'
+pagination.previous: 'Önceki sayfa'
+polls.admin.comments: Yorumlar
+polls.admin.confirm_delete_comment: 'Bu yorumu silmek istediğinizden emin misiniz?'
+polls.admin.confirm_delete_vote: 'Bu oyu silmek istediğinizden emin misiniz?'
+polls.admin.delete: Sil
+polls.admin.edit: Düzenle
+polls.admin.go_to_poll: 'Ankete git'
+polls.admin.have_voted: '{voter}, {date} tarihinde oy kullandı.'
+polls.admin.no_comments: 'Ankette henüz yorum yapılmamış.'
+polls.admin.no_votes: 'Ankette henüz oy kullanılmamış.'
+polls.admin.title: 'Anket yönetimi'
+polls.admin.votes: Oylar

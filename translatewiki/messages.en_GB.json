@@ -362,6 +362,7 @@
     "my.index.login_required": "You need to log in to see your polls and votes.",
     "layout.login": "Login",
     "home.credits": "Based on <a href=\"https://framagit.org/pollaris/pollaris\" style=\"text-decoration: none;\">Pollaris</a> (AGPL 3) · Modified by <a href=\"https://github.com/danielyepezgarces\" style=\"text-decoration: none;\">Daniel Yepez Garces</a> · <a href=\"https://github.com/danielyepezgarces/pollaris\" style=\"text-decoration: none;\">Source code</a>",
+    "home.translate": "Help translate",
     "preferences.user_info.title": "Wikimedia Account",
     "preferences.user_info.username": "Username",
     "preferences.user_info.email": "Associated email",

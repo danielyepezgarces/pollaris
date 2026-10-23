@@ -1,15 +1,15 @@
 my.index.polls.of_by: 'Anketa z __date__ od __author__'
-forms.poll_form.author_name.label: Vaše jméno
-forms.poll_form.author_name.label.wikimedia: Vaše uživatelské jméno na Wikimedia
+forms.poll_form.author_name.label: 'Vaše jméno'
+forms.poll_form.author_name.label.wikimedia: 'Vaše uživatelské jméno na Wikimedia'
 forms.poll_form.title.label: 'Název ankety'
-forms.poll_form.description.label: 'Popis'
+forms.poll_form.description.label: Popis
 forms.poll_form.closed_at.label: 'Datum uzávěrky ankety'
-polls.show.already_voted: V tomto hlasování jste již hlasoval(a).
+polls.show.already_voted: 'V tomto hlasování jste již hlasoval(a).'
 my.index.votes.meta: 'Od __poll_author__ · Hlasováno __vote_date__'
-my.index.title: Moje ankety a hlasy
+my.index.title: 'Moje ankety a hlasy'
 my.index.votes.title: Hlasy
 my.index.polls.title: Ankety
-layout.header.my: Moje ankety a hlasy
+layout.header.my: 'Moje ankety a hlasy'
 admin.title: Administrace
 layout.login: 'Přihlásit se'
 home.title: 'Koordinujte akce a rozhodujte se s vaší komunitou Wikimedia.'
@@ -23,48 +23,48 @@ polls.new.who_you_are: 'Kdo jste'
 polls.new.title: 'Vytvoření ankety'
 polls.steps: 'Krok {step} z {total}'
 preferences.edit.title: 'Vaše předvolby'
-layout.modal.close: 'Zavřít'
-layout.header.preferences: 'Předvolby'
-forms.preferences.locale.label: 'Jazyk'
+layout.modal.close: Zavřít
+layout.header.preferences: Předvolby
+forms.preferences.locale.label: Jazyk
 forms.preferences.color_scheme.label: 'Barevné schéma'
-forms.preferences.color_scheme.auto: 'Automaticky'
-forms.preferences.color_scheme.light: 'Světlé'
-forms.preferences.color_scheme.dark: 'Tmavé'
+forms.preferences.color_scheme.auto: Automaticky
+forms.preferences.color_scheme.light: Světlé
+forms.preferences.color_scheme.dark: Tmavé
 polls.admin.title: 'Správa ankety'
-polls.admin.votes: 'Hlasy'
-polls.admin.comments: 'Komentáře'
+polls.admin.votes: Hlasy
+polls.admin.comments: Komentáře
 polls.admin.have_voted: '{voter} hlasoval dne {date}.'
 polls.admin.go_to_poll: 'Přejít na anketu'
 polls.admin.no_votes: 'V anketě nebyly zaznamenány žádné hlasy.'
 polls.admin.no_comments: 'K anketě nebyly zveřejněny žádné komentáře.'
-polls.admin.edit: 'Upravit'
-polls.admin.delete: 'Smazat'
+polls.admin.edit: Upravit
+polls.admin.delete: Smazat
 polls.admin.confirm_delete_vote: 'Opravdu chcete smazat tento hlas?'
 polls.admin.confirm_delete_comment: 'Opravdu chcete smazat tento komentář?'
 layout.logout: 'Odhlásit se'
-notifications.close: 'Zavřít'
+notifications.close: Zavřít
 pagination.next: 'Další stránka'
 pagination.previous: 'Předchozí stránka'
-base.copied: 'Zkopírováno!'
-base.copy: 'Kopírovat'
+base.copied: Zkopírováno!
+base.copy: Kopírovat
 base.default_title: 'Vítejte v {appName}!'
-base.download: 'Stáhnout'
-base.edit: 'Upravit'
+base.download: Stáhnout
+base.edit: Upravit
 home.create_poll: 'Vytvořit novou anketu'
 home.my_polls_and_votes: 'Moje ankety a hlasy'
 home.show.poll.deleted: 'Vaše anketa byla úspěšně smazána.'
 admin.polls.admin_link: 'Administrativní odkaz'
-admin.polls.author: 'Autor'
-admin.polls.created_at: 'Vytvořeno'
+admin.polls.author: Autor
+admin.polls.created_at: Vytvořeno
 admin.polls.my_title: 'Moje ankety'
 admin.polls.none: 'Vyhledávání nenašlo žádné odpovídající ankety.'
 admin.polls.not_completed: 'Anketa není dokončena'
 admin.polls.public_link: 'Veřejný odkaz'
-admin.polls.search: 'Hledat'
+admin.polls.search: Hledat
 admin.polls.title: 'Seznam anket'
 answers.value.maybe: 'Podle potřeby'
-answers.value.no: 'Ne'
-answers.value.yes: 'Ano'
+answers.value.no: Ne
+answers.value.yes: Ano
 calendar.hints.dates_period: 'Tip: Rozsah dat můžete vybrat podržením klávesy <kbd>Shift</kbd>.'
 calendar.patterns.next_month: 'Následující měsíc (__date__)'
 calendar.patterns.previous_month: 'Předchozí měsíc (__date__)'
@@ -81,22 +81,30 @@ emails.new_poll_admin.created: 'Právě jste vytvořili anketu „{poll_name}". 
 emails.new_poll_admin.keep_it_secret: 'Uchovejte tento odkaz pro sebe!'
 emails.new_vote.voted: '{voter_name} se právě zúčastnil ankety „{poll_name}".'
 emails.polls_list.here_is_the_list: 'Zde je seznam anket, které spravujete na {appName}:'
-emails.share.body: "Dobrý den,\n\nPro sdílení vašeho názoru je k dispozici anketa.\nMůžete se zúčastnit prostřednictvím následujícího odkazu: {poll_url}\n\nPředem děkujeme.\n\nS pozdravem,"
+emails.share.body: |-
+    Dobrý den,
+
+    Pro sdílení vašeho názoru je k dispozici anketa.
+    Můžete se zúčastnit prostřednictvím následujícího odkazu: {poll_url}
+
+    Předem děkujeme.
+
+    S pozdravem,
 emails.share.subject: 'Váš názor je žádán pro anketu: {poll_name}'
-forms.apply: 'Použít'
-forms.cancel: 'Zrušit'
-forms.complete: 'Dokončit'
-forms.confirm: 'Potvrdit'
-forms.error: 'Chyba'
-forms.next: 'Další'
-forms.previous: 'Předchozí'
+forms.apply: Použít
+forms.cancel: Zrušit
+forms.complete: Dokončit
+forms.confirm: Potvrdit
+forms.error: Chyba
+forms.next: Další
+forms.previous: Předchozí
 forms.labels.max_length: '(max. {length} znaků)'
-forms.labels.optional: '(nepovinné)'
+forms.labels.optional: (nepovinné)
 forms.labels.optional_and_max_length: '(nepovinné, max. {length} znaků)'
 forms.slot_type.label.label_pattern: 'Časový slot __number__'
 forms.comment_form.author_name.label: 'Vaše jméno'
 forms.comment_form.content.label: 'Vaše zpráva'
-forms.comment_form.submit: 'Odeslat'
+forms.comment_form.submit: Odeslat
 forms.poll_dates_form.add_date: 'Přidat datum'
 forms.poll_dates_form.enter_manually: 'Zadat data ručně'
 forms.poll_dates_form.remove_date: 'Odebrat datum'
@@ -126,7 +134,7 @@ polls.choose.classic: 'Klasická anketa'
 polls.choose.classic_help: 'Anketa pro výběr z více volných možností.'
 polls.choose.date: 'Datová anketa'
 polls.choose.date_help: 'Anketa pro výběr nejlepšího možného data nebo časového slotu.'
-polls.choose.next: 'Další'
+polls.choose.next: Další
 polls.choose.title: 'Vyberte typ ankety'
 polls.complete.consult: 'Zobrazit anketu'
 polls.complete.created: 'Anketa „{poll}" byla vytvořena. Můžete pozvat kontakty ke sdílení odkazu níže.'
@@ -142,10 +150,10 @@ polls.edit_vote_mode.no: 'Účastníci nemohou změnit svůj hlas'
 polls.edit_vote_mode.own: 'Každý účastník může změnit svůj vlastní hlas'
 polls.proposals.best: 'Upřednostňovaná volba'
 polls.proposals.title: 'Vybrat možnosti'
-polls.settings.notifications.title: 'Upozornění'
+polls.settings.notifications.title: Upozornění
 polls.settings.options.title: 'Možnosti hlasování'
 polls.settings.password.title: 'Chránit heslem'
-polls.settings.permissions.title: 'Oprávnění'
+polls.settings.permissions.title: Oprávnění
 polls.settings.slug.title: 'Přizpůsobit odkaz'
 polls.settings.title: 'Konfigurovat anketu'
 polls.sharing.public_link: 'Veřejný odkaz ke sdílení'
@@ -153,13 +161,13 @@ polls.sharing.send_by_email: 'Poslat e-mailem'
 polls.sharing.share_by_email: 'Sdílet e-mailem'
 polls.sharing.share_with_qr_code: 'Sdílet pomocí QR kódu'
 polls.sharing.title: 'Sdílet anketu'
-polls.show.administer: 'Spravovat'
+polls.show.administer: Spravovat
 polls.show.authenticated: 'Úspěšně jste se ověřili.'
 polls.show.comment.created: 'Váš komentář byl zveřejněn.'
 polls.show.comments.explain: 'Váš komentář bude přímo viditelný na stránce ankety.'
 polls.show.comments.new: 'Nový komentář'
 polls.show.comments.none: 'Nebyly zveřejněny žádné komentáře.'
-polls.show.comments.title: 'Komentáře'
+polls.show.comments.title: Komentáře
 polls.show.created_by: 'Anketa vytvořena uživatelem {by}'
 polls.show.description.translating: 'Překlad popisu…'
 polls.show.display_list: 'Zobrazení jako seznam'
@@ -170,13 +178,13 @@ polls.show.login_required_to_vote: 'Pro hlasování se musíte přihlásit.'
 polls.show.my_votes.edit: 'Upravit hlas uživatele {authorName}'
 polls.show.my_votes.title: 'Můj hlas'
 polls.show.no_vote: 'V této anketě zatím nebyly zaznamenány žádné hlasy.'
-polls.show.poll: 'Anketa'
-polls.show.print: 'Tisk'
-polls.show.results: 'Výsledky'
-polls.show.results.info: '{ countChoices, plural, one {Upřednostňovaná možnost s <strong>{countYes} hlasem Ano</strong> je:} other {Upřednostňované možnosti s <strong>{countYes} hlasy Ano</strong> jsou:} }'
+polls.show.poll: Anketa
+polls.show.print: Tisk
+polls.show.results: Výsledky
+polls.show.results.info: '{countChoices, plural, one {Upřednostňovaná možnost s <strong>{countYes} hlasem Ano</strong> je:} few {Upřednostňované možnosti s <strong>{countYes} hlasy Ano</strong> jsou:} other {Upřednostňované možnosti s <strong>{countYes} hlasy Ano</strong> jsou:}}'
 polls.show.results.results_graph: 'Graf výsledků'
-polls.show.results.title: 'Výsledky'
-polls.show.share: 'Sdílet'
+polls.show.results.title: Výsledky
+polls.show.share: Sdílet
 polls.show.vote.created: 'Váš hlas byl potvrzen.'
 polls.show.vote.updated: 'Váš hlas byl změněn.'
 polls.slots.help: 'Časové sloty lze zadávat volně (např. 8 ráno). Pokud není zadán žádný slot, bude zvažován celý den.'
@@ -190,14 +198,14 @@ polls.summary.admin_access.will_send_by_email: 'Tento odkaz vám bude také zasl
 polls.summary.admin_link: 'Soukromý administrační odkaz'
 polls.summary.admin_link.remember: 'Zapamatovat odkaz v tomto prohlížeči'
 polls.summary.admin_link.remember.description: 'Pokud aktivujete možnost "Zapamatovat odkaz v tomto prohlížeči", bude tato anketa uložena na tomto zařízení. Takto ji budete moci později najít přes stejný prohlížeč. Z důvodu důvěrnosti tuto možnost neaktivujte, pokud sdílíte toto zařízení s jinými osobami.'
-polls.summary.admin_link.remember.information: 'Informace'
+polls.summary.admin_link.remember.information: Informace
 polls.summary.author.email: 'E-mailová adresa'
-polls.summary.author.name: 'Přezdívka'
+polls.summary.author.name: Přezdívka
 polls.summary.author.no_email: 'Žádná adresa neuvedena'
 polls.summary.closed_at: 'Datum uzávěrky'
-polls.summary.closed_at.none: 'Žádné'
+polls.summary.closed_at.none: Žádné
 polls.summary.delete_poll: 'Smazat anketu'
-polls.summary.edit: 'Upravit'
+polls.summary.edit: Upravit
 polls.summary.information.title: 'Obecné informace'
 polls.summary.is_closed: '(anketa uzavřena)'
 polls.summary.proposals.title: 'Moje možnosti'
@@ -207,7 +215,7 @@ polls.summary.settings.edit_vote_mode.no: 'Účastníci nemohou změnit svůj hl
 polls.summary.settings.edit_vote_mode.own: 'Každý účastník může změnit svůj vlastní hlas.'
 polls.summary.settings.is_disable_maybe: 'Účastníci nemohou hlasovat „podle potřeby".'
 polls.summary.settings.is_vote_no_by_default: 'Žádná odpověď odpovídá hlasu „Ne".'
-polls.summary.settings.max_votes: '{ number, plural, one {Maximálně 1 účastník může} other {Maximálně # účastníků může} } hlasovat za možnost.'
+polls.summary.settings.max_votes: '{number, plural, one {Maximálně 1 účastník může} few {Maximálně # účastníků může} other {Maximálně # účastníků může}} hlasovat za možnost.'
 polls.summary.settings.notify_on_comments.do: 'Obdržíte e-mail pokaždé, když někdo přidá komentář k anketě.'
 polls.summary.settings.notify_on_comments.dont: 'Neobdržíte e-mail, když někdo přidá komentář k anketě.'
 polls.summary.settings.notify_on_votes.do: 'Obdržíte e-mail pokaždé, když někdo hlasuje v anketě.'
@@ -233,10 +241,10 @@ polls.timezone.reference: 'Referenční časové pásmo této ankety: {timezone}
 polls.votes.maybe: 'Podle potřeby'
 polls.votes.maybe.count: '{count} Podle potřeby'
 polls.votes.maybe.count_alt: '(+{count})'
-polls.votes.no: 'Ne'
+polls.votes.no: Ne
 polls.votes.no.count: '{count} Ne'
-polls.votes.sum: 'Součet'
-polls.votes.yes: 'Ano'
+polls.votes.sum: Součet
+polls.votes.yes: Ano
 polls.votes.yes.count: '{count} Ano'
 polls.votes.yours: 'Váš hlas'
 login.wikimedia.title: 'Přihlásit se přes Wikimedia'
