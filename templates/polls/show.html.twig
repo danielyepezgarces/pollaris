@@ -122,12 +122,12 @@
 
                 {% if poll.community %}
                     <p class="text--secondary text--small" style="margin-top: -0.5rem;">
-                        👥 {{ 'polls.show.community_label' | trans }}:
+                        {{ icon('users') }} {{ 'polls.show.community_label' | trans }}:
                         <a href="{{ path('community_show', { slug: poll.community.slug }) }}" class="text--bold" style="text-decoration: none;">
                             {{ poll.community.name }}
                         </a>
                         {% if poll.communityOnlyVote %}
-                            · <span class="text--bold">🔒 {{ 'community.polls.members_only_badge' | trans }}</span>
+                            · <span class="text--bold">{{ icon('lock') }} {{ 'community.polls.members_only_badge' | trans }}</span>
                         {% endif %}
                     </p>
                 {% endif %}
@@ -412,7 +412,7 @@
                 {% if voteForm is null and not poll.isClosed and not app.user and myVote is null %}
                     <div class="panel panel--primary panel--rounded panel--border text--primary no-print flow flow--small text--center" style="margin-bottom: 1.5rem;">
                         {% if poll.communityOnlyVote and poll.community %}
-                            <p class="text--bold">🔒 {{ 'polls.show.community_restricted_login_required' | trans({ community: poll.community.name }) }}</p>
+                            <p class="text--bold">{{ icon('lock') }} {{ 'polls.show.community_restricted_login_required' | trans({ community: poll.community.name }) }}</p>
                         {% else %}
                             <p class="text--bold">{{ 'polls.show.login_required_to_vote' | trans }}</p>
                         {% endif %}
