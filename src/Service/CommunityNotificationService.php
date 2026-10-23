@@ -58,7 +58,7 @@ class CommunityNotificationService
     public function notifyNewPoll(Entity\Poll $poll): void
     {
         $community = $poll->getCommunity();
-        if (!$community) {
+        if (!$community || !$poll->isNotifyCommunityMembers()) {
             return;
         }
 
@@ -81,6 +81,10 @@ class CommunityNotificationService
         }
 
         // 2. Send Emails to Active Members
+        if (!$community->isEmailEnabled()) {
+            return;
+        }
+
         $members = $this->memberRepository->findActiveMembers($community);
         foreach ($members as $member) {
             $user = $member->getUser();
@@ -168,7 +172,7 @@ class CommunityNotificationService
     public function sendPollReminder(Entity\Poll $poll): void
     {
         $community = $poll->getCommunity();
-        if (!$community) {
+        if (!$community || !$poll->isNotifyCommunityMembers()) {
             return;
         }
 
@@ -198,6 +202,10 @@ class CommunityNotificationService
         }
 
         // 3. Email only members who have NOT voted yet
+        if (!$community->isEmailEnabled()) {
+            return;
+        }
+
         $members = $this->memberRepository->findActiveMembers($community);
         foreach ($members as $member) {
             $user = $member->getUser();

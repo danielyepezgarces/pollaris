@@ -105,6 +105,9 @@
                         <legend class="text--bold">{{ 'forms.poll_form.community.fieldset' | trans }}</legend>
                         {{ form_row(form.community) }}
                         {{ form_row(form.communityOnlyVote) }}
+                        {% if form.notifyCommunityMembers is defined %}
+                            {{ form_row(form.notifyCommunityMembers) }}
+                        {% endif %}
                     </fieldset>
                 {% endif %}
             </div>

@@ -90,4 +90,19 @@ class CommunityTest extends TestCase
         $community->addMember($member);
         $this->assertTrue($community->isMember($memberUser));
     }
+
+    public function testEmailEnabledAndPollNotifySettings(): void
+    {
+        $community = new Community();
+        $this->assertTrue($community->isEmailEnabled());
+
+        $community->setEmailEnabled(false);
+        $this->assertFalse($community->isEmailEnabled());
+
+        $poll = new Poll();
+        $this->assertTrue($poll->isNotifyCommunityMembers());
+
+        $poll->setNotifyCommunityMembers(false);
+        $this->assertFalse($poll->isNotifyCommunityMembers());
+    }
 }

@@ -53,6 +53,11 @@ class CommunityForm extends AbstractType
                 'choice_label' => fn ($choice, $key, $value) => new TranslatableMessage($key),
                 'expanded' => true,
             ])
+            ->add('emailEnabled', Type\CheckboxType::class, [
+                'required' => false,
+                'label' => new TranslatableMessage('forms.community_form.email_enabled.label'),
+                'help' => new TranslatableMessage('forms.community_form.email_enabled.help'),
+            ])
             ->add('telegramEnabled', Type\CheckboxType::class, [
                 'required' => false,
                 'label' => new TranslatableMessage('forms.community_form.telegram_enabled.label'),

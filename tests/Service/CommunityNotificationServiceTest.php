@@ -202,4 +202,80 @@ class CommunityNotificationServiceTest extends TestCase
 
         $service->sendPollReminder($poll);
     }
+
+    public function testNotifyNewPollDoesNotSendWhenCommunityEmailDisabled(): void
+    {
+        $mailer = $this->createMock(MailerInterface::class);
+        $telegramService = $this->createMock(TelegramService::class);
+        $translator = $this->createMock(TranslatorInterface::class);
+        $router = $this->createMock(UrlGeneratorInterface::class);
+        $em = $this->createMock(EntityManagerInterface::class);
+        $memberRepo = $this->createMock(CommunityMemberRepository::class);
+        $optOutRepo = $this->createMock(PollNotificationOptOutRepository::class);
+
+        $community = new Community();
+        $community->setName('Disabled Email Community');
+        $community->setEmailEnabled(false);
+
+        $poll = new Poll();
+        $poll->setTitle('No Email Poll');
+        $poll->setCommunity($community);
+
+        // Mailer should NEVER be called
+        $mailer->expects($this->never())->method('send');
+
+        $service = new CommunityNotificationService(
+            $mailer,
+            $telegramService,
+            $translator,
+            $router,
+            $em,
+            $memberRepo,
+            $optOutRepo,
+            new NullLogger(),
+            'Pollaris',
+            'test_secret_key_123'
+        );
+
+        $service->notifyNewPoll($poll);
+    }
+
+    public function testNotifyNewPollDoesNotSendWhenPollNotificationDisabled(): void
+    {
+        $mailer = $this->createMock(MailerInterface::class);
+        $telegramService = $this->createMock(TelegramService::class);
+        $translator = $this->createMock(TranslatorInterface::class);
+        $router = $this->createMock(UrlGeneratorInterface::class);
+        $em = $this->createMock(EntityManagerInterface::class);
+        $memberRepo = $this->createMock(CommunityMemberRepository::class);
+        $optOutRepo = $this->createMock(PollNotificationOptOutRepository::class);
+
+        $community = new Community();
+        $community->setName('Community');
+        $community->setTelegramEnabled(true);
+        $community->setTelegramChatId('12345');
+
+        $poll = new Poll();
+        $poll->setTitle('Silent Poll');
+        $poll->setCommunity($community);
+        $poll->setNotifyCommunityMembers(false);
+
+        $mailer->expects($this->never())->method('send');
+        $telegramService->expects($this->never())->method('sendMessage');
+
+        $service = new CommunityNotificationService(
+            $mailer,
+            $telegramService,
+            $translator,
+            $router,
+            $em,
+            $memberRepo,
+            $optOutRepo,
+            new NullLogger(),
+            'Pollaris',
+            'test_secret_key_123'
+        );
+
+        $service->notifyNewPoll($poll);
+    }
 }

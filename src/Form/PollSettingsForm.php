@@ -177,6 +177,12 @@ class PollSettingsForm extends AbstractType
                 'label' => new TranslatableMessage('forms.poll_form.community_only_vote.label'),
                 'help' => new TranslatableMessage('forms.poll_form.community_only_vote.help'),
             ]);
+
+            $builder->add('notifyCommunityMembers', Type\CheckboxType::class, [
+                'required' => false,
+                'label' => new TranslatableMessage('forms.poll_form.notify_community_members.label'),
+                'help' => new TranslatableMessage('forms.poll_form.notify_community_members.help'),
+            ]);
         }
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {

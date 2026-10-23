@@ -323,4 +323,33 @@ class CommunityController extends BaseController
         $this->addFlash('success', $this->translator->trans('community.flash.token_regenerated'));
         return $this->redirectToRoute('community_show', ['slug' => $slug]);
     }
+
+    #[Route('/communities/{slug}/toggle-emails', name: 'community_toggle_emails', methods: ['POST'])]
+    public function toggleEmails(string $slug): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        /** @var Entity\User $currentUser */
+        $currentUser = $this->getUser();
+
+        $community = $this->communityRepository->findOneBySlug($slug);
+        if (!$community) {
+            throw $this->createNotFoundException();
+        }
+
+        $membership = $this->memberRepository->findMembership($community, $currentUser);
+        if (!$membership || $membership->getStatus() !== Entity\CommunityMember::STATUS_ACTIVE) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $newState = !$membership->isReceiveEmails();
+        $membership->setReceiveEmails($newState);
+        $this->entityManager->flush();
+
+        $messageKey = $newState
+            ? 'community.notifications.emails_enabled_flash'
+            : 'community.notifications.emails_disabled_flash';
+        $this->addFlash('success', $this->translator->trans($messageKey));
+
+        return $this->redirectToRoute('community_show', ['slug' => $slug]);
+    }
 }

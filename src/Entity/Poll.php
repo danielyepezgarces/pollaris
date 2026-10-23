@@ -245,6 +245,9 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $remindedAt = null;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+    private bool $notifyCommunityMembers = true;
+
     public function __construct()
     {
         $this->type = self::DEFAULT_TYPE;
@@ -1048,6 +1051,18 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     public function setRemindedAt(?\DateTimeImmutable $remindedAt): static
     {
         $this->remindedAt = $remindedAt;
+
+        return $this;
+    }
+
+    public function isNotifyCommunityMembers(): bool
+    {
+        return $this->notifyCommunityMembers;
+    }
+
+    public function setNotifyCommunityMembers(bool $notifyCommunityMembers): static
+    {
+        $this->notifyCommunityMembers = $notifyCommunityMembers;
 
         return $this;
     }

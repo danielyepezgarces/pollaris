@@ -68,7 +68,7 @@ class NotificationsSubscriber implements EventSubscriberInterface
 
         $this->mailer->send($email);
 
-        if ($poll->getCommunity() !== null) {
+        if ($poll->getCommunity() !== null && $poll->isNotifyCommunityMembers()) {
             $this->communityNotificationService->notifyNewPoll($poll);
         }
     }

@@ -168,6 +168,12 @@ class PollForm extends AbstractType
                 'label' => new TranslatableMessage('forms.poll_form.community_only_vote.label'),
                 'help' => new TranslatableMessage('forms.poll_form.community_only_vote.help'),
             ]);
+
+            $builder->add('notifyCommunityMembers', Type\CheckboxType::class, [
+                'required' => false,
+                'label' => new TranslatableMessage('forms.poll_form.notify_community_members.label'),
+                'help' => new TranslatableMessage('forms.poll_form.notify_community_members.help'),
+            ]);
         }
 
         $this->addTimezoneSubmitListener($builder);

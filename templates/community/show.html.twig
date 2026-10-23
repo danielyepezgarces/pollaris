@@ -24,6 +24,11 @@
                                 {{ icon('lock') }} {{ 'community.join_policy.approval' | trans }}
                             {% endif %}
                         </span>
+                        {% if community.emailEnabled %}
+                            <span>{{ icon('bell') }} {{ 'community.emails_active' | trans }}</span>
+                        {% else %}
+                            <span>{{ icon('bell-slash') }} {{ 'community.emails_disabled' | trans }}</span>
+                        {% endif %}
                         {% if community.telegramEnabled %}
                             <span>{{ icon('comment') }} {{ 'community.telegram_active' | trans }}</span>
                         {% endif %}
@@ -47,14 +52,25 @@
                             </form>
                         {% elseif currentMembership.status == 'pending' %}
                             <span class="panel panel--rounded text--small" style="padding: 0.5rem 1rem; background: var(--color-warning-subtle, #fff3cd); border: 1px solid var(--color-warning, #ffeeba);">
-                                ⏳ {{ 'community.membership.pending' | trans }}
+                                {{ icon('clock') }} {{ 'community.membership.pending' | trans }}
                             </span>
-                        {% elseif currentMembership.status == 'active' and community.owner != app.user %}
-                            <form method="post" action="{{ path('community_leave', { slug: community.slug }) }}" onsubmit="return confirm('{{ 'community.leave_confirm' | trans }}');">
-                                <button type="submit" class="button button--danger button--small">
-                                    {{ 'community.leave_button' | trans }}
+                        {% elseif currentMembership.status == 'active' %}
+                            <form method="post" action="{{ path('community_toggle_emails', { slug: community.slug }) }}" style="display: inline;">
+                                <button type="submit" class="button button--secondary button--small" title="{{ currentMembership.receiveEmails ? ('community.notifications.mute_hint'|trans) : ('community.notifications.unmute_hint'|trans) }}">
+                                    {% if currentMembership.receiveEmails %}
+                                        {{ icon('bell') }} {{ 'community.notifications.mute' | trans }}
+                                    {% else %}
+                                        {{ icon('bell-slash') }} {{ 'community.notifications.unmute' | trans }}
+                                    {% endif %}
                                 </button>
                             </form>
+                            {% if community.owner != app.user %}
+                                <form method="post" action="{{ path('community_leave', { slug: community.slug }) }}" onsubmit="return confirm('{{ 'community.leave_confirm' | trans }}');" style="display: inline;">
+                                    <button type="submit" class="button button--danger button--small">
+                                        {{ 'community.leave_button' | trans }}
+                                    </button>
+                                </form>
+                            {% endif %}
                         {% endif %}
                     {% else %}
                         <a href="{{ path('login') }}" class="button button--secondary">
@@ -210,6 +226,7 @@
                         <tr>
                             <th>{{ 'community.members.username' | trans }}</th>
                             <th>{{ 'community.members.role' | trans }}</th>
+                            <th>{{ 'community.members.notifications' | trans }}</th>
                             <th>{{ 'community.members.joined_at' | trans }}</th>
                             {% if isAdmin %}
                                 <th class="text--right">{{ 'community.members.actions' | trans }}</th>
@@ -227,9 +244,16 @@
                                 </td>
                                 <td>
                                     {% if member.role == 'admin' %}
-                                        <span class="text--bold">⭐ {{ 'community.members.role_admin' | trans }}</span>
+                                        <span class="text--bold">{{ icon('star') }} {{ 'community.members.role_admin' | trans }}</span>
                                     {% else %}
                                         <span>{{ 'community.members.role_member' | trans }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text--secondary text--small">
+                                    {% if member.receiveEmails %}
+                                        <span title="{{ 'community.notifications.member_receiving_emails' | trans }}">{{ icon('bell') }} {{ 'community.notifications.active' | trans }}</span>
+                                    {% else %}
+                                        <span title="{{ 'community.notifications.member_muted' | trans }}" style="opacity: 0.6;">{{ icon('bell-slash') }} {{ 'community.notifications.muted' | trans }}</span>
                                     {% endif %}
                                 </td>
                                 <td class="text--secondary text--small">

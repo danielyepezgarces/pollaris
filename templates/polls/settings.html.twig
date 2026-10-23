@@ -109,6 +109,9 @@
 
                     {{ form_row(form.community) }}
                     {{ form_row(form.communityOnlyVote) }}
+                    {% if form.notifyCommunityMembers is defined %}
+                        {{ form_row(form.notifyCommunityMembers) }}
+                    {% endif %}
                 </div>
             {% endif %}
 

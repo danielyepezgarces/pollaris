@@ -56,6 +56,9 @@ class Community implements ActivityMonitor\TrackableEntityInterface
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     private bool $telegramEnabled = false;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+    private bool $emailEnabled = true;
+
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
@@ -170,6 +173,17 @@ class Community implements ActivityMonitor\TrackableEntityInterface
     public function setTelegramEnabled(bool $telegramEnabled): static
     {
         $this->telegramEnabled = $telegramEnabled;
+        return $this;
+    }
+
+    public function isEmailEnabled(): bool
+    {
+        return $this->emailEnabled;
+    }
+
+    public function setEmailEnabled(bool $emailEnabled): static
+    {
+        $this->emailEnabled = $emailEnabled;
         return $this;
     }
 

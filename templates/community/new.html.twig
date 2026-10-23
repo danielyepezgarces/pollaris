@@ -26,6 +26,14 @@
                     </fieldset>
 
                     <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem;">
+                        <legend class="text--bold">{{ 'community.settings.email.title' | trans }}</legend>
+                        <p class="text--secondary text--small">
+                            {{ 'community.settings.email.help_intro' | trans }}
+                        </p>
+                        {{ form_row(form.emailEnabled) }}
+                    </fieldset>
+
+                    <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem;">
                         <legend class="text--bold">{{ 'community.settings.telegram.title' | trans }}</legend>
                         <p class="text--secondary text--small">
                             {{ 'community.settings.telegram.help_intro' | trans }}
