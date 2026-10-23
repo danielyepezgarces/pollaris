@@ -116,7 +116,11 @@ class CreditsCommand extends Command
             );
         }
 
-        $md .= "\n---\n*Generated automatically from Translatewiki localisation metadata.*\n";
+        $md .= "\n## Project Acknowledgements\n\n";
+        $md .= "- **Pollaris (Original):** Created by [Marien Fressinaud](https://framagit.org/pollaris/pollaris) & Framasoft (Licensed under GNU AGPL v3).\n";
+        $md .= "- **Wikimedia Toolforge Edition:** Customised and maintained by [Daniel Yepez Garces](https://github.com/danielyepezgarces).\n";
+        $md .= "- **Localization Management:** Hosted and managed by [Translatewiki.net](https://translatewiki.net/wiki/Translating:Pollaris).\n\n";
+        $md .= "---\n*Generated automatically from Translatewiki localisation metadata.*\n";
         return $md;
     }
 
