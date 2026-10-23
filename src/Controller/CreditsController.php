@@ -20,11 +20,19 @@ class CreditsController extends BaseController
     }
 
     #[Route('/credits', name: 'credits')]
+    #[Route('/credits.json', name: 'credits_json')]
     public function show(Request $request): Response
     {
         $currentLocale = $request->getLocale();
         $translators = $this->creditsService->getTranslators($currentLocale);
         $stats = $this->creditsService->getStats($currentLocale);
+
+        if ($request->getRequestFormat() === 'json' || $request->attributes->get('_route') === 'credits_json' || $request->query->get('format') === 'json') {
+            return $this->json([
+                'stats' => $stats,
+                'translators' => array_values($translators),
+            ]);
+        }
 
         return $this->render('credits/show.html.twig', [
             'translators' => $translators,

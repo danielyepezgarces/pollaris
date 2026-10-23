@@ -23,9 +23,12 @@
                     <span class="text--secondary text--small">{{ 'credits.stats.languages' | trans }}</span>
                 </div>
             </div>
-            <div>
+            <div style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
                 <a href="https://translatewiki.net/w/i.php?title=Special%3ATranslate&amp;group=pollaris" target="_blank" rel="noopener" class="button button--primary button--small" style="text-decoration: none;">
                     ✍️ {{ 'credits.cta_translate' | trans }}
+                </a>
+                <a href="{{ path('credits_json') }}" target="_blank" class="button button--secondary button--small" style="text-decoration: none;">
+                    📥 {{ 'credits.export_json' | trans }}
                 </a>
             </div>
         </div>

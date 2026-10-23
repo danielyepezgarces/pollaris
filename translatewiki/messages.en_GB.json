@@ -483,6 +483,7 @@
     "credits.stats.translators": "Translators",
     "credits.stats.languages": "Languages translated",
     "credits.cta_translate": "Help translate Pollaris on Translatewiki.net",
+    "credits.export_json": "Export JSON",
     "credits.translators_heading": "Interface Translators",
     "credits.translators_description": "Heartfelt thanks to everyone who has contributed translations through Translatewiki.net:",
     "credits.project_heading": "About the Project",
