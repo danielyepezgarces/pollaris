@@ -62,7 +62,20 @@ class ExportCommand extends Command
 
             $yamlContent = Yaml::parseFile($file);
             
+            $exportPath = $exportDir . '/' . $domain . '.' . $locale . '.json';
+            $existingMetadata = null;
+            if (file_exists($exportPath)) {
+                $existingJson = json_decode(file_get_contents($exportPath), true);
+                if (is_array($existingJson) && isset($existingJson['@metadata'])) {
+                    $existingMetadata = $existingJson['@metadata'];
+                }
+            }
+
             $convertedData = [];
+            if ($existingMetadata !== null) {
+                $convertedData['@metadata'] = $existingMetadata;
+            }
+
             foreach ($yamlContent as $key => $value) {
                 if (is_string($value)) {
                     $convertedData[$key] = TranslationConverter::convertIcuToMediaWiki($value, $locale);
@@ -74,7 +87,6 @@ class ExportCommand extends Command
             // Convert to JSON
             $jsonContent = json_encode($convertedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-            $exportPath = $exportDir . '/' . $domain . '.' . $locale . '.json';
             file_put_contents($exportPath, $jsonContent);
             
             $io->writeln(sprintf('Exported %s to %s', $filename, basename($exportPath)));

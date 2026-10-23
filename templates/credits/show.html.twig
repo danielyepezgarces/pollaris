@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'credits.title' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="wrapper wrapper--center flow flow--larger" style="max-width: 900px; padding: 2rem 1rem;">
+        <div class="flow flow--tiny text--center">
+            <h1 style="margin: 0; font-size: 2.2rem;">🌍 {{ 'credits.title' | trans }}</h1>
+            <p class="text--secondary" style="font-size: 1.15rem; max-width: 700px; margin: 0.75rem auto 0;">
+                {{ 'credits.subtitle' | trans }}
+            </p>
+        </div>
+
+        {# Translation Stats & CTA Banner #}
+        <div class="panel panel--primary panel--rounded flow flow--small" style="padding: 1.5rem; text-align: center; background: var(--color-background-alt, rgba(0, 0, 0, 0.03)); border: 1px solid var(--color-border, #ddd);">
+            <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                <div>
+                    <span style="display: block; font-size: 2rem; font-weight: bold; color: var(--color-primary);">{{ stats.translatorsCount }}</span>
+                    <span class="text--secondary text--small">{{ 'credits.stats.translators' | trans }}</span>
+                </div>
+                <div>
+                    <span style="display: block; font-size: 2rem; font-weight: bold; color: var(--color-primary);">{{ stats.languagesCount }}</span>
+                    <span class="text--secondary text--small">{{ 'credits.stats.languages' | trans }}</span>
+                </div>
+            </div>
+            <div>
+                <a href="https://translatewiki.net/w/i.php?title=Special%3ATranslate&amp;group=pollaris" target="_blank" rel="noopener" class="button button--primary button--small" style="text-decoration: none;">
+                    ✍️ {{ 'credits.cta_translate' | trans }}
+                </a>
+            </div>
+        </div>
+
+        {# Translators List #}
+        <div class="flow flow--small">
+            <h2 style="margin-bottom: 1rem;">{{ 'credits.translators_heading' | trans }}</h2>
+            <p class="text--secondary">
+                {{ 'credits.translators_description' | trans }}
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                {% for translator in translators %}
+                    <div class="panel panel--rounded flow flow--tiny" style="padding: 1rem; border: 1px solid var(--color-border, #e0e0e0); display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <span style="font-size: 1.25rem;">👤</span>
+                                <a href="{{ translator.profileUrl }}" target="_blank" rel="noopener" class="text--bold" style="text-decoration: none; font-size: 1.05rem;">
+                                    {{ translator.username }}
+                                </a>
+                                <span class="text--secondary text--small" style="font-size: 0.8em;" title="Translatewiki.net user">↗</span>
+                            </div>
+                            <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+                                {% for lang in translator.languages %}
+                                    <span style="display: inline-block; padding: 0.15rem 0.5rem; font-size: 0.78rem; border-radius: 4px; background: var(--color-primary-subtle, #e8f0fe); color: var(--color-primary, #1967d2); font-weight: 500;">
+                                        {{ lang.name }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {# Project Credits & Software Acknowledgements #}
+        <div class="panel panel--rounded flow flow--small" style="padding: 1.5rem; margin-top: 2rem; border-top: 2px solid var(--color-border, #eee);">
+            <h3 style="margin-top: 0;">{{ 'credits.project_heading' | trans }}</h3>
+            <ul style="line-height: 1.6; margin: 0; padding-left: 1.25rem;">
+                <li>
+                    <strong>Pollaris:</strong> {{ 'credits.pollaris_original' | trans | raw }}
+                </li>
+                <li>
+                    <strong>Wikimedia Toolforge Edition:</strong> {{ 'credits.toolforge_edition' | trans | raw }}
+                </li>
+                <li>
+                    <strong>Translatewiki.net:</strong> {{ 'credits.translatewiki_project' | trans | raw }}
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
