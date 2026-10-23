@@ -16,8 +16,12 @@ final class Version20261023100000AddCommunitiesAndReminders extends AbstractMigr
 
     public function up(Schema $schema): void
     {
+        $this->addSql('DROP TABLE IF EXISTS poll_notification_opt_outs');
+        $this->addSql('DROP TABLE IF EXISTS community_members');
+        $this->addSql('DROP TABLE IF EXISTS communities');
+
         $this->addSql(<<<'SQL'
-            CREATE TABLE IF NOT EXISTS communities (
+            CREATE TABLE communities (
                 id INT AUTO_INCREMENT NOT NULL,
                 name VARCHAR(100) NOT NULL,
                 slug VARCHAR(100) NOT NULL,
@@ -37,7 +41,7 @@ final class Version20261023100000AddCommunitiesAndReminders extends AbstractMigr
         SQL);
 
         $this->addSql(<<<'SQL'
-            CREATE TABLE IF NOT EXISTS community_members (
+            CREATE TABLE community_members (
                 id INT AUTO_INCREMENT NOT NULL,
                 community_id INT NOT NULL,
                 user_id INT NOT NULL,
@@ -56,7 +60,7 @@ final class Version20261023100000AddCommunitiesAndReminders extends AbstractMigr
         SQL);
 
         $this->addSql(<<<'SQL'
-            CREATE TABLE IF NOT EXISTS poll_notification_opt_outs (
+            CREATE TABLE poll_notification_opt_outs (
                 id INT AUTO_INCREMENT NOT NULL,
                 poll_id VARCHAR(20) NOT NULL,
                 user_id INT DEFAULT NULL,
