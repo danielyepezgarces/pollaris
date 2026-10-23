@@ -1,12 +1,12 @@
-{{ 'emails.hello' | trans({ name: user.username }) }}
+{{ 'emails.hello' | trans({ name: user.username }, null, locale) }}
 
-{{ 'community.emails.reminder.body' | trans({ community_name: community.name, poll_name: poll.title }) }}
+{{ 'community.emails.reminder.body' | trans({ community_name: community.name, poll_name: pollTitle|default(poll.title) }, null, locale) }}
 
 {{ pollUrl }}
 
 ---
-{{ 'community.emails.opt_out.info' | trans }}
-- {{ 'community.emails.opt_out.poll' | trans }}:
+{{ 'community.emails.opt_out.info' | trans({}, null, locale) }}
+- {{ 'community.emails.opt_out.poll' | trans({}, null, locale) }}:
   {{ pollOptOutUrl }}
-- {{ 'community.emails.opt_out.community' | trans({ community_name: community.name }) }}:
+- {{ 'community.emails.opt_out.community' | trans({ community_name: community.name }, null, locale) }}:
   {{ communityOptOutUrl }}

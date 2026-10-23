@@ -107,6 +107,10 @@ class LoginController extends BaseController
 
         $response = $this->security->login($user, 'form_login', 'main');
 
+        if ($user->getLocale()) {
+            $request->getSession()->set('_locale', $user->getLocale());
+        }
+
         $returnto = $request->getSession()->get('login_returnto');
         if (is_string($returnto) && str_starts_with($returnto, '/') && !str_starts_with($returnto, '//')) {
             $request->getSession()->remove('login_returnto');
@@ -160,9 +164,13 @@ class LoginController extends BaseController
 
         $realName = trim((string) ($profile['realname'] ?? ''));
         $email = trim((string) ($profile['email'] ?? ''));
+        $wikiLang = trim((string) ($profile['language'] ?? $profile['lang'] ?? ''));
 
         $user->setRealName($realName !== '' ? $realName : null);
         $user->setEmail($email !== '' ? $email : null);
+        if ($wikiLang !== '' && $user->getLocale() === null) {
+            $user->setLocale($wikiLang);
+        }
 
         $this->userRepository->save($user);
 

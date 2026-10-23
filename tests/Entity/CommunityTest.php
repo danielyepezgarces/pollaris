@@ -104,5 +104,21 @@ class CommunityTest extends TestCase
 
         $poll->setNotifyCommunityMembers(false);
         $this->assertFalse($poll->isNotifyCommunityMembers());
+
+        // Test User locale
+        $user = new User();
+        $this->assertNull($user->getLocale());
+        $user->setLocale('fr');
+        $this->assertSame('fr', $user->getLocale());
+
+        // Test Poll getTitleForLocale
+        $poll->setTitle('Default Title');
+        $poll->setLocalizedTitles([
+            ['locale' => 'es', 'text' => 'Título en Español'],
+            ['locale' => 'fr', 'text' => 'Titre en Français'],
+        ]);
+        $this->assertSame('Título en Español', $poll->getTitleForLocale('es'));
+        $this->assertSame('Titre en Français', $poll->getTitleForLocale('fr'));
+        $this->assertSame('Default Title', $poll->getTitleForLocale('de'));
     }
 }

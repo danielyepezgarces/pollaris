@@ -363,6 +363,25 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
         return $this->localizedTitles ?? [];
     }
 
+    public function getTitleForLocale(string $locale): string
+    {
+        foreach ($this->getLocalizedTitles() as $item) {
+            if ($item['locale'] === $locale && !empty($item['text'])) {
+                return $item['text'];
+            }
+        }
+
+        // Try prefix match (e.g. 'en' matches 'en_GB')
+        $lang = explode('_', $locale)[0];
+        foreach ($this->getLocalizedTitles() as $item) {
+            if (str_starts_with($item['locale'], $lang) && !empty($item['text'])) {
+                return $item['text'];
+            }
+        }
+
+        return $this->getTitle();
+    }
+
     /** @param list<array{locale: string, text: string}> $localizedTitles */
     public function setLocalizedTitles(array $localizedTitles): static
     {

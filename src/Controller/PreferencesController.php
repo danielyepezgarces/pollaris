@@ -14,9 +14,11 @@
 
 namespace App\Controller;
 
+use App\Entity;
 use App\Form;
 use App\Utils;
 use App\Service;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,14 +27,21 @@ class PreferencesController extends BaseController
 {
     public function __construct(
         private Service\Referrer $referrerService,
+        private EntityManagerInterface $entityManager,
     ) {
     }
 
     #[Route('/preferences', name: 'edit preferences')]
     public function edit(Request $request): Response
     {
+        /** @var Entity\User|null $user */
+        $user = $this->getUser();
+        $initialLocale = ($user instanceof Entity\User && $user->getLocale())
+            ? $user->getLocale()
+            : $request->getLocale();
+
         $form = $this->createNamedForm('preferences', Form\PreferencesForm::class, [
-            'locale' => $request->getLocale(),
+            'locale' => $initialLocale,
         ]);
         $form->handleRequest($request);
 
@@ -41,6 +50,11 @@ class PreferencesController extends BaseController
 
             $session = $request->getSession();
             $session->set('_locale', $locale);
+
+            if ($user instanceof Entity\User) {
+                $user->setLocale($locale);
+                $this->entityManager->flush();
+            }
 
             $referrer = $this->referrerService->get();
             return $this->redirect($referrer);

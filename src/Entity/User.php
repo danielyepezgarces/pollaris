@@ -68,6 +68,9 @@ class User implements ActivityMonitor\TrackableEntityInterface, UserInterface, P
     #[ORM\Column(length: self::MAX_EMAIL_LENGTH, nullable: true)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $locale = null;
+
     /**
      * @var list<string>
      */
@@ -183,6 +186,18 @@ class User implements ActivityMonitor\TrackableEntityInterface, UserInterface, P
     public function setEmail(?string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?string $locale): static
+    {
+        $this->locale = $locale;
 
         return $this;
     }

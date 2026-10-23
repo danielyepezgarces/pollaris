@@ -114,7 +114,9 @@ class CommunityNotificationService
                 'token' => $this->generateCommunityOptOutToken($community, $user),
             ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-            $subject = sprintf('[%s] %s: %s', $this->appName, $community->getName(), $poll->getTitle());
+            $userLocale = $user->getLocale() ?: 'en';
+            $pollTitle = $poll->getTitleForLocale($userLocale);
+            $subject = sprintf('[%s] %s: %s', $this->appName, $community->getName(), $pollTitle);
 
             try {
                 $email = (new TemplatedEmail())
@@ -125,9 +127,11 @@ class CommunityNotificationService
                         'user' => $user,
                         'community' => $community,
                         'poll' => $poll,
+                        'pollTitle' => $pollTitle,
                         'pollUrl' => $pollUrl,
                         'pollOptOutUrl' => $pollOptOutUrl,
                         'communityOptOutUrl' => $communityOptOutUrl,
+                        'locale' => $userLocale,
                     ]);
 
                 $this->mailer->send($email);
@@ -240,11 +244,15 @@ class CommunityNotificationService
                 'token' => $this->generateCommunityOptOutToken($community, $user),
             ], UrlGeneratorInterface::ABSOLUTE_URL);
 
+            $userLocale = $user->getLocale() ?: 'en';
+            $pollTitle = $poll->getTitleForLocale($userLocale);
+            $reminderTitle = $this->translator->trans('community.notifications.reminder_title', [], null, $userLocale);
+
             $subject = sprintf(
                 '[%s] %s: %s (%s)',
                 $this->appName,
-                $this->translator->trans('community.notifications.reminder_title'),
-                $poll->getTitle(),
+                $reminderTitle,
+                $pollTitle,
                 $community->getName()
             );
 
@@ -257,9 +265,11 @@ class CommunityNotificationService
                         'user' => $user,
                         'community' => $community,
                         'poll' => $poll,
+                        'pollTitle' => $pollTitle,
                         'pollUrl' => $pollUrl,
                         'pollOptOutUrl' => $pollOptOutUrl,
                         'communityOptOutUrl' => $communityOptOutUrl,
+                        'locale' => $userLocale,
                     ]);
 
                 $this->mailer->send($email);
