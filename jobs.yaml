@@ -1,0 +1,9 @@
+# Wikimedia Toolforge Jobs definition
+# https://wikitech.wikimedia.org/wiki/Help:Toolforge/Jobs_framework
+# Load with: toolforge jobs load jobs.yaml
+
+- name: community-reminders
+  command: php /data/project/pollaris/pollaris/bin/console app:community:send-reminders
+  image: php8.4
+  schedule: "0 * * * *"
+  emails: none
