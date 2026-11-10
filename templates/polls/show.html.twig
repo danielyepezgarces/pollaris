@@ -54,7 +54,7 @@
     {% set preferredChoices = poll.preferredChoices %}
 
     <div id="mainFlow" class="flow flow--larger">
-        <div class="wrapper wrapper--small wrapper--center flow flow--larger">
+        <div class="wrapper wrapper--large wrapper--center flow flow--larger">
             {% for message in app.flashes('success') %}
                 {% if message == 'vote.created' %}
                     {{ include('notifications/_success.html.twig', { message: 'polls.show.vote.created' | trans }) }}
@@ -512,7 +512,7 @@
             {% set firstChoice = preferredChoices|first %}
 
             <div id="results" class="flow flow--smaller">
-                <div class="wrapper wrapper--small wrapper--center flow">
+                <div class="wrapper wrapper--large wrapper--center flow">
                     <h2 class="text--primary">
                         {{ 'polls.show.results.title' | trans(count: preferredChoices|length) }}
                     </h2>
@@ -591,12 +591,12 @@
                 </div>
 
                 <details class="flow flow--smaller">
-                    <summary class="wrapper wrapper--small wrapper--center">
+                    <summary class="wrapper wrapper--large wrapper--center">
                         {{ icon('chart-simple') }}
                         {{ 'polls.show.results.results_graph' | trans }}
                     </summary>
 
-                    <ul class="wrapper wrapper--small wrapper--center panel panel--white panel--border panel--rounded panel--nopadding">
+                    <ul class="wrapper wrapper--large wrapper--center panel panel--white panel--border panel--rounded panel--nopadding">
                         {% set maxCount = poll.positiveAnswersMaxCount %}
 
                         {% if poll.isClassicPoll %}
@@ -620,7 +620,7 @@
 
         <hr class="wrapper wrapper--center">
 
-        <div class="wrapper wrapper--small wrapper--center flow flow--large">
+        <div class="wrapper wrapper--large wrapper--center flow flow--large">
             <h2 class="text--primary">{{ 'polls.show.comments.title' | trans }}</h2>
 
             {% for comment in poll.comments %}

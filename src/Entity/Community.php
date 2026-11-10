@@ -47,6 +47,9 @@ class Community implements ActivityMonitor\TrackableEntityInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $localizedDescriptions = null;
+
     #[ORM\Column(length: 20)]
     private string $joinPolicy = self::JOIN_POLICY_APPROVAL;
 
@@ -169,6 +172,49 @@ class Community implements ActivityMonitor\TrackableEntityInterface
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+        return $this;
+    }
+
+    /** @return list<array{locale: string, text: string}> */
+    public function getLocalizedDescriptions(): array
+    {
+        return $this->localizedDescriptions ?? [];
+    }
+
+    public function getDescriptionForLocale(string $locale): ?string
+    {
+        foreach ($this->getLocalizedDescriptions() as $item) {
+            if ($item['locale'] === $locale && !empty($item['text'])) {
+                return $item['text'];
+            }
+        }
+
+        // Try prefix match (e.g. 'en' matches 'en_GB' or 'es' matches 'es_ES')
+        $lang = explode('_', $locale)[0];
+        $lang = explode('-', $lang)[0];
+        foreach ($this->getLocalizedDescriptions() as $item) {
+            if (str_starts_with($item['locale'], $lang) && !empty($item['text'])) {
+                return $item['text'];
+            }
+        }
+
+        return $this->getDescription();
+    }
+
+    /** @param list<array{locale: string, text: string}>|null $localizedDescriptions */
+    public function setLocalizedDescriptions(?array $localizedDescriptions): static
+    {
+        if ($localizedDescriptions === null) {
+            $this->localizedDescriptions = null;
+            return $this;
+        }
+
+        $filtered = array_values(array_filter(
+            $localizedDescriptions,
+            static fn (array $item) => isset($item['locale'], $item['text']) && trim((string) $item['text']) !== '',
+        ));
+        $this->localizedDescriptions = $filtered ?: null;
+
         return $this;
     }
 

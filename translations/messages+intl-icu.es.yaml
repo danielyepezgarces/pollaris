@@ -322,3 +322,9 @@ polls.table.toolbar.show_more.title: 'Expandir la fila para ver todas las etique
 polls.votes.maybe.count_alt: '(+{count})'
 polls.votes.sum: Suma
 community.polls.votes_count: '{count, plural, one {# voto} other {# votos}}'
+community.settings.localized_descriptions.title: 'Descripciones traducidas'
+community.settings.localized_descriptions.help: 'Añade descripciones para esta comunidad en otros idiomas para que los miembros y visitantes la vean en su idioma.'
+community.settings.localized_descriptions.label: 'Traducciones de la descripción'
+community.settings.localized_descriptions.desc_in_lang: 'Descripción en este idioma'
+community.settings.localized_descriptions.add: 'Añadir descripción traducida'
+community.members.add_manual.button_toggle: 'Añadir miembro'

@@ -185,4 +185,24 @@ class CommunityTest extends TestCase
         $this->assertSame('Nom en Français', $community->getNameForLocale('fr'));
         $this->assertSame('Default Name', $community->getNameForLocale('it'));
     }
+
+    public function testCommunityLocalizedDescriptions(): void
+    {
+        $community = new Community();
+        $community->setDescription('Default Description');
+
+        $this->assertSame([], $community->getLocalizedDescriptions());
+        $this->assertSame('Default Description', $community->getDescriptionForLocale('es'));
+
+        $community->setLocalizedDescriptions([
+            ['locale' => 'es', 'text' => 'Descripción en Español'],
+            ['locale' => 'fr_FR', 'text' => 'Description en Français'],
+            ['locale' => 'de', 'text' => ''], // empty should be filtered
+        ]);
+
+        $this->assertCount(2, $community->getLocalizedDescriptions());
+        $this->assertSame('Descripción en Español', $community->getDescriptionForLocale('es'));
+        $this->assertSame('Description en Français', $community->getDescriptionForLocale('fr'));
+        $this->assertSame('Default Description', $community->getDescriptionForLocale('it'));
+    }
 }

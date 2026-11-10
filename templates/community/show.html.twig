@@ -57,7 +57,16 @@
                         <h1 style="margin: 0;">{{ community.name }}</h1>
                     {% endif %}
 
-                    {% if community.description %}
+                    {% if community.localizedDescriptions %}
+                        <div
+                            data-controller="description-translator"
+                            data-description-translator-descriptions-value="{{ community.localizedDescriptions | json_encode }}"
+                        >
+                            <p data-description-translator-target="content" class="text--secondary" style="margin: 0.5rem 0 0; font-size: 1.05rem; line-height: 1.5; color: var(--color-grey11);">
+                                {{ community.descriptionForLocale(app.request.locale)|nl2br }}
+                            </p>
+                        </div>
+                    {% elseif community.description %}
                         <p class="text--secondary" style="margin: 0.5rem 0 0; font-size: 1.05rem; line-height: 1.5; color: var(--color-grey11);">
                             {{ community.description|nl2br }}
                         </p>
@@ -267,25 +276,30 @@
             <h2>{{ icon('users') }} {{ 'community.members.title' | trans }} ({{ activeMembers|length }})</h2>
 
             {% if isAdmin and addMemberForm %}
-                <div class="panel panel--rounded flow flow--tiny" style="padding: 1rem 1.25rem; background: var(--color-grey2); border: 1px solid var(--color-grey6);">
-                    <h3 style="margin: 0;">{{ 'community.members.add_manual.title' | trans }}</h3>
-                    <p class="text--secondary text--small" style="margin: 0;">
-                        {{ 'community.members.add_manual.help' | trans }}
-                    </p>
-                    {{ form_start(addMemberForm, { action: path('community_add_member', { slug: community.slug }) }) }}
-                        <div style="display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; margin-top: 0.5rem;">
-                            <div style="flex: 1; min-width: 200px;">
-                                {{ form_row(addMemberForm.username) }}
+                <details class="panel panel--rounded" style="padding: 0; background: var(--color-grey2); border: 1px solid var(--color-grey6);">
+                    <summary style="padding: 0.85rem 1.25rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none;">
+                        <span>{{ icon('user-plus') }} {{ 'community.members.add_manual.title' | trans }}</span>
+                        <span class="button button--small button--secondary" style="pointer-events: none;">+ {{ 'community.members.add_manual.button_toggle' | trans }}</span>
+                    </summary>
+                    <div class="flow flow--tiny" style="padding: 1rem 1.25rem 1.25rem; border-top: 1px solid var(--color-grey6);">
+                        <p class="text--secondary text--small" style="margin: 0;">
+                            {{ 'community.members.add_manual.help' | trans }}
+                        </p>
+                        {{ form_start(addMemberForm, { action: path('community_add_member', { slug: community.slug }) }) }}
+                            <div style="display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    {{ form_row(addMemberForm.username) }}
+                                </div>
+                                <div style="min-width: 150px;">
+                                    {{ form_row(addMemberForm.role) }}
+                                </div>
+                                <div>
+                                    {{ form_widget(addMemberForm.submit, { attr: { class: 'button button--primary' } }) }}
+                                </div>
                             </div>
-                            <div style="min-width: 150px;">
-                                {{ form_row(addMemberForm.role) }}
-                            </div>
-                            <div>
-                                {{ form_widget(addMemberForm.submit, { attr: { class: 'button button--primary' } }) }}
-                            </div>
-                        </div>
-                    {{ form_end(addMemberForm) }}
-                </div>
+                        {{ form_end(addMemberForm) }}
+                    </div>
+                </details>
             {% endif %}
 
             <div style="overflow-x: auto;">

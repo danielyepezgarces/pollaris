@@ -53,6 +53,15 @@ class CommunityForm extends AbstractType
                 'label' => new TranslatableMessage('forms.community_form.description.label'),
                 'help' => new TranslatableMessage('forms.community_form.description.help'),
             ])
+            ->add('localizedDescriptions', Type\CollectionType::class, [
+                'entry_type' => LocalizedDescriptionItemType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'required' => false,
+                'label' => new TranslatableMessage('community.settings.localized_descriptions.label'),
+                'help' => new TranslatableMessage('community.settings.localized_descriptions.help'),
+            ])
             ->add('joinPolicy', Type\ChoiceType::class, [
                 'label' => new TranslatableMessage('forms.community_form.join_policy.label'),
                 'choices' => [

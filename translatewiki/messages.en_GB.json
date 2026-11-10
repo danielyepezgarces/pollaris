@@ -522,6 +522,12 @@
     "community.settings.localized_names.label": "Community name translations",
     "community.settings.localized_names.name_in_lang": "Community name in this language",
     "community.settings.localized_names.add": "Add translation",
+    "community.settings.localized_descriptions.title": "Translated Descriptions",
+    "community.settings.localized_descriptions.help": "Add descriptions for this community in other languages so members and visitors see the community localized in their language.",
+    "community.settings.localized_descriptions.label": "Community description translations",
+    "community.settings.localized_descriptions.desc_in_lang": "Community description in this language",
+    "community.settings.localized_descriptions.add": "Add description translation",
+    "community.members.add_manual.button_toggle": "Add Member",
     "community.multilingual_available": "Translations available in other languages",
     "forms.save": "Save",
     "community.polls.votes_count": "{{PLURAL:$1|$1 vote|$1 votes}}"
