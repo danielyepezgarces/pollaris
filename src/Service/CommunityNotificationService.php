@@ -222,7 +222,7 @@ class CommunityNotificationService
                     default => sprintf('⏳ <b>Cierre:</b> ¡en menos de %d horas!', $hoursLeft),
                 };
             } else {
-                $daysLeft = (int) ceil($diffSeconds / 86400);
+                $daysLeft = (int) floor($diffSeconds / 86400);
                 $timeRemainingStr = match (substr($locale, 0, 2)) {
                     'pt' => sprintf('⏳ <b>Encerramento:</b> faltam %d dias', $daysLeft),
                     'fr' => sprintf('⏳ <b>Clôture :</b> dans %d jours', $daysLeft),
