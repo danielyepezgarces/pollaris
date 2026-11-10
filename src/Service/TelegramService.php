@@ -66,4 +66,26 @@ class TelegramService
             return false;
         }
     }
+
+    public function setWebhook(string $url): bool
+    {
+        if (!$this->isConfigured()) {
+            $this->logger->warning('TelegramService: TELEGRAM_BOT_TOKEN is not configured.');
+            return false;
+        }
+
+        $apiUrl = sprintf('https://api.telegram.org/bot%s/setWebhook', $this->botToken);
+
+        try {
+            $response = $this->httpClient->request('POST', $apiUrl, [
+                'json' => ['url' => $url],
+                'timeout' => 10,
+            ]);
+
+            return $response->getStatusCode() === 200;
+        } catch (\Throwable $e) {
+            $this->logger->error('TelegramService setWebhook exception: ' . $e->getMessage(), ['exception' => $e]);
+            return false;
+        }
+    }
 }

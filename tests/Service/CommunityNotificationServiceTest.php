@@ -278,4 +278,56 @@ class CommunityNotificationServiceTest extends TestCase
 
         $service->notifyNewPoll($poll);
     }
+
+    public function testBuildTelegramReminderMessageFormatting(): void
+    {
+        $mailer = $this->createMock(MailerInterface::class);
+        $telegramService = $this->createMock(TelegramService::class);
+        $translator = $this->createMock(TranslatorInterface::class);
+        $router = $this->createMock(UrlGeneratorInterface::class);
+        $router->method('generate')->willReturn('https://pollaris.toolforge.org/polls/test-poll');
+        $em = $this->createMock(EntityManagerInterface::class);
+        $memberRepo = $this->createMock(CommunityMemberRepository::class);
+        $optOutRepo = $this->createMock(PollNotificationOptOutRepository::class);
+
+        $service = new CommunityNotificationService(
+            $mailer,
+            $telegramService,
+            $translator,
+            $router,
+            $em,
+            $memberRepo,
+            $optOutRepo,
+            new NullLogger(),
+            'Pollaris',
+            'test_secret_key_123'
+        );
+
+        $community = new Community();
+        $community->setName('Wikitec Latam');
+
+        $poll = new Poll();
+        $poll->setTitle('Elección de Coordinador');
+        $poll->setCommunity($community);
+        $poll->setTimezoneName('America/Bogota');
+        $poll->setClosedAt((new \DateTimeImmutable('now'))->modify('+3 days'));
+
+        // Test Spanish
+        $msgEs = $service->buildTelegramReminderMessage($poll, 'es');
+        $this->assertStringContainsString('UTC', $msgEs);
+        $this->assertStringContainsString('America/Bogota', $msgEs);
+        $this->assertStringContainsString('Recordatorio de Votación', $msgEs);
+        $this->assertStringContainsString('Elección de Coordinador', $msgEs);
+        $this->assertStringContainsString('Wikitec Latam', $msgEs);
+
+        // Test Portuguese
+        $msgPt = $service->buildTelegramReminderMessage($poll, 'pt');
+        $this->assertStringContainsString('Lembrete de Votação', $msgPt);
+        $this->assertStringContainsString('Votar agora', $msgPt);
+
+        // Test English
+        $msgEn = $service->buildTelegramReminderMessage($poll, 'en');
+        $this->assertStringContainsString('Voting Reminder', $msgEn);
+        $this->assertStringContainsString('Vote now', $msgEn);
+    }
 }
