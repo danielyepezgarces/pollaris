@@ -26,6 +26,7 @@ base.copy: Copiar
 base.download: Descargar
 base.edit: Editar
 forms.cancel: Cancelar
+forms.save: Guardar
 forms.localized_description_item.locale.label: Idioma
 forms.localized_description_item.text.label: Descripción
 forms.localized_title_item.locale.label: Idioma
@@ -320,3 +321,4 @@ polls.table.toolbar.show_more.label: 'Expandir la fila'
 polls.table.toolbar.show_more.title: 'Expandir la fila para ver todas las etiquetas'
 polls.votes.maybe.count_alt: '(+{count})'
 polls.votes.sum: Suma
+community.polls.votes_count: '{count, plural, one {# voto} other {# votos}}'

@@ -18,6 +18,10 @@ export default class extends Controller {
         mode: {
             type: String,
             default: 'local'
+        },
+        showTimezone: {
+            type: Boolean,
+            default: false
         }
     }
 
@@ -38,12 +42,19 @@ export default class extends Controller {
         const mode = event?.detail?.mode ?? window.localStorage.getItem('pollaris.timezone-display-mode') ?? this.modeValue;
 
         if (this.datetimeValue) {
+            const userTz = dayjs.tz.guess();
             const sourceDate = dayjs.tz(this.datetimeValue, this.sourceTimezoneValue);
             const displayedDate = mode === 'local'
-                ? sourceDate.tz(dayjs.tz.guess())
+                ? sourceDate.tz(userTz)
                 : sourceDate;
+            const activeTz = mode === 'local' ? userTz : this.sourceTimezoneValue;
 
-            this.element.textContent = displayedDate.format(this.formatValue);
+            let formatted = displayedDate.format(this.formatValue);
+            if (this.showTimezoneValue) {
+                formatted += ` (${activeTz})`;
+            }
+
+            this.element.textContent = formatted;
 
             return;
         }

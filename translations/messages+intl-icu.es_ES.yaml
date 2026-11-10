@@ -60,6 +60,7 @@ errors.generic.sorry: 'Disculpe las molestias ocasionadas.'
 errors.generic.title: '¡Ocurrió un error!'
 forms.apply: Aplicar
 forms.cancel: Cancelar
+forms.save: Guardar
 forms.localized_description_item.locale.label: Idioma
 forms.localized_description_item.text.label: Descripción
 forms.localized_title_item.locale.label: Idioma
@@ -317,3 +318,4 @@ polls.show.already_voted: 'Ya has votado en esta encuesta.'
 my.index.login_required: 'Necesitas acceder para ver tus encuestas y votos.'
 layout.login: Acceder
 home.credits: 'Basado en <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Modificado por <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Código fuente</a>'
+community.polls.votes_count: '{count, plural, one {# voto} other {# votos}}'

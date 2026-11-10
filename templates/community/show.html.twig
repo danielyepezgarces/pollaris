@@ -232,10 +232,15 @@
                                     <p class="text--secondary text--small" style="margin: 0.25rem 0 0;">
                                         {% if poll.closed %}
                                             <span class="text--danger">{{ 'polls.summary.is_closed' | trans }}</span>
-                                        {% else %}
-                                            <span class="text--success">{{ 'polls.public.open_until' | trans({ date: poll.closedAt ? poll.closedAt|date('Y-m-d') : '' }) }}</span>
+                                        {% elseif poll.closedAt %}
+                                            {% set closeDateTimeStr = poll.closedAt|date('Y-m-d', poll.timezoneName) ~ ' 23:59 (' ~ poll.timezoneName ~ ')' %}
+                                            <span class="text--success">
+                                                {{ 'polls.public.open_until' | trans({
+                                                    date: '<span data-controller="local-time" data-local-time-datetime-value="' ~ (poll.closedAt|date('Y-m-d', poll.timezoneName) ~ 'T23:59:59') ~ '" data-local-time-source-timezone-value="' ~ poll.timezoneName ~ '" data-local-time-format-value="YYYY-MM-DD HH:mm" data-local-time-show-timezone-value="true">' ~ closeDateTimeStr ~ '</span>'
+                                                }) | raw }}
+                                            </span>
                                         {% endif %}
-                                        · {{ poll.votes|length }} {{ 'polls.summary.proposals.title' | trans }}
+                                        · {{ 'community.polls.votes_count' | trans({ count: poll.votes|length }) }}
                                         {% if poll.communityOnlyVote %}
                                             · <span class="text--bold">{{ icon('lock') }} {{ 'community.polls.members_only_badge' | trans }}</span>
                                         {% endif %}

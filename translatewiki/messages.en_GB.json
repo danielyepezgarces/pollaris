@@ -522,5 +522,7 @@
     "community.settings.localized_names.label": "Community name translations",
     "community.settings.localized_names.name_in_lang": "Community name in this language",
     "community.settings.localized_names.add": "Add translation",
-    "community.multilingual_available": "Translations available in other languages"
+    "community.multilingual_available": "Translations available in other languages",
+    "forms.save": "Save",
+    "community.polls.votes_count": "{{PLURAL:$1|$1 vote|$1 votes}}"
 }
