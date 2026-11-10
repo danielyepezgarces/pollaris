@@ -11,7 +11,9 @@
  * - Added user timezone display for survey times when different from server UTC
  */
 
-[data-color-scheme="dark"] {
+[data-color-scheme="dark"],
+html.skin-theme-clientpref-night,
+.skin-invert {
     color-scheme: dark;
 
     --color-primary1: var(--color-iris-dark1);
@@ -78,4 +80,25 @@
     --color-warning10: var(--color-yellow-dark10);
     --color-warning11: var(--color-yellow-dark11);
     --color-warning12: var(--color-yellow-dark12);
+
+    /* Wikimedia Codex design tokens (night / dark) */
+    --color-warning: #ca982e;
+    --color-icon-warning: #ab7f2a;
+    --background-color-warning-subtle: #2d2212;
+    --border-color-warning: #ca982e;
+
+    --color-success: #2cb491;
+    --color-icon-success: #099979;
+    --background-color-success-subtle: #132821;
+    --border-color-success: #099979;
+
+    --color-notice: #a2a9b1;
+    --color-icon-notice: #72777d;
+    --background-color-notice-subtle: #27292d;
+    --border-color-notice: #72777d;
+
+    --color-destructive: #fd7865;
+    --color-icon-error: #f54739;
+    --background-color-destructive-subtle: #3c1a13;
+    --border-color-destructive: #fd7865;
 }

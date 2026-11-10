@@ -165,4 +165,24 @@ class CommunityTest extends TestCase
         $this->assertFalse($community->isAdmin($admin2));
         $this->assertTrue($community->isAdmin($admin1));
     }
+
+    public function testCommunityLocalizedNames(): void
+    {
+        $community = new Community();
+        $community->setName('Default Name');
+
+        $this->assertSame([], $community->getLocalizedNames());
+        $this->assertSame('Default Name', $community->getNameForLocale('es'));
+
+        $community->setLocalizedNames([
+            ['locale' => 'es', 'text' => 'Nombre en Español'],
+            ['locale' => 'fr_FR', 'text' => 'Nom en Français'],
+            ['locale' => 'de', 'text' => ''], // empty should be filtered
+        ]);
+
+        $this->assertCount(2, $community->getLocalizedNames());
+        $this->assertSame('Nombre en Español', $community->getNameForLocale('es'));
+        $this->assertSame('Nom en Français', $community->getNameForLocale('fr'));
+        $this->assertSame('Default Name', $community->getNameForLocale('it'));
+    }
 }

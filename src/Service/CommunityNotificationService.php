@@ -116,7 +116,8 @@ class CommunityNotificationService
 
             $userLocale = $user->getLocale() ?: 'en';
             $pollTitle = $poll->getTitleForLocale($userLocale);
-            $subject = sprintf('[%s] %s: %s', $this->appName, $community->getName(), $pollTitle);
+            $communityName = $community->getNameForLocale($userLocale);
+            $subject = sprintf('[%s] %s: %s', $this->appName, $communityName, $pollTitle);
 
             try {
                 $email = (new TemplatedEmail())
@@ -126,6 +127,7 @@ class CommunityNotificationService
                     ->context([
                         'user' => $user,
                         'community' => $community,
+                        'communityName' => $communityName,
                         'poll' => $poll,
                         'pollTitle' => $pollTitle,
                         'pollUrl' => $pollUrl,
@@ -246,6 +248,7 @@ class CommunityNotificationService
 
             $userLocale = $user->getLocale() ?: 'en';
             $pollTitle = $poll->getTitleForLocale($userLocale);
+            $communityName = $community->getNameForLocale($userLocale);
             $reminderTitle = $this->translator->trans('community.notifications.reminder_title', [], null, $userLocale);
 
             $subject = sprintf(
@@ -253,7 +256,7 @@ class CommunityNotificationService
                 $this->appName,
                 $reminderTitle,
                 $pollTitle,
-                $community->getName()
+                $communityName
             );
 
             try {
@@ -264,6 +267,7 @@ class CommunityNotificationService
                     ->context([
                         'user' => $user,
                         'community' => $community,
+                        'communityName' => $communityName,
                         'poll' => $poll,
                         'pollTitle' => $pollTitle,
                         'pollUrl' => $pollUrl,

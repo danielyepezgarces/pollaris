@@ -48,6 +48,48 @@
     background-color: var(--color-error3);
 }
 
+.panel--warning {
+    color: var(--color-warning);
+
+    background-color: var(--background-color-warning-subtle);
+    border: 1px solid var(--border-color-warning);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    line-height: 1.3;
+    font-weight: 500;
+}
+
+.badge--warning {
+    color: var(--color-warning);
+    background-color: var(--background-color-warning-subtle);
+    border: 1px solid var(--border-color-warning);
+}
+
+.badge--success {
+    color: var(--color-success);
+    background-color: var(--background-color-success-subtle);
+    border: 1px solid var(--border-color-success);
+}
+
+.badge--danger {
+    color: var(--color-destructive);
+    background-color: var(--background-color-destructive-subtle);
+    border: 1px solid var(--border-color-destructive);
+}
+
+.badge--neutral {
+    color: var(--color-grey12);
+    background-color: var(--color-grey2);
+    border: 1px solid var(--color-grey6);
+}
+
 .panel--white {
     background-color: var(--color-grey1);
 }

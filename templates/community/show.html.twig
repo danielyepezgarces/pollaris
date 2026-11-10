@@ -30,32 +30,70 @@
 
     <div class="wrapper wrapper--center flow flow--larger">
         {# Header & Meta #}
-        <div class="panel panel--primary panel--rounded flow flow--small" style="padding: 1.75rem; border: 1px solid var(--color-primary6);">
+        <div class="panel panel--rounded flow flow--small" style="padding: 1.75rem; background: var(--color-grey1); border: 1px solid var(--color-grey6); border-top: 4px solid var(--color-primary9); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
-                <div class="flow flow--tiny">
-                    <h1 style="margin: 0;">{{ community.name }}</h1>
+                <div class="flow flow--tiny" style="flex: 1; min-width: 260px;">
+                    {% if community.localizedNames %}
+                        <div
+                            data-controller="description-translator"
+                            data-description-translator-descriptions-value="{{ community.localizedNames | json_encode }}"
+                            style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;"
+                        >
+                            <h1 data-description-translator-target="content" style="margin: 0; display: inline-block;">
+                                {{ community.nameForLocale(app.request.locale) }}
+                            </h1>
+                            <span
+                                data-description-translator-target="loading"
+                                hidden
+                                class="text--secondary text--small"
+                            >
+                                {{ 'polls.show.description.translating' | trans }}
+                            </span>
+                            <span class="badge badge--neutral" title="{{ 'community.multilingual_available' | trans }}" style="font-size: 0.75rem; padding: 0.15rem 0.5rem;">
+                                {{ icon('globe') }} {{ community.localizedNames|length + 1 }}
+                            </span>
+                        </div>
+                    {% else %}
+                        <h1 style="margin: 0;">{{ community.name }}</h1>
+                    {% endif %}
+
                     {% if community.description %}
-                        <p class="text--secondary" style="margin: 0.5rem 0 0; font-size: 1.1em;">
+                        <p class="text--secondary" style="margin: 0.5rem 0 0; font-size: 1.05rem; line-height: 1.5; color: var(--color-grey11);">
                             {{ community.description|nl2br }}
                         </p>
                     {% endif %}
-                    <div class="text--secondary text--small" style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                        <span>{{ icon('user') }} {{ 'community.owner' | trans }}: <strong>{{ community.owner.username }}</strong></span>
-                        <span>{{ icon('users') }} {{ activeMembers|length }} {{ 'community.members_count' | trans }}</span>
-                        <span>
-                            {% if community.joinPolicy == 'open' %}
-                                {{ icon('circle-check') }} {{ 'community.join_policy.open' | trans }}
-                            {% else %}
-                                {{ icon('lock') }} {{ 'community.join_policy.approval' | trans }}
-                            {% endif %}
+
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-top: 0.75rem;">
+                        <span class="badge badge--neutral">
+                            {{ icon('user') }} {{ 'community.owner' | trans }}: <strong style="margin-left: 0.2rem;">{{ community.owner.username }}</strong>
                         </span>
-                        {% if community.emailEnabled %}
-                            <span>{{ icon('bell') }} {{ 'community.emails_active' | trans }}</span>
+                        <span class="badge badge--neutral">
+                            {{ icon('users') }} <strong style="margin-right: 0.2rem;">{{ activeMembers|length }}</strong> {{ 'community.members_count' | trans }}
+                        </span>
+                        {% if community.joinPolicy == 'open' %}
+                            <span class="badge badge--success">
+                                {{ icon('circle-check') }} {{ 'community.join_policy.open' | trans }}
+                            </span>
                         {% else %}
-                            <span>{{ icon('bell-slash') }} {{ 'community.emails_disabled' | trans }}</span>
+                            <span class="badge badge--neutral">
+                                {{ icon('lock') }} {{ 'community.join_policy.approval' | trans }}
+                            </span>
                         {% endif %}
+
+                        {% if community.emailEnabled %}
+                            <span class="badge badge--neutral" style="color: var(--color-primary11); border-color: var(--color-primary6); background: var(--color-primary2);">
+                                {{ icon('bell') }} {{ 'community.emails_active' | trans }}
+                            </span>
+                        {% else %}
+                            <span class="badge badge--neutral" style="color: var(--color-grey10);">
+                                {{ icon('bell-slash') }} {{ 'community.emails_disabled' | trans }}
+                            </span>
+                        {% endif %}
+
                         {% if community.telegramEnabled %}
-                            <span>{{ icon('comment') }} {{ 'community.telegram_active' | trans }}</span>
+                            <span class="badge badge--neutral" style="color: var(--color-primary11); border-color: var(--color-primary6); background: var(--color-primary2);">
+                                {{ icon('comment') }} {{ 'community.telegram_active' | trans }}
+                            </span>
                         {% endif %}
                     </div>
                 </div>
@@ -76,7 +114,7 @@
                                 </button>
                             </form>
                         {% elseif currentMembership.status == 'pending' %}
-                            <span class="panel panel--rounded text--small" style="padding: 0.5rem 1rem; background: var(--color-warning3); color: var(--color-warning12); border: 1px solid var(--color-warning6);">
+                            <span class="badge badge--warning" style="padding: 0.5rem 0.9rem; font-weight: 500; font-size: 0.875rem;">
                                 {{ icon('clock') }} {{ 'community.membership.pending' | trans }}
                             </span>
                         {% elseif currentMembership.status == 'active' %}
@@ -107,14 +145,14 @@
 
             {# Invite Link for Admins / Open policy #}
             {% if isAdmin or (community.joinPolicy == 'open' and currentMembership and currentMembership.status == 'active') %}
-                <div class="panel panel--rounded flow flow--tiny" style="margin-top: 1rem; padding: 0.75rem 1rem; background: var(--color-grey1); border: 1px solid var(--color-primary6);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
-                        <div class="text--small">
-                            <strong>{{ 'community.invite_link.label' | trans }}:</strong>
-                            <code style="word-break: break-all; padding: 0.2rem 0.4rem; background: var(--color-grey3); border: 1px solid var(--color-grey6); border-radius: var(--border-radius-small, 4px); color: var(--color-primary11);">{{ url('community_show', { slug: community.slug, token: community.inviteToken }) }}</code>
+                <div class="panel panel--rounded flow flow--tiny" style="margin-top: 1.25rem; padding: 0.85rem 1rem; background: var(--color-grey2); border: 1px solid var(--color-grey6);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+                        <div class="text--small" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                            <strong>{{ icon('link') }} {{ 'community.invite_link.label' | trans }}:</strong>
+                            <code style="word-break: break-all; padding: 0.25rem 0.5rem; background: var(--color-grey3); border: 1px solid var(--color-grey6); border-radius: var(--border-radius-small, 4px); color: var(--color-primary11); font-size: 0.85rem;">{{ url('community_show', { slug: community.slug, token: community.inviteToken }) }}</code>
                         </div>
                         {% if isAdmin %}
-                            <form method="post" action="{{ path('community_regenerate_token', { slug: community.slug }) }}" onsubmit="return confirm('{{ 'community.invite_link.regenerate_confirm' | trans }}');">
+                            <form method="post" action="{{ path('community_regenerate_token', { slug: community.slug }) }}" onsubmit="return confirm('{{ 'community.invite_link.regenerate_confirm' | trans }}');" style="margin: 0;">
                                 <button type="submit" class="button button--small button--secondary">
                                     {{ icon('clone') }} {{ 'community.invite_link.regenerate' | trans }}
                                 </button>
@@ -127,7 +165,7 @@
 
         {# Pending Members Approval Section (for Admins) #}
         {% if isAdmin and pendingMembers|length > 0 %}
-            <div class="panel panel--rounded flow flow--small" style="padding: 1.5rem; background: var(--color-grey3); border: 1px solid var(--color-grey6); border-left: 4px solid var(--color-warning9);">
+            <div class="panel panel--rounded flow flow--small" style="padding: 1.5rem; background: var(--color-grey2); border: 1px solid var(--border-color-warning); border-left: 4px solid var(--border-color-warning);">
                 <h2>{{ icon('question') }} {{ 'community.pending_requests.title' | trans }} ({{ pendingMembers|length }})</h2>
                 <div style="overflow-x: auto;">
                     <table class="community-table">

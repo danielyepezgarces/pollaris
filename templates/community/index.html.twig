@@ -30,8 +30,11 @@
                                 <div>
                                     <h3 style="margin: 0;">
                                         <a href="{{ path('community_show', { slug: comm.slug }) }}" style="text-decoration: none;">
-                                            {{ comm.name }}
+                                            {{ comm.nameForLocale(app.request.locale) }}
                                         </a>
+                                        {% if comm.localizedNames|length > 0 %}
+                                            <span class="text--secondary text--small" title="{{ 'community.multilingual_available' | trans }}" style="margin-left: 0.35rem;">{{ icon('globe') }}</span>
+                                        {% endif %}
                                     </h3>
                                     {% if comm.description %}
                                         <p class="text--secondary text--small" style="margin: 0.25rem 0 0;">
@@ -64,8 +67,11 @@
                                 <div>
                                     <h3 style="margin: 0;">
                                         <a href="{{ path('community_show', { slug: comm.slug }) }}" style="text-decoration: none;">
-                                            {{ comm.name }}
+                                            {{ comm.nameForLocale(app.request.locale) }}
                                         </a>
+                                        {% if comm.localizedNames|length > 0 %}
+                                            <span class="text--secondary text--small" title="{{ 'community.multilingual_available' | trans }}" style="margin-left: 0.35rem;">{{ icon('globe') }}</span>
+                                        {% endif %}
                                     </h3>
                                     {% if comm.description %}
                                         <p class="text--secondary text--small" style="margin: 0.25rem 0 0;">

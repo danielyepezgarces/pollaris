@@ -124,7 +124,7 @@
                     <p class="text--secondary text--small" style="margin-top: -0.5rem;">
                         {{ icon('users') }} {{ 'polls.show.community_label' | trans }}:
                         <a href="{{ path('community_show', { slug: poll.community.slug }) }}" class="text--bold" style="text-decoration: none;">
-                            {{ poll.community.name }}
+                            {{ poll.community.nameForLocale(app.request.locale) }}
                         </a>
                         {% if poll.communityOnlyVote %}
                             · <span class="text--bold">{{ icon('lock') }} {{ 'community.polls.members_only_badge' | trans }}</span>

@@ -23,6 +23,47 @@
                     {{ form_row(form.description) }}
 
                     <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem; border: 1px solid var(--color-grey6);">
+                        <legend class="text--bold">{{ 'community.settings.localized_names.title' | trans }}</legend>
+                        <p class="text--secondary text--small">
+                            {{ 'community.settings.localized_names.help' | trans }}
+                        </p>
+
+                        <div
+                            data-controller="collection"
+                            data-collection-index-value="{{ form.localizedNames | length > 0 ? form.localizedNames | last.vars.name + 1 : 0 }}"
+                        >
+                            <div data-collection-target="container" class="flow">
+                                {% for item in form.localizedNames %}
+                                    <div class="flow flow--small" data-item="element" style="border-bottom: 1px solid var(--color-grey6); padding-bottom: 1rem; margin-bottom: 1rem;">
+                                        {{ form_row(item.locale, { attr: { 'data-controller': 'searchable-select', 'data-searchable-select-placeholder-value': 'Buscar idioma...' } }) }}
+                                        {{ form_row(item.text, { label: 'community.settings.localized_names.name_in_lang' | trans }) }}
+                                        <button type="button" class="button button--small button--secondary" data-action="collection#removeElement">
+                                            {{ icon('trash') }}
+                                            {{ 'forms.poll_form.localized_titles.remove' | trans }}
+                                        </button>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <template data-collection-target="prototype">
+                                <div class="flow flow--small" data-item="element" style="border-bottom: 1px solid var(--color-grey6); padding-bottom: 1rem; margin-bottom: 1rem;">
+                                    {{ form_row(form.localizedNames.vars.prototype.locale, { attr: { 'data-controller': 'searchable-select', 'data-searchable-select-placeholder-value': 'Buscar idioma...' } }) }}
+                                    {{ form_row(form.localizedNames.vars.prototype.text, { label: 'community.settings.localized_names.name_in_lang' | trans }) }}
+                                    <button type="button" class="button button--small button--secondary" data-action="collection#removeElement">
+                                        {{ icon('trash') }}
+                                        {{ 'forms.poll_form.localized_titles.remove' | trans }}
+                                    </button>
+                                </div>
+                            </template>
+
+                            <button type="button" class="button button--small button--secondary" data-action="collection#addElement" style="margin-top: 0.5rem;">
+                                {{ icon('plus') }}
+                                {{ 'community.settings.localized_names.add' | trans }}
+                            </button>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem; border: 1px solid var(--color-grey6);">
                         <legend class="text--bold">{{ 'community.settings.join_policy.title' | trans }}</legend>
                         {{ form_row(form.joinPolicy) }}
                     </fieldset>

@@ -27,6 +27,15 @@ class CommunityForm extends AbstractType
                     new Assert\Length(max: 100),
                 ],
             ])
+            ->add('localizedNames', Type\CollectionType::class, [
+                'entry_type' => LocalizedTitleItemType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'required' => false,
+                'label' => new TranslatableMessage('community.settings.localized_names.label'),
+                'help' => new TranslatableMessage('community.settings.localized_names.help'),
+            ])
             ->add('slug', Type\TextType::class, [
                 'label' => new TranslatableMessage('forms.community_form.slug.label'),
                 'help' => new TranslatableMessage('forms.community_form.slug.help'),

@@ -35,6 +35,9 @@ class Community implements ActivityMonitor\TrackableEntityInterface
     #[Assert\Length(max: 100)]
     private string $name = '';
 
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $localizedNames = null;
+
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank]
     #[Assert\Length(max: 100)]
@@ -101,6 +104,49 @@ class Community implements ActivityMonitor\TrackableEntityInterface
     public function setName(string $name): static
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /** @return list<array{locale: string, text: string}> */
+    public function getLocalizedNames(): array
+    {
+        return $this->localizedNames ?? [];
+    }
+
+    public function getNameForLocale(string $locale): string
+    {
+        foreach ($this->getLocalizedNames() as $item) {
+            if ($item['locale'] === $locale && !empty($item['text'])) {
+                return $item['text'];
+            }
+        }
+
+        // Try prefix match (e.g. 'en' matches 'en_GB' or 'es' matches 'es_ES')
+        $lang = explode('_', $locale)[0];
+        $lang = explode('-', $lang)[0];
+        foreach ($this->getLocalizedNames() as $item) {
+            if (str_starts_with($item['locale'], $lang) && !empty($item['text'])) {
+                return $item['text'];
+            }
+        }
+
+        return $this->getName();
+    }
+
+    /** @param list<array{locale: string, text: string}>|null $localizedNames */
+    public function setLocalizedNames(?array $localizedNames): static
+    {
+        if ($localizedNames === null) {
+            $this->localizedNames = null;
+            return $this;
+        }
+
+        $filtered = array_values(array_filter(
+            $localizedNames,
+            static fn (array $item) => isset($item['locale'], $item['text']) && trim((string) $item['text']) !== '',
+        ));
+        $this->localizedNames = $filtered ?: null;
+
         return $this;
     }
 

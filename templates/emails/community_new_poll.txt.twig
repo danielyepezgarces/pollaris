@@ -1,6 +1,6 @@
 {{ 'emails.hello' | trans({ name: user.username }, null, locale) }}
 
-{{ 'community.emails.new_poll.body' | trans({ community_name: community.name, poll_name: pollTitle|default(poll.title) }, null, locale) }}
+{{ 'community.emails.new_poll.body' | trans({ community_name: communityName|default(community.nameForLocale(locale)), poll_name: pollTitle|default(poll.title) }, null, locale) }}
 
 {{ pollUrl }}
 
@@ -8,5 +8,5 @@
 {{ 'community.emails.opt_out.info' | trans({}, null, locale) }}
 - {{ 'community.emails.opt_out.poll' | trans({}, null, locale) }}:
   {{ pollOptOutUrl }}
-- {{ 'community.emails.opt_out.community' | trans({ community_name: community.name }, null, locale) }}:
+- {{ 'community.emails.opt_out.community' | trans({ community_name: communityName|default(community.nameForLocale(locale)) }, null, locale) }}:
   {{ communityOptOutUrl }}
