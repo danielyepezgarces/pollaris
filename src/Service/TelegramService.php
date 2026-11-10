@@ -27,9 +27,9 @@ class TelegramService
 
     /**
      * Sends a message to a Telegram chat or group.
-     * Uses HTML parse mode.
+     * Uses HTML parse mode. Supports optional inline reply markup.
      */
-    public function sendMessage(string $chatId, string $htmlMessage): bool
+    public function sendMessage(string $chatId, string $htmlMessage, ?array $replyMarkup = null): bool
     {
         if (!$this->isConfigured()) {
             $this->logger->warning('TelegramService: TELEGRAM_BOT_TOKEN is not configured.');
@@ -43,14 +43,20 @@ class TelegramService
 
         $url = sprintf('https://api.telegram.org/bot%s/sendMessage', $this->botToken);
 
+        $payload = [
+            'chat_id' => $chatId,
+            'text' => $htmlMessage,
+            'parse_mode' => 'HTML',
+            'disable_web_page_preview' => false,
+        ];
+
+        if ($replyMarkup !== null) {
+            $payload['reply_markup'] = $replyMarkup;
+        }
+
         try {
             $response = $this->httpClient->request('POST', $url, [
-                'json' => [
-                    'chat_id' => $chatId,
-                    'text' => $htmlMessage,
-                    'parse_mode' => 'HTML',
-                    'disable_web_page_preview' => false,
-                ],
+                'json' => $payload,
                 'timeout' => 10,
             ]);
 
@@ -65,6 +71,25 @@ class TelegramService
             $this->logger->error('TelegramService exception: ' . $e->getMessage(), ['exception' => $e]);
             return false;
         }
+    }
+
+    /**
+     * Sends an HTML message with an inline button URL (native Telegram button below the message).
+     */
+    public function sendMessageWithButton(string $chatId, string $htmlMessage, string $buttonText, string $buttonUrl): bool
+    {
+        $replyMarkup = [
+            'inline_keyboard' => [
+                [
+                    [
+                        'text' => $buttonText,
+                        'url' => $buttonUrl,
+                    ],
+                ],
+            ],
+        ];
+
+        return $this->sendMessage($chatId, $htmlMessage, $replyMarkup);
     }
 
     public function setWebhook(string $url): bool

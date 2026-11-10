@@ -69,15 +69,14 @@ class CommunityNotificationService
         // 1. Send Telegram Notification
         if ($community->isTelegramEnabled() && $community->getTelegramChatId()) {
             $telegramMsg = sprintf(
-                "📢 <b>[%s] %s</b>\n\n<b>%s</b>\n%s\n\n🗳 <a href=\"%s\">%s</a>",
+                "📢 <b>[%s] %s</b>\n\n<b>%s</b>\n%s",
                 htmlspecialchars($this->appName),
                 htmlspecialchars($community->getName()),
                 htmlspecialchars($poll->getTitle()),
-                htmlspecialchars(mb_substr(strip_tags($poll->getDescription()), 0, 200) . '...'),
-                htmlspecialchars($pollUrl),
-                $this->translator->trans('community.notifications.vote_now')
+                htmlspecialchars(mb_substr(strip_tags($poll->getDescription()), 0, 200) . '...')
             );
-            $this->telegramService->sendMessage($community->getTelegramChatId(), $telegramMsg);
+            $buttonText = $this->getVoteButtonText();
+            $this->telegramService->sendMessageWithButton($community->getTelegramChatId(), $telegramMsg, $buttonText, $pollUrl);
         }
 
         // 2. Send Emails to Active Members
@@ -241,13 +240,6 @@ class CommunityNotificationService
             default => sprintf('👥 <b>Participación actual:</b> %d %s', $voteCount, $voteCount === 1 ? 'voto registrado' : 'votos registrados'),
         };
 
-        $callToAction = match (substr($locale, 0, 2)) {
-            'pt' => '👉 <a href="%s">Votar agora</a>',
-            'fr' => '👉 <a href="%s">Voter maintenant</a>',
-            'en' => '👉 <a href="%s">Vote now</a>',
-            default => '👉 <a href="%s">Votar ahora</a>',
-        };
-
         $headerTitle = match (substr($locale, 0, 2)) {
             'pt' => 'Lembrete de Votação',
             'fr' => 'Rappel de vote',
@@ -263,16 +255,25 @@ class CommunityNotificationService
         };
 
         return sprintf(
-            "⏰ <b>[%s] %s</b>\n<b>%s</b>\n\n🗳️ <b>%s</b>\n%s\n%s%s\n\n%s",
+            "⏰ <b>[%s] %s</b>\n<b>%s</b>\n\n🗳️ <b>%s</b>\n%s\n%s%s",
             htmlspecialchars($this->appName),
             htmlspecialchars($communityName),
             $headerTitle,
             htmlspecialchars($pollTitle),
             $timeRemainingStr,
             $closingInfo ? sprintf("📅 <b>%s:</b> %s\n", $dateLabel, htmlspecialchars($closingInfo)) : '',
-            $votesStr,
-            sprintf($callToAction, htmlspecialchars($pollUrl))
+            $votesStr
         );
+    }
+
+    public function getVoteButtonText(string $locale = 'es'): string
+    {
+        return match (substr($locale, 0, 2)) {
+            'pt' => '🗳️ Emitir meu voto',
+            'fr' => '🗳️ Voter maintenant',
+            'en' => '🗳️ Cast my vote',
+            default => '🗳️ Emitir mi voto',
+        };
     }
 
     public function sendPollReminder(Entity\Poll $poll, string $locale = 'es'): void
@@ -289,7 +290,8 @@ class CommunityNotificationService
         // 1. Telegram Reminder
         if ($community->isTelegramEnabled() && $community->getTelegramChatId()) {
             $telegramMsg = $this->buildTelegramReminderMessage($poll, $locale);
-            $this->telegramService->sendMessage($community->getTelegramChatId(), $telegramMsg);
+            $buttonText = $this->getVoteButtonText($locale);
+            $this->telegramService->sendMessageWithButton($community->getTelegramChatId(), $telegramMsg, $buttonText, $pollUrl);
         }
 
         // 2. Identify who has already voted

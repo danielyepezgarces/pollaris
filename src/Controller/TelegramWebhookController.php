@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class TelegramWebhookController extends AbstractController
 {
@@ -129,7 +130,9 @@ class TelegramWebhookController extends AbstractController
         // Send a reminder message for each active poll
         foreach ($activePolls as $poll) {
             $reminderHtml = $notificationService->buildTelegramReminderMessage($poll, $locale);
-            $telegramService->sendMessage($chatId, $reminderHtml);
+            $buttonText = $notificationService->getVoteButtonText($locale);
+            $pollUrl = $this->generateUrl('poll', ['slug' => $poll->getSlug() ?: $poll->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+            $telegramService->sendMessageWithButton($chatId, $reminderHtml, $buttonText, $pollUrl);
         }
 
         return new JsonResponse(['ok' => true]);

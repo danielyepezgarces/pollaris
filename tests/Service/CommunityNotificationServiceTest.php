@@ -114,9 +114,10 @@ class CommunityNotificationServiceTest extends TestCase
         $memberRepo->method('findActiveMembers')->willReturn([$member]);
         $optOutRepo->method('isOptedOut')->willReturn(false);
 
-        // Expect 1 email and 1 telegram message
+        // Expect 1 email and 1 telegram message with button
         $mailer->expects($this->once())->method('send');
-        $telegramService->expects($this->once())->method('sendMessage');
+        $telegramService->expects($this->once())->method('sendMessageWithButton')
+            ->with('-100123', $this->anything(), $this->stringContains('Emitir mi voto'), 'https://example.org/poll/test');
 
         $service = new CommunityNotificationService(
             $mailer,
@@ -319,15 +320,19 @@ class CommunityNotificationServiceTest extends TestCase
         $this->assertStringContainsString('Recordatorio de Votación', $msgEs);
         $this->assertStringContainsString('Elección de Coordinador', $msgEs);
         $this->assertStringContainsString('Wikitec Latam', $msgEs);
+        $this->assertStringNotContainsString('https://pollaris.toolforge.org', $msgEs);
+        $this->assertSame('🗳️ Emitir mi voto', $service->getVoteButtonText('es'));
 
         // Test Portuguese
         $msgPt = $service->buildTelegramReminderMessage($poll, 'pt');
         $this->assertStringContainsString('Lembrete de Votação', $msgPt);
-        $this->assertStringContainsString('Votar agora', $msgPt);
+        $this->assertStringNotContainsString('https://pollaris.toolforge.org', $msgPt);
+        $this->assertSame('🗳️ Emitir meu voto', $service->getVoteButtonText('pt'));
 
         // Test English
         $msgEn = $service->buildTelegramReminderMessage($poll, 'en');
         $this->assertStringContainsString('Voting Reminder', $msgEn);
-        $this->assertStringContainsString('Vote now', $msgEn);
+        $this->assertStringNotContainsString('https://pollaris.toolforge.org', $msgEn);
+        $this->assertSame('🗳️ Cast my vote', $service->getVoteButtonText('en'));
     }
 }
