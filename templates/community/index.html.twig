@@ -25,7 +25,7 @@
                 <h2>{{ 'community.index.my_communities' | trans }}</h2>
                 <ul class="list--nostyle flow">
                     {% for comm in myCommunities %}
-                        <li class="panel panel--primary panel--rounded flow flow--tiny" style="padding: 1.25rem;">
+                        <li class="panel panel--primary panel--rounded flow flow--tiny" style="padding: 1.25rem; border: 1px solid var(--color-primary6);">
                             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
                                 <div>
                                     <h3 style="margin: 0;">
@@ -59,7 +59,7 @@
             {% if allCommunities|length > 0 %}
                 <ul class="list--nostyle flow">
                     {% for comm in allCommunities %}
-                        <li class="panel panel--rounded flow flow--tiny" style="padding: 1.25rem;">
+                        <li class="panel panel--rounded flow flow--tiny" style="padding: 1.25rem; border: 1px solid var(--color-grey6);">
                             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
                                 <div>
                                     <h3 style="margin: 0;">

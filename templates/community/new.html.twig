@@ -11,7 +11,7 @@
             </p>
         </div>
 
-        <div class="panel panel--rounded" style="padding: 1.5rem;">
+        <div class="panel panel--rounded" style="padding: 1.5rem; border: 1px solid var(--color-grey6);">
             {{ form_start(form) }}
                 {{ form_errors(form) }}
 
@@ -20,12 +20,12 @@
                     {{ form_row(form.slug) }}
                     {{ form_row(form.description) }}
 
-                    <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem;">
+                    <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem; border: 1px solid var(--color-grey6);">
                         <legend class="text--bold">{{ 'community.settings.join_policy.title' | trans }}</legend>
                         {{ form_row(form.joinPolicy) }}
                     </fieldset>
 
-                    <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem;">
+                    <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem; border: 1px solid var(--color-grey6);">
                         <legend class="text--bold">{{ 'community.settings.email.title' | trans }}</legend>
                         <p class="text--secondary text--small">
                             {{ 'community.settings.email.help_intro' | trans }}
@@ -33,7 +33,7 @@
                         {{ form_row(form.emailEnabled) }}
                     </fieldset>
 
-                    <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem;">
+                    <fieldset class="panel panel--rounded flow flow--small" style="padding: 1rem; margin-top: 1rem; border: 1px solid var(--color-grey6);">
                         <legend class="text--bold">{{ 'community.settings.telegram.title' | trans }}</legend>
                         <p class="text--secondary text--small">
                             {{ 'community.settings.telegram.help_intro' | trans }}
