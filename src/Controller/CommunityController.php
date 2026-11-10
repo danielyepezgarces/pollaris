@@ -180,8 +180,14 @@ class CommunityController extends BaseController
             $targetUser = $this->userRepository->findOneByUsername($username);
 
             if (!$targetUser) {
-                $this->addFlash('error', $this->translator->trans('community.flash.user_not_found', ['username' => $username]));
-                return $this->redirectToRoute('community_show', ['slug' => $slug]);
+                // If the user has not logged into Pollaris yet, pre-create their account
+                // so they can be assigned as a member or administrator immediately.
+                // When they log in via Wikimedia OAuth, synchronizeWikimediaUser will link to it.
+                $targetUser = new Entity\User();
+                $targetUser->setUsername($username);
+                $targetUser->setRoles(['ROLE_USER']);
+                $targetUser->setPassword(Utils\Random::hex(64));
+                $this->entityManager->persist($targetUser);
             }
 
             $membership = $this->memberRepository->findMembership($community, $targetUser);
@@ -221,6 +227,44 @@ class CommunityController extends BaseController
             $this->entityManager->flush();
             $this->addFlash('success', $this->translator->trans('community.flash.member_approved'));
         }
+
+        return $this->redirectToRoute('community_show', ['slug' => $slug]);
+    }
+
+    #[Route('/communities/{slug}/members/{id}/role', name: 'community_change_member_role', methods: ['POST'])]
+    public function changeMemberRole(string $slug, int $id, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        /** @var Entity\User $currentUser */
+        $currentUser = $this->getUser();
+
+        $community = $this->communityRepository->findOneBySlug($slug);
+        if (!$community || !$community->isAdmin($currentUser)) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $member = $this->memberRepository->find($id);
+        if (!$member || $member->getCommunity() !== $community) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($member->getUser() === $community->getOwner()) {
+            $this->addFlash('error', $this->translator->trans('community.flash.cannot_change_owner_role'));
+            return $this->redirectToRoute('community_show', ['slug' => $slug]);
+        }
+
+        $newRole = $request->request->get('role');
+        if (!in_array($newRole, [Entity\CommunityMember::ROLE_ADMIN, Entity\CommunityMember::ROLE_MEMBER], true)) {
+            throw $this->createNotFoundException();
+        }
+
+        $member->setRole($newRole);
+        $this->entityManager->flush();
+
+        $messageKey = ($newRole === Entity\CommunityMember::ROLE_ADMIN)
+            ? 'community.flash.member_promoted'
+            : 'community.flash.member_demoted';
+        $this->addFlash('success', $this->translator->trans($messageKey, ['username' => $member->getUser()->getUsername()]));
 
         return $this->redirectToRoute('community_show', ['slug' => $slug]);
     }

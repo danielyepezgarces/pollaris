@@ -121,4 +121,48 @@ class CommunityTest extends TestCase
         $this->assertSame('Titre en Français', $poll->getTitleForLocale('fr'));
         $this->assertSame('Default Title', $poll->getTitleForLocale('de'));
     }
+
+    public function testMultipleAdministrators(): void
+    {
+        $owner = new User();
+        $owner->setUsername('OwnerUser');
+
+        $community = new Community();
+        $community->setName('Multi Admin Community');
+        $community->setOwner($owner);
+
+        $admin1 = new User();
+        $admin1->setUsername('Admin1');
+        $m1 = new CommunityMember();
+        $m1->setUser($admin1);
+        $m1->setRole(CommunityMember::ROLE_ADMIN);
+        $m1->setStatus(CommunityMember::STATUS_ACTIVE);
+        $community->addMember($m1);
+
+        $admin2 = new User();
+        $admin2->setUsername('Admin2');
+        $m2 = new CommunityMember();
+        $m2->setUser($admin2);
+        $m2->setRole(CommunityMember::ROLE_ADMIN);
+        $m2->setStatus(CommunityMember::STATUS_ACTIVE);
+        $community->addMember($m2);
+
+        $regularMember = new User();
+        $regularMember->setUsername('RegularMember');
+        $m3 = new CommunityMember();
+        $m3->setUser($regularMember);
+        $m3->setRole(CommunityMember::ROLE_MEMBER);
+        $m3->setStatus(CommunityMember::STATUS_ACTIVE);
+        $community->addMember($m3);
+
+        $this->assertTrue($community->isAdmin($owner));
+        $this->assertTrue($community->isAdmin($admin1));
+        $this->assertTrue($community->isAdmin($admin2));
+        $this->assertFalse($community->isAdmin($regularMember));
+
+        // Demote admin2
+        $m2->setRole(CommunityMember::ROLE_MEMBER);
+        $this->assertFalse($community->isAdmin($admin2));
+        $this->assertTrue($community->isAdmin($admin1));
+    }
 }

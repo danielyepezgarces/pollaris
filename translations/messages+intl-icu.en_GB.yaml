@@ -516,3 +516,11 @@ community.notifications.member_receiving_emails: 'Member is receiving emails'
 community.notifications.member_muted: 'Member has muted emails'
 community.notifications.active: Active
 community.notifications.muted: Muted
+community.members.promote: 'Promote to Admin'
+community.members.promote_hint: 'Promote this member to community administrator'
+community.members.demote: 'Demote to Member'
+community.members.demote_hint: 'Remove administrator rights from this member'
+community.members.demote_confirm: 'Are you sure you want to demote {username} to regular member?'
+community.flash.member_promoted: '{username} has been promoted to administrator.'
+community.flash.member_demoted: '{username} has been demoted to regular member.'
+community.flash.cannot_change_owner_role: 'The community owner is always an administrator.'

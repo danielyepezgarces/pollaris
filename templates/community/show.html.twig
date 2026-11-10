@@ -287,11 +287,29 @@
                                 {% if isAdmin %}
                                     <td class="text--right">
                                         {% if member.user != community.owner %}
-                                            <form method="post" action="{{ path('community_remove_member', { slug: community.slug, id: member.id }) }}" onsubmit="return confirm('{{ 'community.members.remove_confirm' | trans({ username: member.user.username }) }}');" style="display: inline;">
-                                                <button type="submit" class="button button--small button--danger">
-                                                    {{ 'community.members.remove' | trans }}
-                                                </button>
-                                            </form>
+                                            <div style="display: flex; gap: 0.4rem; justify-content: flex-end; align-items: center; flex-wrap: wrap;">
+                                                {% if member.role == 'member' %}
+                                                    <form method="post" action="{{ path('community_change_member_role', { slug: community.slug, id: member.id }) }}" style="display: inline;">
+                                                        <input type="hidden" name="role" value="admin">
+                                                        <button type="submit" class="button button--small button--secondary" title="{{ 'community.members.promote_hint' | trans }}">
+                                                            {{ icon('star') }} {{ 'community.members.promote' | trans }}
+                                                        </button>
+                                                    </form>
+                                                {% else %}
+                                                    <form method="post" action="{{ path('community_change_member_role', { slug: community.slug, id: member.id }) }}" onsubmit="return confirm('{{ 'community.members.demote_confirm' | trans({ username: member.user.username }) }}');" style="display: inline;">
+                                                        <input type="hidden" name="role" value="member">
+                                                        <button type="submit" class="button button--small button--secondary" title="{{ 'community.members.demote_hint' | trans }}">
+                                                            {{ 'community.members.demote' | trans }}
+                                                        </button>
+                                                    </form>
+                                                {% endif %}
+
+                                                <form method="post" action="{{ path('community_remove_member', { slug: community.slug, id: member.id }) }}" onsubmit="return confirm('{{ 'community.members.remove_confirm' | trans({ username: member.user.username }) }}');" style="display: inline;">
+                                                    <button type="submit" class="button button--small button--danger">
+                                                        {{ icon('trash') }} {{ 'community.members.remove' | trans }}
+                                                    </button>
+                                                </form>
+                                            </div>
                                         {% endif %}
                                     </td>
                                 {% endif %}
