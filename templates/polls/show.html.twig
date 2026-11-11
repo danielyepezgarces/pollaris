@@ -138,18 +138,20 @@
                             {% endif %}
 
                             {% if poll.isDatePoll %}
+                                {% set dateTypeTrans = 'polls.show.poll_type.date' | trans %}
                                 <span class="badge badge--neutral">
-                                    {{ icon('calendar') }} {{ 'polls.new.type.date' | trans }}
+                                    {{ icon('calendar-days') }} {{ dateTypeTrans != 'polls.show.poll_type.date' ? dateTypeTrans : 'Dates and times' }}
                                 </span>
                             {% else %}
+                                {% set classicTypeTrans = 'polls.show.poll_type.classic' | trans %}
                                 <span class="badge badge--neutral">
-                                    {{ icon('list-check') }} {{ 'polls.new.type.classic' | trans }}
+                                    {{ icon('chart-simple') }} {{ classicTypeTrans != 'polls.show.poll_type.classic' ? classicTypeTrans : 'Standard choices' }}
                                 </span>
                             {% endif %}
 
                             {% set voteCount = poll.votes|length %}
                             <span class="badge badge--primary">
-                                {{ icon('check-to-slot') }} {{ voteCount }} {{ (voteCount == 1 ? 'community.polls.votes_count_one' : 'community.polls.votes_count') | trans }}
+                                {{ icon('poll') }} {{ 'community.polls.votes_count' | trans({ count: voteCount }) }}
                             </span>
 
                             {% if poll.isClosed %}

@@ -530,5 +530,7 @@
     "community.members.add_manual.button_toggle": "Add Member",
     "community.multilingual_available": "Translations available in other languages",
     "forms.save": "Save",
-    "community.polls.votes_count": "{{PLURAL:$1|$1 vote|$1 votes}}"
+    "community.polls.votes_count": "{{PLURAL:$1|$1 vote|$1 votes}}",
+    "polls.show.poll_type.date": "Dates and times",
+    "polls.show.poll_type.classic": "Standard choices"
 }

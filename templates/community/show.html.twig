@@ -157,7 +157,7 @@
                 <div class="panel panel--rounded flow flow--tiny" style="margin-top: 1.25rem; padding: 0.85rem 1rem; background: var(--color-grey2); border: 1px solid var(--color-grey6);">
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
                         <div class="text--small" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-                            <strong>{{ icon('link') }} {{ 'community.invite_link.label' | trans }}:</strong>
+                            <strong>{{ icon('share') }} {{ 'community.invite_link.label' | trans }}:</strong>
                             <code style="word-break: break-all; padding: 0.25rem 0.5rem; background: var(--color-grey3); border: 1px solid var(--color-grey6); border-radius: var(--border-radius-small, 4px); color: var(--color-primary11); font-size: 0.85rem;">{{ url('community_show', { slug: community.slug, token: community.inviteToken }) }}</code>
                         </div>
                         {% if isAdmin %}
@@ -278,7 +278,7 @@
             {% if isAdmin and addMemberForm %}
                 <details class="panel panel--rounded" style="padding: 0; background: var(--color-grey2); border: 1px solid var(--color-grey6);">
                     <summary style="padding: 0.85rem 1.25rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none;">
-                        <span>{{ icon('user-plus') }} {{ 'community.members.add_manual.title' | trans }}</span>
+                        <span>{{ icon('circle-plus') }} {{ 'community.members.add_manual.title' | trans }}</span>
                         <span class="button button--small button--secondary" style="pointer-events: none;">+ {{ 'community.members.add_manual.button_toggle' | trans }}</span>
                     </summary>
                     <div class="flow flow--tiny" style="padding: 1rem 1.25rem 1.25rem; border-top: 1px solid var(--color-grey6);">

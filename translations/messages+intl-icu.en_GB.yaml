@@ -537,4 +537,6 @@ community.settings.localized_descriptions.desc_in_lang: 'Community description i
 community.settings.localized_descriptions.add: 'Add description translation'
 community.members.add_manual.button_toggle: 'Add Member'
 community.multilingual_available: 'Translations available in other languages'
+polls.show.poll_type.date: 'Dates and times'
+polls.show.poll_type.classic: 'Standard choices'
 community.polls.votes_count: '{count, plural, one {# vote} other {# votes}}'

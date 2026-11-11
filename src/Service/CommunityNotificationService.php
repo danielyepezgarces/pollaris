@@ -240,6 +240,42 @@ class CommunityNotificationService
             default => sprintf('👥 <b>Participación actual:</b> %d %s', $voteCount, $voteCount === 1 ? 'voto registrado' : 'votos registrados'),
         };
 
+        $leadingStr = '';
+        $preferredChoices = $poll->getPreferredChoices();
+        if (count($preferredChoices) === 1) {
+            $winningProposal = $preferredChoices[0];
+            $yesCount = $winningProposal->countAnswers('yes');
+            if ($yesCount > 0) {
+                $winningLabel = $this->formatProposalLabelForTelegram($winningProposal, $poll);
+                $leadingStr = match (substr($locale, 0, 2)) {
+                    'pt' => sprintf(
+                        "\n🏆 <b>Opção na liderança:</b> %s (%d %s)",
+                        htmlspecialchars($winningLabel),
+                        $yesCount,
+                        $yesCount === 1 ? 'voto a favor' : 'votos a favor'
+                    ),
+                    'fr' => sprintf(
+                        "\n🏆 <b>Option en tête :</b> %s (%d %s)",
+                        htmlspecialchars($winningLabel),
+                        $yesCount,
+                        $yesCount === 1 ? 'vote pour' : 'votes pour'
+                    ),
+                    'en' => sprintf(
+                        "\n🏆 <b>Leading option:</b> %s (%d %s)",
+                        htmlspecialchars($winningLabel),
+                        $yesCount,
+                        $yesCount === 1 ? 'vote in favor' : 'votes in favor'
+                    ),
+                    default => sprintf(
+                        "\n🏆 <b>Opción en cabeza:</b> %s (%d %s)",
+                        htmlspecialchars($winningLabel),
+                        $yesCount,
+                        $yesCount === 1 ? 'voto a favor' : 'votos a favor'
+                    ),
+                };
+            }
+        }
+
         $headerTitle = match (substr($locale, 0, 2)) {
             'pt' => 'Lembrete de Votação',
             'fr' => 'Rappel de vote',
@@ -255,15 +291,43 @@ class CommunityNotificationService
         };
 
         return sprintf(
-            "⏰ <b>[%s] %s</b>\n<b>%s</b>\n\n🗳️ <b>%s</b>\n%s\n%s%s",
+            "⏰ <b>[%s] %s</b>\n<b>%s</b>\n\n🗳️ <b>%s</b>\n%s\n%s%s%s",
             htmlspecialchars($this->appName),
             htmlspecialchars($communityName),
             $headerTitle,
             htmlspecialchars($pollTitle),
             $timeRemainingStr,
             $closingInfo ? sprintf("📅 <b>%s:</b> %s\n", $dateLabel, htmlspecialchars($closingInfo)) : '',
-            $votesStr
+            $votesStr,
+            $leadingStr
         );
+    }
+
+    private function formatProposalLabelForTelegram(Entity\Proposal $proposal, Entity\Poll $poll): string
+    {
+        if ($poll->isDatePoll() && $proposal->getDate()) {
+            $date = $proposal->getDate()->getValue();
+            $tz = $poll->getTimezoneName() ?: 'UTC';
+            $dateFormatted = (new \DateTimeImmutable('@' . $date->getTimestamp()))
+                ->setTimezone(new \DateTimeZone($tz))
+                ->format('Y-m-d');
+
+            if ($proposal->getLabel()) {
+                return sprintf('%s (%s)', $dateFormatted, $proposal->getLabel());
+            }
+
+            if ($proposal->getStartTime()) {
+                $timeSlot = $proposal->getStartTime();
+                if ($proposal->getEndTime()) {
+                    $timeSlot .= ' - ' . $proposal->getEndTime();
+                }
+                return sprintf('%s (%s)', $dateFormatted, $timeSlot);
+            }
+
+            return $dateFormatted;
+        }
+
+        return $proposal->getLabel() ?: '—';
     }
 
     public function getVoteButtonText(string $locale = 'es'): string
