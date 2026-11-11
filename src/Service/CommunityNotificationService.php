@@ -314,19 +314,23 @@ class CommunityNotificationService
                 ->setTimezone(new \DateTimeZone($tz))
                 ->format('Y-m-d');
 
-            if ($proposal->getLabel()) {
-                return sprintf('%s (%s)', $dateFormatted, $proposal->getLabel());
-            }
-
-            if ($proposal->getStartTime()) {
-                $timeSlot = $proposal->getStartTime();
-                if ($proposal->getEndTime()) {
-                    $timeSlot .= ' - ' . $proposal->getEndTime();
+            $startTime = $proposal->getStartTime();
+            $endTime = $proposal->getEndTime();
+            if ($startTime) {
+                $start = substr($startTime, 0, 5);
+                $timeSlot = $start;
+                if ($endTime) {
+                    $timeSlot .= ' - ' . substr($endTime, 0, 5);
                 }
-                return sprintf('%s (%s)', $dateFormatted, $timeSlot);
+                return sprintf('%s (%s %s)', $dateFormatted, $timeSlot, $tz);
             }
 
-            return $dateFormatted;
+            if ($proposal->getLabel()) {
+                $cleanLabel = preg_replace('/(\d{1,2}:\d{2}):00/', '$1', $proposal->getLabel());
+                return sprintf('%s (%s %s)', $dateFormatted, $cleanLabel, $tz);
+            }
+
+            return sprintf('%s (%s)', $dateFormatted, $tz);
         }
 
         return $proposal->getLabel() ?: '—';
