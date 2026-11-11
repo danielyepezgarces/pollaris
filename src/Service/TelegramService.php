@@ -113,4 +113,59 @@ class TelegramService
             return false;
         }
     }
+
+    public function deleteWebhook(): bool
+    {
+        if (!$this->isConfigured()) {
+            return false;
+        }
+
+        $apiUrl = sprintf('https://api.telegram.org/bot%s/deleteWebhook', $this->botToken);
+
+        try {
+            $response = $this->httpClient->request('POST', $apiUrl, [
+                'timeout' => 10,
+            ]);
+
+            return $response->getStatusCode() === 200;
+        } catch (\Throwable $e) {
+            $this->logger->error('TelegramService deleteWebhook exception: ' . $e->getMessage(), ['exception' => $e]);
+            return false;
+        }
+    }
+
+    /**
+     * Long polling updates from Telegram.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function getUpdates(int $offset = 0, int $limit = 50, int $timeout = 25): array
+    {
+        if (!$this->isConfigured()) {
+            return [];
+        }
+
+        $apiUrl = sprintf('https://api.telegram.org/bot%s/getUpdates', $this->botToken);
+
+        try {
+            $response = $this->httpClient->request('POST', $apiUrl, [
+                'json' => [
+                    'offset' => $offset,
+                    'limit' => $limit,
+                    'timeout' => $timeout,
+                ],
+                'timeout' => $timeout + 10,
+            ]);
+
+            if ($response->getStatusCode() === 200) {
+                $data = $response->toArray();
+                return $data['result'] ?? [];
+            }
+
+            return [];
+        } catch (\Throwable $e) {
+            $this->logger->error('TelegramService getUpdates exception: ' . $e->getMessage(), ['exception' => $e]);
+            return [];
+        }
+    }
 }
