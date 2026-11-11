@@ -28,18 +28,18 @@
         }
     </style>
 
-    <div class="wrapper wrapper--center flow flow--larger">
+    <div class="wrapper wrapper--large wrapper--center flow flow--larger">
         {# Header & Meta #}
-        <div class="panel panel--rounded flow flow--small" style="padding: 1.75rem; background: var(--color-grey1); border: 1px solid var(--color-grey6); border-top: 4px solid var(--color-primary9); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
-                <div class="flow flow--tiny" style="flex: 1; min-width: 260px;">
+        <div class="infobox-card flow flow--small">
+            <div class="infobox-card__header">
+                <div class="infobox-card__title-area">
                     {% if community.localizedNames %}
                         <div
                             data-controller="description-translator"
                             data-description-translator-descriptions-value="{{ community.localizedNames | json_encode }}"
                             style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;"
                         >
-                            <h1 data-description-translator-target="content" style="margin: 0; display: inline-block;">
+                            <h1 data-description-translator-target="content" class="infobox-card__title" style="display: inline-block;">
                                 {{ community.nameForLocale(app.request.locale) }}
                             </h1>
                             <span
@@ -54,7 +54,7 @@
                             </span>
                         </div>
                     {% else %}
-                        <h1 style="margin: 0;">{{ community.name }}</h1>
+                        <h1 class="infobox-card__title">{{ community.name }}</h1>
                     {% endif %}
 
                     {% if community.localizedDescriptions %}
@@ -62,17 +62,17 @@
                             data-controller="description-translator"
                             data-description-translator-descriptions-value="{{ community.localizedDescriptions | json_encode }}"
                         >
-                            <p data-description-translator-target="content" class="text--secondary" style="margin: 0.5rem 0 0; font-size: 1.05rem; line-height: 1.5; color: var(--color-grey11);">
+                            <p data-description-translator-target="content" class="infobox-card__description">
                                 {{ community.descriptionForLocale(app.request.locale)|nl2br }}
                             </p>
                         </div>
                     {% elseif community.description %}
-                        <p class="text--secondary" style="margin: 0.5rem 0 0; font-size: 1.05rem; line-height: 1.5; color: var(--color-grey11);">
+                        <p class="infobox-card__description">
                             {{ community.description|nl2br }}
                         </p>
                     {% endif %}
 
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-top: 0.75rem;">
+                    <div class="infobox-card__badges">
                         <span class="badge badge--neutral">
                             {{ icon('user') }} {{ 'community.owner' | trans }}: <strong style="margin-left: 0.2rem;">{{ community.owner.username }}</strong>
                         </span>
@@ -90,7 +90,7 @@
                         {% endif %}
 
                         {% if community.emailEnabled %}
-                            <span class="badge badge--neutral" style="color: var(--color-primary11); border-color: var(--color-primary6); background: var(--color-primary2);">
+                            <span class="badge badge--primary">
                                 {{ icon('bell') }} {{ 'community.emails_active' | trans }}
                             </span>
                         {% else %}
@@ -100,14 +100,14 @@
                         {% endif %}
 
                         {% if community.telegramEnabled %}
-                            <span class="badge badge--neutral" style="color: var(--color-primary11); border-color: var(--color-primary6); background: var(--color-primary2);">
+                            <span class="badge badge--primary">
                                 {{ icon('comment') }} {{ 'community.telegram_active' | trans }}
                             </span>
                         {% endif %}
                     </div>
                 </div>
 
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+                <div class="infobox-card__actions">
                     {% if isAdmin %}
                         <a href="{{ path('community_settings', { slug: community.slug }) }}" class="button button--secondary">
                             {{ icon('gear') }} {{ 'community.settings.button' | trans }}

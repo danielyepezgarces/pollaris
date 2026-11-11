@@ -96,41 +96,94 @@
                 {% endif %}
             {% endif %}
 
-            <div class="panel panel--primary panel--rounded flow flow--small">
-                {% if poll.localizedTitles %}
-                    <div
-                        data-controller="description-translator"
-                        data-description-translator-descriptions-value="{{ poll.localizedTitles | json_encode }}"
-                    >
-                        <h1 data-description-translator-target="content" style="display: inline;">
-                            {{ poll.title }}
-                        </h1>
-                        <span
-                            data-description-translator-target="loading"
-                            hidden
-                            class="text--secondary text--small"
-                            style="margin-left: 0.5rem;"
-                        >
-                            {{ 'polls.show.description.translating' | trans }}
-                        </span>
-                    </div>
-                {% else %}
-                    <h1>
-                        {{ poll.title }}
-                    </h1>
-                {% endif %}
-
-                {% if poll.community %}
-                    <p class="text--secondary text--small" style="margin-top: -0.5rem;">
-                        {{ icon('users') }} {{ 'polls.show.community_label' | trans }}:
-                        <a href="{{ path('community_show', { slug: poll.community.slug }) }}" class="text--bold" style="text-decoration: none;">
-                            {{ poll.community.nameForLocale(app.request.locale) }}
-                        </a>
-                        {% if poll.communityOnlyVote %}
-                            · <span class="text--bold">{{ icon('lock') }} {{ 'community.polls.members_only_badge' | trans }}</span>
+            <div class="infobox-card flow flow--small">
+                <div class="infobox-card__header">
+                    <div class="infobox-card__title-area">
+                        {% if poll.localizedTitles %}
+                            <div
+                                data-controller="description-translator"
+                                data-description-translator-descriptions-value="{{ poll.localizedTitles | json_encode }}"
+                                style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;"
+                            >
+                                <h1 data-description-translator-target="content" class="infobox-card__title" style="display: inline-block;">
+                                    {{ poll.title }}
+                                </h1>
+                                <span
+                                    data-description-translator-target="loading"
+                                    hidden
+                                    class="text--secondary text--small"
+                                >
+                                    {{ 'polls.show.description.translating' | trans }}
+                                </span>
+                                <span class="badge badge--neutral" title="{{ 'community.multilingual_available' | trans }}" style="font-size: 0.75rem; padding: 0.15rem 0.5rem;">
+                                    {{ icon('globe') }} {{ poll.localizedTitles|length + 1 }}
+                                </span>
+                            </div>
+                        {% else %}
+                            <h1 class="infobox-card__title">
+                                {{ poll.title }}
+                            </h1>
                         {% endif %}
-                    </p>
-                {% endif %}
+
+                        <div class="infobox-card__badges">
+                            {% if poll.community %}
+                                <a href="{{ path('community_show', { slug: poll.community.slug }) }}" class="badge badge--neutral" style="text-decoration: none;">
+                                    {{ icon('users') }} {{ poll.community.nameForLocale(app.request.locale) }}
+                                </a>
+                                {% if poll.communityOnlyVote %}
+                                    <span class="badge badge--warning">
+                                        {{ icon('lock') }} {{ 'community.polls.members_only_badge' | trans }}
+                                    </span>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if poll.isDatePoll %}
+                                <span class="badge badge--neutral">
+                                    {{ icon('calendar') }} {{ 'polls.new.type.date' | trans }}
+                                </span>
+                            {% else %}
+                                <span class="badge badge--neutral">
+                                    {{ icon('list-check') }} {{ 'polls.new.type.classic' | trans }}
+                                </span>
+                            {% endif %}
+
+                            {% set voteCount = poll.votes|length %}
+                            <span class="badge badge--primary">
+                                {{ icon('check-to-slot') }} {{ voteCount }} {{ (voteCount == 1 ? 'community.polls.votes_count_one' : 'community.polls.votes_count') | trans }}
+                            </span>
+
+                            {% if poll.isClosed %}
+                                <span class="badge badge--danger">
+                                    {{ icon('lock') }} {{ 'polls.show.is_closed' | trans }}
+                                </span>
+                            {% elseif poll.closedAt %}
+                                <span class="badge badge--neutral">
+                                    {{ icon('clock') }} {{ poll.closedAt | dateShort(fullMonth: true, timezone: poll.timezoneName) }}
+                                </span>
+                            {% endif %}
+
+                            {% set rawAuthorsHtml = [include('_wikimedia_user_link.html.twig', { username: poll.authorName })] %}
+                            {% for cohost in poll.cohosts %}
+                                {% set rawAuthorsHtml = rawAuthorsHtml|merge([include('_wikimedia_user_link.html.twig', { username: cohost.user.username })]) %}
+                            {% endfor %}
+                            {% set joinedAuthors = rawAuthorsHtml|length > 1 ? rawAuthorsHtml|slice(0, -1)|join(', ') ~ ('polls.show.and'|trans|default(' y ')) ~ rawAuthorsHtml|last : rawAuthorsHtml|first %}
+                            <span class="badge badge--neutral">
+                                {{ icon('user') }} {{ joinedAuthors | raw }}
+                            </span>
+                        </div>
+                    </div>
+
+                    {% if poll.canAdminister(app.user) %}
+                        <div class="no-print">
+                            <a
+                                href="{{ path('poll admin', { id: poll.id, token: poll.adminToken }) }}"
+                                class="button button--secondary button--small"
+                            >
+                                {{ icon('gear') }} {{ 'polls.show.administer' | trans }}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
 
                 {% if poll.description or poll.localizedDescriptions %}
                     {% set parsedDescriptions = [] %}
@@ -138,7 +191,7 @@
                         {% set parsedDescriptions = parsedDescriptions | merge([{ locale: desc.locale, text: desc.text | wiki_or_markdown }]) %}
                     {% endfor %}
                     <div
-                        class="flow flow--small"
+                        class="infobox-card__description flow flow--small"
                         data-controller="description-translator"
                         data-description-translator-descriptions-value="{{ parsedDescriptions | json_encode }}"
                     >
@@ -157,25 +210,16 @@
                     </div>
                 {% endif %}
 
-                <p class="text--secondary">
-                    {% set rawAuthorsHtml = [include('_wikimedia_user_link.html.twig', { username: poll.authorName })] %}
-                    {% for cohost in poll.cohosts %}
-                        {% set rawAuthorsHtml = rawAuthorsHtml|merge([include('_wikimedia_user_link.html.twig', { username: cohost.user.username })]) %}
-                    {% endfor %}
-                    {% set joinedAuthors = rawAuthorsHtml|length > 1 ? rawAuthorsHtml|slice(0, -1)|join(', ') ~ ('polls.show.and'|trans|default(' y ')) ~ rawAuthorsHtml|last : rawAuthorsHtml|first %}
-                    {{ 'polls.show.created_by' | trans({ by: joinedAuthors }) | raw }}
-                </p>
-
                 {% if poll.duration %}
-                    <p class="text--secondary" style="margin-top: 0.5rem;">
-                        {{ 'polls.show.duration' | trans({ duration: poll.duration }) }}
+                    <p class="text--secondary text--small" style="margin-top: 0.5rem;">
+                        {{ icon('clock') }} {{ 'polls.show.duration' | trans({ duration: poll.duration }) }}
                     </p>
                 {% endif %}
 
-                <div class="panel__separator no-print"></div>
+                <div class="infobox-card__divider no-print"></div>
 
-                <div class="flow flow--smaller no-print">
-                    <div>
+                <div class="infobox-card__footer no-print">
+                    <div class="infobox-card__actions">
                         {% if canViewResults(poll) and preferredChoices %}
                             <a
                                 href="#results"
@@ -188,7 +232,7 @@
 
                         <button
                             type="button"
-                            class="button--ghost button--small"
+                            class="button button--secondary button--small"
                             data-controller="modal-opener"
                             data-action="modal-opener#copy"
                             data-modal-opener-selector-value="#modal-sharing"
@@ -201,7 +245,7 @@
                             type="button"
                             data-controller="printer"
                             data-action="printer#print"
-                            class="button button--ghost button--small"
+                            class="button button--secondary button--small"
                         >
                             {{ icon('print') }}
                             {{ 'polls.show.print' | trans }}
@@ -210,23 +254,13 @@
                         {% if canViewResults(poll) %}
                             <a
                                 href="{{ path('poll csv', { slug: poll.slug }) }}"
-                                class="button button--ghost button--small"
+                                class="button button--secondary button--small"
                             >
                                 {{ icon('file-csv') }}
                                 {{ 'polls.show.export_csv' | trans | raw }}
                             </a>
                         {% endif %}
                     </div>
-
-                    {% if poll.canAdminister(app.user) %}
-                        <a
-                            href="{{ path('poll admin', { id: poll.id, token: poll.adminToken }) }}"
-                            class="button button--small button--block text--center"
-                        >
-                            {{ icon('lock') }}
-                            {{ 'polls.show.administer' | trans }}
-                        </a>
-                    {% endif %}
                 </div>
 
                 <template id="modal-sharing">
