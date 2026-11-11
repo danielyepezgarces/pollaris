@@ -18,7 +18,7 @@
     --cell-width: 120px;
     --cell-sticky-width: 150px;
     --cell-author-border-size: 2px;
-    --poll-max-width: 1285px;
+    --poll-max-width: 1400px;
     --poll-width: auto;
     --poll-outer-border-size: 2px;
 }
@@ -218,7 +218,7 @@
     --panel-padding: var(--space-medium);
 
     width: 100%;
-    max-width: 650px;
+    max-width: var(--poll-max-width, 1400px);
 }
 
 .poll-view--list .poll .poll-submit-wrapper {

@@ -12,25 +12,26 @@
  */
 
 .wrapper {
-    --wrapper-max-width: 1000px;
+    --wrapper-max-width: 1100px;
 
+    width: 100%;
     max-width: var(--wrapper-max-width);
 }
 
 .wrapper--text {
-    --wrapper-max-width: 55ch;
+    --wrapper-max-width: 65ch;
 }
 
 .wrapper--small {
-    --wrapper-max-width: 650px;
+    --wrapper-max-width: 900px;
 }
 
 .wrapper--large {
-    --wrapper-max-width: 1200px;
+    --wrapper-max-width: 1400px;
 }
 
 .wrapper--larger {
-    --wrapper-max-width: 1400px;
+    --wrapper-max-width: 1600px;
 }
 
 .wrapper--center {

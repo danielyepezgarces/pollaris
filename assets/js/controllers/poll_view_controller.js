@@ -179,16 +179,13 @@ export default class extends Controller {
             rootStyles.getPropertyValue('--poll-outer-border-size').trim()
         ) || 0;
 
-        let pollWidth = Math.min(mainFlowWidth, theadLineWidth + (borderSize * 2));
+        const minDesktopWidth = Math.min(mainFlowWidth, 1000);
+        let pollWidth = Math.min(mainFlowWidth, Math.max(theadLineWidth + (borderSize * 2), mainFlowWidth >= 900 ? minDesktopWidth : 650));
 
-        if (mainFlowWidth < 650 && pollWidth < 650) {
+        if (mainFlowWidth < 650) {
             pollWidth = mainFlowWidth;
         }
 
-        if (theadLineWidth < 650 && mainFlowWidth >= 650) {
-            document.documentElement.style.setProperty('--poll-width', `650px`);
-        } else {
-            document.documentElement.style.setProperty('--poll-width', `${pollWidth}px`);
-        }
+        document.documentElement.style.setProperty('--poll-width', `${pollWidth}px`);
     }
 }
