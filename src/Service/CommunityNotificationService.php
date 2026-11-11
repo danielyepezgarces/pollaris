@@ -123,7 +123,9 @@ class CommunityNotificationService
                     ->to(new Address($userEmail, $user->getUsername()))
                     ->subject($subject)
                     ->textTemplate('emails/community_new_poll.txt.twig')
+                    ->htmlTemplate('emails/community_new_poll.html.twig')
                     ->context([
+                        'app_name' => $this->appName,
                         'user' => $user,
                         'community' => $community,
                         'communityName' => $communityName,
@@ -421,7 +423,9 @@ class CommunityNotificationService
                     ->to(new Address($userEmail, $user->getUsername()))
                     ->subject($subject)
                     ->textTemplate('emails/community_reminder.txt.twig')
+                    ->htmlTemplate('emails/community_reminder.html.twig')
                     ->context([
+                        'app_name' => $this->appName,
                         'user' => $user,
                         'community' => $community,
                         'communityName' => $communityName,

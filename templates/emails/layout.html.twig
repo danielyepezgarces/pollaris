@@ -1,0 +1,79 @@
+{#
+ # This file is part of Pollaris.
+ # Copyright 2026 Daniel Yepez Garces
+ # SPDX-License-Identifier: AGPL-3.0-or-later
+ #}
+<!DOCTYPE html>
+<html lang="{{ locale|default('es') }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ app_name|default('Pollaris') }}{% endblock %}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f8f9fa; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #202122; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#f8f9fa" style="padding: 24px 12px;">
+        <tr>
+            <td align="center">
+                <!-- Main Container Card (Codex Style) -->
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #ffffff; border: 1px solid #c8ccd1; border-top: 4px solid #3366cc; border-radius: 8px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); overflow: hidden; text-align: left;">
+                    
+                    <!-- Header -->
+                    <tr>
+                        <td style="padding: 24px 28px 12px 28px;">
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td>
+                                        <span style="font-size: 13px; font-weight: 700; color: #72777d; text-transform: uppercase; letter-spacing: 0.5px;">{{ app_name|default('Pollaris') }}</span>
+                                        {% if communityName is defined and communityName %}
+                                            <span style="color: #a2a9b1; margin: 0 6px;">·</span>
+                                            <span style="display: inline-block; padding: 2px 8px; font-size: 12px; font-weight: 600; color: #2a4b8d; background-color: #f1f4fb; border: 1px solid #c8d8f0; border-radius: 12px;">{{ communityName }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Body Content -->
+                    <tr>
+                        <td style="padding: 12px 28px 28px 28px; line-height: 1.6; font-size: 15px; color: #202122;">
+                            {% block content %}{% endblock %}
+                        </td>
+                    </tr>
+
+                    <!-- Footer (Codex subtle style with Unsubscribe options) -->
+                    <tr>
+                        <td style="background-color: #f8f9fa; border-top: 1px solid #eaecf0; padding: 20px 28px; font-size: 12px; line-height: 1.5; color: #72777d;">
+                            {% block footer %}
+                                <div style="margin-bottom: 8px;">
+                                    <strong>{{ 'community.emails.opt_out.info' | trans({}, null, locale) | default('Preferencias de notificación') }}:</strong>
+                                </div>
+                                <ul style="margin: 0; padding-left: 18px; color: #72777d;">
+                                    {% if pollOptOutUrl is defined and pollOptOutUrl %}
+                                        <li style="margin-bottom: 4px;">
+                                            <a href="{{ pollOptOutUrl }}" target="_blank" style="color: #3366cc; text-decoration: underline;">
+                                                {{ 'community.emails.opt_out.poll' | trans({}, null, locale) | default('No volver a recibir recordatorios sobre esta encuesta') }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% if communityOptOutUrl is defined and communityOptOutUrl %}
+                                        <li style="margin-bottom: 4px;">
+                                            <a href="{{ communityOptOutUrl }}" target="_blank" style="color: #3366cc; text-decoration: underline;">
+                                                {{ 'community.emails.opt_out.community' | trans({ community_name: communityName|default(community.nameForLocale(locale)|default('esta comunidad')) }, null, locale) | default('Silenciar notificaciones por correo para ' ~ (communityName|default('esta comunidad'))) }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                                <div style="margin-top: 12px; font-size: 11px; color: #a2a9b1;">
+                                    {{ app_name|default('Pollaris') }} · {{ 'home.free_software' | trans({}, null, locale) | default('Software libre bajo licencia AGPL 3.') }}
+                                </div>
+                            {% endblock %}
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
