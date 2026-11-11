@@ -29,6 +29,7 @@ class HomeController extends BaseController
         private readonly Repository\PollRepository $pollRepository,
         private readonly Repository\VoteRepository $voteRepository,
         private readonly Repository\CommentRepository $commentRepository,
+        private readonly Repository\CommunityRepository $communityRepository,
     ) {
     }
 
@@ -39,11 +40,13 @@ class HomeController extends BaseController
         $template = $twigLoader->exists('home/custom.html.twig') ? 'home/custom.html.twig' : 'home/show.html.twig';
 
         try {
+            $communitiesCount = $this->communityRepository->count([]);
             $pollsCount = $this->pollRepository->count([]);
             $votesCount = $this->voteRepository->count([]);
             $votersCount = $this->voteRepository->countUniqueVoters();
             $commentsCount = $this->commentRepository->count([]);
         } catch (\Exception) {
+            $communitiesCount = 0;
             $pollsCount = 0;
             $votesCount = 0;
             $votersCount = 0;
@@ -51,6 +54,8 @@ class HomeController extends BaseController
         }
 
         return $this->render($template, [
+            'communitiesCount' => $communitiesCount,
+            'communitiesCountFormatted' => $this->formatNumberShort($communitiesCount),
             'pollsCount' => $pollsCount,
             'pollsCountFormatted' => $this->formatNumberShort($pollsCount),
             'votesCount' => $votesCount,

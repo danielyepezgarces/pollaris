@@ -77,6 +77,11 @@
 
         <div class="home-stats">
             <div class="stat-item">
+                <span class="stat-number">{{ communitiesCountFormatted }}</span>
+                {% set commStat = 'home.stats.communities' | trans({ count: communitiesCount }) %}
+                <span class="stat-label text--secondary">{{ commStat != 'home.stats.communities' ? commStat : (communitiesCount == 1 ? 'comunidad activa' : 'comunidades activas') }}</span>
+            </div>
+            <div class="stat-item">
                 <span class="stat-number">{{ pollsCountFormatted }}</span>
                 <span class="stat-label text--secondary">{{ 'home.stats.polls' | trans({ count: pollsCount }) }}</span>
             </div>

@@ -90,10 +90,10 @@ hr {
 
 .home-stats {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25rem;
     margin: 2.5rem auto 2rem auto;
-    max-width: 800px;
+    max-width: 920px;
     width: 100%;
 }
 
@@ -113,7 +113,7 @@ hr {
     display: block;
     font-size: 2.2rem;
     font-weight: bold;
-    color: var(--color-primary6);
+    color: var(--color-primary7);
     line-height: 1.1;
     margin-bottom: 0.35rem;
 }
@@ -123,6 +123,14 @@ hr {
     line-height: 1.3;
     font-weight: 500;
     word-break: break-word;
+}
+
+@media (max-width: 800px) {
+    .home-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        max-width: 650px;
+    }
 }
 
 @media (max-width: 600px) {
