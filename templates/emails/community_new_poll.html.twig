@@ -30,8 +30,8 @@
 
     {% if poll.closedAt %}
         <div style="margin: 0 0 20px 0; padding: 12px 16px; background-color: #f8f9fa; border-left: 3px solid #3366cc; border-radius: 4px; font-size: 14px; color: #202122;">
-            {% set closedLabel = 'polls.summary.settings.closed_at' | trans({}, null, locale) %}
-            <strong>📅 {{ closedLabel != 'polls.summary.settings.closed_at' ? closedLabel : 'Fecha de cierre' }}:</strong>
+            {% set closedLabel = 'polls.summary.closed_at' | trans({}, null, locale) %}
+            <strong>📅 {{ closedLabel != 'polls.summary.closed_at' ? closedLabel : 'Fecha de cierre' }}:</strong>
             {{ poll.closedAt | date('Y-m-d') }}{% if poll.timezoneName and poll.timezoneName != 'UTC' %} ({{ poll.timezoneName }}){% endif %}
         </div>
     {% endif %}
@@ -47,8 +47,4 @@
             </td>
         </tr>
     </table>
-
-    <p style="margin: 0; font-size: 13px; color: #72777d;">
-        <span style="word-break: break-all;">{{ pollUrl }}</span>
-    </p>
 {% endblock %}

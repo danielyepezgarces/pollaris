@@ -7,8 +7,8 @@
 {{ pollUrl }}
 {% if poll.closedAt %}
 
-{% set closedLabel = 'polls.summary.settings.closed_at' | trans({}, null, locale) %}
-📅 {{ closedLabel != 'polls.summary.settings.closed_at' ? closedLabel : 'Fecha de cierre' }}: {{ poll.closedAt | date('Y-m-d') }}{% if poll.timezoneName and poll.timezoneName != 'UTC' %} ({{ poll.timezoneName }}){% endif %}
+{% set closedLabel = 'polls.summary.closed_at' | trans({}, null, locale) %}
+📅 {{ closedLabel != 'polls.summary.closed_at' ? closedLabel : 'Fecha de cierre' }}: {{ poll.closedAt | date('Y-m-d') }}{% if poll.timezoneName and poll.timezoneName != 'UTC' %} ({{ poll.timezoneName }}){% endif %}
 {% endif %}
 
 ---
