@@ -5,6 +5,11 @@
 {{ bodyText != 'community.emails.new_poll.body' ? bodyText : ('Se ha publicado una nueva consulta “' ~ (pollTitle|default(poll.title)) ~ '” en la comunidad ' ~ (communityName|default(community.nameForLocale(locale))) ~ '. Puedes votar en:') }}
 
 {{ pollUrl }}
+{% if poll.closedAt %}
+
+{% set closedLabel = 'polls.summary.settings.closed_at' | trans({}, null, locale) %}
+📅 {{ closedLabel != 'polls.summary.settings.closed_at' ? closedLabel : 'Fecha de cierre' }}: {{ poll.closedAt | date('Y-m-d') }}{% if poll.timezoneName and poll.timezoneName != 'UTC' %} ({{ poll.timezoneName }}){% endif %}
+{% endif %}
 
 ---
 {% set optInfo = 'community.emails.opt_out.info' | trans({}, null, locale) %}

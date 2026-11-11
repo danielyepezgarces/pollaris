@@ -23,8 +23,16 @@
     </p>
 
     {% if poll.description %}
-        <div style="margin: 0 0 24px 0; padding: 14px 18px; background-color: #f8f9fa; border-left: 3px solid #3366cc; border-radius: 4px; font-size: 14px; color: #54595d; line-height: 1.5;">
+        <div style="margin: 0 0 20px 0; padding: 14px 18px; background-color: #f8f9fa; border-left: 3px solid #3366cc; border-radius: 4px; font-size: 14px; color: #54595d; line-height: 1.5;">
             {{ poll.description | length > 280 ? (poll.description | slice(0, 280) ~ '...') : poll.description }}
+        </div>
+    {% endif %}
+
+    {% if poll.closedAt %}
+        <div style="margin: 0 0 20px 0; padding: 12px 16px; background-color: #f8f9fa; border-left: 3px solid #3366cc; border-radius: 4px; font-size: 14px; color: #202122;">
+            {% set closedLabel = 'polls.summary.settings.closed_at' | trans({}, null, locale) %}
+            <strong>📅 {{ closedLabel != 'polls.summary.settings.closed_at' ? closedLabel : 'Fecha de cierre' }}:</strong>
+            {{ poll.closedAt | date('Y-m-d') }}{% if poll.timezoneName and poll.timezoneName != 'UTC' %} ({{ poll.timezoneName }}){% endif %}
         </div>
     {% endif %}
 
@@ -32,8 +40,9 @@
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin: 24px 0 20px 0;">
         <tr>
             <td align="center" bgcolor="#3366cc" style="border-radius: 6px;">
+                {% set voteBtn = 'community.notifications.vote_now' | trans({}, null, locale) %}
                 <a href="{{ pollUrl }}" target="_blank" style="display: inline-block; padding: 12px 28px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 700; color: #ffffff; text-decoration: none; border-radius: 6px; letter-spacing: 0.2px;">
-                    🗳️ {{ 'polls.show.vote_action' | trans({}, null, locale) | default('Emitir mi voto') }} &rarr;
+                    🗳️ {{ voteBtn != 'community.notifications.vote_now' ? voteBtn : 'Emitir mi voto' }} &rarr;
                 </a>
             </td>
         </tr>

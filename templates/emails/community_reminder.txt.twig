@@ -5,6 +5,11 @@
 {{ bodyText != 'community.emails.reminder.body' ? bodyText : ('Te recordamos que la consulta “' ~ (pollTitle|default(poll.title)) ~ '” en la comunidad ' ~ (communityName|default(community.nameForLocale(locale))) ~ ' está próxima a cerrar. ¡Aún puedes emitir tu voto!') }}
 
 {{ pollUrl }}
+{% if poll.closedAt %}
+
+{% set closedLabel = 'polls.summary.settings.closed_at' | trans({}, null, locale) %}
+📅 {{ closedLabel != 'polls.summary.settings.closed_at' ? closedLabel : 'Fecha de cierre' }}: {{ poll.closedAt | date('Y-m-d') }}{% if poll.timezoneName and poll.timezoneName != 'UTC' %} ({{ poll.timezoneName }}){% endif %}
+{% endif %}
 
 ---
 {% set optInfo = 'community.emails.opt_out.info' | trans({}, null, locale) %}
