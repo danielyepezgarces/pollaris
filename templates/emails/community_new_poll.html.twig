@@ -8,16 +8,18 @@
 {% block title %}{{ pollTitle|default(poll.title) }} - {{ communityName|default(community.nameForLocale(locale)) }}{% endblock %}
 
 {% block content %}
+    {% set greeting = 'emails.hello' | trans({ name: user.username }, null, locale) %}
     <p style="margin: 0 0 16px 0; font-size: 16px; color: #54595d;">
-        {{ 'emails.hello' | trans({ name: user.username }, null, locale) | default('Hola, ' ~ user.username ~ ':') }}
+        {{ greeting != 'emails.hello' ? greeting : ('Hola, ' ~ user.username ~ ':') }}
     </p>
 
     <h1 style="margin: 0 0 12px 0; font-size: 22px; font-weight: 700; color: #202122; line-height: 1.3;">
         {{ pollTitle|default(poll.title) }}
     </h1>
 
+    {% set bodyText = 'community.emails.new_poll.body' | trans({ community_name: communityName|default(community.nameForLocale(locale)), poll_name: pollTitle|default(poll.title) }, null, locale) %}
     <p style="margin: 0 0 20px 0; font-size: 15px; color: #202122;">
-        {{ 'community.emails.new_poll.body' | trans({ community_name: communityName|default(community.nameForLocale(locale)), poll_name: pollTitle|default(poll.title) }, null, locale) | default('Se ha publicado una nueva consulta en la comunidad ' ~ communityName ~ '. Puedes emitir tu voto en el siguiente enlace:') }}
+        {{ bodyText != 'community.emails.new_poll.body' ? bodyText : ('Se ha publicado una nueva consulta “' ~ (pollTitle|default(poll.title)) ~ '” en la comunidad ' ~ (communityName|default(community.nameForLocale(locale))) ~ '. Puedes emitir tu voto en el siguiente enlace:') }}
     </p>
 
     {% if poll.description %}

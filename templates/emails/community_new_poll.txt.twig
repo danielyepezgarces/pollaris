@@ -1,12 +1,17 @@
-{{ 'emails.hello' | trans({ name: user.username }, null, locale) }}
+{% set greeting = 'emails.hello' | trans({ name: user.username }, null, locale) %}
+{{ greeting != 'emails.hello' ? greeting : ('Hola, ' ~ user.username ~ ':') }}
 
-{{ 'community.emails.new_poll.body' | trans({ community_name: communityName|default(community.nameForLocale(locale)), poll_name: pollTitle|default(poll.title) }, null, locale) }}
+{% set bodyText = 'community.emails.new_poll.body' | trans({ community_name: communityName|default(community.nameForLocale(locale)), poll_name: pollTitle|default(poll.title) }, null, locale) %}
+{{ bodyText != 'community.emails.new_poll.body' ? bodyText : ('Se ha publicado una nueva consulta “' ~ (pollTitle|default(poll.title)) ~ '” en la comunidad ' ~ (communityName|default(community.nameForLocale(locale))) ~ '. Puedes votar en:') }}
 
 {{ pollUrl }}
 
 ---
-{{ 'community.emails.opt_out.info' | trans({}, null, locale) }}
-- {{ 'community.emails.opt_out.poll' | trans({}, null, locale) }}:
+{% set optInfo = 'community.emails.opt_out.info' | trans({}, null, locale) %}
+{{ optInfo != 'community.emails.opt_out.info' ? optInfo : 'Preferencias de notificación:' }}
+{% set optPoll = 'community.emails.opt_out.poll' | trans({}, null, locale) %}
+- {{ optPoll != 'community.emails.opt_out.poll' ? optPoll : 'No volver a recibir recordatorios sobre esta encuesta' }}:
   {{ pollOptOutUrl }}
-- {{ 'community.emails.opt_out.community' | trans({ community_name: communityName|default(community.nameForLocale(locale)) }, null, locale) }}:
+{% set optComm = 'community.emails.opt_out.community' | trans({ community_name: communityName|default(community.nameForLocale(locale)) }, null, locale) %}
+- {{ optComm != 'community.emails.opt_out.community' ? optComm : ('Silenciar notificaciones por correo para ' ~ (communityName|default(community.nameForLocale(locale)))) }}:
   {{ communityOptOutUrl }}

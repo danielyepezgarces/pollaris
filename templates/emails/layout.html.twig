@@ -45,27 +45,31 @@
                     <tr>
                         <td style="background-color: #f8f9fa; border-top: 1px solid #eaecf0; padding: 20px 28px; font-size: 12px; line-height: 1.5; color: #72777d;">
                             {% block footer %}
+                                {% set optInfo = 'community.emails.opt_out.info' | trans({}, null, locale) %}
                                 <div style="margin-bottom: 8px;">
-                                    <strong>{{ 'community.emails.opt_out.info' | trans({}, null, locale) | default('Preferencias de notificación') }}:</strong>
+                                    <strong>{{ optInfo != 'community.emails.opt_out.info' ? optInfo : 'Preferencias de notificación' }}:</strong>
                                 </div>
                                 <ul style="margin: 0; padding-left: 18px; color: #72777d;">
                                     {% if pollOptOutUrl is defined and pollOptOutUrl %}
+                                        {% set optPoll = 'community.emails.opt_out.poll' | trans({}, null, locale) %}
                                         <li style="margin-bottom: 4px;">
                                             <a href="{{ pollOptOutUrl }}" target="_blank" style="color: #3366cc; text-decoration: underline;">
-                                                {{ 'community.emails.opt_out.poll' | trans({}, null, locale) | default('No volver a recibir recordatorios sobre esta encuesta') }}
+                                                {{ optPoll != 'community.emails.opt_out.poll' ? optPoll : 'No volver a recibir recordatorios sobre esta encuesta' }}
                                             </a>
                                         </li>
                                     {% endif %}
                                     {% if communityOptOutUrl is defined and communityOptOutUrl %}
+                                        {% set optComm = 'community.emails.opt_out.community' | trans({ community_name: communityName|default(community.nameForLocale(locale)|default('esta comunidad')) }, null, locale) %}
                                         <li style="margin-bottom: 4px;">
                                             <a href="{{ communityOptOutUrl }}" target="_blank" style="color: #3366cc; text-decoration: underline;">
-                                                {{ 'community.emails.opt_out.community' | trans({ community_name: communityName|default(community.nameForLocale(locale)|default('esta comunidad')) }, null, locale) | default('Silenciar notificaciones por correo para ' ~ (communityName|default('esta comunidad'))) }}
+                                                {{ optComm != 'community.emails.opt_out.community' ? optComm : ('Silenciar notificaciones por correo para ' ~ (communityName|default('esta comunidad'))) }}
                                             </a>
                                         </li>
                                     {% endif %}
                                 </ul>
+                                {% set freeSoft = 'home.free_software' | trans({}, null, locale) %}
                                 <div style="margin-top: 12px; font-size: 11px; color: #a2a9b1;">
-                                    {{ app_name|default('Pollaris') }} · {{ 'home.free_software' | trans({}, null, locale) | default('Software libre bajo licencia AGPL 3.') }}
+                                    {{ app_name|default('Pollaris') }} · {{ freeSoft != 'home.free_software' ? freeSoft : 'Software libre bajo licencia AGPL 3.' }}
                                 </div>
                             {% endblock %}
                         </td>
