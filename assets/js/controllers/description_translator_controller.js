@@ -11,6 +11,7 @@
 // - Added user timezone display for survey times when different from server UTC
 
 import { Controller } from '@hotwired/stimulus';
+import htmlEscape from '../html_escape.js';
 
 /**
  * Attempts to show the poll description in the viewer's browser language.
@@ -121,9 +122,35 @@ export default class extends Controller {
         return short;
     }
 
-    /** Replace the content target with escaped plain text (newlines → <br>) */
+    /** Replace the content target with safe text or sanitized HTML */
     #setContent(text) {
-        this.contentTarget.innerHTML = text;
+        if (!text) {
+            this.contentTarget.textContent = '';
+            return;
+        }
+
+        // Headings (H1-H6) are strictly plain text to prevent DOM-XSS
+        if (/^H[1-6]$/i.test(this.contentTarget.tagName)) {
+            this.contentTarget.textContent = text;
+            return;
+        }
+
+        // Check if the target is a rich container (e.g. DIV for Markdown poll description)
+        // and contains only permitted tags with no script/iframe/svg/event handlers
+        const isRichContainer = this.contentTarget.tagName === 'DIV';
+        const hasSafeTags = /<\/?(?:p|strong|em|br|a|ul|ol|li|blockquote|del)\b[^>]*>/i.test(text);
+        const hasDangerousContent = /<\/?(?:script|iframe|object|embed|svg|img|style|form|input|button|link|meta)\b/i.test(text)
+            || /\bon[a-z]+\s*=/i.test(text)
+            || /href\s*=\s*["']?\s*(?:javascript|data|vbscript):/i.test(text);
+
+        if (isRichContainer && hasSafeTags && !hasDangerousContent) {
+            this.contentTarget.innerHTML = text;
+            return;
+        }
+
+        // Plain text (e.g. <p> descriptions): escape HTML entities and convert newlines to <br>
+        const safeText = htmlEscape(text).replace(/\n/g, '<br>');
+        this.contentTarget.innerHTML = safeText;
     }
 
     #showLoading(visible) {

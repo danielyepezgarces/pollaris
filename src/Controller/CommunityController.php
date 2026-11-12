@@ -126,6 +126,10 @@ class CommunityController extends BaseController
             throw $this->createNotFoundException();
         }
 
+        if (!$this->isCsrfTokenValid('community_join_' . $community->getId(), $request->request->getString('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token.');
+        }
+
         $membership = $this->memberRepository->findMembership($community, $currentUser);
         if ($membership && $membership->getStatus() === Entity\CommunityMember::STATUS_ACTIVE) {
             $this->addFlash('info', $this->translator->trans('community.flash.already_member'));
@@ -211,11 +215,15 @@ class CommunityController extends BaseController
     }
 
     #[Route('/communities/{slug}/members/{id}/approve', name: 'community_approve_member', methods: ['POST'])]
-    public function approveMember(string $slug, int $id): Response
+    public function approveMember(string $slug, int $id, Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         /** @var Entity\User $currentUser */
         $currentUser = $this->getUser();
+
+        if (!$this->isCsrfTokenValid('community_approve_member_' . $id, $request->request->getString('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token.');
+        }
 
         $community = $this->communityRepository->findOneBySlug($slug);
         if (!$community || !$community->isAdmin($currentUser)) {
@@ -238,6 +246,10 @@ class CommunityController extends BaseController
         $this->denyAccessUnlessGranted('ROLE_USER');
         /** @var Entity\User $currentUser */
         $currentUser = $this->getUser();
+
+        if (!$this->isCsrfTokenValid('community_change_role_' . $id, $request->request->getString('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token.');
+        }
 
         $community = $this->communityRepository->findOneBySlug($slug);
         if (!$community || !$community->isAdmin($currentUser)) {
@@ -271,11 +283,15 @@ class CommunityController extends BaseController
     }
 
     #[Route('/communities/{slug}/members/{id}/remove', name: 'community_remove_member', methods: ['POST'])]
-    public function removeMember(string $slug, int $id): Response
+    public function removeMember(string $slug, int $id, Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         /** @var Entity\User $currentUser */
         $currentUser = $this->getUser();
+
+        if (!$this->isCsrfTokenValid('community_remove_member_' . $id, $request->request->getString('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token.');
+        }
 
         $community = $this->communityRepository->findOneBySlug($slug);
         if (!$community || !$community->isAdmin($currentUser)) {
@@ -297,7 +313,7 @@ class CommunityController extends BaseController
     }
 
     #[Route('/communities/{slug}/leave', name: 'community_leave', methods: ['POST'])]
-    public function leave(string $slug): Response
+    public function leave(string $slug, Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         /** @var Entity\User $currentUser */
@@ -306,6 +322,10 @@ class CommunityController extends BaseController
         $community = $this->communityRepository->findOneBySlug($slug);
         if (!$community) {
             throw $this->createNotFoundException();
+        }
+
+        if (!$this->isCsrfTokenValid('community_leave_' . $community->getId(), $request->request->getString('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token.');
         }
 
         if ($community->getOwner() === $currentUser) {
@@ -351,7 +371,7 @@ class CommunityController extends BaseController
     }
 
     #[Route('/communities/{slug}/regenerate-token', name: 'community_regenerate_token', methods: ['POST'])]
-    public function regenerateToken(string $slug): Response
+    public function regenerateToken(string $slug, Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         /** @var Entity\User $currentUser */
@@ -362,6 +382,10 @@ class CommunityController extends BaseController
             throw $this->createAccessDeniedException();
         }
 
+        if (!$this->isCsrfTokenValid('community_regenerate_token_' . $community->getId(), $request->request->getString('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token.');
+        }
+
         $community->regenerateInviteToken();
         $this->entityManager->flush();
 
@@ -370,7 +394,7 @@ class CommunityController extends BaseController
     }
 
     #[Route('/communities/{slug}/toggle-emails', name: 'community_toggle_emails', methods: ['POST'])]
-    public function toggleEmails(string $slug): Response
+    public function toggleEmails(string $slug, Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         /** @var Entity\User $currentUser */
@@ -379,6 +403,10 @@ class CommunityController extends BaseController
         $community = $this->communityRepository->findOneBySlug($slug);
         if (!$community) {
             throw $this->createNotFoundException();
+        }
+
+        if (!$this->isCsrfTokenValid('community_toggle_emails_' . $community->getId(), $request->request->getString('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token.');
         }
 
         $membership = $this->memberRepository->findMembership($community, $currentUser);
