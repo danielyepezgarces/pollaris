@@ -58,18 +58,30 @@
                     {% endif %}
 
                     {% if community.localizedDescriptions %}
+                        {% set parsedCommunityDescriptions = [] %}
+                        {% for desc in community.localizedDescriptions %}
+                            {% set parsedCommunityDescriptions = parsedCommunityDescriptions | merge([{ locale: desc.locale, text: desc.text | wiki_or_markdown }]) %}
+                        {% endfor %}
                         <div
+                            class="infobox-card__description flow flow--small"
                             data-controller="description-translator"
-                            data-description-translator-descriptions-value="{{ community.localizedDescriptions | json_encode }}"
+                            data-description-translator-descriptions-value="{{ parsedCommunityDescriptions | json_encode }}"
                         >
-                            <p data-description-translator-target="content" class="infobox-card__description">
-                                {{ community.descriptionForLocale(app.request.locale)|nl2br }}
-                            </p>
+                            <div data-description-translator-target="content">
+                                {{ community.descriptionForLocale(app.request.locale) | wiki_or_markdown }}
+                            </div>
+                            <span
+                                data-description-translator-target="loading"
+                                hidden
+                                class="text--secondary text--small"
+                            >
+                                {{ 'polls.show.description.translating' | trans }}
+                            </span>
                         </div>
                     {% elseif community.description %}
-                        <p class="infobox-card__description">
-                            {{ community.description|nl2br }}
-                        </p>
+                        <div class="infobox-card__description flow flow--small">
+                            {{ community.description | wiki_or_markdown }}
+                        </div>
                     {% endif %}
 
                     <div class="infobox-card__badges">
