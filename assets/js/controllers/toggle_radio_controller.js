@@ -19,6 +19,12 @@ export default class extends Controller {
         this.selected = this.element.querySelector('input[type="radio"]:checked');
     }
 
+    sync(event) {
+        if (event.target && event.target.type === 'radio') {
+            this.selected = event.target.checked ? event.target : null;
+        }
+    }
+
     toggle(event) {
         const radio = event.target;
 

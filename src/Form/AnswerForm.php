@@ -100,7 +100,7 @@ class AnswerForm extends AbstractType
                     'data-proposal-id' => $proposal->getId(),
                     'data-date' => $proposalDate,
                     'data-controller' => 'toggle-radio',
-                    'data-action' => 'click->toggle-radio#toggle'
+                    'data-action' => 'click->toggle-radio#toggle change->toggle-radio#sync'
                 ],
 
                 'label_attr' => [

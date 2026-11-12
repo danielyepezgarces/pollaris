@@ -109,7 +109,7 @@ class VoteForm extends AbstractType
             'author_name_locked' => false,
             'data_class' => Entity\Vote::class,
             'attr' => [
-                'data-controller' => 'form-leave-confirmation form-vote-validation',
+                'data-controller' => 'form-leave-confirmation form-vote-validation vote-keyboard-navigation',
                 'data-action' => (
                     'form-leave-confirmation#disableCheck'
                     . ' beforeunload@window->form-leave-confirmation#check'

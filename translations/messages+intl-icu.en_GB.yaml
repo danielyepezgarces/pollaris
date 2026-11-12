@@ -366,6 +366,10 @@ polls.votes.sum: Sum
 polls.votes.yes: 'Yes'
 polls.votes.yes.count: "{count}\_Yes"
 polls.votes.yours: 'Your vote'
+polls.keyboard_shortcuts.title: 'Shortcuts'
+polls.keyboard_shortcuts.hint: 'Keyboard shortcuts for fast voting'
+polls.keyboard_shortcuts.navigate: 'Navigate'
+polls.keyboard_shortcuts.submit: 'Save'
 preferences.edit.title: 'Your preferences'
 polls.show.already_voted: 'You have already voted in this poll.'
 my.index.login_required: 'You need to log in to see your polls and votes.'

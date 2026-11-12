@@ -484,6 +484,35 @@
                 {{ form_start(voteForm) }}
                     {{ form_errors(voteForm) }}
 
+                    <div class="vote-shortcuts-bar no-print" role="region" aria-label="{{ 'polls.keyboard_shortcuts.hint' | trans }}">
+                        <div class="vote-shortcuts-bar__inner">
+                            <span class="vote-shortcuts-bar__title">
+                                <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+                                    <line x1="6" y1="8" x2="6.01" y2="8"/>
+                                    <line x1="10" y1="8" x2="10.01" y2="8"/>
+                                    <line x1="14" y1="8" x2="14.01" y2="8"/>
+                                    <line x1="18" y1="8" x2="18.01" y2="8"/>
+                                    <line x1="6" y1="12" x2="6.01" y2="12"/>
+                                    <line x1="10" y1="12" x2="10.01" y2="12"/>
+                                    <line x1="14" y1="12" x2="14.01" y2="12"/>
+                                    <line x1="18" y1="12" x2="18.01" y2="12"/>
+                                    <line x1="7" y1="16" x2="17" y2="16"/>
+                                </svg>
+                                <span>{{ 'polls.keyboard_shortcuts.title' | trans }}</span>
+                            </span>
+                            <div class="vote-shortcuts-bar__badges">
+                                <span class="vote-shortcuts-badge"><kbd>Y</kbd>/<kbd>S</kbd> {{ 'polls.votes.yes' | trans }}</span>
+                                <span class="vote-shortcuts-badge"><kbd>N</kbd> {{ 'polls.votes.no' | trans }}</span>
+                                {% if not poll.disableMaybe %}
+                                    <span class="vote-shortcuts-badge"><kbd>M</kbd>/<kbd>T</kbd> {{ 'polls.votes.maybe' | trans }}</span>
+                                {% endif %}
+                                <span class="vote-shortcuts-badge"><kbd>&larr;</kbd>/<kbd>&rarr;</kbd> {{ 'polls.keyboard_shortcuts.navigate' | trans }}</span>
+                                <span class="vote-shortcuts-badge"><kbd>Ctrl</kbd>+<kbd>&crarr;</kbd> {{ 'polls.keyboard_shortcuts.submit' | trans }}</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div hidden>
                         {% for proposal in proposals %}
                             <div data-poll-view-target="voteForm" data-proposal="{{ proposal.id }}">

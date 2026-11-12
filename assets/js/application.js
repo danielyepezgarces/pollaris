@@ -31,6 +31,7 @@ import LocalTimeController from './controllers/local_time_controller.js';
 import NavToggleController from './controllers/nav_toggle_controller.js';
 import UserAutocompleteController from './controllers/user_autocomplete_controller.js';
 import RelativeTime from "./controllers/relative_time.js";
+import VoteKeyboardNavigationController from './controllers/vote_keyboard_navigation_controller.js';
 
 const application = Application.start();
 application.register('calendar', CalendarController);
@@ -63,6 +64,7 @@ application.register('form-vote-validation', FormVoteValidation);
 application.register('nav-toggle', NavToggleController);
 application.register('user-autocomplete', UserAutocompleteController);
 application.register('relative-time', RelativeTime);
+application.register('vote-keyboard-navigation', VoteKeyboardNavigationController);
 
 // Make sure to visit the response when receiving the `turbo:frame-missing` event.
 // This happens most of the time on redirection after submitting a form in a modal.
