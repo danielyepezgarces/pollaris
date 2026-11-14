@@ -92,6 +92,32 @@ class TelegramService
         return $this->sendMessage($chatId, $htmlMessage, $replyMarkup);
     }
 
+    /**
+     * Deletes a message in a Telegram chat.
+     */
+    public function deleteMessage(string $chatId, int $messageId): bool
+    {
+        if (!$this->isConfigured() || empty($chatId)) {
+            return false;
+        }
+
+        $url = sprintf('https://api.telegram.org/bot%s/deleteMessage', $this->botToken);
+        try {
+            $response = $this->httpClient->request('POST', $url, [
+                'json' => [
+                    'chat_id' => $chatId,
+                    'message_id' => $messageId,
+                ],
+                'timeout' => 10,
+            ]);
+
+            return $response->getStatusCode() === 200;
+        } catch (\Throwable $e) {
+            $this->logger->error('TelegramService deleteMessage error: ' . $e->getMessage());
+            return false;
+        }
+    }
+
     public function setWebhook(string $url): bool
     {
         if (!$this->isConfigured()) {

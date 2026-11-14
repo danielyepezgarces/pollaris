@@ -313,13 +313,28 @@ class CommunityNotificationService
                     default => sprintf('⏳ <b>Cierre:</b> ¡en menos de %d horas!', $hoursLeft),
                 };
             } else {
-                $daysLeft = (int) floor($diffSeconds / 86400);
-                $timeRemainingStr = match (substr($locale, 0, 2)) {
-                    'pt' => sprintf('⏳ <b>Encerramento:</b> faltam %d dias', $daysLeft),
-                    'fr' => sprintf('⏳ <b>Clôture :</b> dans %d jours', $daysLeft),
-                    'en' => sprintf('⏳ <b>Closing:</b> in %d days', $daysLeft),
-                    default => sprintf('⏳ <b>Cierre:</b> faltan %d días', $daysLeft),
-                };
+                $days = (int) floor($diffSeconds / 86400);
+                $remainingHours = (int) round(($diffSeconds % 86400) / 3600);
+                if ($remainingHours === 24) {
+                    $days++;
+                    $remainingHours = 0;
+                }
+
+                if ($remainingHours > 0) {
+                    $timeRemainingStr = match (substr($locale, 0, 2)) {
+                        'pt' => sprintf('⏳ <b>Encerramento:</b> faltam %d %s e %d %s', $days, $days === 1 ? 'dia' : 'dias', $remainingHours, $remainingHours === 1 ? 'hora' : 'horas'),
+                        'fr' => sprintf('⏳ <b>Clôture :</b> dans %d %s et %d %s', $days, $days === 1 ? 'jour' : 'jours', $remainingHours, $remainingHours === 1 ? 'heure' : 'heures'),
+                        'en' => sprintf('⏳ <b>Closing:</b> in %d %s and %d %s', $days, $days === 1 ? 'day' : 'days', $remainingHours, $remainingHours === 1 ? 'hour' : 'hours'),
+                        default => sprintf('⏳ <b>Cierre:</b> faltan %d %s y %d %s', $days, $days === 1 ? 'día' : 'días', $remainingHours, $remainingHours === 1 ? 'hora' : 'horas'),
+                    };
+                } else {
+                    $timeRemainingStr = match (substr($locale, 0, 2)) {
+                        'pt' => sprintf('⏳ <b>Encerramento:</b> faltam %d %s', $days, $days === 1 ? 'dia' : 'dias'),
+                        'fr' => sprintf('⏳ <b>Clôture :</b> dans %d %s', $days, $days === 1 ? 'jour' : 'jours'),
+                        'en' => sprintf('⏳ <b>Closing:</b> in %d %s', $days, $days === 1 ? 'day' : 'days'),
+                        default => sprintf('⏳ <b>Cierre:</b> faltan %d %s', $days, $days === 1 ? 'día' : 'días'),
+                    };
+                }
             }
         }
 
