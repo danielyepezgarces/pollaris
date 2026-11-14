@@ -78,6 +78,10 @@ class NotificationsSubscriber implements EventSubscriberInterface
         $vote = $event->getVote();
         $poll = $vote->getPoll();
 
+        if ($poll->getCommunity() !== null && $poll->isNotifyCommunityMembers()) {
+            $this->communityNotificationService->checkLeaderChange($poll);
+        }
+
         if (!$poll->getAuthorEmail() || !$poll->isNotifyOnVotes()) {
             return;
         }

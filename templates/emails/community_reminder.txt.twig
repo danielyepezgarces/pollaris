@@ -1,8 +1,13 @@
 {% set greeting = 'emails.hello' | trans({ name: user.username }, null, locale) %}
 {{ greeting != 'emails.hello' ? greeting : ('Hola, ' ~ user.username ~ ':') }}
 
+{% if reason|default('milestone') == 'leader_change' and leadingLabel|default(false) %}
+{% set leaderBody = 'community.emails.reminder.leader_body' | trans({ community_name: communityName|default(community.nameForLocale(locale)), poll_name: pollTitle|default(poll.title), leading_option: leadingLabel, votes_count: leadingVotes|default(1) }, null, locale) %}
+{{ leaderBody != 'community.emails.reminder.leader_body' ? leaderBody : ('¡La opción en cabeza ha cambiado! La propuesta “' ~ leadingLabel ~ '” lidera ahora con ' ~ (leadingVotes|default(1)) ~ ' votos a favor. ¡Tu voto puede marcar la diferencia!') }}
+{% else %}
 {% set bodyText = 'community.emails.reminder.body' | trans({ community_name: communityName|default(community.nameForLocale(locale)), poll_name: pollTitle|default(poll.title) }, null, locale) %}
 {{ bodyText != 'community.emails.reminder.body' ? bodyText : ('Te recordamos que la consulta “' ~ (pollTitle|default(poll.title)) ~ '” en la comunidad ' ~ (communityName|default(community.nameForLocale(locale))) ~ ' está próxima a cerrar. ¡Aún puedes emitir tu voto!') }}
+{% endif %}
 
 {{ pollUrl }}
 {% if poll.closedAt %}

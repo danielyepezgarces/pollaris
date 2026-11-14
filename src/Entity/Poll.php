@@ -245,6 +245,15 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $remindedAt = null;
 
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private ?array $remindedMilestones = null;
+
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    private ?int $lastLeadingProposalId = null;
+
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $lastLeaderNotifiedAt = null;
+
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private bool $notifyCommunityMembers = true;
 
@@ -1082,6 +1091,58 @@ class Poll implements ActivityMonitor\TrackableEntityInterface
     public function setNotifyCommunityMembers(bool $notifyCommunityMembers): static
     {
         $this->notifyCommunityMembers = $notifyCommunityMembers;
+
+        return $this;
+    }
+
+    public function getRemindedMilestones(): array
+    {
+        return $this->remindedMilestones ?? [];
+    }
+
+    public function setRemindedMilestones(?array $remindedMilestones): static
+    {
+        $this->remindedMilestones = $remindedMilestones;
+
+        return $this;
+    }
+
+    public function hasRemindedMilestone(string $milestone): bool
+    {
+        return in_array($milestone, $this->getRemindedMilestones(), true);
+    }
+
+    public function addRemindedMilestone(string $milestone): static
+    {
+        $milestones = $this->getRemindedMilestones();
+        if (!in_array($milestone, $milestones, true)) {
+            $milestones[] = $milestone;
+            $this->remindedMilestones = $milestones;
+        }
+
+        return $this;
+    }
+
+    public function getLastLeadingProposalId(): ?int
+    {
+        return $this->lastLeadingProposalId;
+    }
+
+    public function setLastLeadingProposalId(?int $id): static
+    {
+        $this->lastLeadingProposalId = $id;
+
+        return $this;
+    }
+
+    public function getLastLeaderNotifiedAt(): ?\DateTimeImmutable
+    {
+        return $this->lastLeaderNotifiedAt;
+    }
+
+    public function setLastLeaderNotifiedAt(?\DateTimeImmutable $date): static
+    {
+        $this->lastLeaderNotifiedAt = $date;
 
         return $this;
     }

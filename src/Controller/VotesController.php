@@ -18,6 +18,7 @@ use App\Entity;
 use App\Form;
 use App\Repository;
 use App\Security;
+use App\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +32,7 @@ class VotesController extends BaseController
         private readonly Repository\VoteRepository $voteRepository,
         private readonly Security\PollSecurity $pollSecurity,
         private readonly EntityManagerInterface $entityManager,
+        private readonly Service\CommunityNotificationService $communityNotificationService,
     ) {
     }
 
@@ -88,6 +90,10 @@ class VotesController extends BaseController
             if ($form->isValid()) {
                 $this->voteRepository->save($vote);
 
+                if ($poll->getCommunity() !== null && $poll->isNotifyCommunityMembers()) {
+                    $this->communityNotificationService->checkLeaderChange($poll);
+                }
+
                 $this->addFlash('success', 'vote.updated');
 
                 return $this->redirectToRoute('poll', [
@@ -135,6 +141,10 @@ class VotesController extends BaseController
 
         if ($this->isCsrfTokenValid('delete vote', $csrfToken)) {
             $this->voteRepository->remove($vote, true);
+
+            if ($poll->getCommunity() !== null && $poll->isNotifyCommunityMembers()) {
+                $this->communityNotificationService->checkLeaderChange($poll);
+            }
         }
 
         return $this->redirectToRoute('poll admin', [

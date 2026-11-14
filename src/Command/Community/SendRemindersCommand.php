@@ -15,7 +15,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'app:community:send-reminders',
-    description: 'Send automated reminders for community polls expiring in the next 24 hours to members who have not voted yet',
+    description: 'Send automated milestone reminders (6d, 72h, 12h, 6h) and leader change alerts for community polls',
 )]
 class SendRemindersCommand extends Command
 {
