@@ -33,4 +33,35 @@ class PollExtensionTest extends WebTestCase
 
         $this->assertSame(['foo', 'bar', 'baz', 'spam', 'ham', 'eggs'], $result);
     }
+
+    public function testCalendarTwigFunctions(): void
+    {
+        $container = static::getContainer();
+        /** @var PollExtension */
+        $pollExtension = $container->get(PollExtension::class);
+
+        $poll = new \App\Entity\Poll();
+        $poll->setTitle('Test Meeting');
+        $poll->setSlug('test-meeting');
+        $poll->setTimezoneName('UTC');
+
+        $date = new \App\Entity\Date();
+        $date->setValue(new \DateTimeImmutable('2026-11-20 00:00:00', new \DateTimeZone('UTC')));
+
+        $proposal = new \App\Entity\Proposal();
+        $proposal->setDate($date);
+        $proposal->setStartTime('10:00');
+
+        $gcal = $pollExtension->googleCalendarUrl($poll, $proposal);
+        $this->assertStringContainsString('calendar.google.com', $gcal);
+
+        $outlook = $pollExtension->outlookCalendarUrl($poll, $proposal);
+        $this->assertStringContainsString('outlook.live.com', $outlook);
+
+        $yahoo = $pollExtension->yahooCalendarUrl($poll, $proposal);
+        $this->assertStringContainsString('calendar.yahoo.com', $yahoo);
+
+        $webcal = $pollExtension->webcalUrl($poll, $proposal);
+        $this->assertStringStartsWith('webcal://', $webcal);
+    }
 }

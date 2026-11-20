@@ -296,6 +296,13 @@ polls.show.no_vote: 'For the moment no votes have been cast, but don’t panic, 
 polls.show.poll: Poll
 polls.show.print: Print
 polls.show.results: Results
+polls.show.results.add_to_calendar: 'Add to calendar'
+polls.show.results.calendar.google: 'Google Calendar'
+polls.show.results.calendar.ics: 'iCalendar (.ics)'
+polls.show.results.calendar.ics_help: 'For Nextcloud, Thunderbird, Apple Calendar, Outlook'
+polls.show.results.calendar.outlook: 'Outlook / Office 365'
+polls.show.results.calendar.yahoo: 'Yahoo Calendar'
+polls.show.results.calendar.webcal: 'Webcal (open in app)'
 polls.show.results.info: '{countChoices, plural, one {The preferred choice with <strong>{countYes} yes</strong> is:} other {The preferred choices with <strong>{countYes} yes</strong> are:}}'
 polls.show.results.results_graph: 'Results graph'
 polls.show.results.title: Results

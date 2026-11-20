@@ -95,6 +95,13 @@ polls.show.no_vote: 'Todavía no hay votos en esta encuesta.'
 polls.show.poll: Encuesta
 polls.show.print: Imprimir
 polls.show.results: Resultados
+polls.show.results.add_to_calendar: 'Añadir al calendario'
+polls.show.results.calendar.google: 'Google Calendar'
+polls.show.results.calendar.ics: 'iCalendar (.ics)'
+polls.show.results.calendar.ics_help: 'Para Nextcloud, Thunderbird, Apple Calendar, Outlook'
+polls.show.results.calendar.outlook: 'Outlook / Office 365'
+polls.show.results.calendar.yahoo: 'Yahoo Calendar'
+polls.show.results.calendar.webcal: 'Webcal (abrir en app)'
 polls.show.results.info: '{countChoices, plural, one {La opción preferida con <strong>{countYes} sí</strong> es:} other {Las opciones preferidas con <strong>{countYes} sí</strong> son:}}'
 polls.show.results.results_graph: 'Gráfico de resultados'
 polls.show.results.title: Resultados

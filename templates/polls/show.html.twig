@@ -608,6 +608,10 @@
                                         <span class="text--bold">{{ firstChoice.label }}</span>
                                     {% endif %}
                                 </p>
+
+                                {% if poll.isClosed and poll.isDatePoll and firstChoice.date %}
+                                    {{ include('polls/_calendar_buttons.html.twig', { poll: poll, proposal: firstChoice }) }}
+                                {% endif %}
                             {% elseif poll.isClassicPoll %}
                                 <ul class="list--nostyle flow flow--small">
                                     {% for choice in preferredChoices %}
@@ -634,16 +638,26 @@
                                                         data-local-time-date-value="{{ date.value | date('Y-m-d', poll.timezoneName) }}"
                                                     {% endif %}
                                                 >{{ choices[0].label }}</span>
+
+                                                {% if poll.isClosed %}
+                                                    {{ include('polls/_calendar_buttons.html.twig', { poll: poll, proposal: choices[0] }) }}
+                                                {% endif %}
                                             {% else %}
                                                 <ul class="list--nostyle flow flow--small">
                                                     {% for choice in choices %}
-                                                        <li
-                                                            {% if date %}
-                                                                data-controller="local-time"
-                                                                data-local-time-source-timezone-value="{{ poll.timezoneName }}"
-                                                                data-local-time-date-value="{{ date.value | date('Y-m-d', poll.timezoneName) }}"
+                                                        <li class="flow flow--smaller">
+                                                            <span
+                                                                {% if date %}
+                                                                    data-controller="local-time"
+                                                                    data-local-time-source-timezone-value="{{ poll.timezoneName }}"
+                                                                    data-local-time-date-value="{{ date.value | date('Y-m-d', poll.timezoneName) }}"
+                                                                {% endif %}
+                                                            >{{ choice.label }}</span>
+
+                                                            {% if poll.isClosed %}
+                                                                {{ include('polls/_calendar_buttons.html.twig', { poll: poll, proposal: choice }) }}
                                                             {% endif %}
-                                                        >{{ choice.label }}</li>
+                                                        </li>
                                                     {% endfor %}
                                                 </ul>
                                             {% endif %}

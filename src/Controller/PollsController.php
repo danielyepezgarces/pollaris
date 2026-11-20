@@ -203,6 +203,60 @@ class PollsController extends BaseController
         return $response;
     }
 
+    #[Route('/polls/{slug}/calendar.ics', name: 'poll ics')]
+    #[Route('/polls/{slug}/proposals/{proposalId}/calendar.ics', name: 'poll proposal ics')]
+    public function exportIcs(
+        string $slug,
+        Service\CalendarService $calendarService,
+        ?int $proposalId = null
+    ): Response {
+        $poll = $this->pollRepository->loadBySlug($slug);
+
+        if (!$poll || !$poll->isCompleted()) {
+            throw $this->createNotFoundException('The poll doesn’t exist (yet).');
+        }
+
+        if (!$this->pollSecurity->isAuthenticated($poll)) {
+            return $this->redirectToRoute('authenticate poll', [
+                'slug' => $poll->getSlug(),
+            ]);
+        }
+
+        if (!$this->pollSecurity->canViewResults($poll)) {
+            throw $this->createNotFoundException('You cannot see the results of this poll.');
+        }
+
+        $targetProposals = [];
+        if ($proposalId !== null) {
+            foreach ($poll->getProposals() as $prop) {
+                if ($prop->getId() === $proposalId) {
+                    $targetProposals[] = $prop;
+                    break;
+                }
+            }
+            if (empty($targetProposals)) {
+                throw $this->createNotFoundException('Proposal not found.');
+            }
+        } else {
+            $targetProposals = $poll->getPreferredChoices();
+            if (empty($targetProposals) && $poll->getProposals()->count() > 0) {
+                $targetProposals = [$poll->getProposals()->first()];
+            }
+        }
+
+        if (empty($targetProposals)) {
+            throw $this->createNotFoundException('No proposals to export.');
+        }
+
+        $ics = $calendarService->generateIcs($poll, $targetProposals);
+        $filename = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $poll->getSlug() ?? 'event') . '.ics';
+
+        return new Response($ics, 200, [
+            'Content-Type' => 'text/calendar; charset=utf-8',
+            'Content-Disposition' => sprintf('attachment; filename="%s"', $filename),
+        ]);
+    }
+
     #[Route('/polls/{slug}', name: 'poll')]
     public function show(string $slug, Request $request): Response
     {

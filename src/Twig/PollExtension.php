@@ -16,6 +16,7 @@ namespace App\Twig;
 
 use App\Entity;
 use App\Security;
+use App\Service;
 use Doctrine\Common\Collections;
 use Symfony\Component\Form\FormView;
 use Twig\Attribute\AsTwigFilter;
@@ -25,7 +26,32 @@ class PollExtension
 {
     public function __construct(
         private Security\PollSecurity $pollSecurity,
+        private Service\CalendarService $calendarService,
     ) {
+    }
+
+    #[AsTwigFunction('googleCalendarUrl')]
+    public function googleCalendarUrl(Entity\Poll $poll, Entity\Proposal $proposal): string
+    {
+        return $this->calendarService->getGoogleCalendarUrl($poll, $proposal);
+    }
+
+    #[AsTwigFunction('outlookCalendarUrl')]
+    public function outlookCalendarUrl(Entity\Poll $poll, Entity\Proposal $proposal): string
+    {
+        return $this->calendarService->getOutlookWebUrl($poll, $proposal);
+    }
+
+    #[AsTwigFunction('yahooCalendarUrl')]
+    public function yahooCalendarUrl(Entity\Poll $poll, Entity\Proposal $proposal): string
+    {
+        return $this->calendarService->getYahooCalendarUrl($poll, $proposal);
+    }
+
+    #[AsTwigFunction('webcalUrl')]
+    public function webcalUrl(Entity\Poll $poll, ?Entity\Proposal $proposal = null): string
+    {
+        return $this->calendarService->getWebcalUrl($poll, $proposal);
     }
 
     #[AsTwigFunction('hasAccessToAdmin')]
