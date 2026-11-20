@@ -577,11 +577,11 @@
             {% set hasWinner = poll.isClosed and preferredChoices and preferredChoices|first.countAnswers('yes') > 0 %}
             {% set firstChoice = preferredChoices ? preferredChoices|first : null %}
 
-            <div id="results" class="flow flow--smaller">
+            <div id="results" class="flow flow--medium" style="margin-top: 2rem; margin-bottom: 2.5rem;">
                 <div class="wrapper wrapper--large wrapper--center flow">
                     {% if hasWinner %}
                         {# ANUNCIO DESTACADO DE OPCIÓN GANADORA (SÓLO TRAS CERRARSE LA ENCUESTA) #}
-                        <div class="winner-card panel panel--rounded flow" style="border: 2px solid var(--color-primary9, #4f46e5); background: linear-gradient(to bottom, var(--color-primary2, #f5f3ff), var(--color-white, #ffffff)); padding: 1.5rem; box-shadow: 0 4px 16px rgba(79, 70, 229, 0.08);">
+                        <div class="winner-card panel panel--rounded flow" style="border: 2px solid var(--color-primary9, #4f46e5); background: linear-gradient(to bottom, var(--color-primary2, #f5f3ff), var(--color-white, #ffffff)); padding: 1.75rem; box-shadow: 0 4px 16px rgba(79, 70, 229, 0.08); margin-bottom: 2.5rem;">
                             <div class="cols cols--always cols--center cols--gap-small" style="margin-bottom: 0.5rem;">
                                 <span class="badge badge--primary" style="font-size: 0.95rem; padding: 0.35rem 0.75rem; font-weight: 700;">
                                     🏆 {{ (preferredChoices|length > 1 ? 'polls.show.results.winner.title_plural' : 'polls.show.results.winner.title') | trans }}
@@ -708,8 +708,8 @@
                     {% endif %}
                 </div>
 
-                <details class="flow flow--smaller">
-                    <summary class="wrapper wrapper--large wrapper--center">
+                <details class="flow flow--smaller" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+                    <summary class="wrapper wrapper--large wrapper--center" style="cursor: pointer; padding: 0.5rem 0;">
                         {{ icon('chart-simple') }}
                         {{ 'polls.show.results.results_graph' | trans }}
                     </summary>
@@ -736,7 +736,7 @@
             </div>
         {% endif %}
 
-        <hr class="wrapper wrapper--center">
+        <hr class="wrapper wrapper--center" style="margin-top: 2.5rem; margin-bottom: 2.5rem;">
 
         <div class="wrapper wrapper--large wrapper--center flow flow--large">
             <h2 class="text--primary">{{ 'polls.show.comments.title' | trans }}</h2>
