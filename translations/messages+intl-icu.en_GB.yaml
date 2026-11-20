@@ -296,14 +296,23 @@ polls.show.no_vote: 'For the moment no votes have been cast, but don’t panic, 
 polls.show.poll: Poll
 polls.show.print: Print
 polls.show.results: Results
+polls.show.results.winner.title: 'Winning option'
+polls.show.results.winner.title_plural: 'Winning options (tie)'
+polls.show.results.winner.info: 'The poll has concluded. The winning option selected by the participants is:'
+polls.show.results.winner.info_plural: 'The poll has concluded with a tie between the following options:'
+polls.show.results.winner.votes: '{countYes, plural, one {1 affirmative vote} other {{countYes} affirmative votes}}'
+polls.show.results.winner.no_votes: 'The poll has ended without any affirmative votes.'
 polls.show.results.add_to_calendar: 'Add to calendar'
 polls.show.results.calendar.google: 'Google Calendar'
-polls.show.results.calendar.ics: 'iCalendar (.ics)'
-polls.show.results.calendar.ics_help: 'For Nextcloud, Thunderbird, Apple Calendar, Outlook'
+polls.show.results.calendar.google_desc: 'Save directly to your Google account'
+polls.show.results.calendar.ics: 'iCalendar / Nextcloud (.ics)'
+polls.show.results.calendar.ics_desc: 'Standard file for Nextcloud, Thunderbird, Apple Calendar and Outlook'
 polls.show.results.calendar.outlook: 'Outlook / Office 365'
-polls.show.results.calendar.yahoo: 'Yahoo Calendar'
-polls.show.results.calendar.webcal: 'Webcal (open in app)'
+polls.show.results.calendar.outlook_desc: 'Open in Outlook Web or Microsoft 365'
+polls.show.results.calendar.webcal: 'Webcal (Calendar App)'
+polls.show.results.calendar.webcal_desc: 'Open directly in your device’s default calendar application'
 polls.show.results.info: '{countChoices, plural, one {The preferred choice with <strong>{countYes} yes</strong> is:} other {The preferred choices with <strong>{countYes} yes</strong> are:}}'
+polls.show.results.provisional_note: 'Voting is still open. Final results will be determined when the poll closes.'
 polls.show.results.results_graph: 'Results graph'
 polls.show.results.title: Results
 polls.show.share: Share

@@ -7,82 +7,108 @@
 {% set icsUrl = proposal.id ? path('poll proposal ics', { slug: poll.slug, proposalId: proposal.id }) : path('poll ics', { slug: poll.slug }) %}
 {% set gcalUrl = googleCalendarUrl(poll, proposal) %}
 {% set outlookUrl = outlookCalendarUrl(poll, proposal) %}
-{% set yahooUrl = yahooCalendarUrl(poll, proposal) %}
 {% set webcal = webcalUrl(poll, proposal) %}
 
-<div class="calendar-actions flow flow--smaller no-print" style="margin-top: 0.75rem;">
-    <details class="calendar-dropdown">
-        <summary class="button button--small button--primary" style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+<div class="calendar-actions flow flow--smaller no-print" style="margin-top: 1rem;">
+    <div class="cols cols--always cols--center cols--gap-small text--secondary" style="margin-bottom: 0.5rem;">
+        <span class="text--bold" style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; color: var(--color-grey12);">
             {{ icon('calendar-check') }}
-            <span>{{ 'polls.show.results.add_to_calendar' | trans }}</span>
-            {{ icon('angle-down') }}
-        </summary>
-        <div class="panel panel--white panel--border panel--rounded flow flow--smaller" style="margin-top: 0.5rem; max-width: 380px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 0.5rem;">
-            <ul class="list--nostyle flow flow--smaller" role="menu">
-                {# iCalendar / Nextcloud (.ics) #}
-                <li role="none">
-                    <a
-                        href="{{ icsUrl }}"
-                        class="button button--menuitem cols cols--always cols--center cols--gap-small"
-                        download
-                        role="menuitem"
-                    >
-                        {{ icon('download') }}
-                        <span>
-                            <strong style="display: block;">{{ 'polls.show.results.calendar.ics' | trans }}</strong>
-                            <small class="text--secondary" style="font-size: 0.8em;">
-                                {{ 'polls.show.results.calendar.ics_help' | trans }}
-                            </small>
-                        </span>
-                    </a>
-                </li>
+            {{ 'polls.show.results.add_to_calendar' | trans }}
+        </span>
+    </div>
 
-                {# Google Calendar #}
-                <li role="none">
-                    <a
-                        href="{{ gcalUrl }}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="button button--menuitem cols cols--always cols--center cols--gap-small"
-                        role="menuitem"
-                    >
-                        {{ icon('calendar-days') }}
-                        <span>
-                            <strong>{{ 'polls.show.results.calendar.google' | trans }}</strong>
-                        </span>
-                    </a>
-                </li>
+    <div class="calendar-options-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.65rem;">
+        {# 1. iCalendar (.ics) / Nextcloud / Thunderbird / Apple / Outlook #}
+        <a
+            href="{{ icsUrl }}"
+            class="calendar-option-card"
+            download
+            style="display: flex; align-items: center; gap: 0.85rem; padding: 0.65rem 0.85rem; background-color: var(--color-white, #fff); border: 1px solid var(--color-grey5, #e2e8f0); border-radius: var(--border-radius, 8px); text-decoration: none; color: inherit; transition: all 0.15s ease-in-out;"
+        >
+            <div
+                class="calendar-option-card__icon"
+                style="flex-shrink: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background-color: var(--color-primary2, #eef2f6); color: var(--color-primary11, #4338ca); border-radius: 8px;"
+            >
+                {{ icon('download') }}
+            </div>
+            <div class="calendar-option-card__info" style="display: flex; flex-direction: column; min-width: 0;">
+                <span class="calendar-option-card__title" style="font-weight: 700; font-size: 0.95rem; color: var(--color-grey12, #1e293b); line-height: 1.25;">
+                    {{ 'polls.show.results.calendar.ics' | trans }}
+                </span>
+                <span class="calendar-option-card__desc text--secondary" style="font-size: 0.78rem; line-height: 1.3; margin-top: 0.15rem;">
+                    {{ 'polls.show.results.calendar.ics_desc' | trans }}
+                </span>
+            </div>
+        </a>
 
-                {# Outlook / Office 365 #}
-                <li role="none">
-                    <a
-                        href="{{ outlookUrl }}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="button button--menuitem cols cols--always cols--center cols--gap-small"
-                        role="menuitem"
-                    >
-                        {{ icon('calendar-days') }}
-                        <span>
-                            <strong>{{ 'polls.show.results.calendar.outlook' | trans }}</strong>
-                        </span>
-                    </a>
-                </li>
+        {# 2. Google Calendar #}
+        <a
+            href="{{ gcalUrl }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="calendar-option-card"
+            style="display: flex; align-items: center; gap: 0.85rem; padding: 0.65rem 0.85rem; background-color: var(--color-white, #fff); border: 1px solid var(--color-grey5, #e2e8f0); border-radius: var(--border-radius, 8px); text-decoration: none; color: inherit; transition: all 0.15s ease-in-out;"
+        >
+            <div
+                class="calendar-option-card__icon"
+                style="flex-shrink: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background-color: var(--color-primary2, #eef2f6); color: var(--color-primary11, #4338ca); border-radius: 8px;"
+            >
+                {{ icon('calendar-days') }}
+            </div>
+            <div class="calendar-option-card__info" style="display: flex; flex-direction: column; min-width: 0;">
+                <span class="calendar-option-card__title" style="font-weight: 700; font-size: 0.95rem; color: var(--color-grey12, #1e293b); line-height: 1.25;">
+                    {{ 'polls.show.results.calendar.google' | trans }}
+                </span>
+                <span class="calendar-option-card__desc text--secondary" style="font-size: 0.78rem; line-height: 1.3; margin-top: 0.15rem;">
+                    {{ 'polls.show.results.calendar.google_desc' | trans }}
+                </span>
+            </div>
+        </a>
 
-                {# Webcal #}
-                <li role="none">
-                    <a
-                        href="{{ webcal }}"
-                        class="button button--menuitem cols cols--always cols--center cols--gap-small"
-                        role="menuitem"
-                    >
-                        {{ icon('calendar-check') }}
-                        <span>
-                            <strong>{{ 'polls.show.results.calendar.webcal' | trans }}</strong>
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </details>
+        {# 3. Outlook / Office 365 #}
+        <a
+            href="{{ outlookUrl }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="calendar-option-card"
+            style="display: flex; align-items: center; gap: 0.85rem; padding: 0.65rem 0.85rem; background-color: var(--color-white, #fff); border: 1px solid var(--color-grey5, #e2e8f0); border-radius: var(--border-radius, 8px); text-decoration: none; color: inherit; transition: all 0.15s ease-in-out;"
+        >
+            <div
+                class="calendar-option-card__icon"
+                style="flex-shrink: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background-color: var(--color-primary2, #eef2f6); color: var(--color-primary11, #4338ca); border-radius: 8px;"
+            >
+                {{ icon('calendar-days') }}
+            </div>
+            <div class="calendar-option-card__info" style="display: flex; flex-direction: column; min-width: 0;">
+                <span class="calendar-option-card__title" style="font-weight: 700; font-size: 0.95rem; color: var(--color-grey12, #1e293b); line-height: 1.25;">
+                    {{ 'polls.show.results.calendar.outlook' | trans }}
+                </span>
+                <span class="calendar-option-card__desc text--secondary" style="font-size: 0.78rem; line-height: 1.3; margin-top: 0.15rem;">
+                    {{ 'polls.show.results.calendar.outlook_desc' | trans }}
+                </span>
+            </div>
+        </a>
+
+        {# 4. Webcal (App local / Nextcloud directo) #}
+        <a
+            href="{{ webcal }}"
+            class="calendar-option-card"
+            style="display: flex; align-items: center; gap: 0.85rem; padding: 0.65rem 0.85rem; background-color: var(--color-white, #fff); border: 1px solid var(--color-grey5, #e2e8f0); border-radius: var(--border-radius, 8px); text-decoration: none; color: inherit; transition: all 0.15s ease-in-out;"
+        >
+            <div
+                class="calendar-option-card__icon"
+                style="flex-shrink: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background-color: var(--color-primary2, #eef2f6); color: var(--color-primary11, #4338ca); border-radius: 8px;"
+            >
+                {{ icon('calendar-check') }}
+            </div>
+            <div class="calendar-option-card__info" style="display: flex; flex-direction: column; min-width: 0;">
+                <span class="calendar-option-card__title" style="font-weight: 700; font-size: 0.95rem; color: var(--color-grey12, #1e293b); line-height: 1.25;">
+                    {{ 'polls.show.results.calendar.webcal' | trans }}
+                </span>
+                <span class="calendar-option-card__desc text--secondary" style="font-size: 0.78rem; line-height: 1.3; margin-top: 0.15rem;">
+                    {{ 'polls.show.results.calendar.webcal_desc' | trans }}
+                </span>
+            </div>
+        </a>
+    </div>
 </div>
