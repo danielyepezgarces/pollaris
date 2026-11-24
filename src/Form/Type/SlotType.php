@@ -25,7 +25,7 @@ class SlotType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // Hora de inicio (opcional)
+        // Start time (optional)
         $builder->add('startTime', Type\TimeType::class, [
             'widget' => 'single_text',
             'input' => 'string',
@@ -33,7 +33,7 @@ class SlotType extends AbstractType
             'label' => new TranslatableMessage('forms.slot_type.start_time.label', [], 'messages'),
         ]);
 
-        // Hora de fin (opcional)
+        // End time (optional)
         $builder->add('endTime', Type\TimeType::class, [
             'widget' => 'single_text',
             'input' => 'string',
@@ -41,7 +41,7 @@ class SlotType extends AbstractType
             'label' => new TranslatableMessage('forms.slot_type.end_time.label', [], 'messages'),
         ]);
 
-        // Límite individual de votos "sí" (opcional)
+        // Individual maximum number of "yes" votes (optional)
         $builder->add('maxVotes', Type\IntegerType::class, [
             'required' => false,
             'label' => new TranslatableMessage('forms.proposal_type.max_votes.label'),

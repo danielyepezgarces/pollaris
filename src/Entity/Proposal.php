@@ -287,7 +287,7 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
     }
 
     /**
-     * Límite máximo opcional de votos "sí" para esta propuesta individual.
+     * Optional individual maximum number of "yes" votes for this proposal.
      */
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     #[Assert\Positive(
