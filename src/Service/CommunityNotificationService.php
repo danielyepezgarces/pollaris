@@ -773,7 +773,7 @@ class CommunityNotificationService
         }
 
         $calendarHint = '';
-        if ($poll->isDatePoll() && count($preferredChoices) > 0) {
+        if ($poll->isDatePoll() && count($preferredChoices) === 1) {
             $calendarHint = match (substr($locale, 0, 2)) {
                 'pt' => "\n📅 <i>Use os botões abaixo para adicionar ao seu calendário.</i>",
                 'fr' => "\n📅 <i>Utilisez les boutons ci-dessous pour ajouter à votre calendrier.</i>",
@@ -804,26 +804,18 @@ class CommunityNotificationService
         $preferredChoices = $poll->getPreferredChoices();
         $rows = [];
 
-        if ($poll->isDatePoll() && count($preferredChoices) > 0) {
+        if ($poll->isDatePoll() && count($preferredChoices) === 1) {
             $calendarService = $this->calendarService ?? new CalendarService($this->router);
+            $winningProposal = $preferredChoices[0];
+            $gcalUrl = $calendarService->getGoogleCalendarUrl($poll, $winningProposal, $pollUrl);
+            $icsUrl = $winningProposal->getId()
+                ? $this->router->generate('poll proposal ics', ['slug' => $slug, 'proposalId' => $winningProposal->getId()], UrlGeneratorInterface::ABSOLUTE_URL)
+                : $this->router->generate('poll ics', ['slug' => $slug], UrlGeneratorInterface::ABSOLUTE_URL);
 
-            if (count($preferredChoices) === 1) {
-                $winningProposal = $preferredChoices[0];
-                $gcalUrl = $calendarService->getGoogleCalendarUrl($poll, $winningProposal, $pollUrl);
-                $icsUrl = $winningProposal->getId()
-                    ? $this->router->generate('poll proposal ics', ['slug' => $slug, 'proposalId' => $winningProposal->getId()], UrlGeneratorInterface::ABSOLUTE_URL)
-                    : $this->router->generate('poll ics', ['slug' => $slug], UrlGeneratorInterface::ABSOLUTE_URL);
-
-                $rows[] = [
-                    ['text' => '📅 Google Calendar', 'url' => $gcalUrl],
-                    ['text' => '📥 iCalendar (.ics)', 'url' => $icsUrl],
-                ];
-            } else {
-                $icsUrl = $this->router->generate('poll ics', ['slug' => $slug], UrlGeneratorInterface::ABSOLUTE_URL);
-                $rows[] = [
-                    ['text' => '📥 iCalendar (.ics)', 'url' => $icsUrl],
-                ];
-            }
+            $rows[] = [
+                ['text' => '📅 Google Calendar', 'url' => $gcalUrl],
+                ['text' => '📥 iCalendar (.ics)', 'url' => $icsUrl],
+            ];
         }
 
         $rows[] = [

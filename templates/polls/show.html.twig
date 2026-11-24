@@ -657,10 +657,6 @@
                                                             {{ 'polls.show.results.winner.votes' | trans({ countYes: choice.countAnswers('yes') }) }}
                                                         </span>
                                                     </div>
-
-                                                    <div style="margin-top: 0.75rem;">
-                                                        {{ include('polls/_calendar_buttons.html.twig', { poll: poll, proposal: choice }) }}
-                                                    </div>
                                                 </div>
                                             {% endfor %}
                                         </div>

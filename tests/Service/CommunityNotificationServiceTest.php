@@ -471,4 +471,74 @@ class CommunityNotificationServiceTest extends TestCase
 
         $service->sendPollClosedNotification($poll, 'es');
     }
+
+    public function testSendPollClosedNotificationForTiedDatePollHasNoCalendarButtons(): void
+    {
+        $mailer = $this->createMock(MailerInterface::class);
+        $telegramService = $this->createMock(TelegramService::class);
+        $translator = $this->createMock(TranslatorInterface::class);
+        $router = $this->createMock(UrlGeneratorInterface::class);
+        $router->method('generate')->willReturn('https://pollaris.toolforge.org/polls/empate');
+        $em = $this->createMock(EntityManagerInterface::class);
+        $memberRepo = $this->createMock(CommunityMemberRepository::class);
+        $optOutRepo = $this->createMock(PollNotificationOptOutRepository::class);
+
+        $community = new Community();
+        $community->setName('Wikitec Latam');
+        $community->setTelegramEnabled(true);
+        $community->setTelegramChatId('-100123456789');
+
+        $poll = new Poll();
+        $poll->setType('date');
+        $poll->setTitle('Reunión Empatada');
+        $poll->setSlug('empate');
+        $poll->setTimezoneName('UTC');
+        $poll->setCommunity($community);
+        $poll->setNotifyCommunityMembers(true);
+
+        $date = new \App\Entity\Date();
+        $date->setValue(new \DateTimeImmutable('2026-12-01 00:00:00', new \DateTimeZone('UTC')));
+
+        $p1 = (new \App\Entity\Proposal())->setDate($date)->setStartTime('10:00')->setLabel('10:00');
+        $p2 = (new \App\Entity\Proposal())->setDate($date)->setStartTime('15:00')->setLabel('15:00');
+        $poll->addProposal($p1)->addProposal($p2);
+
+        $vote = new \App\Entity\Vote();
+        $vote->setAuthorName('Daniel');
+        $a1 = (new \App\Entity\Answer())->setProposal($p1)->setValue('yes')->setVote($vote);
+        $a2 = (new \App\Entity\Answer())->setProposal($p2)->setValue('yes')->setVote($vote);
+        $p1->addAnswer($a1);
+        $p2->addAnswer($a2);
+        $poll->addVote($vote);
+
+        $telegramService->expects($this->once())
+            ->method('sendMessageWithButtons')
+            ->with(
+                '-100123456789',
+                $this->callback(function (string $html): bool {
+                    return str_contains($html, 'empate')
+                        && !str_contains($html, 'añadir el evento a tu calendario');
+                }),
+                $this->callback(function (array $rows): bool {
+                    return count($rows) === 1
+                        && $rows[0][0]['text'] === '📊 Ver resultados';
+                })
+            )
+            ->willReturn(true);
+
+        $service = new CommunityNotificationService(
+            $mailer,
+            $telegramService,
+            $translator,
+            $router,
+            $em,
+            $memberRepo,
+            $optOutRepo,
+            new NullLogger(),
+            'Pollaris',
+            'test_secret_key_123'
+        );
+
+        $service->sendPollClosedNotification($poll, 'es');
+    }
 }
