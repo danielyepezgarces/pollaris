@@ -2,10 +2,13 @@
     authors:
         - 'شاه زمان پټان'
 Error: تېروتنه
+answer.value.invalid: 'له لړليک څخه يو خوښه وټاکئ.'
+comment.author_name.max_length: 'د {limit} تورو څخه لږ نوم وليکئ.'
 comment.author_name.required: 'يو نوم ولیکئ.'
 comment.content.required: 'يو پيغام وليکئ:'
 date.value.required: 'يوه نېټه وليکئ.'
 poll.author_email.invalid: 'يوه باوري برېښليک پته دننه کړئ.'
+poll.author_email.required: 'برېښليک‌پته ورکړئ'
 poll.slug.required: 'يو تړونی دننه کړئ'
 poll.title.required: 'يو سرليک دننه کړئ.'
 user.username.required: 'يو کارن‌نومدننه کړئ.'

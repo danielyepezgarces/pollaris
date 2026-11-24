@@ -171,6 +171,8 @@ home.stats.polls: '{count, plural, one {peiling aangemaakt} other {peilingen aan
 home.stats.votes: '{count, plural, one {stem uitgebracht} other {stemmen uitgebracht}}'
 home.stats.participants: '{count, plural, one {unieke deelnemer} other {unieke deelnemers}}'
 home.stats.comments: '{count, plural, one {reactie geplaatst} other {reacties geplaatst}}'
+maintenance.read_only_banner: '⚠️ De alleen-lezen onderhoudsmodus is actief. Peilingen aanmaken, stemmen en reageren zijn tijdelijk uitgeschakeld.'
+maintenance.read_only_error: 'De site staat tijdelijk in de alleen-lezen onderhoudsmodus. Schrijfbewerkingen zijn uitgeschakeld.'
 layout.header.my: 'Mijn peilingen en stemmen'
 layout.header.public_polls: 'Openbare peilingen'
 layout.header.preferences: Voorkeuren
@@ -370,3 +372,150 @@ polls.show.already_voted: 'U heeft al gestemd in deze peiling.'
 my.index.login_required: 'U moet aangemeld zijn om uw peilingen en stemmen te bekijken.'
 layout.login: Aanmelden
 home.credits: 'Gebaseerd op <a href="https://framagit.org/pollaris/pollaris" style="text-decoration: none;">Pollaris</a> (AGPL 3) · Aangepast door <a href="https://github.com/danielyepezgarces" style="text-decoration: none;">Daniel Yepez Garces</a> · <a href="https://github.com/danielyepezgarces/pollaris" style="text-decoration: none;">Broncode</a>'
+home.translate: 'Help met vertalen'
+preferences.user_info.title: Wikimedia-account
+preferences.user_info.username: Gebruikersnaam
+preferences.user_info.email: 'Gekoppeld e-mailadres'
+preferences.user_info.no_email: 'Geen e-mailadres geregistreerd in Wikimedia'
+preferences.user_info.help: 'Deze informatie is gekoppeld aan uw Wikimedia-account. Als u uw gebruikersnaam (globale hernoeming) of e-mailadres in uw Wikimedia-voorkeuren wijzigt, wordt die hier bij uw volgende aanmelding automatisch bijgewerkt.'
+forms.poll_form.author_email.no_email: 'Geen e-mailadres gekoppeld aan uw Wikimedia-account'
+forms.poll_form.author_email.wikimedia_help: 'Meldingen worden verzonden naar het e-mailadres dat aan uw Wikimedia-account is gekoppeld. U kunt dit instellen of wijzigen in uw Wikimedia-voorkeuren.'
+forms.poll_form.author_email.no_email_help: 'Om peilingsmeldingen te ontvangen, voegt u een e-mailadres toe in uw Wikimedia-voorkeuren en meldt u zich opnieuw aan.'
+layout.header.communities: Gemeenschappen
+forms.community_form.name.label: Gemeenschapsnaam
+forms.community_form.name.help: 'De zichtbare naam van de gemeenschap (bijvoorbeeld Wikimedia Colombia)'
+forms.community_form.slug.label: 'Aangepaste url-identificatie (slug)'
+forms.community_form.slug.help: 'Gebruikt in het adres van de gemeenschap, bijvoorbeeld /communities/my-group'
+forms.community_form.slug.pattern: 'De slug mag alleen letters, cijfers, koppeltekens en liggende streepjes bevatten'
+forms.community_form.description.label: Beschrijving
+forms.community_form.description.help: 'Korte beschrijving van het doel van deze gemeenschap'
+forms.community_form.join_policy.label: Toetredingsbeleid
+forms.community_form.join_policy.open: 'Open: iedereen met de uitnodigingskoppeling treedt automatisch toe'
+forms.community_form.join_policy.approval: 'Goedkeuring vereist: nieuwe leden moeten door een beheerder worden goedgekeurd'
+forms.community_form.telegram_enabled.label: 'Telegram-robotmeldingen voor deze gemeenschap inschakelen'
+forms.community_form.telegram_enabled.help: 'Indien ingeschakeld kondigt de robot nieuwe peilingen en herinneringen aan in de Telegram-groep'
+forms.community_form.telegram_chat_id.label: 'Chat-ID van de Telegram-groep'
+forms.community_form.telegram_chat_id.help: 'Numerieke ID van de Telegram-groep (bijvoorbeeld -1001234567890)'
+forms.community_add_member_form.username.label: Wikimedia-gebruikersnaam
+forms.community_add_member_form.username.help: 'Voer de exacte Wikimedia-gebruikersnaam in van de persoon die u wilt toevoegen'
+forms.community_add_member_form.role.label: Rol
+forms.community_add_member_form.role.member: Lid
+forms.community_add_member_form.role.admin: Beheerder
+forms.community_add_member_form.submit: 'Lid toevoegen'
+forms.poll_form.community.label: Gemeenschap
+forms.poll_form.community.none: 'Geen (onafhankelijke peiling)'
+forms.poll_form.community.help: 'Koppel deze peiling eventueel aan een van uw gemeenschappen om de leden ervan op de hoogte te stellen'
+forms.poll_form.community.fieldset: Gemeenschapsopties
+forms.poll_form.community_only_vote.label: 'Stemmen beperken tot alleen actieve gemeenschapsleden'
+forms.poll_form.community_only_vote.help: 'Indien ingeschakeld mogen alleen leden van deze gemeenschap een stem uitbrengen'
+community.index.title: Gemeenschappen
+community.index.description: 'Samenwerkende groepen, afdelingen en werkteams met gedeelde peilingen en herinneringen.'
+community.index.create_button: 'Een gemeenschap aanmaken'
+community.index.my_communities: 'Mijn gemeenschappen'
+community.index.all_communities: 'Alle gemeenschappen'
+community.index.none: 'Er zijn nog geen gemeenschappen aangemaakt. Wees de eerste die er een aanmaakt!'
+community.members_count: leden
+community.view: Bekijken
+community.new.title: 'Een gemeenschap aanmaken'
+community.new.description: 'Maak een groep aan om peilingen te organiseren, leden op de hoogte te stellen en automatische herinneringen te versturen.'
+community.settings.title: Gemeenschapsinstellingen
+community.settings.button: Instellingen
+community.settings.join_policy.title: 'Lidmaatschap en toetredingsbeleid'
+community.settings.telegram.title: Telegram-groepsintegratie
+community.settings.telegram.help_intro: 'Voeg onze Telegram-robot toe aan uw groep en voer de chat-ID van uw groep in om direct waarschuwingen en stemherinneringen te ontvangen.'
+community.back_to: 'Terug naar {name}'
+community.owner: Eigenaar
+community.telegram_active: 'Telegram verbonden'
+community.join_policy.open: 'Open toetreding'
+community.join_policy.approval: 'Goedkeuring vereist'
+community.join_button: 'Lid worden van gemeenschap'
+community.leave_button: 'Gemeenschap verlaten'
+community.leave_confirm: 'Weet u zeker dat u deze gemeenschap wilt verlaten?'
+community.login_to_join: 'Meld u aan om lid te worden'
+community.membership.pending: 'Lidmaatschap wacht op goedkeuring'
+community.invite_link.label: Uitnodigingskoppeling
+community.invite_link.regenerate: 'Koppeling opnieuw genereren'
+community.invite_link.regenerate_confirm: 'Door de koppeling opnieuw te genereren worden eerdere uitnodigingskoppelingen ongeldig. Doorgaan?'
+community.pending_requests.title: 'Openstaande toetredingsverzoeken'
+community.polls.title: Gemeenschapspeilingen
+community.polls.create_button: 'Nieuwe peiling voor deze gemeenschap'
+community.polls.none: 'Er zijn nog geen peilingen voor deze gemeenschap aangemaakt.'
+community.polls.members_only_badge: 'Alleen gemeenschapsleden'
+community.members.title: Leden
+community.members.username: Gebruiker
+community.members.role: Rol
+community.members.role_admin: Beheerder
+community.members.role_member: Lid
+community.members.joined_at: 'Lid geworden op'
+community.members.requested_at: 'Aangevraagd op'
+community.members.actions: Handelingen
+community.members.approve: Goedkeuren
+community.members.reject: Afwijzen
+community.members.remove: Verwijderen
+community.members.remove_confirm: 'Weet u zeker dat u {username} uit deze gemeenschap wilt verwijderen?'
+community.members.add_manual.title: 'Een lid handmatig toevoegen'
+community.members.add_manual.help: 'Voeg een bestaande gebruiker rechtstreeks toe via diens Wikimedia-gebruikersnaam.'
+community.flash.created: 'Gemeenschap succesvol aangemaakt!'
+community.flash.settings_updated: 'Gemeenschapsinstellingen bijgewerkt!'
+community.flash.token_regenerated: 'Uitnodigingskoppeling opnieuw gegenereerd!'
+community.flash.already_member: 'U bent al lid van deze gemeenschap.'
+community.flash.invalid_token: 'Onjuiste of verlopen uitnodigingskoppeling.'
+community.flash.joined_success: 'Welkom! U bent lid geworden van de gemeenschap.'
+community.flash.join_pending: 'Uw verzoek om lid te worden is ingediend en wacht op goedkeuring door een beheerder.'
+community.flash.user_not_found: 'Gebruiker “{username}” niet gevonden. De gebruiker moet zich minstens één keer bij Pollaris hebben aangemeld.'
+community.flash.member_added: 'Gebruiker “{username}” is aan de gemeenschap toegevoegd.'
+community.flash.member_approved: 'Lidmaatschapsverzoek goedgekeurd.'
+community.flash.member_removed: 'Lid uit de gemeenschap verwijderd.'
+community.flash.cannot_remove_owner: 'De eigenaar van de gemeenschap kan niet worden verwijderd.'
+community.flash.owner_cannot_leave: 'De eigenaar van de gemeenschap kan de gemeenschap niet verlaten.'
+community.flash.left_success: 'U heeft de gemeenschap verlaten.'
+community.slug.already_used: 'Deze slug wordt al door een andere gemeenschap gebruikt.'
+community.notifications.vote_now: 'Nu stemmen'
+community.notifications.reminder_title: 'Herinnering voor het sluiten van de peiling'
+community.notifications.closing_soon: 'Sluit over minder dan 24 uur!'
+community.emails.new_poll.body: 'Er is een nieuwe peiling “{poll_name}” gepubliceerd in de gemeenschap “{community_name}”. U kunt stemmen via de volgende koppeling:'
+community.emails.reminder.body: 'Herinnering: de peiling “{poll_name}” in de gemeenschap “{community_name}” sluit binnenkort! Als u nog niet heeft gestemd, breng dan uw stem uit op:'
+community.emails.opt_out.info: 'Meldingsvoorkeuren:'
+community.emails.opt_out.poll: 'Herinner mij niet meer aan deze peiling'
+community.emails.opt_out.community: 'Alle e-mailmeldingen voor {community_name} opzeggen'
+community.opt_out.success.title: 'Meldingsvoorkeuren bijgewerkt'
+community.opt_out.success.poll_message: 'U heeft zich met succes afgemeld voor verdere herinneringen voor de peiling “{poll_name}”.'
+community.opt_out.success.community_message: 'U ontvangt geen e-mailmeldingen meer voor de gemeenschap “{community_name}”.'
+community.opt_out.view_poll: 'Peiling bekijken'
+community.opt_out.view_community: 'Gemeenschap bekijken'
+polls.show.community_label: Gemeenschap
+polls.show.community_requirements.not_member: 'Stemmen in deze peiling is beperkt tot actieve leden van de bijbehorende gemeenschap.'
+polls.show.voting_requirements.title: 'Stemvereisten:'
+polls.show.community_requirements.view_community: 'Gemeenschap bekijken'
+polls.show.community_restricted_login_required: 'Stemmen in deze peiling is beperkt tot actieve leden van de gemeenschap “{community}”. Meld u aan om te stemmen.'
+credits.title: 'Met dank aan en bijdragers'
+credits.subtitle: 'Pollaris is opensource en wordt in meerdere talen vertaald door vrijwillige bijdragers van Translatewiki.net.'
+credits.stats.translators: Vertalers
+credits.stats.languages: 'Vertaalde talen'
+credits.cta_translate: 'Help Pollaris vertalen op Translatewiki.net'
+credits.export_json: 'JSON exporteren'
+credits.translators_heading: Interfacevertalers
+credits.translators_description: 'Hartelijk dank aan iedereen die via Translatewiki.net vertalingen heeft bijgedragen:'
+credits.project_heading: 'Over het project'
+credits.pollaris_original: 'Gemaakt door <a href="https://framagit.org/pollaris/pollaris" target="_blank" rel="noopener">Marien Fressinaud</a> en Framasoft (gelicentieerd onder GNU AGPL v3).'
+credits.toolforge_edition: 'Aangepast en onderhouden voor Wikimedia Toolforge door <a href="https://github.com/danielyepezgarces" target="_blank" rel="noopener">Daniel Yepez Garces</a>.'
+credits.translatewiki_project: 'Lokalisatie beheerd door <a href="https://translatewiki.net/wiki/Translating:Pollaris" target="_blank" rel="noopener">Translatewiki.net</a>.'
+forms.community_form.email_enabled.label: 'E-mailmeldingen voor deze gemeenschap inschakelen'
+forms.community_form.email_enabled.help: 'Indien ingeschakeld ontvangen leden e-mailaankondigingen voor nieuwe peilingen en sluitingsherinneringen'
+forms.poll_form.notify_community_members.label: 'Melding naar gemeenschapsleden sturen'
+forms.poll_form.notify_community_members.help: 'Gemeenschapsleden via e-mail en Telegram op de hoogte stellen wanneer deze peiling wordt aangemaakt'
+community.settings.email.title: E-mailmeldingen
+community.settings.email.help_intro: 'Bepaal of leden van deze gemeenschap automatische e-mails ontvangen voor nieuwe peilingen en herinneringen.'
+community.emails_active: 'E-mailmeldingen actief'
+community.emails_disabled: 'E-mailmeldingen uitgeschakeld'
+community.notifications.mute: 'Meldingen dempen'
+community.notifications.unmute: 'Meldingen inschakelen'
+community.notifications.mute_hint: 'Klik om geen e-mailmeldingen meer voor deze gemeenschap te ontvangen'
+community.notifications.unmute_hint: 'Klik om e-mailmeldingen voor deze gemeenschap te gaan ontvangen'
+community.notifications.emails_enabled_flash: 'E-mailmeldingen ingeschakeld voor deze gemeenschap.'
+community.notifications.emails_disabled_flash: 'E-mailmeldingen gedempt voor deze gemeenschap.'
+community.members.notifications: Meldingen
+community.notifications.member_receiving_emails: 'Lid ontvangt e-mails'
+community.notifications.member_muted: 'Lid heeft e-mails gedempt'
+community.notifications.active: Actief
+community.notifications.muted: Gedempt

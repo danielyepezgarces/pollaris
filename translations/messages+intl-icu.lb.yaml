@@ -56,6 +56,7 @@ forms.slots_form.day: Dag
 forms.vote_form.author_name.label: 'Ären Numm'
 forms.vote_form.password.label: Passwuert
 home.welcome: 'Wëllkomm, {name}'
+home.stats.communities: '{count, plural, one {aktiv Communautéit} other {aktiv Communautéiten}}'
 layout.header.preferences: Astellungen
 layout.modal.close: Zoumaachen
 login.log_in: Aloggen
@@ -94,5 +95,49 @@ polls.votes.no.count: '{count} Nee'
 polls.votes.yes: Jo
 polls.votes.yes.count: '{count} Jo'
 preferences.edit.title: 'Är Astellungen'
+home.translate: 'Hëlleft iwwersetzen'
 preferences.user_info.title: Wikimedia-Kont
 preferences.user_info.username: Benotzernumm
+layout.header.communities: Communautéiten
+forms.community_form.description.label: Beschreiwung
+forms.community_form.telegram_chat_id.help: 'Numeresch ID vun der Telegram-Grupp (Z. B. -1001234567890)'
+forms.community_add_member_form.username.label: Wikimedia-Benotzernumm
+forms.community_add_member_form.role.label: Roll
+forms.community_add_member_form.role.member: Member
+forms.community_add_member_form.role.admin: Administrateur
+forms.poll_form.community.label: Communautéit
+forms.poll_form.community.fieldset: Communautéitsoptiounen
+community.index.title: Communautéiten
+community.index.my_communities: 'Meng Communautéiten'
+community.index.all_communities: 'All Communautéiten'
+community.members_count: Memberen
+community.settings.title: Communautéitsastellungen
+community.settings.button: Astellungen
+community.back_to: 'Zeréck op {name}'
+community.members.title: Memberen
+community.members.username: Benotzer
+community.members.role: Roll
+community.members.role_admin: Admin
+community.members.role_member: Member
+community.members.actions: Aktiounen
+community.flash.already_member: 'Dir sidd scho Member vun dëser Communautéit.'
+community.opt_out.success.community_message: "Dir wäert keng E-Mail-Notifikatioune méi fir d'Communautéit „{community_name}“ kréien."
+polls.show.community_label: Communautéit
+polls.show.community_requirements.view_community: 'Communautéit weisen'
+credits.stats.translators: Iwwersetzer
+credits.cta_translate: 'Hëlleft beim Iwwersetze vum Pollaris op Translatewiki.net'
+credits.translators_description: 'En häerzleche Merci u jiddereen, deen op Translatewiki.net Iwwersetzunge bäigedroen huet:'
+credits.project_heading: 'Iwwer de Projet'
+community.settings.email.title: E-Mail-Notifikatiounen
+community.emails_active: 'E-Mail-Notifikatiounen aktiv'
+community.emails_disabled: 'E-Mail-Notifikatiounen desaktivéiert'
+community.notifications.mute: 'Notifikatioune stommschalten'
+community.notifications.unmute: 'Notifikatiounen aktivéieren'
+community.members.notifications: Notifikatiounen
+community.notifications.active: Aktiv
+community.notifications.muted: Stommgeschalt
+community.settings.localized_names.title: 'Iwwersaten Nimm'
+community.settings.localized_names.add: 'Iwwersetzung derbäisetzen'
+community.settings.localized_descriptions.title: 'Iwwersate Beschreiwungen'
+community.members.add_manual.button_toggle: 'Member derbäisetzen'
+forms.save: Späicheren
