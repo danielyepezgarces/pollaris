@@ -78,15 +78,25 @@ class TelegramService
      */
     public function sendMessageWithButton(string $chatId, string $htmlMessage, string $buttonText, string $buttonUrl): bool
     {
-        $replyMarkup = [
-            'inline_keyboard' => [
+        return $this->sendMessageWithButtons($chatId, $htmlMessage, [
+            [
                 [
-                    [
-                        'text' => $buttonText,
-                        'url' => $buttonUrl,
-                    ],
+                    'text' => $buttonText,
+                    'url' => $buttonUrl,
                 ],
             ],
+        ]);
+    }
+
+    /**
+     * Sends an HTML message with a custom inline keyboard (array of button rows).
+     *
+     * @param array<int, array<int, array{text: string, url: string}>> $buttonRows
+     */
+    public function sendMessageWithButtons(string $chatId, string $htmlMessage, array $buttonRows): bool
+    {
+        $replyMarkup = [
+            'inline_keyboard' => $buttonRows,
         ];
 
         return $this->sendMessage($chatId, $htmlMessage, $replyMarkup);

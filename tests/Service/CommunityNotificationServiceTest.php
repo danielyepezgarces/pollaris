@@ -335,4 +335,140 @@ class CommunityNotificationServiceTest extends TestCase
         $this->assertStringNotContainsString('https://pollaris.toolforge.org', $msgEn);
         $this->assertSame('🗳️ Cast my vote', $service->getVoteButtonText('en'));
     }
+
+    public function testSendPollClosedNotificationForDatePollIncludesCalendarButtons(): void
+    {
+        $mailer = $this->createMock(MailerInterface::class);
+        $telegramService = $this->createMock(TelegramService::class);
+        $translator = $this->createMock(TranslatorInterface::class);
+        $router = $this->createMock(UrlGeneratorInterface::class);
+        $router->method('generate')->willReturnCallback(function (string $route, array $params = []): string {
+            $slug = $params['slug'] ?? 'test-poll';
+            if ($route === 'poll ics') {
+                return 'https://pollaris.toolforge.org/polls/' . $slug . '/calendar.ics';
+            }
+            return 'https://pollaris.toolforge.org/polls/' . $slug;
+        });
+        $em = $this->createMock(EntityManagerInterface::class);
+        $memberRepo = $this->createMock(CommunityMemberRepository::class);
+        $optOutRepo = $this->createMock(PollNotificationOptOutRepository::class);
+
+        $community = new Community();
+        $community->setName('Wikitec Latam');
+        $community->setTelegramEnabled(true);
+        $community->setTelegramChatId('-100123456789');
+
+        $poll = new Poll();
+        $poll->setType('date');
+        $poll->setTitle('Reunión Mensual');
+        $poll->setSlug('reunion-mensual');
+        $poll->setTimezoneName('America/Bogota');
+        $poll->setCommunity($community);
+        $poll->setNotifyCommunityMembers(true);
+
+        $date = new \App\Entity\Date();
+        $date->setValue(new \DateTimeImmutable('2026-12-01 00:00:00', new \DateTimeZone('America/Bogota')));
+
+        $proposal = new \App\Entity\Proposal();
+        $proposal->setDate($date);
+        $proposal->setStartTime('18:00');
+        $proposal->setEndTime('19:30');
+        $proposal->setLabel('18:00 - 19:30');
+        $poll->addProposal($proposal);
+
+        $vote = new \App\Entity\Vote();
+        $vote->setAuthorName('Daniel');
+        $answer = new \App\Entity\Answer();
+        $answer->setProposal($proposal);
+        $answer->setValue('yes');
+        $answer->setVote($vote);
+        $proposal->addAnswer($answer);
+        $poll->addVote($vote);
+
+        $telegramService->expects($this->once())
+            ->method('sendMessageWithButtons')
+            ->with(
+                '-100123456789',
+                $this->callback(function (string $html): bool {
+                    return str_contains($html, '¡Encuesta finalizada!')
+                        && str_contains($html, 'Reunión Mensual')
+                        && str_contains($html, 'Opción ganadora');
+                }),
+                $this->callback(function (array $rows): bool {
+                    return count($rows) === 2
+                        && $rows[0][0]['text'] === '📅 Google Calendar'
+                        && str_contains($rows[0][0]['url'], 'calendar.google.com')
+                        && $rows[0][1]['text'] === '📥 iCalendar (.ics)'
+                        && str_contains($rows[0][1]['url'], '/calendar.ics')
+                        && $rows[1][0]['text'] === '📊 Ver resultados';
+                })
+            )
+            ->willReturn(true);
+
+        $service = new CommunityNotificationService(
+            $mailer,
+            $telegramService,
+            $translator,
+            $router,
+            $em,
+            $memberRepo,
+            $optOutRepo,
+            new NullLogger(),
+            'Pollaris',
+            'test_secret_key_123'
+        );
+
+        $service->sendPollClosedNotification($poll, 'es');
+    }
+
+    public function testSendPollClosedNotificationForClassicPollHasNoCalendarButtons(): void
+    {
+        $mailer = $this->createMock(MailerInterface::class);
+        $telegramService = $this->createMock(TelegramService::class);
+        $translator = $this->createMock(TranslatorInterface::class);
+        $router = $this->createMock(UrlGeneratorInterface::class);
+        $router->method('generate')->willReturn('https://pollaris.toolforge.org/polls/eleccion');
+        $em = $this->createMock(EntityManagerInterface::class);
+        $memberRepo = $this->createMock(CommunityMemberRepository::class);
+        $optOutRepo = $this->createMock(PollNotificationOptOutRepository::class);
+
+        $community = new Community();
+        $community->setName('Wikitec Latam');
+        $community->setTelegramEnabled(true);
+        $community->setTelegramChatId('-100123456789');
+
+        $poll = new Poll();
+        $poll->setType('classic');
+        $poll->setTitle('Elección');
+        $poll->setSlug('eleccion');
+        $poll->setCommunity($community);
+        $poll->setNotifyCommunityMembers(true);
+
+        $telegramService->expects($this->once())
+            ->method('sendMessageWithButtons')
+            ->with(
+                '-100123456789',
+                $this->anything(),
+                $this->callback(function (array $rows): bool {
+                    return count($rows) === 1
+                        && $rows[0][0]['text'] === '📊 Ver resultados';
+                })
+            )
+            ->willReturn(true);
+
+        $service = new CommunityNotificationService(
+            $mailer,
+            $telegramService,
+            $translator,
+            $router,
+            $em,
+            $memberRepo,
+            $optOutRepo,
+            new NullLogger(),
+            'Pollaris',
+            'test_secret_key_123'
+        );
+
+        $service->sendPollClosedNotification($poll, 'es');
+    }
 }

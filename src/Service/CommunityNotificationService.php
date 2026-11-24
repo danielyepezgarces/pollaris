@@ -32,6 +32,7 @@ class CommunityNotificationService
         private string $appName,
         #[Autowire('%kernel.secret%')]
         private string $appSecret,
+        private ?CalendarService $calendarService = null,
     ) {
     }
 
@@ -208,6 +209,45 @@ class CommunityNotificationService
                     $count++;
                 }
             }
+        }
+
+        $count += $this->sendClosedPollNotifications($now);
+
+        return $count;
+    }
+
+    /**
+     * Send closing / winner notifications (with calendar buttons for date polls)
+     * for community polls that have recently closed and haven't been notified yet.
+     * Older already-closed polls outside the recent window are ignored.
+     */
+    public function sendClosedPollNotifications(?\DateTimeImmutable $now = null): int
+    {
+        $now ??= new \DateTimeImmutable();
+        $recentCutoff = $now->modify('-72 hours');
+
+        $polls = $this->entityManager->createQuery(
+            'SELECT p FROM App\Entity\Poll p
+             JOIN p.community c
+             WHERE p.closedAt IS NOT NULL
+             AND p.closedAt >= :recentCutoff
+             AND p.closedAt <= :now
+             AND p.notifyCommunityMembers = true'
+        )
+        ->setParameter('recentCutoff', $recentCutoff)
+        ->setParameter('now', $now)
+        ->getResult();
+
+        $count = 0;
+        foreach ($polls as $poll) {
+            if (!$poll->isClosed() || $poll->hasRemindedMilestone('closed')) {
+                continue;
+            }
+
+            $this->sendPollClosedNotification($poll, locale: 'es');
+            $poll->addRemindedMilestone('closed');
+            $this->entityManager->flush();
+            $count++;
         }
 
         return $count;
@@ -662,5 +702,144 @@ class CommunityNotificationService
                 $this->logger->error('Error sending community reminder email: ' . $e->getMessage(), ['exception' => $e]);
             }
         }
+    }
+
+    public function sendPollClosedNotification(Entity\Poll $poll, string $locale = 'es'): void
+    {
+        $community = $poll->getCommunity();
+        if (!$community || !$poll->isNotifyCommunityMembers()) {
+            return;
+        }
+
+        if ($community->isTelegramEnabled() && $community->getTelegramChatId()) {
+            $telegramMsg = $this->buildTelegramClosedMessage($poll, $locale);
+            $buttons = $this->buildTelegramClosedButtons($poll, $locale);
+            $this->telegramService->sendMessageWithButtons($community->getTelegramChatId(), $telegramMsg, $buttons);
+        }
+    }
+
+    public function buildTelegramClosedMessage(Entity\Poll $poll, string $locale = 'es'): string
+    {
+        $community = $poll->getCommunity();
+        $communityName = $community ? $community->getName() : '';
+        $pollTitle = $poll->getTitle();
+        $preferredChoices = $poll->getPreferredChoices();
+        $votesCount = $poll->getVotes()->count();
+
+        $headerTitle = match (substr($locale, 0, 2)) {
+            'pt' => 'Enquete encerrada!',
+            'fr' => 'Sondage terminé !',
+            'en' => 'Poll closed!',
+            default => '¡Encuesta finalizada!',
+        };
+
+        $votesLabel = match (substr($locale, 0, 2)) {
+            'pt' => sprintf("👥 <b>Votos totais:</b> %d\n", $votesCount),
+            'fr' => sprintf("👥 <b>Total des votes :</b> %d\n", $votesCount),
+            'en' => sprintf("👥 <b>Total votes:</b> %d\n", $votesCount),
+            default => sprintf("👥 <b>Votos totales:</b> %d\n", $votesCount),
+        };
+
+        $winnerSection = '';
+        if (count($preferredChoices) === 1) {
+            $winner = $preferredChoices[0];
+            $yesCount = $winner->countAnswers('yes');
+            $winnerLabel = htmlspecialchars($this->formatProposalLabelForTelegram($winner, $poll));
+            $winnerSection = match (substr($locale, 0, 2)) {
+                'pt' => sprintf("🏆 <b>Opção vencedora:</b> %s (%d votos \"sim\")\n", $winnerLabel, $yesCount),
+                'fr' => sprintf("🏆 <b>Option gagnante :</b> %s (%d votes « oui »)\n", $winnerLabel, $yesCount),
+                'en' => sprintf("🏆 <b>Winning option:</b> %s (%d \"yes\" votes)\n", $winnerLabel, $yesCount),
+                default => sprintf("🏆 <b>Opción ganadora:</b> %s (%d votos \"sí\")\n", $winnerLabel, $yesCount),
+            };
+        } elseif (count($preferredChoices) > 1) {
+            $yesCount = $preferredChoices[0]->countAnswers('yes');
+            $items = '';
+            foreach ($preferredChoices as $choice) {
+                $items .= '• ' . htmlspecialchars($this->formatProposalLabelForTelegram($choice, $poll)) . "\n";
+            }
+            $winnerSection = match (substr($locale, 0, 2)) {
+                'pt' => sprintf("🏆 <b>Opções vencedoras (empate com %d votos \"sim\"):</b>\n%s", $yesCount, $items),
+                'fr' => sprintf("🏆 <b>Options gagnantes (égalité avec %d votes « oui ») :</b>\n%s", $yesCount, $items),
+                'en' => sprintf("🏆 <b>Winning options (tie with %d \"yes\" votes):</b>\n%s", $yesCount, $items),
+                default => sprintf("🏆 <b>Opciones ganadoras (empate con %d votos \"sí\"):</b>\n%s", $yesCount, $items),
+            };
+        } else {
+            $winnerSection = match (substr($locale, 0, 2)) {
+                'pt' => "ℹ️ <i>A enquete terminou sem votos afirmativos.</i>\n",
+                'fr' => "ℹ️ <i>Le sondage s'est terminé sans votes positifs.</i>\n",
+                'en' => "ℹ️ <i>The poll ended with no affirmative votes.</i>\n",
+                default => "ℹ️ <i>La encuesta finalizó sin votos afirmativos.</i>\n",
+            };
+        }
+
+        $calendarHint = '';
+        if ($poll->isDatePoll() && count($preferredChoices) > 0) {
+            $calendarHint = match (substr($locale, 0, 2)) {
+                'pt' => "\n📅 <i>Use os botões abaixo para adicionar ao seu calendário.</i>",
+                'fr' => "\n📅 <i>Utilisez les boutons ci-dessous pour ajouter à votre calendrier.</i>",
+                'en' => "\n📅 <i>Use the buttons below to add the event to your calendar.</i>",
+                default => "\n📅 <i>Usa los botones de abajo para añadir el evento a tu calendario.</i>",
+            };
+        }
+
+        return sprintf(
+            "🏁 <b>[%s] %s</b>\n<b>%s</b>\n\n🗳️ <b>%s</b>\n%s%s%s",
+            htmlspecialchars($this->appName),
+            htmlspecialchars($communityName),
+            $headerTitle,
+            htmlspecialchars($pollTitle),
+            $votesLabel,
+            $winnerSection,
+            $calendarHint
+        );
+    }
+
+    /**
+     * @return array<int, array<int, array{text: string, url: string}>>
+     */
+    public function buildTelegramClosedButtons(Entity\Poll $poll, string $locale = 'es'): array
+    {
+        $slug = $poll->getSlug() ?: $poll->getId();
+        $pollUrl = $this->router->generate('poll', ['slug' => $slug], UrlGeneratorInterface::ABSOLUTE_URL);
+        $preferredChoices = $poll->getPreferredChoices();
+        $rows = [];
+
+        if ($poll->isDatePoll() && count($preferredChoices) > 0) {
+            $calendarService = $this->calendarService ?? new CalendarService($this->router);
+
+            if (count($preferredChoices) === 1) {
+                $winningProposal = $preferredChoices[0];
+                $gcalUrl = $calendarService->getGoogleCalendarUrl($poll, $winningProposal, $pollUrl);
+                $icsUrl = $winningProposal->getId()
+                    ? $this->router->generate('poll proposal ics', ['slug' => $slug, 'proposalId' => $winningProposal->getId()], UrlGeneratorInterface::ABSOLUTE_URL)
+                    : $this->router->generate('poll ics', ['slug' => $slug], UrlGeneratorInterface::ABSOLUTE_URL);
+
+                $rows[] = [
+                    ['text' => '📅 Google Calendar', 'url' => $gcalUrl],
+                    ['text' => '📥 iCalendar (.ics)', 'url' => $icsUrl],
+                ];
+            } else {
+                $icsUrl = $this->router->generate('poll ics', ['slug' => $slug], UrlGeneratorInterface::ABSOLUTE_URL);
+                $rows[] = [
+                    ['text' => '📥 iCalendar (.ics)', 'url' => $icsUrl],
+                ];
+            }
+        }
+
+        $rows[] = [
+            ['text' => $this->getViewResultsButtonText($locale), 'url' => $pollUrl],
+        ];
+
+        return $rows;
+    }
+
+    public function getViewResultsButtonText(string $locale = 'es'): string
+    {
+        return match (substr($locale, 0, 2)) {
+            'pt' => '📊 Ver resultados',
+            'fr' => '📊 Voir les résultats',
+            'en' => '📊 View results',
+            default => '📊 Ver resultados',
+        };
     }
 }
