@@ -1,0 +1,51 @@
+name: Sync Translatewiki Translations
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'translatewiki/*.json'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-yaml:
+    if: github.event.head_commit.author.email == 'l10n-bot@translatewiki.net'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: intl, pdo_pgsql
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Import Translatewiki JSON to Symfony YAML
+        env:
+          APP_ENV: test
+          APP_NAME: Pollaris
+          APP_SECRET: ci_secret
+          APP_BASE_URL: https://pollaris.toolforge.org
+        run: |
+          php bin/console app:translatewiki:import
+          git checkout -- translations/messages+intl-icu.en_GB.yaml translations/validators+intl-icu.en_GB.yaml
+          php bin/console lint:yaml translations/
+
+      - name: Commit and push updated YAML files
+        run: |
+          if [ -n "$(git status --porcelain translations/)" ]; then
+            git config user.name "Daniel Yepez Garces"
+            git config user.email "git@dyepezg.dev"
+            git add translations/
+            git commit -m "chore(i18n): sync Symfony YAML from Translatewiki JSON [skip ci]"
+            git push
+          else
+            echo "No YAML changes to commit."
+          fi
