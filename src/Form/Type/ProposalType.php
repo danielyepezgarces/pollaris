@@ -33,6 +33,16 @@ class ProposalType extends AbstractType
                 'maxlength' => Entity\Proposal::MAX_LABEL_LENGTH,
             ],
         ]);
+
+        $builder->add('maxVotes', Type\IntegerType::class, [
+            'required' => false,
+            'label' => new TranslatableMessage('forms.proposal_type.max_votes.label'),
+            'help' => new TranslatableMessage('forms.proposal_type.max_votes.help'),
+            'attr' => [
+                'min' => 1,
+                'placeholder' => '∞',
+            ],
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -33,11 +33,6 @@ class MaxVotesValidator extends ConstraintValidator
         }
 
         $poll = $vote->getPoll();
-        $maxVotes = $poll->getMaxVotes();
-
-        if ($maxVotes === null || $maxVotes <= 0) {
-            return;
-        }
 
         // Count the actual "yes" answers per proposal, excluding the answers
         // of the actual vote.
@@ -48,7 +43,8 @@ class MaxVotesValidator extends ConstraintValidator
             $countAnswersPerProposals[$proposal->getId()] = $countYes;
         }
 
-        // Check for each answers of the current vote if they are allowed.
+        // Check for each answer of the current vote if it is allowed by the
+        // proposal's effective maxVotes (individual limit or poll's global limit).
         foreach ($vote->getAnswers() as $index => $answer) {
             $value = $answer->getValue();
 
@@ -56,9 +52,15 @@ class MaxVotesValidator extends ConstraintValidator
                 continue;
             }
 
-            $proposalId = $answer->getProposal()?->getId();
+            $proposal = $answer->getProposal();
+            $proposalId = $proposal?->getId();
 
             if ($proposalId === null) {
+                continue;
+            }
+
+            $maxVotes = $proposal->getEffectiveMaxVotes();
+            if ($maxVotes === null || $maxVotes <= 0) {
                 continue;
             }
 

@@ -113,6 +113,16 @@
                                 >
                                     {{ proposal.label }}
                                 </span>
+                                {% if proposal.effectiveMaxVotes %}
+                                    {% set currentYes = proposal.countAnswers('yes') %}
+                                    <span
+                                        class="badge {{ currentYes >= proposal.effectiveMaxVotes ? 'badge--danger' : 'badge--neutral' }}"
+                                        style="margin-left: 0.25rem; font-size: 0.72rem;"
+                                        title="{{ 'polls.proposals.max_votes_limit' | trans({ current: currentYes, max: proposal.effectiveMaxVotes }) }}"
+                                    >
+                                        {{ currentYes }}/{{ proposal.effectiveMaxVotes }}
+                                    </span>
+                                {% endif %}
                             </th>
                         {% endfor %}
                     </tr>
@@ -253,6 +263,16 @@
                                         >
                                             {{ proposal.label }}
                                         </span>
+                                        {% if proposal.effectiveMaxVotes %}
+                                            {% set currentYes = proposal.countAnswers('yes') %}
+                                            <span
+                                                class="badge {{ currentYes >= proposal.effectiveMaxVotes ? 'badge--danger' : 'badge--neutral' }}"
+                                                style="margin-left: 0.25rem; font-size: 0.72rem;"
+                                                title="{{ 'polls.proposals.max_votes_limit' | trans({ current: currentYes, max: proposal.effectiveMaxVotes }) }}"
+                                            >
+                                                {{ currentYes }}/{{ proposal.effectiveMaxVotes }}
+                                            </span>
+                                        {% endif %}
                                     </th>
                                 {% endfor %}
                             {% endfor %}

@@ -37,7 +37,14 @@
                 <div data-collection-target="container" class="flow">
                     {% for proposal in form.proposals %}
                         <div class="panel panel--rounded panel--primary flow" data-item="element">
-                            {{ form_row(proposal.label) }}
+                            <div class="cols cols--gap">
+                                <div class="col--extend">
+                                    {{ form_row(proposal.label) }}
+                                </div>
+                                <div class="col--size4">
+                                    {{ form_row(proposal.maxVotes) }}
+                                </div>
+                            </div>
 
                             <button
                                 type="button"

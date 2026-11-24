@@ -144,6 +144,8 @@ forms.preferences.color_scheme.light: Light
 forms.preferences.locale.label: Language
 forms.previous: Previous
 forms.proposal_type.label.label_pattern: 'Proposal __number__'
+forms.proposal_type.max_votes.label: 'Max "yes" votes'
+forms.proposal_type.max_votes.help: 'Optional individual limit for this option (overrides poll default).'
 forms.search_polls_form.email.help: 'We will send you the links to the polls that you have created.'
 forms.search_polls_form.email.label: 'Your email address'
 forms.search_polls_form.submit: Send
@@ -242,6 +244,8 @@ polls.edit_vote_mode.own: 'Each participant may change their own vote'
 polls.new.title: 'Poll creation'
 polls.new.who_you_are: 'Who you are'
 polls.proposals.best: 'Preferred choice'
+polls.proposals.max_votes_limit: '{current} of {max} "yes" votes taken'
+polls.summary.proposals.max_votes: 'max {count}'
 polls.public.closed_at: 'Closes on {date}'
 polls.show.closing_today: 'Attention! The poll closes today.'
 polls.show.closing_soon: '{days, plural, one {Attention! The poll closes in 1 day.} other {Attention! The poll closes in # days.}}'

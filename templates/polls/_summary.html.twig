@@ -224,7 +224,12 @@
 
                         <ul class="list--nostyle flow flow--smaller">
                             {% for proposal in date.proposals %}
-                                <li data-controller="local-time" data-local-time-source-timezone-value="{{ poll.timezoneName }}" data-local-time-date-value="{{ date.value | date('Y-m-d', poll.timezoneName) }}">{{ proposal.label }}</li>
+                                <li class="cols cols--always cols--center cols--gap-small">
+                                    <span data-controller="local-time" data-local-time-source-timezone-value="{{ poll.timezoneName }}" data-local-time-date-value="{{ date.value | date('Y-m-d', poll.timezoneName) }}">{{ proposal.label }}</span>
+                                    {% if proposal.maxVotes %}
+                                        <span class="badge badge--neutral">{{ 'polls.summary.proposals.max_votes' | trans({ count: proposal.maxVotes }) }}</span>
+                                    {% endif %}
+                                </li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -246,8 +251,11 @@
         {% else %}
             <ul class="list--nostyle flow">
                 {% for proposal in poll.proposals %}
-                    <li>
-                        <h3>{{ proposal.label }}</h3>
+                    <li class="cols cols--always cols--center cols--gap-small">
+                        <h3 style="margin: 0;">{{ proposal.label }}</h3>
+                        {% if proposal.maxVotes %}
+                            <span class="badge badge--neutral">{{ 'polls.summary.proposals.max_votes' | trans({ count: proposal.maxVotes }) }}</span>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>

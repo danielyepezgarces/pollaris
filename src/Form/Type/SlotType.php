@@ -40,6 +40,16 @@ class SlotType extends AbstractType
             'required' => false,
             'label' => new TranslatableMessage('forms.slot_type.end_time.label', [], 'messages'),
         ]);
+
+        // Límite individual de votos "sí" (opcional)
+        $builder->add('maxVotes', Type\IntegerType::class, [
+            'required' => false,
+            'label' => new TranslatableMessage('forms.proposal_type.max_votes.label'),
+            'attr' => [
+                'min' => 1,
+                'placeholder' => '∞',
+            ],
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

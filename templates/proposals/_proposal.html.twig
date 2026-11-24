@@ -13,15 +13,25 @@
  #}
 
 <fieldset class="panel panel--white panel--rounded panel--proposal flow">
-    <div>
+    <div class="cols cols--always cols--center cols--gap-small">
         <legend
-            class="text--nobold"
+            class="text--nobold col--extend"
             {% if poll.isDatePoll and proposal.date %}
                 data-controller="local-time"
                 data-local-time-source-timezone-value="{{ poll.timezoneName }}"
                 data-local-time-date-value="{{ proposal.date.value | date('Y-m-d', poll.timezoneName) }}"
             {% endif %}
         >{{ proposal.label }}</legend>
+
+        {% if proposal.effectiveMaxVotes %}
+            {% set currentYes = proposal.countAnswers('yes') %}
+            <span
+                class="badge {{ currentYes >= proposal.effectiveMaxVotes ? 'badge--danger' : 'badge--neutral' }}"
+                title="{{ 'polls.proposals.max_votes_limit' | trans({ current: currentYes, max: proposal.effectiveMaxVotes }) }}"
+            >
+                {{ icon('users') }} {{ currentYes }} / {{ proposal.effectiveMaxVotes }}
+            </span>
+        {% endif %}
     </div>
 
     {% if voteForm %}

@@ -47,7 +47,7 @@ class AnswerForm extends AbstractType
             }
 
             $yesDisabled = false;
-            $maxVotes = $poll->getMaxVotes();
+            $maxVotes = $proposal->getEffectiveMaxVotes();
 
             if ($maxVotes !== null && $maxVotes > 0) {
                 $vote = $answer->getVote();

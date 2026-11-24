@@ -24,6 +24,7 @@
     "poll.type.invalid": "Select a type from the list.",
     "proposal.label.max_length": "Enter a proposal of less than $1 characters.",
     "proposal.label.required": "Enter a proposal.",
+    "proposal.max_votes.positive": "Maximum votes must be greater than zero.",
     "user.author_name.already_used": "Enter a different name, this one is already in use.",
     "user.username.already_used": "Enter a different username, this one is already in use.",
     "user.username.max_length": "Enter a username of less than $1 characters.",

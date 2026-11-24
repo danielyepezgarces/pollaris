@@ -285,4 +285,43 @@ class Proposal implements ActivityMonitor\TrackableEntityInterface
         }
         return $this;
     }
+
+    /**
+     * Límite máximo opcional de votos "sí" para esta propuesta individual.
+     */
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    #[Assert\Positive(
+        message: new TranslatableMessage('proposal.max_votes.positive', domain: 'validators'),
+    )]
+    private ?int $maxVotes = null;
+
+    public function getMaxVotes(): ?int
+    {
+        return $this->maxVotes;
+    }
+
+    public function setMaxVotes(?int $maxVotes): static
+    {
+        $this->maxVotes = ($maxVotes !== null && $maxVotes > 0) ? $maxVotes : null;
+
+        return $this;
+    }
+
+    /**
+     * Returns the effective maximum number of "yes" votes for this proposal:
+     * its own individual maxVotes if set (> 0), otherwise the poll's global maxVotes.
+     */
+    public function getEffectiveMaxVotes(): ?int
+    {
+        if ($this->maxVotes !== null && $this->maxVotes > 0) {
+            return $this->maxVotes;
+        }
+
+        $pollMaxVotes = $this->poll?->getMaxVotes();
+        if ($pollMaxVotes !== null && $pollMaxVotes > 0) {
+            return $pollMaxVotes;
+        }
+
+        return null;
+    }
 }
