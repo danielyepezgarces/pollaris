@@ -25,6 +25,7 @@
 	"errors.404.title": "Säit net fonnt!",
 	"errors.generic.title": "Et ass e Feeler geschitt!",
 	"forms.cancel": "Ofbriechen",
+	"forms.save": "Späicheren",
 	"forms.localized_description_item.locale.label": "Sprooch",
 	"forms.localized_description_item.text.label": "Beschreiwung",
 	"forms.localized_title_item.locale.label": "Sprooch",
@@ -97,6 +98,7 @@
 	"polls.votes.no.count": "$1 Nee",
 	"polls.votes.yes": "Jo",
 	"polls.votes.yes.count": "$1 Jo",
+	"polls.keyboard_shortcuts.submit": "Späicheren",
 	"preferences.edit.title": "Är Astellungen",
 	"home.translate": "Hëlleft iwwersetzen",
 	"preferences.user_info.title": "Wikimedia-Kont",
@@ -142,6 +144,5 @@
 	"community.settings.localized_names.title": "Iwwersaten Nimm",
 	"community.settings.localized_names.add": "Iwwersetzung derbäisetzen",
 	"community.settings.localized_descriptions.title": "Iwwersate Beschreiwungen",
-	"community.members.add_manual.button_toggle": "Member derbäisetzen",
-	"forms.save": "Späicheren"
+	"community.members.add_manual.button_toggle": "Member derbäisetzen"
 }

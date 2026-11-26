@@ -1,0 +1,40 @@
+{
+	"@metadata": {
+		"authors": [
+			"सरोज कुमार ढकाल"
+		]
+	},
+	"Error": "त्रुटि",
+	"The CSRF token is invalid. Please try to resubmit the form.": "एउटा त्रुटि देखापर्यो, कृपया फेरि फारम पेश गर्नुहोस् (अमान्य CSRF टोकन)।",
+	"answer.value.invalid": "सूचीबाट एउटा छनौट चयन गर्नुहोस् ।",
+	"comment.author_name.max_length": "$1 वर्ण भन्दा कम नाम प्रविष्ट गर्नुहोस् ।",
+	"comment.author_name.required": "नाम प्रविष्ट गर्नुहोस् ।",
+	"comment.content.required": "सन्देश प्रविष्ट गर्नुहोस् ।",
+	"date.value.required": "मिति प्रविष्ट गर्नुहोस् ।",
+	"poll.author_email.invalid": "वैध इमेल ठेगाना प्रविष्ट गर्नुहोस् ।",
+	"poll.author_email.required": "इमेल ठेगाना प्रविष्ट गर्नुहोस् ।",
+	"poll.author_name.max_length": "$1 वर्ण भन्दा कम नाम प्रविष्ट गर्नुहोस् ।",
+	"poll.dates.required": "कम्तिमा एउटा मिति चयन गर्नुहोस् ।",
+	"poll.edit_vote_mode.invalid": "सूचीबाट एउटा भोट सम्पादन मोड चयन गर्नुहोस् ।",
+	"poll.password.incorrect": "पासवर्ड गलत छ ।",
+	"poll.password.required": "पासवर्ड आवश्यक छ ।",
+	"poll.timezone_mode.invalid": "सूचीबाट टाइमजोन चयन गर्नुहोस् ।",
+	"poll.wikimedia_edits_project.invalid": "मान्य विकिमिडिया परियोजना डाटाबेस नाम जस्तै eswiki, commonswiki वा wikidatawiki प्रविष्ट गर्नुहोस् ।",
+	"poll.slug.already_used": "यो लिङ्क पहिल्यै प्रयोगमा छ । कृपया एउटा नयाँ प्रविष्ट गर्नुहोस् ।",
+	"poll.slug.max_length": "$1 वर्ण भन्दा कम लिङ्क प्रविष्ट गर्नुहोस् ।",
+	"poll.slug.pattern": "A देखि Z सम्मका क्यारेक्टरहरू, सङ्ख्याहरू, हाइफनहरू वा अन्डरस्कोरहरू मात्र प्रयोग गरेर लिङ्क प्रविष्ट गर्नुहोस् ।",
+	"poll.slug.required": "लिङ्क प्रविष्ट गर्नुहोस् ।",
+	"poll.title.max_length": "$1 वर्ण भन्दा कम शीर्षक प्रविष्ट गर्नुहोस् ।",
+	"poll.title.required": "शीर्षक प्रविष्ट गर्नुहोस् ।",
+	"poll.type.invalid": "सूचीबाट एउटा प्रकार चयन गर्नुहोस् ।",
+	"proposal.label.max_length": "$1 वर्ण भन्दा कम प्रस्ताव प्रविष्ट गर्नुहोस् ।",
+	"proposal.label.required": "प्रस्ताव प्रविष्ट गर्नुहोस् ।",
+	"user.author_name.already_used": "फरक नाम प्रविष्ट गर्नुहोस्, यो पहिले नै प्रयोगमा छ ।",
+	"user.username.already_used": "फरक प्रयोगकर्ता नाम प्रविष्ट गर्नुहोस्, यो पहिले नै प्रयोगमा छ ।",
+	"user.username.max_length": "$1 वर्ण भन्दा कम प्रयोगकर्ता नाम प्रविष्ट गर्नुहोस् ।",
+	"user.username.required": "प्रयोगकर्ता नाम प्रविष्ट गर्नुहोस् ।",
+	"vote.author_name.max_length": "$1 वर्ण भन्दा कम नाम प्रविष्ट गर्नुहोस् ।",
+	"vote.author_name.required": "नाम प्रविष्ट गर्नुहोस् ।",
+	"vote.max_votes.limited": "यस प्रस्तावको लागि पहिले नै $1 मत(हरू) भएको छ, तपाईँले यसको लागि मतदान गर्न सक्नुहुन्न ।",
+	"vote.owner.already_voted": "तपाईँले यस सर्वेक्षणमा पहिले नै मतदान गरिसक्नु भएको छ।"
+}
