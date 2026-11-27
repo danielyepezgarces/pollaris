@@ -18,16 +18,32 @@ use App\Entity;
 use App\Security;
 use App\Service;
 use Doctrine\Common\Collections;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\FormView;
 use Twig\Attribute\AsTwigFilter;
 use Twig\Attribute\AsTwigFunction;
 
 class PollExtension
 {
+    private ?string $cachedVersion = null;
+
     public function __construct(
         private Security\PollSecurity $pollSecurity,
         private Service\CalendarService $calendarService,
+        #[Autowire('%kernel.project_dir%')]
+        private string $projectDir,
     ) {
+    }
+
+    #[AsTwigFunction('appVersion')]
+    public function appVersion(): string
+    {
+        if ($this->cachedVersion === null) {
+            $versionFile = $this->projectDir . '/VERSION.txt';
+            $this->cachedVersion = is_file($versionFile) ? trim((string) file_get_contents($versionFile)) : 'dev';
+        }
+
+        return $this->cachedVersion;
     }
 
     #[AsTwigFunction('googleCalendarUrl')]
